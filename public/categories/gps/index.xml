@@ -13,10 +13,10 @@
     
     <item>
       <title>Technical Note--Shiny Souvenir Map of Walks</title>
-      <link>/post/2016-06-28-technical-note-shiny-souvenir-map/</link>
+      <link>/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</link>
       <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/2016-06-28-technical-note-shiny-souvenir-map/</guid>
+      <guid>/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</guid>
       <description>I have used RStudio’s Shiny to create a map page where I can display GPS traces and photos from walks I have done during the last five years.
 The map is based on an example provided by Maarten Hermans in a blog post that he published last year. The map uses R htmlwidgets that provide access to the Javascript tool Leaflet. The trick is that I don’t have to know very much about either htmlwidgets or Leaflet to make this work.</description>
     </item>

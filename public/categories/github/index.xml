@@ -13,10 +13,10 @@
     
     <item>
       <title>How I Set Up This Site</title>
-      <link>/post/2017-02-11-how-i-setup-this-site/</link>
+      <link>/2017/02/11/how-i-set-up-this-site/</link>
       <pubDate>Sat, 11 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2017-02-11-how-i-setup-this-site/</guid>
+      <guid>/2017/02/11/how-i-set-up-this-site/</guid>
       <description>I attended the blogdown session at the RStudio conference in Florida. I am enjoying the enthusiasm and energy around R and RStudio. It reminds me of the early days of personal computers at the end of the 70&amp;rsquo;s and the beginning of the 80&amp;rsquo;s. Perhaps I am experiencing a second childhood. Anyway, all the Cool Kids are doing web pages on GitHub so I want to do it too.</description>
     </item>
     

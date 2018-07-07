@@ -2,4 +2,36 @@ theme = "hyde-x"
 baseURL = "https://distracted-swanson-8d1a85.netlify.com/"
 languageCode = "en-us"
 title = "Can I Blog Too"
+tagline = "Notes on this and that..."
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+gravatarHash = "f7dd8b52bc092b4e50e9324381b02d67"
+paginate = 10
+license = "https://opensource.org/licenses/MIT"
+sidebar = "right"
+googleAnalytics = "UA-92008736-1"
+disqusShortname = "johngoldin"
+
+[author]
+    name = "John Goldin"
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+[[menu.main]]
+    name = "About"
+    url = "/about/"
+[[menu.main]]
+    name = "GitHub"
+    url = "https://github.com/johngoldin"
+[[menu.main]]
+    name = "Twitter"
+    url = "https://twitter.com/johngoldin"
+[[menu.main]]
+    name = "Flickr"
+    url = "https://www.flickr.com/photos/99418994@N00/"
+
+[taxonomies]
+    # Optional. Use if you want tags and lists.
+    category = "categories"
+[params]
+    description = "Some of my personal projects with R"
