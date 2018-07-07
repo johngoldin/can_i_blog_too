@@ -13,10 +13,10 @@
     
     <item>
       <title>An Implementation of Narcissism in R</title>
-      <link>/blog/2017/02/26/an-implementation-of-narcissism-in-r/</link>
+      <link>/2017/02/26/an-implementation-of-narcissism-in-r/</link>
       <pubDate>Sun, 26 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2017/02/26/an-implementation-of-narcissism-in-r/</guid>
+      <guid>/2017/02/26/an-implementation-of-narcissism-in-r/</guid>
       <description>This post is more an example of narcissism, but implementation has a nice technical ring to it.
 Narcissism hasn’t been part of my every-day vocabulary, although it has been in the news recently. Lately we have been seeing discussions about narcissistic personality disorder, but that is not what I am talking about here. At least I hope not, because I’m talking about me.
 Here’s the definition that fits this post:</description>
@@ -24,29 +24,29 @@ Here’s the definition that fits this post:</description>
     
     <item>
       <title>Portfolio of Projects</title>
-      <link>/blog/2017/02/17/portfolio-of-projects/</link>
+      <link>/2017/02/17/portfolio-of-projects/</link>
       <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2017/02/17/portfolio-of-projects/</guid>
+      <guid>/2017/02/17/portfolio-of-projects/</guid>
       <description>One motivation for creating this blog was to display a portfolio of projects that I have worked on in the last year or so. I&amp;rsquo;ll list projects here. The plan is that eventually I will add pages that elaborate each project. I hope that publishing my projects on this site will nudge me to be a bit more systematic as I execute projects.
 The Diary of Samuel Pepys Each morning I read an entry from The Diary of Samuel Pepys at a wonderful site created by Phil Gyford.</description>
     </item>
     
     <item>
       <title>Using the Flickr API from R</title>
-      <link>/blog/2016/07/03/using-the-flickr-api-from-r/</link>
+      <link>/2016/07/03/using-the-flickr-api-from-r/</link>
       <pubDate>Sun, 03 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2016/07/03/using-the-flickr-api-from-r/</guid>
+      <guid>/2016/07/03/using-the-flickr-api-from-r/</guid>
       <description>There used to be an Rflickr package, but it no longer seems to work. It was last updated in 2011. I had a lot of trouble googling information on how to access Flickr from R. This example really got me started. It is doing very different things that what I wanted to do, so it may be more useful than what I am laying out here, depending on your goal.</description>
     </item>
     
     <item>
       <title>Technical Note--Shiny Souvenir Map of Walks</title>
-      <link>/blog/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</link>
+      <link>/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</link>
       <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</guid>
+      <guid>/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</guid>
       <description>I have used RStudio’s Shiny to create a map page where I can display GPS traces and photos from walks I have done during the last five years.
 The map is based on an example provided by Maarten Hermans in a blog post that he published last year. The map uses R htmlwidgets that provide access to the Javascript tool Leaflet. The trick is that I don’t have to know very much about either htmlwidgets or Leaflet to make this work.</description>
     </item>

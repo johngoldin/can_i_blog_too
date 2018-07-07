@@ -1,6 +1,7 @@
 ---
 title: "About"
 date: "2018-07-05"
+menu: "main"
 ---
 <!--- ![](https://www.gravatar.com/avatar/f7dd8b52bc092b4e50e9324381b02d67?s=200) --->
 This website is intended to describe some of my personal R projects. It may include some posts on other general subjects.
