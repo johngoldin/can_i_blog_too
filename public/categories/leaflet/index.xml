@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Leaflet on Can I Blog Too</title>
+    <link>/categories/leaflet/</link>
+    <description>Recent content in Leaflet on Can I Blog Too</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/leaflet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using the Flickr API from R</title>
+      <link>/post/2016-07-03-using-the-flickr-api-from-r/</link>
+      <pubDate>Sun, 03 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016-07-03-using-the-flickr-api-from-r/</guid>
+      <description>There used to be an Rflickr package, but it no longer seems to work. It was last updated in 2011. I had a lot of trouble googling information on how to access Flickr from R. This example really got me started. It is doing very different things that what I wanted to do, so it may be more useful than what I am laying out here, depending on your goal.</description>
+    </item>
+    
+    <item>
+      <title>Technical Note--Shiny Souvenir Map of Walks</title>
+      <link>/post/2016-06-28-technical-note-shiny-souvenir-map/</link>
+      <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016-06-28-technical-note-shiny-souvenir-map/</guid>
+      <description>I have used RStudio’s Shiny to create a map page where I can display GPS traces and photos from walks I have done during the last five years.
+The map is based on an example provided by Maarten Hermans in a blog post that he published last year. The map uses R htmlwidgets that provide access to the Javascript tool Leaflet. The trick is that I don’t have to know very much about either htmlwidgets or Leaflet to make this work.</description>
+    </item>
+    
+  </channel>
+</rss>

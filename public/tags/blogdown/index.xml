@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogdown on Can I Blog Too</title>
+    <link>/tags/blogdown/</link>
+    <description>Recent content in Blogdown on Can I Blog Too</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/blogdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How I Set Up This Site</title>
+      <link>/post/2017-02-11-how-i-setup-this-site/</link>
+      <pubDate>Sat, 11 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-02-11-how-i-setup-this-site/</guid>
+      <description>I attended the blogdown session at the RStudio conference in Florida. I am enjoying the enthusiasm and energy around R and RStudio. It reminds me of the early days of personal computers at the end of the 70&amp;rsquo;s and the beginning of the 80&amp;rsquo;s. Perhaps I am experiencing a second childhood. Anyway, all the Cool Kids are doing web pages on GitHub so I want to do it too.</description>
+    </item>
+    
+  </channel>
+</rss>
