@@ -13,38 +13,38 @@
     
     <item>
       <title>American Walker in Britain Part 3</title>
-      <link>/2017/03/15/american-walker-in-britain-part-3/</link>
+      <link>/blog/2017/03/15/american-walker-in-britain-part-3/</link>
       <pubDate>Wed, 15 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/03/15/american-walker-in-britain-part-3/</guid>
+      <guid>/blog/2017/03/15/american-walker-in-britain-part-3/</guid>
       <description>Planning an Itinerary You have decided on where you are going to walk. Next you have to work out a detailed itinerary. For one of the trails covered by a Trailblazer, their guide book will contain a page that shows suggested itineraries for a relaxed, medium, or fast pace and for B&amp;amp;B&amp;rsquo;s, hostels or bunkhouses, and for camping. That produces a total of nine itineraries. I&amp;rsquo;m assuming you are walking from B&amp;amp;B to B&amp;amp;B (rather than camping or a tour where some transport is provided).</description>
     </item>
     
     <item>
       <title>American Walker in Britain Part 2</title>
-      <link>/2017/03/11/american-walker-in-britain-part-2/</link>
+      <link>/blog/2017/03/11/american-walker-in-britain-part-2/</link>
       <pubDate>Sat, 11 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/03/11/american-walker-in-britain-part-2/</guid>
+      <guid>/blog/2017/03/11/american-walker-in-britain-part-2/</guid>
       <description>Choosing a Path Obviously choosing a path is a matter of personal taste. In the first post I included some links where you could ideas on where to walk. I&amp;rsquo;ll lay out some concrete possibilities here, just to get you started. Don&amp;rsquo;t take this as a prescriptive list.
 Would you prefer walking on the coast or in the hills? If a multi-day route along beautiful seacoast appeals to you then the obvious possibilities are the South West Coast Path in Devon and Cornwall or the Pembrokeshire Coast Path in Wales.</description>
     </item>
     
     <item>
       <title>An American Walking in Britain</title>
-      <link>/2017/03/07/an-american-walking-in-britain/</link>
+      <link>/blog/2017/03/07/an-american-walking-in-britain/</link>
       <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/03/07/an-american-walking-in-britain/</guid>
+      <guid>/blog/2017/03/07/an-american-walking-in-britain/</guid>
       <description>Since retiring in 2011, I have been on a binge of walking in the UK. I will try to offer some tips based on lessons I have learned. I doubt this would be of any use to someone raised in the UK. Much of what I would say here would be obvious or second nature. But lots of things weren&amp;rsquo;t obvious to me as an American and therefore a foreigner unfamiliar with the British countryside.</description>
     </item>
     
     <item>
       <title>An Implementation of Narcissism in R</title>
-      <link>/2017/02/26/an-implementation-of-narcissism-in-r/</link>
+      <link>/blog/2017/02/26/an-implementation-of-narcissism-in-r/</link>
       <pubDate>Sun, 26 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/02/26/an-implementation-of-narcissism-in-r/</guid>
+      <guid>/blog/2017/02/26/an-implementation-of-narcissism-in-r/</guid>
       <description>This post is more an example of narcissism, but implementation has a nice technical ring to it.
 Narcissism hasn’t been part of my every-day vocabulary, although it has been in the news recently. Lately we have been seeing discussions about narcissistic personality disorder, but that is not what I am talking about here. At least I hope not, because I’m talking about me.
 Here’s the definition that fits this post:</description>
@@ -52,38 +52,38 @@ Here’s the definition that fits this post:</description>
     
     <item>
       <title>Portfolio of Projects</title>
-      <link>/2017/02/17/portfolio-of-projects/</link>
+      <link>/blog/2017/02/17/portfolio-of-projects/</link>
       <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/02/17/portfolio-of-projects/</guid>
+      <guid>/blog/2017/02/17/portfolio-of-projects/</guid>
       <description>One motivation for creating this blog was to display a portfolio of projects that I have worked on in the last year or so. I&amp;rsquo;ll list projects here. The plan is that eventually I will add pages that elaborate each project. I hope that publishing my projects on this site will nudge me to be a bit more systematic as I execute projects.
 The Diary of Samuel Pepys Each morning I read an entry from The Diary of Samuel Pepys at a wonderful site created by Phil Gyford.</description>
     </item>
     
     <item>
       <title>How I Set Up This Site</title>
-      <link>/2017/02/11/how-i-set-up-this-site/</link>
+      <link>/blog/2017/02/11/how-i-set-up-this-site/</link>
       <pubDate>Sat, 11 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/2017/02/11/how-i-set-up-this-site/</guid>
+      <guid>/blog/2017/02/11/how-i-set-up-this-site/</guid>
       <description>I attended the blogdown session at the RStudio conference in Florida. I am enjoying the enthusiasm and energy around R and RStudio. It reminds me of the early days of personal computers at the end of the 70&amp;rsquo;s and the beginning of the 80&amp;rsquo;s. Perhaps I am experiencing a second childhood. Anyway, all the Cool Kids are doing web pages on GitHub so I want to do it too.</description>
     </item>
     
     <item>
       <title>Using the Flickr API from R</title>
-      <link>/2016/07/03/using-the-flickr-api-from-r/</link>
+      <link>/blog/2016/07/03/using-the-flickr-api-from-r/</link>
       <pubDate>Sun, 03 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>/2016/07/03/using-the-flickr-api-from-r/</guid>
+      <guid>/blog/2016/07/03/using-the-flickr-api-from-r/</guid>
       <description>There used to be an Rflickr package, but it no longer seems to work. It was last updated in 2011. I had a lot of trouble googling information on how to access Flickr from R. This example really got me started. It is doing very different things that what I wanted to do, so it may be more useful than what I am laying out here, depending on your goal.</description>
     </item>
     
     <item>
       <title>Technical Note--Shiny Souvenir Map of Walks</title>
-      <link>/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</link>
+      <link>/blog/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</link>
       <pubDate>Tue, 28 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</guid>
+      <guid>/blog/2016/06/28/technical-note--shiny-souvenir-map-of-walks/</guid>
       <description>I have used RStudio’s Shiny to create a map page where I can display GPS traces and photos from walks I have done during the last five years.
 The map is based on an example provided by Maarten Hermans in a blog post that he published last year. The map uses R htmlwidgets that provide access to the Javascript tool Leaflet. The trick is that I don’t have to know very much about either htmlwidgets or Leaflet to make this work.</description>
     </item>
