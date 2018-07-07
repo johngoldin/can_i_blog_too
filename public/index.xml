@@ -27,7 +27,7 @@
       
       <guid>/about/</guid>
       <description>This website is intended to describe some of my personal R projects. It may include some posts on other general subjects.
-To create this site I am using the [blogdown][https://github.com/rstudio/blogdown] package to setup and maintain a website via Hugo. For my first attempt at this I used GitHub Pages. This site uses the Hyde theme in Hugo. Rather than Github Pages I will try to use Netlify to serve the site.</description>
+To create this site I am using the blogdown package to setup and maintain a website via Hugo. For my first attempt at this I used GitHub Pages. This site uses the Hyde theme in Hugo. Rather than Github Pages I will try to use Netlify to serve the site.</description>
     </item>
     
     <item>
