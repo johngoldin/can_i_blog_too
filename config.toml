@@ -1,4 +1,4 @@
-baseURL = "https://distracted-swanson-8d1a85.netlify.com/"
+baseURL = "https://johngoldin.com/"
 relativeurls = true
 title = "Can I Blog Too"
 languageCode = "en-us"
@@ -16,7 +16,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     # The format shown here is the same one Jekyll/Octopress uses by default.
     # post = "/blog/:year/:month/:day/:title/"
     # blogdown book recommends slug:
-    post = "/:year/:month/:day/:slug/"
+    post = "/:year/:month/:slug/"
 
 [taxonomies]
     # Optional. Use if you want tags and lists.

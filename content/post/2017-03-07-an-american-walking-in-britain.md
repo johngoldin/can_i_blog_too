@@ -1,7 +1,7 @@
 ---
 title: An American Walking in Britain
 date: '2017-03-07'
-stub: "am_walker_1"
+slug: "am_walker_1"
 categories:
   - British Walking
 ---

@@ -1,7 +1,7 @@
 ---
 title: American Walker in Britain Part 2
 date: '2017-03-11'
-stub: "am_walker_2"
+slug: "am_walker_2"
 categories:
   - British Walking
 ---

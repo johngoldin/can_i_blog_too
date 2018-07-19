@@ -2,7 +2,7 @@
 title: American Walker in Britain Part 3
 author: ~
 date: '2017-03-15'
-stub: "am_walker_3"
+slug: "am_walker_3"
 categories:
   - British Walking
 tags: []
