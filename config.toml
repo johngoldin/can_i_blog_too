@@ -1,4 +1,5 @@
 baseURL = "https://distracted-swanson-8d1a85.netlify.com/"
+relativeurls = true
 title = "Can I Blog Too"
 languageCode = "en-us"
 disqusShortname = "johngoldin" # Optional, enable Disqus integration
@@ -25,6 +26,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 # All parameters below here are optional and can be mixed and matched.
 #
 [params]
+    author = "John Goldin"
     # If false display full article contents in blog index.
     # Otherwise show description and 'read on' link to individual blog post page.
     # Default (if omitted) is true.
@@ -54,13 +56,14 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     # You can use markdown here.
     # tagline = "Notes on this and that..."
     tagline =  "Can I blog too?"
+    description = "Some of my personal projects with R"
 
     # Text for the top menu link, which goes the root URL for the site.
     # Default (if omitted) is "Blog".
     home = "Blog"
 
     # Metadata used to drive integrations.
-    googleAnalytics = "UA-92008736-1"
+    googleAnalytics = "UA-92008736-2"
     gravatarHash = "f7dd8b52bc092b4e50e9324381b02d67"
 
     # Sidebar social links, these must be full URLs.
@@ -73,7 +76,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     twitter = "https://twitter.com/johngoldin"
     #youtube = ""
     flickr = "https://www.flickr.com/photos/99418994@N00/albums"
-    #flickr = "99418994@N00"
 
     # Other social-like sidebar links
     rss = false  # switch to true to enable RSS icon link

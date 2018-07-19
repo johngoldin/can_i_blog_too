@@ -1,6 +1,7 @@
 ---
 title: American Walker in Britain Part 2
 date: '2017-03-11'
+stub: "am_walker_2"
 categories:
   - British Walking
 ---
@@ -8,7 +9,7 @@ categories:
 ## Choosing a Path
 
 Obviously choosing a path is a matter of personal taste. In the first
-post I included some links where you could ideas on where to walk.
+post I included some links where you could find ideas on where to walk.
 I'll lay out some concrete possibilities here, just to get you started. 
 Don't take this as a prescriptive list.
 
@@ -16,8 +17,7 @@ Would you prefer walking on the coast or in the hills? If a multi-day route alon
 
 #### South West Coast Path
 
-The South West Coast Path is 630 miles long so it's not something you would tackle in one trip. One general piece of advice, is that when you are 
-planning where to go, look at the itineraries offered by some of the tour
+The South West Coast Path is 630 miles long so it's not something you would tackle in one trip. One general piece of advice, is to look at the itineraries offered by some of the tour
 companies. If a section of trail seems popular, there may be a good reason
 for it. For my first trip to the South West Coast Path I saw a number of
 tours that went from Padstow to St. Ives in Cornwall. A likely itinerary is
@@ -30,7 +30,7 @@ to do five stages:
     Portreath to St. Ives    
     
 <img style="float: right;" src="/img/swcp2.png">
-In terms of accommodatoins there's not much in Treyarnon besides the Youth Hostel (which looked very nice to me, at least from the outside).
+In terms of accommodations there's not much in Treyarnon besides the Youth Hostel (which looked very nice to me, at least from the outside).
 One might get something in Porthcothan, a bit beyond Trearnon.
 The route out of Padstow is around a peninsula called Trevose Head.
 Padstow isn't very far from Treyarnon because the direct
@@ -42,13 +42,13 @@ take the bus back out of Padstow to Porthcothan and then resume the walk.
 I did this itinerary back in 2007. It's a nice walk, and I think it's quite
 popular. Both St. Ives and Padstow are substantial towns that attract a 
 lot of holiday visitors. St. Ives is know for the Tate Gallery there and Padstow
-is know for fine dining because of restauranteur [Rick Stein](https://en.wikipedia.org/wiki/Rick_Stein). But I don't know who
+is known for fine dining because of restaurateur [Rick Stein](https://en.wikipedia.org/wiki/Rick_Stein). But I don't know who
 Rick Stein is and I don't know about galleries, so if you are
 craving information about food or art you are in the wrong place. On both
 of my trips to Padstow I stayed at the London Inn and dined on pub food. I didn't starve.
 
 If you are a fan of the British TV show Doc Martin then by all means start
-your trip in Port Isaac, a day to the east of Padstow and the real life
+your trip in Port Isaac, a day to the east of Padstow and the real-life
 location for the fictional village of [Portwenn](http://www.radiotimes.com/news/2017-02-27/where-is-doc-martin-filmed-martin-clunes-guide-to-port-isaac).
 Port Isaac is even more quaint and charming in person than it appears in the TV show.
 
@@ -67,7 +67,7 @@ Newport farther up the coast. So I can't offer much in the way of practical
 advice on the itinerary, other than to say I found both
 <img style="float: right;" src="/img/pembrokeshire_path.png">
 St. Davids and Newport to be pleasant spots. Ah, I do have one very
-practica tip. There is more than one Newport in Wales. The larger
+practical tip. There is more than one Newport in Wales. The larger
 Newport is a substantial city in southeastern Wales not so far
 from Cardiff. That's not the one you want. But there is a smaller, picturesque coastal village called Newport
 in Pembrokeshire on the Coast Path.
@@ -109,11 +109,11 @@ was a very different experience from walking the same valley.
 =======
 >>>>>>> b4f2f7a5a5e07d42d9fc4f064fca9642a5edceac
 
-[The Coast to Coast Path](https://www.sherpaexpeditions.com/Coast-to-Coast) is not an offical route like the others, but
+[The Coast to Coast Path](https://www.sherpaexpeditions.com/Coast-to-Coast) is not an official route like the others, but
 it is very popular. My impression is that it had a higher
 proportion of non-British walkers than the other routes, although that may
 be true of the West Highland Way as well. The route passes through
-the Lake District, the Yorkshire Dales Natoinal Park, and the North York
+the Lake District, the Yorkshire Dales National Park, and the North York
 Moors National Park.^[National Parks in the UK are not exclusively park
 land like a national park in the US. They generally are private land,
 but there are regulations to preserve the landscape. There are also other
@@ -136,7 +136,10 @@ There are many other possibilities.
 #### Go for Broke!
 
 If all of this sounds too tame and you have three months to spare, consider doing the walk from
-[Lands End to John O'Groats](http://www.landsendjohnogroats.info/route/).
+[Lands End to John O'Groats](http://www.landsendjohnogroats.info/route/). That, 1,111 miles. Part of the route follows the Pennine Way. 
+I met a couple from Australia there who had gotten leave from their jobs to take three months to do the whole route.
+Their routine was to walk six days a week and take one day off. I last saw them on the
+border between England and Scotland when they still had over 400 miles to go.
 
 =======
 >>>>>>> b4f2f7a5a5e07d42d9fc4f064fca9642a5edceac

@@ -3,7 +3,7 @@ title: Notes About This Site
 author: John Goldin
 date: '2018-07-07'
 menu: "main"
-stub: "site-notes"
+slug: "site-notes"
 categories: []
 tags: []
 Categories:
@@ -14,8 +14,8 @@ Tags:
   - blogdown
   - GitHub
 ---
-An earlier version of this blog was based on johngoldin.github.io. In July of 2018 I redid the blog so that it is hosted by (Netlify)[https://www.netlify.com] and uses the name (www.johngoldin.com)[https://www.johngoldin.com]. I had a lot of difficulty converting my old **blogdown** site. I ended up following Jenny Bryan's advice from her (Happy Git book)[http://happygitwithr.com/burn.html: I burned it down and started over. I created a new empty repo on GitHub and then cloned to an RStudio project
-on my Mac. Then I followed the steps on deploying to Netlify shown in the (blogdown)[https://bookdown.org/yihui/blogdown/netlify.html] book. Once I was sure I had
+An earlier version of this blog was based on johngoldin.github.io. In July of 2018 I redid the blog so that it is hosted by [Netlify](https://www.netlify.com) and uses the name [www.johngoldin.com](https://www.johngoldin.com). I had a lot of difficulty converting my old **blogdown** site. I ended up following Jenny Bryan's advice from her [Happy Git book](http://happygitwithr.com/burn.html): I burned it down and started over. I created a new empty repo on GitHub and then cloned to an RStudio project
+on my Mac. Then I followed the steps on deploying to Netlify shown in the [blogdown](https://bookdown.org/yihui/blogdown/netlify.html) book. Once I was sure I had
 Netlify successfully connected to GitHub, I moved my old blog posts over to the new project, 
 committed them to GitHub, and then checked that the changes were reflected in the site served
 by Netlify. I did the same with the settings in `config.toml`. 
