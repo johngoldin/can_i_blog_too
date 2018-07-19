@@ -1,6 +1,7 @@
 ---
 title: Technical Note--Shiny Souvenir Map of Walks
 date: '2016-06-28'
+slug: "walks_map_notes"
 categories:
   - R
   - Leaflet
