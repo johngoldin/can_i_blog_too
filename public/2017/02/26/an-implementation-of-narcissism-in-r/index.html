@@ -10,19 +10,19 @@
   <title>An Implementation of Narcissism in R &middot; John Goldin</title>
 
   
-  <link rel="stylesheet" href="/css/poole.css">
-  <link rel="stylesheet" href="/css/hyde.css">
-  <link rel="stylesheet" href="/css/poole-overrides.css">
-  <link rel="stylesheet" href="/css/hyde-overrides.css">
-  <link rel="stylesheet" href="/css/hyde-x.css">
-  <link rel="stylesheet" href="/css/highlight/sunburst.css">
+  <link rel="stylesheet" href="../../../../css/poole.css">
+  <link rel="stylesheet" href="../../../../css/hyde.css">
+  <link rel="stylesheet" href="../../../../css/poole-overrides.css">
+  <link rel="stylesheet" href="../../../../css/hyde-overrides.css">
+  <link rel="stylesheet" href="../../../../css/hyde-x.css">
+  <link rel="stylesheet" href="../../../../css/highlight/sunburst.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
   
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
-  <link href="/favicon.png" rel="icon">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../../../touch-icon-144-precomposed.png">
+  <link href="../../../../favicon.png" rel="icon">
 
   
   
@@ -38,7 +38,7 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-92008736-1', 'auto');
+    ga('create', 'UA-92008736-2', 'auto');
     ga('send', 'pageview');
   </script>
   
@@ -56,13 +56,13 @@
     </div>
 
     <ul class="sidebar-nav">
-      <li class="sidebar-nav-item"><a href="/">Blog</a></li>
+      <li class="sidebar-nav-item"><a href="../../../../">Blog</a></li>
       
-      <li class="sidebar-nav-item"><a href="/about/">About</a></li>
+      <li class="sidebar-nav-item"><a href="../../../../about/">About</a></li>
       
-      <li class="sidebar-nav-item"><a href="/2018/07/07/notes-about-this-site/">Notes About This Site</a></li>
+      <li class="sidebar-nav-item"><a href="../../../../2018/07/07/site-notes/">Notes About This Site</a></li>
       
-      <li class="sidebar-nav-item"><a href="/2017/02/17/portfolio-of-projects/">Portfolio of Projects</a></li>
+      <li class="sidebar-nav-item"><a href="../../../../2017/02/17/portfolio/">Portfolio of Projects</a></li>
       
     </ul>
 
@@ -83,7 +83,7 @@
 
     
 
-    <p>Copyright &copy; 2018 <a href="/license/">License</a><br/>
+    <p>Copyright &copy; 2018 <a href="../../../../license/">License</a><br/>
        Powered by <a href="http://gohugo.io">Hugo</a> and <a href="https://github.com/zyro/hyde-x">Hyde-X</a></p>
 
   </div>
@@ -93,10 +93,10 @@
 <div class="content container">
   <div class="post">
     <h1 class="post-title">An Implementation of Narcissism in R</h1>
-    <span class="post-date">Feb 26, 2017 &middot; 11 minute read &middot; <a href="/2017/02/26/an-implementation-of-narcissism-in-r/#disqus_thread">Comments</a>
+    <span class="post-date">Feb 26, 2017 &middot; 11 minute read &middot; <a href="../../../../2017/02/26/an-implementation-of-narcissism-in-r/#disqus_thread">Comments</a>
     
     <br/>
-    <a class="label" href="/categories/personal">personal</a><a class="label" href="/categories/r">R</a>
+    <a class="label" href="../../../../categories/personal">personal</a><a class="label" href="../../../../categories/r">R</a>
     </span>
     <p>This post is more an <em>example</em> of narcissism, but <em>implementation</em> has a nice technical ring to it.</p>
 <p><em>Narcissism</em> hasn’t been part of my every-day vocabulary, although it has been in the news recently. Lately we have been seeing discussions about <a href="https://www.theatlantic.com/magazine/archive/2016/06/the-mind-of-donald-trump/480771/">narcissistic personality disorder</a>, but that is not what I am talking about here. At least I hope not, because I’m talking about me.</p>
@@ -170,7 +170,7 @@ byday &lt;- byday + geom_point(size = 0.5) +
 byday &lt;- byday + 
     ggtitle(&quot;One Individual&#39;s Daily Weight During a Twenty-one Year Span&quot;) + 
     ylab(&quot;weight (pounds)&quot;)</code></pre>
-<p><img src="/post/2017-02-26-narcissism-in-r_files/figure-html/byday-1.png" width="960" /></p>
+<p><img src="../../../../post/2017-02-26-narcissism-in-r_files/figure-html/byday-1.png" width="960" /></p>
 </div>
 <div id="seasonal-variation-in-weight" class="section level3">
 <h3>Seasonal Variation in Weight</h3>
@@ -192,7 +192,7 @@ pmonth &lt;- pmonth + geom_point(data =
                                      minor_breaks = seq(1, 12, 1)) +
   ggtitle(&quot;Weight by Year&quot;) + ylab(&quot;Weight&quot;) + xlab(&quot;Month&quot;)
 plot(pmonth)</code></pre>
-<p><img src="/post/2017-02-26-narcissism-in-r_files/figure-html/byyear-1.png" width="960" /></p>
+<p><img src="../../../../post/2017-02-26-narcissism-in-r_files/figure-html/byyear-1.png" width="960" /></p>
 <p>You can see that for most years there is an <em>N</em> shaped pattern. In January weight is still headed up and reaches its peak later in the winter. The trough happens at the end of the summer. It starts back up and continues higher through the end of the year. Basically it is high in early spring and low in early fall. It shows up as an <em>N</em> in this chart because the annual boundary between January and December interrupts the pattern.</p>
 <p>I would guess that seasonal adjustment would be a big topic in econometrics. I don’t know much about that. But of course there is an R package called <a href="https://cran.r-project.org/web/packages/seasonal/">seasonal</a> and another package called <a href="https://cran.r-project.org/web/packages/seasonal/">season</a>. I looked at <code>season</code> quickly. Neither package seemed helpful in my immediate case, so I went back to something more basic.</p>
 <p>Looking at the previous figure, some years do not seem to fit the ususal seasonal pattern. I decided to remove years 2005, 2006, and 2008. That’s a bit arbitrary, but probably harmless. For the remaining years, I calculated the mean weight for each month and then subtracted the overall mean for the corresponding year. In other words, I looked at the difference between month average and annual average.</p>
@@ -215,7 +215,7 @@ p &lt;- p + geom_point() +
 p &lt;- p + geom_smooth(aes(x = as.numeric(month)))
 p &lt;- p + scale_y_continuous(breaks = seq(-4, 4, 2))
 plot(p)</code></pre>
-<p><img src="/post/2017-02-26-narcissism-in-r_files/figure-html/seasonal-1.png" width="672" /></p>
+<p><img src="../../../../post/2017-02-26-narcissism-in-r_files/figure-html/seasonal-1.png" width="672" /></p>
 <p>The moral of this story from my point of view is that I should pay attention to the seasonal variation when I am ready to be complacent because my weight seems to be going down in August. As I write this, it is the beginning of March. My weight has been creeping up. I should watch what I eat because I have a couple of months to go of potential seasonal increase in weight.</p>
 <p>Note that because the plot runs from January to December, it makes it hard to notice that the mean differential in January is lower than either December or February. There’s an odd dip in January. I don’t have an explanation for this. Perhaps it’s more of a story of December be anomalously high than of January being anomalously low. But this is a minor detail.</p>
 </div>
@@ -284,7 +284,7 @@ var disqus_shortname = "johngoldin";
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
-<script src="/js/highlight.pack.js"></script>
+<script src="../../../../js/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
