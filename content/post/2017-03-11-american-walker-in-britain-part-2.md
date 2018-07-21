@@ -98,7 +98,6 @@ In 2011 I drove through Glencoe with my sisters and it
 was a very different experience from walking the same valley.
 
 #### The Coast to Coast Path
-<<<<<<< HEAD
 <!--- and {{% figure src="/img/taxi.png#floatright" caption="Need a taxi Hadrians Wall Path?" %}}
  img style="float: right;" src="/img/taxi.png"> 
 <figure.right  > 
@@ -106,8 +105,6 @@ was a very different experience from walking the same valley.
   <figcaption>Isn't this better than camping?</figcaption>
    
 </figure> --->
-=======
->>>>>>> b4f2f7a5a5e07d42d9fc4f064fca9642a5edceac
 
 [The Coast to Coast Path](https://www.sherpaexpeditions.com/Coast-to-Coast) is not an official route like the others, but
 it is very popular. My impression is that it had a higher
@@ -126,13 +123,12 @@ the attractions of the route.
 <img style="float: right;" src="/img/beachy_head_lighthouse.png">
 #### The South Downs Way
 
-[The South Downs Way](http://www.nationaltrail.co.uk/south-downs-way/be-inspired) in southern England is not so very far from London. I have walked the last nine mile stretch into Eastbourne. That is a magnificent walk, but very unlike
+[The South Downs Way](http://www.nationaltrail.co.uk/south-downs-way/be-inspired) in southern England is not so very far from London. I have walked the last nine mile stretch along the Seven Sisters and Beachy Head into Eastbourne. That is a magnificent walk along the white cliffs, but very unlike
 the rest of the walk. Based on what I have read, this could be a very
 nice walk with convenient access and forgiving terrain.
 
 There are many other possibilities. 
 
-<<<<<<< HEAD
 #### Go for Broke!
 
 If all of this sounds too tame and you have three months to spare, consider doing the walk from
@@ -141,8 +137,6 @@ I met a couple from Australia there who had gotten leave from their jobs to take
 Their routine was to walk six days a week and take one day off. I last saw them on the
 border between England and Scotland when they still had over 400 miles to go.
 
-=======
->>>>>>> b4f2f7a5a5e07d42d9fc4f064fca9642a5edceac
 #### Some Resources
 
 [National Trails](http://www.nationaltrail.co.uk/)    
@@ -151,13 +145,11 @@ border between England and Scotland when they still had over 400 miles to go.
 [London Hiker](http://londonhiker.com/resources/)    
 [Lonely Planet Top 10](https://www.lonelyplanet.com/united-kingdom/travel-tips-and-articles/76616)    
 [Walking Britain](http://www.walkingbritain.co.uk/)    
-<<<<<<< HEAD
 [20 Superb UK Walks - The Guardian](https://www.theguardian.com/travel/2016/apr/23/british-walks-uk-family-long-distance-paths-trails)    
 [Lonely Planet Walking in Britain](https://www.amazon.com/Lonely-Planet-Walking-Britain-David/dp/174104202X)    
 [Harvey walking maps](http://www.harveymaps.co.uk/acatalog/walking-maps.html#usestorage)    
 [Walk Highlands](https://www.walkhighlands.co.uk/)    
------
-#### [Back to UK Walking Topics]({{< relref "2017-03-07-an-american-walking-in-britain.md#topics" >}})
-=======
 [20 Superb UK Walks - The Guardian](https://www.theguardian.com/travel/2016/apr/23/british-walks-uk-family-long-distance-paths-trails)    
->>>>>>> b4f2f7a5a5e07d42d9fc4f064fca9642a5edceac
+
+#### [Back to UK Walking Topics]({{< relref "2017-03-07-an-american-walking-in-britain.md#topics" >}})
+

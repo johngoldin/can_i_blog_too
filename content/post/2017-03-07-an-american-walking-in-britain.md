@@ -68,7 +68,7 @@ A couple of times I have decided to cut the day short and catch a bus for
 the rest of the trip. Sometimes there are even simple ferries to get you across
 an estuary. And even in rural areas there often is some sort of tax service available.
 
-There are other aspects of the UK that probably make a difference. There is less suburban sprawl and less dependece on cars. In my part of the world one does
+There are other aspects of the UK that probably make a difference. There is less suburban sprawl and less dependence on cars. In my part of the world one does
 not expect to find a motel or hotel anywhere except in a city or near a highway exit. In the UK B&B's and small-scale hotels seem more plentiful. I don't claim to understand all the political, cultural, and legal factors that create those differences in
 the environment. But the result is good for walkers.
 
@@ -89,7 +89,7 @@ in the US. [Alfred Wainwright](https://en.wikipedia.org/wiki/Alfred_Wainwright)
 seems to be regarded as the the key figure in the modern popularity
 of walking in Britain, especially the Lake District. He basically
 invented the route for the Coast to Coast Path, which is one of the most
-popular routes even though it is not one of the offical [National Trails](http://www.nationaltrail.co.uk/).
+popular routes even though it is not one of the official [National Trails](http://www.nationaltrail.co.uk/).
 There is a popular series of BBC programs by [Julia Bradbury](https://www.youtube.com/watch?v=8A9U9y1LMNM) 
 describing
 Waintwright's fell walks. The original [Wainwright guide books](https://www.amazon.com/Alfred-Wainwright/e/B001HPUBVK/ref=sr_tc_2_0?qid=1489257346&sr=1-2-ent) are
@@ -108,7 +108,7 @@ Trust Book of Long Walks in England, Scotland and Wales](The National
 Trust Book of Long Walks in England, Scotland and Wales) by Adam Nicolson with photographs by Charlie Waite. 
 This
 book was my introduction to the long distance trails in Britain. After stumbling
-on the existance of the Pennine Way in 1997, I wanted to know more and
+on the existence of the Pennine Way in 1997, I wanted to know more and
 found the National Trust book in the New Haven Public Library
 after I returned home.
 
@@ -124,7 +124,7 @@ number of half-day walks, including two that lay the ground work for
 an enduring interest in walking in Britain. So mixing car touring with
 walking is an entirely reasonable way to go. One one trip in Wales I arranged to stay for two nights in each of three places. That often worked out to be 
 a half day walk on the day I arrived and then a full-day of walking before
-staying the second night. I started out with a two days in Wotton-under-Edge and a full-days's walk on the Cotswold Way, two days in St. Davids in Wales and the Pembrokeshire Coast Path and then two more nights in the northern half of
+staying the second night. I started out with a two days in Cotton-under-Edge and a full-days's walk on the Cotswold Way, two days in St. Davids in Wales and the Pembrokeshire Coast Path and then two more nights in the northern half of
 Wales. There are lots of areas where one could do something like that. With
 a bit of planning, one could do something like that via bus or train and avoid
 the car entirely (a big plus if one has qualms about driving on the left side of the road).
@@ -132,9 +132,9 @@ the car entirely (a big plus if one has qualms about driving on the left side of
 ### Tour Companies
 
 There are many companies that arrange walking holidays. ^[More language issues: they say "holiday" where we say "vacation".] I used [Sherpa](https://www.sherpaexpeditions.com/United-Kingdom) for a self-guided
-tour on the West Highland Way. There are many others. A "self-guided"" tour means that they will organize a route and accomodations, provide you with a map and
+tour on the West Highland Way. There are many others. A "self-guided" tour means that they will organize a route and accommodations, provide you with a map and
 directions, and usually also arrange to transport your luggage. Guided tours mean that you walk with a group. The only group tour I have done was an REI tour in the United States walking rim to rim across the Grand Canyon. I can't claim to have any expertise about organized tours. It's a definite possibility, and well
-worth your consideration. Just google "walking" and "britain" or "England" or "Scotland" and you will find a lot of options. An organized tour is a good way
+worth your consideration. Just Google "walking" and "britain" or "England" or "Scotland" and you will find a lot of options. An organized tour is a good way
 to get started. 
 
 There are also walking holidays that are organized out of a particular inn. You stay there for a period of time and each day your hosts arrange transportation to and from a walk for that day. This is not something I have any experience with.
@@ -167,7 +167,7 @@ buy a guide book. [Trailblazer](https://trailblazer-guides.com/books) seems to d
 the market, at least for some trails in Britain. I have used a bunch of Trailblazer guides.
 They have a similar style and organization although different authors.
 They are loaded with very practical information including details about
-route, accomodations, and services. They include useful hand drawn
+route, accommodations, and services. They include useful hand drawn
 maps of the route. Often you can find them on Amazon or other site in the US, but
 you can also order them directly from Trailblazer. I just checked their web site
 and I am shocked to see that they seem to offer free shipping world wide.
@@ -183,11 +183,8 @@ I will try to address particular topics and try to
 include the kinds of details that I didn't
 know before my first walking holiday. Here's the plan. Next step will be for me to fill this in.
 
-<<<<<<< HEAD
 ### Topics
 
-=======
->>>>>>> b4f2f7a5a5e07d42d9fc4f064fca9642a5edceac
 - [Choosing a path]({{< relref "2017-03-11-american-walker-in-britain-part-2.md#choosing-a-path" >}})
 - Planning an itinerary
 - Arranging for accommodations
