@@ -1,0 +1,1 @@
+blogdown.author = "John Goldin"

@@ -34,7 +34,7 @@ a climb of 850 feet. The total ascent for the day is about 1,400 feet. That's no
 but enough that you will notice you did a fair amount of up hill walking. Often you can find an
 "elevation map" that describes how much "up" you will have to do.
 <figure> 
-  <img  src="https://www.ldwa.org.uk/ldp/images/TF/87-1-L.png" alt="Canopy Bed">
+  <img  src="https://www.ldwa.org.uk/ldp/images/TF/87-1-L.png" alt="elevation">
   <figcaption>Elevation along the <a href="https://www.ldwa.org.uk/ldp/members/show_path.php?menu_type=S&path_name=Coast+to+Coast+%28Wainwright%29">Coast to Coast Path (Long Distance Walkers Association)</a> </figcaption>
 </figure> 
 <figure> 
