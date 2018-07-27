@@ -3,7 +3,6 @@ title: Web Scraping Javascript Content
 author: John /Goldin
 date: '2018-07-22'
 slug: scraping_javascript
-draft: true
 categories: 
   - R
 tags: 
@@ -85,15 +84,9 @@ we are looking for. In the HTML there are a lot of "class" labels which (I think
 there so that CSS can be used to produce a snazzy looking data table delivered to the user's screen.
 Those names are confusing to read, but revest is going to make good use of them.
 
-What class names are we looking for? The next image
-shows how I used [SelectorGadget](https://selectorgadget.com) to tease out
+What class names are we looking for? I used [SelectorGadget](https://selectorgadget.com) to tease out
 which elements I wanted to pull out of the HTML. Here is a [video](https://www.youtube.com/watch?v=4IYfYx4yoAI) that demonstrates how to use both rvest and SelectorGadget.
 I won't try to explain how to use SelectorGadget here. 
-{{< figure src="/img/selector_gadget_sample.png"  caption="SelectorGadget applied to Chronicle table" >}}
-
-In the example from *The Chronicle*, the item highlighted in green by SelectorGadget is the bonus
-amount. At the bottom of the screen, SelectorGadget is indicating the name of that item is .ech_bonus.
-That's the type of information we need to use rvest.
 
 Next we'll look at some basic rvest code.
 
@@ -102,22 +95,120 @@ library(rvest)
 library(tidyverse)
 library(stringr)
 
+# read the page that was written by the headless browser
 public_page <- read_html("public_ceo_export.html")
 
+# look for HTML bit with the ".name" and produce them as text
 name <- public_page %>% html_nodes(".name") %>% html_text()
+# look for HTML bit with the ".college" and produce list of universities
 college <- public_page %>% html_nodes(".college") %>% html_text()
-print(college[1:3])
-```
+print(college[1:3])  # show we have something reasonable
 
-```{r more_rvest}
-base <- public_page %>% html_nodes(".ech_base") %>% html_text() %>% str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% as.numeric()
-bonus <- public_page %>% html_nodes(".ech_bonus") %>% html_text() %>% str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% as.numeric()
-other <- public_page %>% html_nodes(".ech_other") %>% html_text() %>% str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% as.numeric()
+base <- public_page %>% 
+  html_nodes(".ech_base") %>% 
+  html_text() %>% 
+  str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% 
+  as.numeric()
+bonus <- public_page %>% 
+  html_nodes(".ech_bonus") %>% 
+  html_text() %>% 
+  str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% 
+  as.numeric()
+other <- public_page %>% 
+  html_nodes(".ech_other") %>% 
+  html_text() %>% 
+  str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% 
+  as.numeric()
 # .ech_detail retrieves all four elements so length is 200 rther than 50
+# (I figured out .ech_detail by trial and error.)
 # we need to pull out every fourth element to get the total
-total <- public_page %>% html_nodes(".ech_detail") %>% html_text()
+total <- public_page %>% 
+  html_nodes(".ech_detail") %>% 
+  html_text()
 total <- total[seq(1, 200, 4)] 
+# Identify cases where adding up the bits is different than the "total"
 if (!all(str_detect(total, "Total Compensation"))) print("something is wrong with total")
-total <- total %>% str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% as.numeric()```
+total <- total %>% 
+  str_replace_all("[[:alpha:]]|:| |\\$|,", "") %>% 
+  as.numeric()
 ```
+The general pattern is that we get the HTML (loaded here into `pubic_page`),
+use `html_nodes` to pick out the items we want, and then convert the resulting
+items into text via `html_text`. For the numeric fields, we also need strip out
+commas and dollar signs and covert to numeric.
 
+(`str_replace` uses [regular expressions](https://en.wikipedia.org/wiki/Regular_expression), which
+is a whole topic in and of itself. There is a giga-ton of info on the web about regular expressions.
+For an R user, I would suggest focusing on using it via the [stringr](https://stringr.tidyverse.org/index.html) package, so
+[this page](https://stringr.tidyverse.org/articles/regular-expressions.html) might
+be a good place to start.)
+
+### The Punch Line?
+
+At this point, you are probably looking for the punchline: some insight about university
+CEO compensation. No such luck. What to do with the information after you 
+have scraped it is a different topic. In this post I am just trying to find an illustration
+of where scrpaing might be used and lay down enough information so that if I actually
+want to do something like this again I'll be able to recreate it.
+
+### When Is Scraping OK?
+
+Just because you *can* do something doesn't mean you *may*. You should
+check the terms of service of the web site you are going to scrape. Sometimes
+it is made clear that web scraping is off limits. For example, this
+bit from the FlightAware [terms of service](https://flightaware.com/about/termsofuse) is admirably clear:
+
+> you will only access the FlightAware web site with a human-operated interactive web browser and not with any program, collection agent, or "robot" for the purpose of automated retrieval or display of content.
+
+Okey dokey, no web scraping the FlightAware web site. 
+
+The "User Agreement" for the Chronicle web
+site seems to be more what one expects in the way of long and ambiguous (to the layperson at least) legalese.
+There is a [restrictions on use](https://www.chronicle.com/page/User-Agreement/619/?cid=cheftr#restrictionsOnUse) section
+that seems to be restrictive indeed.
+
+> You may not modify, decompile, create derivative work(s) of, disassemble, retransmit, resell, distribute, compile, broadcast, sublicense, mirror, frame, rent, or otherwise use in any manner not expressly permitted herein, the Site or any of its content; use robots or spiders or other automated devices or manual processes to monitor or gather any data from the Site or its users; create course books or educational materials using any of the Site content; use the Site to “stalk” or harass; place a link to the internal pages of any password-protected portions of the Site on any Web site, intranet, or extranet without the prior written permission of The Chronicle....
+
+Under the section on permitted uses, 
+
+>We would like your access to the Site to be useful and convenient.  Subject to the terms and conditions of this Agreement, you may download items of content on the Site for personal use during the term of this Agreement, except in any instance where we have expressly restricted the access to or copying of such materials.
+
+So can I use web scraping to download data from this *Chronicle* article for my own use? I don't really know. As a practical
+matter I assume that if I don't republish the information I'm on fairly safe ground. 
+An earlier version of this post had a screenshot to illustrate using SelectorGadget on
+the Chronicle CEO table. I decided that was not something they would regard as a fair
+use of their copyrighted and restricted material, so I deleted it before this post was
+published.
+
+#### robots.txt
+
+Another way to check on whether web scraping is welcomed or frowned upon is to check
+for a file called `robots.txt` at the top level of the site. This [Wikipedia article](https://en.wikipedia.org/wiki/Robots_exclusion_standard) describes the 
+history of this tool. You can ask your browser to see robots text by just
+adding `/robots.txt` to the top level domain name for a site. For example,
+`chronicle.com/robots.txt` is fairly thin:
+
+>User-agent: yandex
+
+>User-agent: bingbot  
+>User-agent: msnbot  
+>Disallow:  
+>Sitemap: https://www.chronicle.com/public/sitemap/chronicle-sitemap-index.xml  
+>Crawl-delay: 20  
+>
+>User-agent: *  
+>Disallow:  
+>Sitemap: https://www.chronicle.com/public/sitemap/chronicle-sitemap-index.xml  
+
+There's nothing after `Disallow:`. The robots.txt standard is aimed primarily at things
+like search engines crawling the internet looking for the information
+to add to their search algorithms. FlightAware has a long, elaborate
+robots.txt file. Yale's robots.txt is even more elaborate.
+
+There's a semi-official site that describes [robots.txt](http://www.robotstxt.org/robotstxt.html). 
+I don't know much more about how to interpret robots.txt, but it's one
+more thing you can check if you are concerned about whether your web
+scraping is legit.
+
+That wraps it up. Web sraping can be fun and useful. 
+But keep an eye on whether scraping a particular site is legit and legal.
