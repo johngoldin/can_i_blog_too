@@ -81,7 +81,7 @@ data table. Here's what the beginning of the data table looks like in raw HTML:
 ```
 Yuck. The data is in there, but HTML is not easy for mere humans to decipher. 
 Our next task is to use rvest to pull out the data elements
-we are looking for. In the HTML there's are a lot of "class" labels which (I think) are
+we are looking for. In the HTML there are a lot of "class" labels which (I think) are
 there so that CSS can be used to produce a snazzy looking data table delivered to the user's screen.
 Those names are confusing to read, but revest is going to make good use of them.
 
@@ -89,12 +89,7 @@ What class names are we looking for? The next image
 shows how I used [SelectorGadget](https://selectorgadget.com) to tease out
 which elements I wanted to pull out of the HTML. Here is a [video](https://www.youtube.com/watch?v=4IYfYx4yoAI) that demonstrates how to use both rvest and SelectorGadget.
 I won't try to explain how to use SelectorGadget here. 
-{{< figure src="/img/selector_gadget_sample.png" title="SelectorGadget sample" caption="SelectorGadget applied to Chronicle table >}}
-![SelectorGadget sample](/img/selector_gadget_sample.png)
-
-
-{{< figurefix src="/img/selector_gadget_sample.png" title="Steve Francia" >}}
-shortcode("figure", src = "/img/selector_gadget_sample.png", alt = "A nice figure")
+{{< figure src="/img/selector_gadget_sample.png"  caption="SelectorGadget applied to Chronicle table" >}}
 
 In the example from *The Chronicle*, the item highlighted in green by SelectorGadget is the bonus
 amount. At the bottom of the screen, SelectorGadget is indicating the name of that item is .ech_bonus.
