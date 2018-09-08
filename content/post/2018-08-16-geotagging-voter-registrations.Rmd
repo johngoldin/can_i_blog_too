@@ -30,16 +30,17 @@ data_folder <- "~/Dropbox/Programming/R_Stuff/ct_voters/"
 It's primary season and recently I learned about a somewhat strange
 [site](http://connvoters.com/download.html) that collects a lot of voter registration data. 
 One surprise is that it includes birth date and the full dataset also includes phone numbers. 
-I was a bit shocked that this data is publicly available. 
+I was a bit surprised that this data is publicly available. 
 Apparently I am not the only one. [Here](http://www.wfsb.com/story/26835982/website-displaying-voters-personal-information-has-right-to-do-so)
 is an article from Eyewitness News in Connecticut treating this data as a controversy.
 
-I recovered from my shock and decided to play with this data as a vehicle to become more familiar with my new home in Guilford while exercising and developing my R skills at the same time. 
-
-The author of this site is a fellow from new Hampshire. In his [about page](http://connvoters.com/about.html), he offers the following comment:
+The author of this site is a fellow from new Hampshire. His primary interest is genealogy. 
+He is unapologetic about putting all this data out onto the web and includes a [robust defense](http://connvoters.com/publish.html) of his site. In his [about page](http://connvoters.com/about.html), he offers the following comment:
 
 >  Perhaps you have become disillusioned, because you had a false sense of privacy.  
 >  Welcome to the twenty-first century and the Information Age.  
+
+I recovered from my shock and decided to play with this data as a vehicle to become more familiar with my new home in Guilford while exercising and developing my R skills at the same time. 
 
 ### An R Coding Sampler
 
@@ -53,8 +54,8 @@ I spent way more time on this than I expected. Each bit would lead me to try one
 Because I enjoy mapping, I wandered off into some time-consuming experimentation with geotagging.
 
 As I spent an unreasonable time fooling around with this data, 
-it something like a cross-stitch sampler that
-I inherited from my mother. The point of samplers like this was just to practice the craft.
+I cam to regard this activity as being like a cross-stitch sampler that
+I inherited from my mother. The point of samplers of this sort was just to practice the craft.
 (I note that this one was done in 1971, the year I graduated from college.) This blog post has something
 in common with my mother's sampler. Like hers, it was done for the simple pleasure of doing it
 (even though that involved interludes of frustration and tedium) and as an
@@ -77,7 +78,7 @@ to download data from [several points in time](http://connvoters.com/download.ht
 When I downloaded the data for June 2018, I ended up with about 15,000 active voter registrations
 rather than the 20,628 names I got when I just copied the results of the query on his main page.
 His interest is in genealogy. I suspect that what he has done is to combine all the names he
-found in 2013, 2014, 2016, 2017, and 2018. Thqt's how he includes people who have moved away or died.
+found in 2013, 2014, 2016, 2017, and 2018. That's how he includes people who have moved away or died.
 Perhaps for genealogy purposes he wants a list as inclusive as possible. Voting is not his focus.
 The downloaded data also includes a few more details than he shows in his interactive query.
 The upshot was that I needed to reload the larger dataset and redo my analyses. This turned out 
@@ -529,7 +530,7 @@ That's how we are able to have some categories where we have more voters than po
 Presumably the 70-74 category shows as 159% of the population in 2010 because a large chunk of
 people who were in the 65-69 category in 2010 were in the 70-74 category in 2018 for registrations.
 The same would be true for some other categories as a bulge of older people moved through the 
-age categoeries.
+age categories.
 
 ### Geotagging -- Where are the Voters? {#voter_location}
 
@@ -542,7 +543,7 @@ if I relied on the default source. But when I used Google as a source, it was mu
 problematic. I had to call geocode one address at a time and wrap that call with code that
 would survive failures. Google limits the number of calls and also the speed of the calls. As
 a result it doesn't return a result and geocode does not handle those failures gracefully. I
-had to divde up the 8,000+ addresses into batches and feed them to google in bits and pieces
+had to divide up the 8,000+ addresses into batches and feed them to Google in bits and pieces
 over a period of several days.
 
 First I'll show the basic registration counts by polling place.
@@ -747,7 +748,7 @@ print(p_example)
 ```
 
 Finally, here is another example that zooms in on a small local neighborhood. In this case you
-can see clearly how Google locates inidividual homes fairly well while the Digital Science Toolkit
+can see clearly how Google locates individual homes fairly well while the Digital Science Toolkit
 has blue dots strung out along the road, and not always lined up well with the location of the houses.
 The only identifying information on this bit of Google maps is Sullivans Pits Septic Lagoons. Not
 a very nice name for a neighborhood.
