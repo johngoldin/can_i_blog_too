@@ -1,6 +1,6 @@
 ---
 title: Web Scraping Javascript Content
-author: John /Goldin
+author: John Goldin
 date: '2018-07-22'
 slug: scraping_javascript
 categories: 
