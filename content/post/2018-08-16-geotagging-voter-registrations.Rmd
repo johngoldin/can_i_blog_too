@@ -305,7 +305,7 @@ Next we will do a "population pyramid" based on a [StackOverflow anwer](https://
 for_pop_pyramid <- regs_age %>% filter(sex != "Unknown", !is.na(age), age < 105, Party != "Other") %>%
   mutate( Age = if_else(age >= 90, "90+", Age)) %>%
   arrange(age) %>% mutate(Age = fct_inorder(factor(Age)))
-ggplot(data = for_pop_pyramid, 
+party_pyramid <- ggplot(data = for_pop_pyramid, 
        aes(x = Age, fill = sex)) + 
   geom_bar(data = subset(for_pop_pyramid, sex == "Female"), width = 1) + 
   geom_bar(data = subset(for_pop_pyramid, sex == "Male"), , width = 1,
@@ -315,7 +315,7 @@ ggplot(data = for_pop_pyramid,
   coord_flip() +
   labs(title = "Guilford Registered Voters Population Pyramid by Party 2018") + xlab("Age") +
   facet_wrap(~ Party)
-  
+print(party_pyramid) 
 ```
 
 There are differences by party. For Democrats 65-69 is the largest age category. For Republicans and Unaffiliated it's 55-59.
@@ -391,7 +391,7 @@ xlabs = c("0-4" = "0-4", "5-9" = "", "10-14" = "", "15-19" = "", "20-24" = "",
           "50-54" = "", "55-59" = "", "60-64" = "", "65-69" = "", "70-74" = "", 
           "75-79" = "", "80-84" = "", "85+" = "85+")
 xlabs2 <- c("0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80-84", "85+")
-ggplot(data = age2, aes(x = age, y = n, fill = sex)) +
+guilford_two_year <- ggplot(data = age2, aes(x = age, y = n, fill = sex)) +
   geom_bar(stat = "identity", width = 1) + 
   scale_y_continuous(breaks=c(-1000, -500, 0, 500, 1000),labels=c("1,000", "500", "0", "500", "1,000")) + 
   coord_flip() + 
@@ -405,6 +405,7 @@ ggplot(data = age2, aes(x = age, y = n, fill = sex)) +
        title = "Demographic Structure of Guilford -- 2000 and 2010", 
        caption = paste("Data source:", "US Census, tidycensus R package.")) +
   facet_wrap(~ year)
+print(guilford_two_year)
 ```
 
 The census data has a top age category of 85+. 
@@ -462,7 +463,7 @@ xlabs = c("0-4" = "0-4", "5-9" = "", "10-14" = "", "15-19" = "", "20-24" = "",
           "75-79" = "", "80-84" = "", "85+" = "85+")
 # xlabs2 <- c("0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80-84", "85+")
 xlabs2 <- c("0-4", "", "10-14", "", "20-24", "", "30-34", "", "40-44", "", "50-54", "", "60-64", "", "70-74", "", "", "85+")
-ggplot(data = age, aes(x = age, y = n, fill = sex)) +
+town_pyramids_pop <- ggplot(data = age, aes(x = age, y = n, fill = sex)) +
   geom_bar(stat = "identity", width = 1) + 
   scale_y_continuous(breaks=c(-6000, -5000, -4000, -3000, -2000, -1000, 0, 
                               1000, 2000, 3000, 4000, 5000, 6000),
@@ -478,8 +479,9 @@ ggplot(data = age, aes(x = age, y = n, fill = sex)) +
        title = "Demographic Structure Area Towns - Population by Age 2010", 
        caption = paste("Data source:", "US Census, tidycensus R package.")) +
   facet_wrap(~ town)
+print(town_pyramids_pop)
 
-ggplot(data = age, aes(x = age, y = pct, fill = sex)) +
+town_pyramids_pct <- ggplot(data = age, aes(x = age, y = pct, fill = sex)) +
   geom_bar(stat = "identity", width = 1) + 
   scale_y_continuous(breaks=c(-6, -4, -2,  0, 2, 4, 6),labels=c("", "4%", "2%","0", "2%", "4%", "")) + 
   coord_flip() + 
@@ -493,6 +495,7 @@ ggplot(data = age, aes(x = age, y = pct, fill = sex)) +
        title = "Demographic Structure Area Towns - Percent by Age 2010", 
        caption = paste("Data source:", "US Census, tidycensus R package.")) +
   facet_wrap(~ town)
+print(town_pyramids_pct)
 ```
 
 

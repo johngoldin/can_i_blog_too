@@ -444,7 +444,7 @@ regs_age &lt;- regs_fn %&gt;%
 <pre class="r"><code>for_pop_pyramid &lt;- regs_age %&gt;% filter(sex != &quot;Unknown&quot;, !is.na(age), age &lt; 105, Party != &quot;Other&quot;) %&gt;%
   mutate( Age = if_else(age &gt;= 90, &quot;90+&quot;, Age)) %&gt;%
   arrange(age) %&gt;% mutate(Age = fct_inorder(factor(Age)))
-ggplot(data = for_pop_pyramid, 
+party_pyramid &lt;- ggplot(data = for_pop_pyramid, 
        aes(x = Age, fill = sex)) + 
   geom_bar(data = subset(for_pop_pyramid, sex == &quot;Female&quot;), width = 1) + 
   geom_bar(data = subset(for_pop_pyramid, sex == &quot;Male&quot;), , width = 1,
@@ -453,7 +453,8 @@ ggplot(data = for_pop_pyramid,
   scale_y_continuous(labels = abs) +
   coord_flip() +
   labs(title = &quot;Guilford Registered Voters Population Pyramid by Party 2018&quot;) + xlab(&quot;Age&quot;) +
-  facet_wrap(~ Party)</code></pre>
+  facet_wrap(~ Party)
+print(party_pyramid) </code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/pop_pyramid-1.png" width="672" /></p>
 <p>There are differences by party. For Democrats 65-69 is the largest age category. For Republicans and Unaffiliated it’s 55-59. Women outnumber men throughout pyramid for the Democratic Party. For the Republicans, men consistently outnumber women except for 85 and older. Republicans look thin in the under 50 categories.</p>
 </div>
@@ -529,7 +530,7 @@ xlabs = c(&quot;0-4&quot; = &quot;0-4&quot;, &quot;5-9&quot; = &quot;&quot;, &qu
           &quot;50-54&quot; = &quot;&quot;, &quot;55-59&quot; = &quot;&quot;, &quot;60-64&quot; = &quot;&quot;, &quot;65-69&quot; = &quot;&quot;, &quot;70-74&quot; = &quot;&quot;, 
           &quot;75-79&quot; = &quot;&quot;, &quot;80-84&quot; = &quot;&quot;, &quot;85+&quot; = &quot;85+&quot;)
 xlabs2 &lt;- c(&quot;0-4&quot;, &quot;5-9&quot;, &quot;10-14&quot;, &quot;15-19&quot;, &quot;20-24&quot;, &quot;25-29&quot;, &quot;30-34&quot;, &quot;35-39&quot;, &quot;40-44&quot;, &quot;45-49&quot;, &quot;50-54&quot;, &quot;55-59&quot;, &quot;60-64&quot;, &quot;65-69&quot;, &quot;70-74&quot;, &quot;75-79&quot;, &quot;80-84&quot;, &quot;85+&quot;)
-ggplot(data = age2, aes(x = age, y = n, fill = sex)) +
+guilford_two_year &lt;- ggplot(data = age2, aes(x = age, y = n, fill = sex)) +
   geom_bar(stat = &quot;identity&quot;, width = 1) + 
   scale_y_continuous(breaks=c(-1000, -500, 0, 500, 1000),labels=c(&quot;1,000&quot;, &quot;500&quot;, &quot;0&quot;, &quot;500&quot;, &quot;1,000&quot;)) + 
   coord_flip() + 
@@ -542,7 +543,8 @@ ggplot(data = age2, aes(x = age, y = n, fill = sex)) +
   labs(x = &quot;&quot;, y = &quot;&quot;, fill = &quot;&quot;, 
        title = &quot;Demographic Structure of Guilford -- 2000 and 2010&quot;, 
        caption = paste(&quot;Data source:&quot;, &quot;US Census, tidycensus R package.&quot;)) +
-  facet_wrap(~ year)</code></pre>
+  facet_wrap(~ year)
+print(guilford_two_year)</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/census_pop_pyramid-1.png" width="672" /></p>
 <p>The census data has a top age category of 85+.</p>
 <p>Adults in the 20 to 34 age category are relatively scarce in Guilford. Comparing 2000 and 2010, one can see that the population of Guilford is getting older. In both years age 50-54 is the largest group. But one can see the distribution moving older. The 55-64 categories have gotten much bigger between 2000 and 2010 and the 30-39 categories have gotten smaller.</p>
@@ -582,7 +584,7 @@ xlabs = c(&quot;0-4&quot; = &quot;0-4&quot;, &quot;5-9&quot; = &quot;&quot;, &qu
           &quot;75-79&quot; = &quot;&quot;, &quot;80-84&quot; = &quot;&quot;, &quot;85+&quot; = &quot;85+&quot;)
 # xlabs2 &lt;- c(&quot;0-4&quot;, &quot;5-9&quot;, &quot;10-14&quot;, &quot;15-19&quot;, &quot;20-24&quot;, &quot;25-29&quot;, &quot;30-34&quot;, &quot;35-39&quot;, &quot;40-44&quot;, &quot;45-49&quot;, &quot;50-54&quot;, &quot;55-59&quot;, &quot;60-64&quot;, &quot;65-69&quot;, &quot;70-74&quot;, &quot;75-79&quot;, &quot;80-84&quot;, &quot;85+&quot;)
 xlabs2 &lt;- c(&quot;0-4&quot;, &quot;&quot;, &quot;10-14&quot;, &quot;&quot;, &quot;20-24&quot;, &quot;&quot;, &quot;30-34&quot;, &quot;&quot;, &quot;40-44&quot;, &quot;&quot;, &quot;50-54&quot;, &quot;&quot;, &quot;60-64&quot;, &quot;&quot;, &quot;70-74&quot;, &quot;&quot;, &quot;&quot;, &quot;85+&quot;)
-ggplot(data = age, aes(x = age, y = n, fill = sex)) +
+town_pyramids_pop &lt;- ggplot(data = age, aes(x = age, y = n, fill = sex)) +
   geom_bar(stat = &quot;identity&quot;, width = 1) + 
   scale_y_continuous(breaks=c(-6000, -5000, -4000, -3000, -2000, -1000, 0, 
                               1000, 2000, 3000, 4000, 5000, 6000),
@@ -597,9 +599,10 @@ ggplot(data = age, aes(x = age, y = n, fill = sex)) +
   labs(x = &quot;&quot;, y = &quot;&quot;, fill = &quot;&quot;, 
        title = &quot;Demographic Structure Area Towns - Population by Age 2010&quot;, 
        caption = paste(&quot;Data source:&quot;, &quot;US Census, tidycensus R package.&quot;)) +
-  facet_wrap(~ town)</code></pre>
+  facet_wrap(~ town)
+print(town_pyramids_pop)</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(data = age, aes(x = age, y = pct, fill = sex)) +
+<pre class="r"><code>town_pyramids_pct &lt;- ggplot(data = age, aes(x = age, y = pct, fill = sex)) +
   geom_bar(stat = &quot;identity&quot;, width = 1) + 
   scale_y_continuous(breaks=c(-6, -4, -2,  0, 2, 4, 6),labels=c(&quot;&quot;, &quot;4%&quot;, &quot;2%&quot;,&quot;0&quot;, &quot;2%&quot;, &quot;4%&quot;, &quot;&quot;)) + 
   coord_flip() + 
@@ -612,7 +615,8 @@ ggplot(data = age, aes(x = age, y = n, fill = sex)) +
   labs(x = &quot;&quot;, y = &quot;&quot;, fill = &quot;&quot;, 
        title = &quot;Demographic Structure Area Towns - Percent by Age 2010&quot;, 
        caption = paste(&quot;Data source:&quot;, &quot;US Census, tidycensus R package.&quot;)) +
-  facet_wrap(~ town)</code></pre>
+  facet_wrap(~ town)
+print(town_pyramids_pct)</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
 </div>
 <div id="guiford-regisration-rates" class="section level4">
