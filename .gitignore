@@ -5,3 +5,7 @@
 .DS_Store
 public/
 blogdown
+content/.DS_Store
+themes/.DS_Store
+static/.DS_Store
+static/post/.DS_Store

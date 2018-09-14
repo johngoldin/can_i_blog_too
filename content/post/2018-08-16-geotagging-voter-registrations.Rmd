@@ -11,7 +11,7 @@ tags:
   - R
   - maps
   - census
-description: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. '
+description: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. To see just the interesting plots without lots of R-related detail, skip this post and read the next one instead. '
 keywords: []
 ---
 
@@ -24,6 +24,9 @@ library(knitr)
 library(ggrepel)
 data_folder <- "~/Dropbox/Programming/R_Stuff/ct_voters/"
 ```
+
+**Attention conservation notice:** Unless you are interested in R-related detail, skip this post and
+read the [next post](https://www.johngoldin.com/2018/09/guilford-demographics/) instead.
 
 ### The Data Source
 
