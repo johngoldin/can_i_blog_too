@@ -77,5 +77,5 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     flickr = "https://www.flickr.com/photos/99418994@N00/albums"
 
     # Other social-like sidebar links
-    rss = false  # switch to true to enable RSS icon link
+    rss = true  # switch to true to enable RSS icon link
     #flattr = ""  # populate with your flattr uid
