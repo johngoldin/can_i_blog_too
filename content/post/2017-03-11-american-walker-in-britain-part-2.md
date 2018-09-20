@@ -17,7 +17,7 @@ Would you prefer walking on the coast or in the hills? If a multi-day route alon
 
 #### South West Coast Path
 
-The South West Coast Path is 630 miles long so it's not something you would tackle in one trip. One general piece of advice, is to look at the itineraries offered by some of the tour
+The South West Coast Path is 630 miles long so it's not something you would tackle in one trip. One general piece of advice is to look at the itineraries offered by some of the tour
 companies. If a section of trail seems popular, there may be a good reason
 for it. For my first trip to the South West Coast Path I saw a number of
 tours that went from Padstow to St. Ives in Cornwall. A likely itinerary is
@@ -95,7 +95,8 @@ walking up the Devil's Staircase to the highest point on the path
 and a spectacular view of the valley below. And I remember being tired and footsore by the time I reached my bed in Kinlochleven, but that's all
 part of the experience.
 In 2011 I drove through Glencoe with my sisters and it
-was a very different experience from walking the same valley.
+was a very different experience from walking the same valley. On my walk I spent part of my time
+on the valley floor, but also got to see the whole scene from the top of the Devil's Staircase.
 
 #### The Coast to Coast Path
 <!--- and {{% figure src="/img/taxi.png#floatright" caption="Need a taxi Hadrians Wall Path?" %}}
@@ -149,7 +150,8 @@ border between England and Scotland when they still had over 400 miles to go.
 [Lonely Planet Walking in Britain](https://www.amazon.com/Lonely-Planet-Walking-Britain-David/dp/174104202X)    
 [Harvey walking maps](http://www.harveymaps.co.uk/acatalog/walking-maps.html#usestorage)    
 [Walk Highlands](https://www.walkhighlands.co.uk/)    
-[20 Superb UK Walks - The Guardian](https://www.theguardian.com/travel/2016/apr/23/british-walks-uk-family-long-distance-paths-trails)    
+[20 Superb UK Walks - The Guardian](https://www.theguardian.com/travel/2016/apr/23/british-walks-uk-family-long-distance-paths-trails)   
+[ITV Top 100 Walks in Britain](https://getoutside.ordnancesurvey.co.uk/itvs-britains-100-favourite-walks/)
 
 #### [Back to UK Walking Topics]({{< relref "2017-03-07-an-american-walking-in-britain.md#topics" >}})
 
