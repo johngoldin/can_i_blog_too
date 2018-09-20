@@ -210,8 +210,8 @@ What do we know about weight by age in the general population? One source is the
 (There is a summary report for [Anthropometric Reference Data](https://www.cdc.gov/nchs/data/series/sr_03/sr03_039.pdf) that includes weight.) That is the source for the Wonkblog referred to above.
 It also seems to be the source
 for these charts (for white women and men) which were compiled at [Dr. Halls](http://halls.md/average-height-weight-charts/) website, which does not exactly reek of credibility.
-<p><img src="http://halls.md/chart/WomenWeightWhite.gif" style="width: 360px; max-width: 100%"/>
-<img src="http://halls.md/chart/MenWeightWhite.gif" style="width: 360px; max-width: 100%"/>
+<p><img src="https://halls.md/chart/WomenWeightWhite.gif" style="width: 360px; max-width: 100%"/>
+<img src="https://halls.md/chart/MenWeightWhite.gif" style="width: 360px; max-width: 100%"/>
 For white males, it shows weight peeking between 50 and 55 and then beginning to decline with age. Maybe. I was born in 1950 so I turned 55 in 2005. My personal peek seems to have been in the vicinity of 62. Maybe my slightly lower weight during the last two years is just another
 side effect of growing older.
 But it's a bit problematic to use cross-sectional data like this as a longitudinal norm. We hear a lot about
