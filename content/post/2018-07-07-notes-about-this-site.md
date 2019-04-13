@@ -14,6 +14,9 @@ Tags:
   - blogdown
   - GitHub
 ---
+
+[revised April 13, 2019]
+
 An earlier version of this blog was based on johngoldin.github.io. In July of 2018 I redid the blog so that it is hosted by [Netlify](https://www.netlify.com) and uses the name [www.johngoldin.com](https://www.johngoldin.com). I had a lot of difficulty converting my old **blogdown** site. I ended up following Jenny Bryan's advice from her [Happy Git book](http://happygitwithr.com/burn.html): I burned it down and started over. I created a new empty repo on GitHub and then cloned to an RStudio project
 on my Mac. Then I followed the steps on deploying to Netlify shown in the [blogdown](https://bookdown.org/yihui/blogdown/netlify.html) book. Once I was sure I had
 Netlify successfully connected to GitHub, I moved my old blog posts over to the new project, 
@@ -38,6 +41,9 @@ I know I am going to suffer through rough edges. As a retiree, I am
 doing this for fun so the rough edges just add to the adventure.
 
 ### GitHub Pages
+This is what I used before I switched to Netlify. I'll leave this section here,
+but it now longer describes this site.
+
 I had a little trouble to start because I didn't understand the basics of
 what was going on with GitHub and web pages. Here I am focused on what GitHub refers to as a "user site" (as opposed to an organization site or a project site). See their [general description of GitHub Pages](https://pages.github.com/) and [What is GitHub Pages?](https://help.github.com/articles/what-is-github-pages). The key
 fact is that if you have a repository called `username.github.io` (with your

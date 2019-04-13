@@ -11,6 +11,9 @@ menu: "main"
 ---
 <!--- created with this command:
 # blogdown::new_post("Portfolio of Projects", categories = c("R", "personal"), tags = c("R"), rmd = FALSE)  --->
+
+[revised April 13, 2019]
+
 One motivation for creating this blog was to display a portfolio of projects that I have worked
 on in the last year or so. I'll list projects here.
 The plan is that eventually I will add pages that elaborate each project. I hope that publishing
@@ -47,21 +50,21 @@ Like a good souvenir, it triggers lots of memories. If I lingered on a bench add
 on the GPS trace showing where I stopped for a spell. I can also see my wrong turns.
 The code for the sourvenir walks site is available at a [GitHub repository](https://github.com/johngoldin/Visualizing-Hiking). There are also some [technical notes]({{< relref "2016-06-28-technical-note-shiny-souvenir-map.md" >}}) and some details on [Flickr from R]({{< relref "2016-07-03-using-the-flickr-api-from-r.md" >}}).
 
-### Connecticut Data by Town
-I did somse exploring to see what kind of data I could find and then created some maps via ggplot2 to display some of that data.
+### [Census Data](https://www.johngoldin.com/2019/04/new-haven-census-and-r/)
 
-### [Census Data](http://rpubs.com/JohnGoldin/196744)
-There is an [acs package](http://cran.r-project.org/web/packages/acs/index.html) to access US Census data.
-I did a little bit of exploration to see whether I could create maps of New Haven County based on Census data.
-Finding the right Census table turned out to be more of a trick than I expected. [Here](http://rpubs.com/JohnGoldin/196744) is a plot of New Haven County published to RPubs.
+I used the New Haven area as an example to try to figure out some basic ways to 
+use the American Community Survey (ACS) to look at data for the towns around New Haven.
+This turned into a nice example using the tidycensus package to fetch data and do some
+plots in ggplot2.
 
-As I was writing
-this summary I found [this blog post](http://www.arilamstein.com/blog/2015/11/16/search-census-data-r/)
-that might help. I may get back to that later.
+I did some earlier work with the [acs package](http://cran.r-project.org/web/packages/acs/index.html)  [here](http://rpubs.com/JohnGoldin/196744) which is published on RPubs. It now feels very out of date.
 
 ### [An Implementation of Narcissism in R]({{< relref "2017-02-26-narcissism-in-r.html" >}})
 Sometimes I just want to play around plotting some data. What data could be more interesting than data about me?
 It so happens I have a data series of my daily weight spanning more than 20 years. That's not weird, is it. So I did some charts.
+
+### Connecticut Data by Town
+I did somse exploring to see what kind of data I could find and then created some maps via ggplot2 to display some of that data. This is very out of date.
 
 ### Jai Alai
 Last but not least is jai alai. Back when I was in graduate school, there were two jai alai frontons in Connecticut, Milford and Bridgeport. Actually at one point there was also a third fronton in Hartford.
