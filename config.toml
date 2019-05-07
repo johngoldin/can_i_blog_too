@@ -74,7 +74,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     #facebook = ""
     twitter = "https://twitter.com/johngoldin"
     #youtube = ""
-    flickr = "https://www.flickr.com/photos/99418994@N00/albums"
+    flickr = "https://www.flickr.com/people/99418994@N00/"
 
     # Other social-like sidebar links
     rss = true  # switch to true to enable RSS icon link
