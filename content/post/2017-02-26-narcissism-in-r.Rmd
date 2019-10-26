@@ -22,6 +22,8 @@ knitr::opts_chunk$set(collapse = TRUE)
 #knitr::opts_knit$set(root.dir = '../John Vitals')
 ```
 
+*Revised 05/16/2019 with later data.*
+
 This post is more an *example* of narcissism, but *implementation* has a nice technical ring to it.
 
 *Narcissism* hasn't been part of my every-day vocabulary, although it has been in the news recently. Lately
@@ -34,9 +36,9 @@ Synonyms: self-centeredness, smugness, egocentrism.
 
 So "inordinate fascination with oneself" may be a good characterization of the datasets presented here. I don't think "excessive self-love" or "vanity" have much to do with it.
 
-### A Twenty Year History of My Weight###
+### A Twenty+ Year History of My Weight###
 
-For the last twenty-one years I have been recording my weight almost every single morning. I ry to follow a consistent protocol. I'm in my pajamas before I go downstairs for tea and breakfast. It's a more stable and reliable measure of weight than what is  recorded in my doctor's office. I have owned three scales during the twenty-one year period. The first one was analog and I wrote down my weight to the nearest pound. 
+For the last twenty-three years I have been recording my weight almost every single morning. I ry to follow a consistent protocol. I'm in my pajamas before I go downstairs for tea and breakfast. It's a more stable and reliable measure of weight than what is  recorded in my doctor's office. I have owned three scales during the twenty-one year period. The first one was analog and I wrote down my weight to the nearest pound. 
 When I got a dgital scale in 2004, I used both scales for a period of time and adjusted the measurements from the analog scale
 according to the average difference from the digital scale. In short, I was serious about trying to establish a reliable
 measurement over time.
@@ -114,6 +116,14 @@ byday <- byday +
 ```{r byday, fig.width=10, echo=FALSE, message=FALSE, warning=FALSE}
 plot(byday)
 ```
+
+### Change in the Trend
+
+I have revised this post because there is a remarkable change in my weight.
+I go into the full circumstances. 
+
+I started to deliberately try to lose way. I used a calorie counting app called [Lose It](https://itunes.apple.com/us/app/lose-it-calorie-counter/id297368629?mt=8).
+
 
 ### Seasonal Variation in Weight
 

@@ -3,8 +3,9 @@ relativeurls = true
 title = "Can I Blog Too"
 languageCode = "en-us"
 disqusShortname = "johngoldin" # Optional, enable Disqus integration
+googleAnalytics = "UA-92008736-2"
 MetaDataFormat = "toml"
-theme = "hyde-x"
+theme = "hyde-hyde"
 paginate = 10
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
@@ -43,8 +44,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     # Changes sidebar background and link/accent colours.
     # See below for more colour options.
     # This also works: "theme-base-08 layout-reverse", or just "layout-reverse".
+    # theme is for hyde-x, themeColor is for hyde
     theme = "theme-base-08"
-
+    themeColor = "theme-base-08"
+    
     # Select a syntax highight.
     # Check the static/css/highlight directory for options.
     highlight = "kimbie.light"
@@ -79,3 +82,27 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     # Other social-like sidebar links
     rss = true  # switch to true to enable RSS icon link
     #flattr = ""  # populate with your flattr uid
+    
+    # for hyde-hyde
+    showBuiltWith = true
+    copyright = "license"
+    license = "MIT"
+    licenseURL = "https://johngoldin.com/license/"
+    
+[params.social]
+    # Sidebar social links, these must be full URLs.
+    github = "johngoldin"
+    #bitbucket = ""
+    #stackOverflow = ""
+    #linkedin = ""
+    #googleplus = ""
+    #facebook = ""
+    twitter = "johngoldin"
+    #youtube = ""
+    flickr = "https://www.flickr.com/people/99418994@N00/"
+
+    # Other social-like sidebar links
+    rss = true  # switch to true to enable RSS icon link
+    #flattr = ""  # populate with your flattr uid
+    gravatar = "john.r.goldin@gmail.com"
+    

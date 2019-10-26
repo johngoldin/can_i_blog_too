@@ -3,12 +3,9 @@ title: Technical Note--Shiny Souvenir Map of Walks
 date: '2016-06-28'
 slug: "walks_map_notes"
 categories:
-  - R
   - Leaflet
   - GPS
   - Flickr
-tags:
-  - R
 ---
 I have used RStudio’s Shiny to create a [map page](https://goldin.shinyapps.io/Walks/) where I can display GPS traces and photos from walks I have done during the last five years.
 

@@ -3,10 +3,8 @@ title: Portfolio of Projects
 date: '2017-02-17'
 slug: "portfolio"
 categories:
-  - R
   - personal
-tags:
-  - R
+
 menu: "main"
 ---
 <!--- created with this command:
