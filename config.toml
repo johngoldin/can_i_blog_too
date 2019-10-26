@@ -5,7 +5,9 @@ languageCode = "en-us"
 disqusShortname = "johngoldin" # Optional, enable Disqus integration
 googleAnalytics = "UA-92008736-2"
 MetaDataFormat = "toml"
-theme = "hyde-hyde"
+#theme = "hyde-hyde"
+theme = "hyde-x"
+highlightjs = true
 paginate = 10
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
