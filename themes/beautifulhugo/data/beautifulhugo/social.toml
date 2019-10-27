@@ -47,6 +47,12 @@ title = "Reddit"
 icon = "fab fa-reddit-alien"
 
 [[social_icons]]
+id = "flickr"
+url = "https://www.flickr.com/people/%s"
+title = "Flickr"
+icon = "fab fa-flickr"
+
+[[social_icons]]
 id = "linkedin"
 url = "https://linkedin.com/in/%s"
 title = "LinkedIn"

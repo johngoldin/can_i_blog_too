@@ -53,6 +53,13 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   email = "john.r.goldin@gmail.com"
   github = "johngoldin"
   twitter = "johngoldin"
+  flickr = "99418994@N00"
+    # add code below to themes/beautifulhugo/data/beautifulhugo/social.toml
+    # [[social_icons]]
+    # id = "flickr"
+    # url = "https://www.flickr.com/people/%s"
+    # title = "Flickr"
+    # icon = "fab fa-flickr"
 
 
 [[menu.main]]
