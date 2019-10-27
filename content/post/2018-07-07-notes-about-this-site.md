@@ -2,7 +2,7 @@
 title: Notes About This Site
 author: John Goldin
 date: '2018-07-07'
-menu: "main"
+# menu: "main"
 slug: "site-notes"
 categories: []
 tags: []

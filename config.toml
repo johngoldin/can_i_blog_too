@@ -1,110 +1,94 @@
 baseURL = "https://johngoldin.com/"
-relativeurls = true
+DefaultContentLanguage = "en"
+#DefaultContentLanguage = "ja"
 title = "Can I Blog Too"
-languageCode = "en-us"
-disqusShortname = "johngoldin" # Optional, enable Disqus integration
+theme = "beautifulhugo"
+metaDataFormat = "yaml"
+pygmentsStyle = "trac"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+#pygmentsUseClassic = true
+#pygmentOptions = "linenos=inline"
 googleAnalytics = "UA-92008736-2"
-MetaDataFormat = "toml"
-#theme = "hyde-hyde"
-theme = "hyde-x"
-highlightjs = true
-paginate = 10
+gravatarHash = "f7dd8b52bc092b4e50e9324381b02d67"
+disqusShortname = "johngoldin" # Optional, enable Disqus integration
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
-[author]
-    name = "John Goldin"
+[Params]
+#  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
+	subtitle = "Some of my personal projects with R"
+  mainSections = ["post","posts"]
+  logo = "https://www.gravatar.com/avatar/f7dd8b52bc092b4e50e9324381b02d67?s=200"
+#  logo = "img/avatar-icon.png" # Expecting square dimensions
+#  favicon = "img/favicon.ico"
+  dateFormat = "January 2, 2006"
+  commit = false
+  rss = true
+  comments = true
+  readingTime = false
+  wordCount = false
+  useHLJS = true
+  socialShare = true
+  delayDisqus = true
+  showRelatedPosts = true
+#  hideAuthor = true
+#  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 
-[permalinks]
-    # Optional. Change the permalink format for the 'post' content type.
-    # The format shown here is the same one Jekyll/Octopress uses by default.
-    # post = "/blog/:year/:month/:day/:title/"
-    # blogdown book recommends slug:
-    post = "/:year/:month/:slug/"
+#[[Params.bigimg]]
+#  src = "img/triangle.jpg"
+#  desc = "Triangle"
+#[[Params.bigimg]]
+#  src = "img/sphere.jpg"
+#  desc = "Sphere"
+#  # position: see values of CSS background-position.
+#  position = "center top"
+#[[Params.bigimg]]
+#  src = "img/hexagon.jpg"
+#  desc = "Hexagon"
 
-[taxonomies]
-    # Optional. Use if you want tags and lists.
-    category = "categories"
+[Author]
+  name = "John Goldin"
+  website = "https://johngoldin.com/"
+  email = "john.r.goldin@gmail.com"
+  github = "johngoldin"
+  twitter = "johngoldin"
 
-#
-# All parameters below here are optional and can be mixed and matched.
-#
-[params]
-    author = "John Goldin"
-    # If false display full article contents in blog index.
-    # Otherwise show description and 'read on' link to individual blog post page.
-    # Default (if omitted) is true.
-    truncate = true
 
-    # Used when a given page doesn't set its own.
-    #defaultDescription = "Your default page description"
-    #defaultKeywords = "your,default,page,keywords"
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
 
-    # Hide estimated reading time for posts.
-    # Default (if omitted) is false.
-    hideReadingTime = false
+[[menu.main]]
+    name = "About"
+    url = "page/about/"
+    weight = 3
 
-    # Changes sidebar background and link/accent colours.
-    # See below for more colour options.
-    # This also works: "theme-base-08 layout-reverse", or just "layout-reverse".
-    # theme is for hyde-x, themeColor is for hyde
-    theme = "theme-base-08"
-    themeColor = "theme-base-08"
-    
-    # Select a syntax highight.
-    # Check the static/css/highlight directory for options.
-    highlight = "kimbie.light"
-    # Optional additional custom CSS file URL, will override other styles.
-    customCSS = ""
+#[[menu.main]]
+#    identifier = "samples"
+#   name = "Samples"
+#    weight = 2
 
-    # Displays under the author name in the sidebar, keep it short.
-    # You can use markdown here.
-    # tagline = "Notes on this and that..."
-    tagline =  "Can I blog too?"
-    description = "Some of my personal projects with R"
+#[[menu.main]]
+#    parent = "samples"
+#    name = "Big Image Sample"
+#    url = "post/2017-03-07-bigimg-sample"
+#    weight = 1
 
-    # Text for the top menu link, which goes the root URL for the site.
-    # Default (if omitted) is "Blog".
-    home = "Blog"
+#[[menu.main]]
+#    parent = "samples"
+#    name = "Math Sample"
+#    url = "post/2017-03-05-math-sample"
+#    weight = 2
 
-    # Metadata used to drive integrations.
-    googleAnalytics = "UA-92008736-2"
-    gravatarHash = "f7dd8b52bc092b4e50e9324381b02d67"
+#[[menu.main]]
+#    parent = "samples"
+#    name = "Code Sample"
+#    url = "post/2016-03-08-code-sample"
+#    weight = 3
 
-    # Sidebar social links, these must be full URLs.
-    github = "https://github.com/johngoldin"
-    #bitbucket = ""
-    #stackOverflow = ""
-    #linkedin = ""
-    #googleplus = ""
-    #facebook = ""
-    twitter = "https://twitter.com/johngoldin"
-    #youtube = ""
-    flickr = "https://www.flickr.com/people/99418994@N00/"
-
-    # Other social-like sidebar links
-    rss = true  # switch to true to enable RSS icon link
-    #flattr = ""  # populate with your flattr uid
-    
-    # for hyde-hyde
-    showBuiltWith = true
-    copyright = "license"
-    license = "MIT"
-    licenseURL = "https://johngoldin.com/license/"
-    
-[params.social]
-    # Sidebar social links, these must be full URLs.
-    github = "johngoldin"
-    #bitbucket = ""
-    #stackOverflow = ""
-    #linkedin = ""
-    #googleplus = ""
-    #facebook = ""
-    twitter = "johngoldin"
-    #youtube = ""
-    flickr = "https://www.flickr.com/people/99418994@N00/"
-
-    # Other social-like sidebar links
-    rss = true  # switch to true to enable RSS icon link
-    #flattr = ""  # populate with your flattr uid
-    gravatar = "john.r.goldin@gmail.com"
-    
+[[menu.main]]
+    name = "Tags"
+    url = "tags"
+    weight = 3

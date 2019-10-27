@@ -1,0 +1,95 @@
+baseURL = "https://johngoldin.com/"
+relativeurls = true
+title = "Can I Blog Too"
+languageCode = "en-us"
+disqusShortname = "johngoldin" # Optional, enable Disqus integration
+googleAnalytics = "UA-92008736-2"
+MetaDataFormat = "toml"
+#theme = "hyde-hyde"
+theme = "hyde-x"
+highlightjs = true
+paginate = 10
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+[author]
+    name = "John Goldin"
+
+[permalinks]
+    # Optional. Change the permalink format for the 'post' content type.
+    # The format shown here is the same one Jekyll/Octopress uses by default.
+    # post = "/blog/:year/:month/:day/:title/"
+    # blogdown book recommends slug:
+    post = "/:year/:month/:slug/"
+
+[taxonomies]
+    # Optional. Use if you want tags and lists.
+    category = "categories"
+
+#
+# All parameters below here are optional and can be mixed and matched.
+#
+[params]
+    author = "John Goldin"
+    title = "Can I Blog Too"
+    # If false display full article contents in blog index.
+    # Otherwise show description and 'read on' link to individual blog post page.
+    # Default (if omitted) is true.
+    truncate = true
+    #showBuiltWith = true
+
+    # Used when a given page doesn't set its own.
+    #defaultDescription = "Your default page description"
+    #defaultKeywords = "your,default,page,keywords"
+
+    # Hide estimated reading time for posts.
+    # Default (if omitted) is false.
+    hideReadingTime = true
+
+    # Changes sidebar background and link/accent colours.
+    # See below for more colour options.
+    # This also works: "theme-base-08 layout-reverse", or just "layout-reverse".
+    # theme is for hyde-x, themeColor is for hyde
+    theme = "theme-base-08"
+    themeColor = "theme-base-08"
+    
+    # Select a syntax highight.
+    # Check the static/css/highlight directory for options.
+    highlight = "kimbie.light"
+    #highlight = "sunburst"
+    
+    # Optional additional custom CSS file URL, will override other styles.
+    customCSS = ""
+    highlightjs = true
+    highlightjsstyle = "github"
+    
+    # Displays under the author name in the sidebar, keep it short.
+    # You can use markdown here.
+    # tagline = "Notes on this and that..."
+    tagline =  "Can I blog too?"
+    description = "Some of my personal projects with R"
+
+    # Text for the top menu link, which goes the root URL for the site.
+    # Default (if omitted) is "Blog".
+    home = "Blog"
+
+    # Metadata used to drive integrations.
+    googleAnalytics = "UA-92008736-2"
+    gravatarHash = "f7dd8b52bc092b4e50e9324381b02d67"
+
+    # Sidebar social links, these must be full URLs.
+    github = "https://github.com/johngoldin"
+    #bitbucket = ""
+    #stackOverflow = ""
+    #linkedin = ""
+    #googleplus = ""
+    #facebook = ""
+    twitter = "https://twitter.com/johngoldin"
+    #youtube = ""
+    flickr = "https://www.flickr.com/people/99418994@N00/"
+
+    # Other social-like sidebar links
+    rss = true  # switch to true to enable RSS icon link
+    #flattr = ""  # populate with your flattr uid
+    
+
+  

@@ -5,7 +5,7 @@ slug: "portfolio"
 categories:
   - personal
 
-menu: "main"
+# menu: "main"
 ---
 <!--- created with this command:
 # blogdown::new_post("Portfolio of Projects", categories = c("R", "personal"), tags = c("R"), rmd = FALSE)  --->
