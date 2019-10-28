@@ -7,9 +7,22 @@ date: "2018-07-05"
 Until 2011 I was the Director of Institutional Research at Yale University. 
 I now call myself sem-retired because I still work for Yale about ten hours a week.
 
-As a mostly-retiree I enjoy travel, walking, and doing data analysis with R.
-This website is intended to describe some of my personal R projects. 
-It may include some posts on other general subjects.
+I started this blog to describe some of my personal R projects. I have loved computer
+coding since my first experience as a sophomore at Michigan State in 1968. 
+I bought my first personal computer in 1979 (a TRS-80), and coding has been a part of my
+personal life, not just my professional life. I dallied with many, many computer languages
+over the decades, but R turns out to be the perfect match for me. I appreciate the
+enthusiasm and spirit of the R community. It reminds me a bit of the personal computer
+community of the early 1980's, but with more diversity on many dimensions.
+
+I get a lot of tips and new directions from the [RBloggers digest](https://www.r-bloggers.com).
+I follow them on [twitter](https://twitter.com/rbloggers?lang=en). 
+I hope to contribute some of my posts soon.
+
+Although this blog is mostly an outlet for my R enthusiasm, it may include some other
+topics such as travel or adventures related to the [quantified self](https://quantifiedself.com).
+I was especially pleased to be able to combine R (via Shiny) and travel in the same code: see
+[souvenirs of my walks](https://goldin.shinyapps.io/Walks/).
 
 <br> 
 #### About This Site
@@ -29,3 +42,4 @@ I did some on [Blogger](http://goldinoldie.blogspot.com/).
 
 John Goldin                     gmail is john.r.goldin   
 Guilford, Connecticut, USA
+October 27, 2019
