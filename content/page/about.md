@@ -20,9 +20,7 @@ to setup and maintain a website via [Hugo](https://gohugo.io/).
 As of October 2019 I have switched to the [Beautiful Hugo](https://github.com/halogenica/beautifulhugo) theme.
 
 An earlier version of the site was served via [GitHub Pages](https://pages.github.com/),
-but the current site relies on [Netlify](https://www.netlify.com) to serve the site.
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/64a2f27e-a4c8-4604-a400-b1b4c7f9d3cd/deploy-status)](https://app.netlify.com/sites/distracted-swanson-8d1a85/deploys)
+but the current site relies on [Netlify](https://www.netlify.com) to serve the site. [![Netlify Status](https://api.netlify.com/api/v1/badges/64a2f27e-a4c8-4604-a400-b1b4c7f9d3cd/deploy-status)](https://app.netlify.com/sites/distracted-swanson-8d1a85/deploys)
 
 My first post describes [how I set up this site]({{< relref "2017-02-11-how-i-setup-this-site.md" >}}).
 

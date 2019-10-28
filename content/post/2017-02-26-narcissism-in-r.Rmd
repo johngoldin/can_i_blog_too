@@ -4,11 +4,11 @@ author: ~
 date: '2017-02-26'
 categories: 
   - personal
-  - R
+  - Quantified-Self
 tags:
   - personal
-  - R
-description: ''
+  - Quantified-Self
+description: 'Tracking my weight for more than 20 years.'
 keywords: []
 ---
 
