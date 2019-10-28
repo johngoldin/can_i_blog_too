@@ -41,5 +41,5 @@ Previously I did some [posts on WordPress](https://caniblogtoo.wordpress.com/) (
 I did some on [Blogger](http://goldinoldie.blogspot.com/).
 
 John Goldin                     gmail is john.r.goldin   
-Guilford, Connecticut, USA
+Guilford, Connecticut, USA    
 October 27, 2019
