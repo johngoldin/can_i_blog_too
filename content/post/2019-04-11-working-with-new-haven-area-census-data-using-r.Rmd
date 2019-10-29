@@ -603,33 +603,29 @@ rcodes <- tribble(
 "hispanic" , "B01001I_001",
 "not_us" , "B05001_006")
 
-race_town <- get_acs(geography = "county subdivision",  # for CT, that means towns
+race_town2 <- get_acs(geography = "county subdivision",  # for CT, that means towns
               state = "CT",
               county = "New Haven",
               geometry = "FALSE", 
               year = 2017,
               survey = "acs5",
               variables = c(white_not_hispanic, white_alone, black, hispanic, asian, not_us),
-              summary_var = "B01001_001") %>% 
-  filter(estimate > 0) %>% 
-  left_join(town_geometry %>% select(-NAME), by = "GEOID") %>% 
-  mutate(TOWN = str_replace(NAME, " town, New Haven County, Connecticut", ""),
-         pct = estimate / summary_est,
-         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe)) %>% 
-  filter(TOWN %in% pick_towns)
-
-race_town = race_town %>% left_join(rcodes, by = "variable") %>% 
-  select(-NAME) %>% 
+              summary_var = "B01001_001")   %>% 
+  left_join(rcodes, by = "variable") %>% 
   mutate(race = factor(code, 
                        levels = c("white_alone", "white_not_hispanic", "hispanic", "black", "asian", "not_us"), 
-                       labels = c("White alone", "White not Hispanic", "Hispanic", "Black", "Asian", "Not US citizen")))
+                       labels = c("White alone", "White not Hispanic", "Hispanic", "Black", "Asian", "Not US citizen")),
+         pct = estimate / summary_est,
+         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe))
+race_town <- town_geometry %>% left_join(race_town2 %>% select(-NAME), by = "GEOID") %>% 
+  filter(NAME %in% pick_towns)
 
 race_table <- as_tibble(race_town %>% 
-                          select(TOWN, code, summary_est, pct, pct_moe, race))
+                          select(Town = NAME, code, summary_est, pct, pct_moe, race))
 
 race_table <- race_table %>% 
   mutate(pct = percent(pct, accuracy = 1.0)) %>% 
-  select(Town = TOWN, race, Percent = pct) %>% 
+  select(Town, race, Percent = pct) %>% 
   spread(key = race, value = Percent) %>% 
   arrange(`White not Hispanic`) 
 ```
@@ -788,7 +784,7 @@ more info at [census.gov](https://www.census.gov).
 All of this relies on the [tidycensus](https://walkerke.github.io/tidycensus/articles/basic-usage.html) 
 and [tigris](https://github.com/walkerke/tigris) 
 packages by [Kyle Walker](https://walkerke.github.io).
-Several years I did a wee bit of work on making maps with census data without
+Several years ago I did a wee bit of work on making maps with census data without
 `tidycensus` or the `sf` package. It was much more difficult! The tools that
 Kyle has provided make it all much easier. I took his census course at 
 [DataCamp](https://www.datacamp.com/instructors/kylewalker) and found it to be very helpful.

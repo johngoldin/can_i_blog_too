@@ -2,6 +2,7 @@
 title: Working with New Haven Area Census Data Using R
 author: John Goldin
 date: '2019-04-11'
+description: 'Using the tidycensus package to explore census data. This post shows R code to fetch and map census data, but also gives some tips on how to explore the almost overwhelmind variety of variables available via the Census Bureau.'
 categories:
   - census
   - maps
@@ -1155,33 +1156,29 @@ rcodes &lt;- tribble(
 &quot;hispanic&quot; , &quot;B01001I_001&quot;,
 &quot;not_us&quot; , &quot;B05001_006&quot;)
 
-race_town &lt;- get_acs(geography = &quot;county subdivision&quot;,  # for CT, that means towns
+race_town2 &lt;- get_acs(geography = &quot;county subdivision&quot;,  # for CT, that means towns
               state = &quot;CT&quot;,
               county = &quot;New Haven&quot;,
               geometry = &quot;FALSE&quot;, 
               year = 2017,
               survey = &quot;acs5&quot;,
               variables = c(white_not_hispanic, white_alone, black, hispanic, asian, not_us),
-              summary_var = &quot;B01001_001&quot;) %&gt;% 
-  filter(estimate &gt; 0) %&gt;% 
-  left_join(town_geometry %&gt;% select(-NAME), by = &quot;GEOID&quot;) %&gt;% 
-  mutate(TOWN = str_replace(NAME, &quot; town, New Haven County, Connecticut&quot;, &quot;&quot;),
-         pct = estimate / summary_est,
-         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe)) %&gt;% 
-  filter(TOWN %in% pick_towns)
-
-race_town = race_town %&gt;% left_join(rcodes, by = &quot;variable&quot;) %&gt;% 
-  select(-NAME) %&gt;% 
+              summary_var = &quot;B01001_001&quot;)   %&gt;% 
+  left_join(rcodes, by = &quot;variable&quot;) %&gt;% 
   mutate(race = factor(code, 
                        levels = c(&quot;white_alone&quot;, &quot;white_not_hispanic&quot;, &quot;hispanic&quot;, &quot;black&quot;, &quot;asian&quot;, &quot;not_us&quot;), 
-                       labels = c(&quot;White alone&quot;, &quot;White not Hispanic&quot;, &quot;Hispanic&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Not US citizen&quot;)))
+                       labels = c(&quot;White alone&quot;, &quot;White not Hispanic&quot;, &quot;Hispanic&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Not US citizen&quot;)),
+         pct = estimate / summary_est,
+         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe))
+race_town &lt;- town_geometry %&gt;% left_join(race_town2 %&gt;% select(-NAME), by = &quot;GEOID&quot;) %&gt;% 
+  filter(NAME %in% pick_towns)
 
 race_table &lt;- as_tibble(race_town %&gt;% 
-                          select(TOWN, code, summary_est, pct, pct_moe, race))
+                          select(Town = NAME, code, summary_est, pct, pct_moe, race))
 
 race_table &lt;- race_table %&gt;% 
   mutate(pct = percent(pct, accuracy = 1.0)) %&gt;% 
-  select(Town = TOWN, race, Percent = pct) %&gt;% 
+  select(Town, race, Percent = pct) %&gt;% 
   spread(key = race, value = Percent) %&gt;% 
   arrange(`White not Hispanic`) </code></pre>
 </div>
@@ -1688,7 +1685,7 @@ more info at <a href="https://www.census.gov">census.gov</a>.</p>
 <p>All of this relies on the <a href="https://walkerke.github.io/tidycensus/articles/basic-usage.html">tidycensus</a>
 and <a href="https://github.com/walkerke/tigris">tigris</a>
 packages by <a href="https://walkerke.github.io">Kyle Walker</a>.
-Several years I did a wee bit of work on making maps with census data without
+Several years ago I did a wee bit of work on making maps with census data without
 <code>tidycensus</code> or the <code>sf</code> package. It was much more difficult! The tools that
 Kyle has provided make it all much easier. I took his census course at
 <a href="https://www.datacamp.com/instructors/kylewalker">DataCamp</a> and found it to be very helpful.</p>
