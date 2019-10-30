@@ -48,7 +48,7 @@ Like a good souvenir, it triggers lots of memories. If I lingered on a bench add
 on the GPS trace showing where I stopped for a spell. I can also see my wrong turns.
 The code for the sourvenir walks site is available at a [GitHub repository](https://github.com/johngoldin/Visualizing-Hiking). There are also some [technical notes]({{< relref "2016-06-28-technical-note-shiny-souvenir-map.md" >}}) and some details on [Flickr from R]({{< relref "2016-07-03-using-the-flickr-api-from-r.md" >}}).
 
-### [Census Data](https://www.johngoldin.com/2019/04/new-haven-census-and-r/)
+### [Census Data](/post/new-haven-census-and-r/)
 
 I used the New Haven area as an example to try to figure out some basic ways to 
 use the American Community Survey (ACS) to look at data for the towns around New Haven.

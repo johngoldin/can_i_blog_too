@@ -9,6 +9,7 @@ categories:
   - census
 tags: 
   - R
+  - Guilford
   - maps
   - census
 description: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. To see just the interesting plots without lots of R-related detail, skip this post and read the next one instead. '
@@ -17,11 +18,18 @@ keywords: []
 
 
 
-<p><strong>Attention conservation notice:</strong> Unless you are interested in R-related detail, skip this post and read the <a href="https://www.johngoldin.com/2018/09/guilford-demographics/">next post</a> instead.</p>
+<p><strong>Attention conservation notice:</strong> Unless you are interested in R-related detail, skip this post and
+read the <a href="/post/guilford-demographics/">next post</a> instead.</p>
 <div id="the-data-source" class="section level3">
 <h3>The Data Source</h3>
-<p>It’s primary season and recently I learned about a somewhat strange <a href="http://connvoters.com/download.html">site</a> that collects a lot of voter registration data. One surprise is that it includes birth date and the full dataset also includes phone numbers. I was a bit surprised that this data is publicly available. Apparently I am not the only one. <a href="http://www.wfsb.com/story/26835982/website-displaying-voters-personal-information-has-right-to-do-so">Here</a> is an article from Eyewitness News in Connecticut treating this data as a controversy.</p>
-<p>The author of this site is a fellow from new Hampshire. His primary interest is genealogy. He is unapologetic about putting all this data out onto the web and includes a <a href="http://connvoters.com/publish.html">robust defense</a> of his site. In his <a href="http://connvoters.com/about.html">about page</a>, he offers the following comment:</p>
+<p>It’s primary season and recently I learned about a somewhat strange
+<a href="http://connvoters.com/download.html">site</a> that collects a lot of voter registration data.
+One surprise is that it includes birth date and the full dataset also includes phone numbers.
+I was a bit surprised that this data is publicly available.
+Apparently I am not the only one. <a href="https://www.nbcconnecticut.com/investigations/Troubleshooters-Investigation-Voting-Records-292310391.htm">Here</a>
+is an article from TV News in Connecticut treating this data as a controversy.</p>
+<p>The author of this site is a fellow from new Hampshire. His primary interest is genealogy.
+He is unapologetic about putting all this data out onto the web and includes a <a href="http://connvoters.com/publish.html">robust defense</a> of his site. In his <a href="http://connvoters.com/about.html">about page</a>, he offers the following comment:</p>
 <blockquote>
 <p>Perhaps you have become disillusioned, because you had a false sense of privacy.<br />
 Welcome to the twenty-first century and the Information Age.</p>
@@ -30,11 +38,44 @@ Welcome to the twenty-first century and the Information Age.</p>
 </div>
 <div id="an-r-coding-sampler" class="section level3">
 <h3>An R Coding Sampler</h3>
-<p>This won’t be a coherent description of registered voters in Guilford. Instead it is a collection of various bits of loosely related R code. I grabbed onto the Guilford voter statistics because it was a way to connect to my new home. But the primary purpose was to exercise my R muscles rather than to learn about Guilford voters. I spent way more time on this than I expected. Each bit would lead me to try one more thing. <img style="float: right;" src="/img/sampler_retouched2.jpg" height="266" width="233"> Because I enjoy mapping, I wandered off into some time-consuming experimentation with geotagging.</p>
-<p>As I spent an unreasonable time fooling around with this data, I cam to regard this activity as being like a cross-stitch sampler that I inherited from my mother. The point of samplers of this sort was just to practice the craft. (I note that this one was done in 1971, the year I graduated from college.) This blog post has something in common with my mother’s sampler. Like hers, it was done for the simple pleasure of doing it (even though that involved interludes of frustration and tedium) and as an exercise to practice my skill. The result may be about as useful as a cross-stitch sampler, but “useful” isn’t the point.</p>
-<p>One reason this has taken an unreasonable amount of time is that I started out with a mistake. When I first went to the voter registration web site, I used the interface on the page to select voters in the Town of Guilford. I then copied the list of about 20,000 names and pasted them into a text file. That was the dataset I started with. But as I progressed, I noticed some odd things about this data. It had a a noticeable number of cases where I knew people were no longer registered to vote, including names at my house who I knew no longer lived there and people who I knew were deceased or who were implausibly old. As a last step, I compared the registration data to census population data by age and in many cases saw substantially more voter registrations than population.</p>
-<p>It just didn’t seem right. So I went back to the web site and realized that I could download a bunch of files that together constituted the complete list for Connecticut. In fact he offers the option to download data from <a href="http://connvoters.com/download.html">several points in time</a>. When I downloaded the data for June 2018, I ended up with about 15,000 active voter registrations rather than the 20,628 names I got when I just copied the results of the query on his main page. His interest is in genealogy. I suspect that what he has done is to combine all the names he found in 2013, 2014, 2016, 2017, and 2018. That’s how he includes people who have moved away or died. Perhaps for genealogy purposes he wants a list as inclusive as possible. Voting is not his focus. The downloaded data also includes a few more details than he shows in his interactive query. The upshot was that I needed to reload the larger dataset and redo my analyses. This turned out to be a case where relying on RMarkdown provided a real advantage.</p>
-<p>As a note on the archaeology of IT, the layouts of the Connecticut dataset look to me like they were done in COBOL. One wonders how much COBOL code is still active.</p>
+<p>This won’t be a coherent description of registered voters in Guilford. Instead it is
+a collection of various bits of loosely related R code.
+I grabbed onto the Guilford voter statistics because it was a way to connect to my
+new home. But the primary purpose was to exercise my R muscles rather than to
+learn about Guilford voters.
+I spent way more time on this than I expected. Each bit would lead me to try one more thing.
+<img style="float: right;" src="/img/sampler_retouched2.jpg" height="266" width="233">
+Because I enjoy mapping, I wandered off into some time-consuming experimentation with geotagging.</p>
+<p>As I spent an unreasonable time fooling around with this data,
+I cam to regard this activity as being like a cross-stitch sampler that
+I inherited from my mother. The point of samplers of this sort was just to practice the craft.
+(I note that this one was done in 1971, the year I graduated from college.) This blog post has something
+in common with my mother’s sampler. Like hers, it was done for the simple pleasure of doing it
+(even though that involved interludes of frustration and tedium) and as an
+exercise to practice my skill. The result may be about as useful as a cross-stitch sampler, but
+“useful” isn’t the point.</p>
+<p>One reason this has taken an unreasonable amount of time is that I started out with a mistake.
+When I first went to the voter registration web site, I used the interface on the page to
+select voters in the Town of Guilford. I then copied the list of about 20,000 names and pasted
+them into a text file. That was the dataset I started with. But as I progressed, I noticed some
+odd things about this data. It had a a noticeable number of cases where I knew people were no longer
+registered to vote, including names at my house who I knew no longer lived there and people who I knew
+were deceased or who were implausibly old. As a last step, I compared the registration data to
+census population data by age and in many cases saw substantially more voter registrations than
+population.</p>
+<p>It just didn’t seem right. So I went back to the web site and realized that I could download a bunch
+of files that together constituted the complete list for Connecticut. In fact he offers the option
+to download data from <a href="http://connvoters.com/download.html">several points in time</a>.
+When I downloaded the data for June 2018, I ended up with about 15,000 active voter registrations
+rather than the 20,628 names I got when I just copied the results of the query on his main page.
+His interest is in genealogy. I suspect that what he has done is to combine all the names he
+found in 2013, 2014, 2016, 2017, and 2018. That’s how he includes people who have moved away or died.
+Perhaps for genealogy purposes he wants a list as inclusive as possible. Voting is not his focus.
+The downloaded data also includes a few more details than he shows in his interactive query.
+The upshot was that I needed to reload the larger dataset and redo my analyses. This turned out
+to be a case where relying on RMarkdown provided a real advantage.</p>
+<p>As a note on the archaeology of IT, the layouts of the Connecticut dataset look to me like they were done
+in COBOL. One wonders how much COBOL code is still active.</p>
 <div id="skills-i-used-doing-this-post" class="section level4">
 <h4>Skills I Used Doing this Post</h4>
 <ul>
@@ -54,7 +95,8 @@ Welcome to the twenty-first century and the Information Age.</p>
 </div>
 <div id="explore-basic-stats" class="section level3">
 <h3>Explore Basic Stats</h3>
-<p>After reading in the downloaded file of voter registrations for the Town of Guilford, we will look at some basic statistics by party.</p>
+<p>After reading in the downloaded file of voter registrations for the Town of Guilford, we
+will look at some basic statistics by party.</p>
 <pre class="r"><code># note: sampler picture is 1395 × 1597
 # Code that reads in the 500MB chunk that includes Guilford:
 EXT2 &lt;- read_csv(&quot;downloaded_files/SSP-2/ELCT/VOTER/EXT2&quot;,
@@ -184,10 +226,13 @@ Total
 </tbody>
 </table>
 <p>The winning party in Guilford is…Unaffiliated!</p>
-<p>This is reasonably close to the <a href="https://portal.ct.gov/-/media/sots/ElectionServices/Registration_and_Enrollment_Stats/Nov17RPES.pdf?la=en">stats</a> provided by Secretary of State from 2017 which show 5,379 Democrats, 3,494 Republicans, and 5,956 unaffiliated.</p>
+<p>This is reasonably close to the <a href="https://portal.ct.gov/-/media/sots/ElectionServices/Registration_and_Enrollment_Stats/Nov17RPES.pdf?la=en">stats</a> provided by Secretary of State from 2017 which show 5,379
+Democrats, 3,494 Republicans, and 5,956 unaffiliated.</p>
 <div id="gender" class="section level4">
 <h4>Gender</h4>
-<p>The downloaded dataset included gender, but many values were missing. One can easily get an approximate version of gender based on first name. The <a href="https://ropensci.org">rOpenSci</a> includes a package called <a href="https://github.com/ropensci/gender">gender</a> to estimate gender based on first name. For the US it uses a social security database of name and gender by birth year. Based on name it gives a probability of male or female.</p>
+<p>The downloaded dataset included gender, but many values were missing. One can easily get an approximate version of gender based on first name. The <a href="https://ropensci.org">rOpenSci</a> includes a package called <a href="https://github.com/ropensci/gender">gender</a> to estimate gender based on first name.
+For the US it uses a social security database of name and gender by birth year. Based on
+name it gives a probability of male or female.</p>
 <pre class="r"><code># I clean up the first_name data to eliminate initials and then pick first word
 # Also interprets hyphenated first name: Mary-Beth picks out Mary
 regs_fn &lt;- regs %&gt;% 
@@ -203,7 +248,8 @@ all_fn &lt;- unique(fn_year$fn)
 # call the gender function to get percent male/female
 simple_gender &lt;- gender::gender(all_fn) %&gt;%
   mutate(gender_guess = ifelse(proportion_male &gt; 0.5, &quot;Male&quot;, &quot;Female&quot;))</code></pre>
-<p>Here are some names that fall between 45% and 55% male (i.e., close to a coin flip).</p>
+<p>Here are some names that fall between 45% and 55%
+male (i.e., close to a coin flip).</p>
 <pre class="r"><code>iffy_gender &lt;- simple_gender %&gt;% filter(proportion_male &lt; 0.55, proportion_male &gt; 0.45) %&gt;%
   mutate(how_close = abs(proportion_male - 0.5)) %&gt;% arrange(desc(how_close))
 kable(iffy_gender %&gt;% select(`first name` = name, `proportion male` = proportion_male, `estimated gender` = gender))</code></pre>
@@ -288,7 +334,9 @@ kable(iffy_gender %&gt;% select(`first name` = name, `proportion male` = proport
 </tr>
 </tbody>
 </table>
-<p>And here is the distribution of observed first names compared with the baseline stats supplied by the gender package. You can’t get more bi-modal than this. The gender guesses are not 100% accurate, but most are quite unambiguous.</p>
+<p>And here is the distribution of observed first names compared with the baseline
+stats supplied by the gender package. You can’t get more bi-modal than this.
+The gender guesses are not 100% accurate, but most are quite unambiguous.</p>
 <pre class="r"><code>name_found &lt;- left_join(regs_fn, simple_gender, by = c(&quot;fn&quot; = &quot;name&quot;)) %&gt;% filter(!is.na(proportion_male))
 for_subtitle &lt;- paste(sprintf(&quot;(The `gender` package found an entry  in the gender database for %4.1f%%&quot;, 
                               (nrow(name_found) / nrow(regs_fn)) * 100), 
@@ -298,8 +346,11 @@ ggplot(data = name_found, aes(x = proportion_male)) +
   labs(title = &quot;Estimate of Gender Based on First Name&quot;, 
        subtitle = for_subtitle)</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/gender_guess-1.png" width="672" /></p>
-<p>Of the small number of first names that were not found by the <code>gender</code> package, I would guess that more than 90% are non-European or at least non-English-speaking names.</p>
-<p>Now we are ready to do a basic table showing the number of registered voters by party and sex. Women are less likely to be unaffiliated and more likely to be Democrats than are men.</p>
+<p>Of the small number of first names that were not found by the <code>gender</code> package, I would
+guess that more than 90% are non-European or at least non-English-speaking names.</p>
+<p>Now we are ready to do a basic table showing the number of registered voters
+by party and gender. Women are less likely to be unaffiliated and more likely to be
+Democrats than are men.</p>
 <pre class="r"><code># gosh, it takes a lot of fooling around to produce a straightforward table
 regs_fn &lt;- regs_fn %&gt;% 
   left_join(simple_gender %&gt;% select(fn = name, sex = gender_guess))</code></pre>
@@ -401,8 +452,12 @@ kable(by_party, align = c(&quot;l&quot;, &quot;r&quot;, &quot;r&quot;, &quot;r&q
 </div>
 <div id="age" class="section level3">
 <h3>Age</h3>
-<p>Given that birth date is included in the dataset, let’s take a look at age. The first thing to do is to check the outliers. There are some people who are under 18. I was surprised to learn that in Connecticut a 17 year old can register to vote in a primary if they will turn 18 by the time of the general election.</p>
-<p>Here is the code that converts the text date of birth into a value for age and that does some other recoding.</p>
+<p>Given that birth date is included in the dataset, let’s take a look at age.
+The first thing to do is to check the outliers. There are some people
+who are under 18. I was surprised to learn that in Connecticut a 17 year old can register to vote in a
+primary if they will turn 18 by the time of the general election.</p>
+<p>Here is the code that converts the text date of birth into a value for
+age and that does some other recoding.</p>
 <pre class="r"><code>library(lubridate)
 # https://stackoverflow.com/questions/31126726/efficient-and-accurate-age-calculation-in-years-months-or-weeks-in-r-given-b
 compute_age &lt;- function(from, to) {
@@ -457,11 +512,14 @@ party_pyramid &lt;- ggplot(data = for_pop_pyramid,
   facet_wrap(~ Party)
 print(party_pyramid) </code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/pop_pyramid-1.png" width="672" /></p>
-<p>There are differences by party. For Democrats 65-69 is the largest age category. For Republicans and Unaffiliated it’s 55-59. Women outnumber men throughout pyramid for the Democratic Party. For the Republicans, men consistently outnumber women except for 85 and older. Republicans look thin in the under 50 categories.</p>
+<p>There are differences by party. For Democrats 65-69 is the largest age category. For Republicans and Unaffiliated it’s 55-59.
+Women outnumber men throughout pyramid for the Democratic Party. For the Republicans,
+men consistently outnumber women except for 85 and older. Republicans look thin in the under
+50 categories.</p>
 </div>
 <div id="guilford_census" class="section level4">
 <h4>US Census Data for Guilford</h4>
-<p>Next we will retrieve US Census data to do the same thing for the total population of Guilford in 2000 and 2010.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>Next we will retrieve US Census data to do the same thing for the total population of Guilford in 2000 and 2010.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <pre class="r"><code>library(tidycensus)
 census_age_sex &lt;- function(census_year = 2010, towns = c(&quot;Guilford&quot;)) {
   dec2010 &lt;- load_variables(2010, &quot;sf1&quot;, cache = TRUE)
@@ -548,11 +606,15 @@ guilford_two_year &lt;- ggplot(data = age2, aes(x = age, y = n, fill = sex)) +
 print(guilford_two_year)</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/census_pop_pyramid-1.png" width="672" /></p>
 <p>The census data has a top age category of 85+.</p>
-<p>Adults in the 20 to 34 age category are relatively scarce in Guilford. Comparing 2000 and 2010, one can see that the population of Guilford is getting older. In both years age 50-54 is the largest group. But one can see the distribution moving older. The 55-64 categories have gotten much bigger between 2000 and 2010 and the 30-39 categories have gotten smaller.</p>
+<p>Adults in the 20 to 34 age category are relatively scarce in Guilford. Comparing 2000 and 2010, one
+can see that the population of Guilford is getting older. In both years age 50-54 is the
+largest group. But one can see the distribution moving older. The 55-64 categories have gotten
+much bigger between 2000 and 2010 and the 30-39 categories have gotten smaller.</p>
 </div>
 <div id="national-age-distribution" class="section level4">
 <h4>National Age Distribution</h4>
-<p>The <a href="https://www.census.gov/newsroom/blogs/random-samplings/2016/06/americas-age-profile-told-through-population-pyramids.html">Census blog</a> has a discussion of the national demographic structure.</p>
+<p>The <a href="https://www.census.gov/newsroom/blogs/random-samplings/2016/06/americas-age-profile-told-through-population-pyramids.html">Census blog</a> has a discussion of the national demographic
+structure.</p>
 <div class="figure">
 <img src="https://www.census.gov/content/dam/Census/newsroom/blogs/2016/06/americas-age-profile-told-through-population-pyramids/Chart-1.png" alt="US Demograpic Structure" />
 <p class="caption">US Demograpic Structure</p>
@@ -561,8 +623,18 @@ print(guilford_two_year)</code></pre>
 </div>
 <div id="multi_town" class="section level4">
 <h4>Comparing Guilford to Other Area Towns</h4>
-<p>The population structure in Guilford is much different than the nation-wide pattern. This made me curious about how Guilford compared with some other area towns. I picked eight other towns centered around New Haven. That gives me two large plots, each with nine towns. The first plot shows the population pyramid scaled by the size of the population. It emphasizes how much larger New Haven is that each surrounding town by itself. The second plot is scaled by the total population in each town. Looking at the percentage of population in each age category emphasizes differences in the structure of the population rather than the absolute size.</p>
-<p>One can see that Guilford is similar to Madison and to Woodbridge (and to a lesser extent North Haven) in terms of the thin band in the 20 to 40 age range. I assume this is related to housing costs for young families. Note the post-secondary student age bulges for New Haven, Hamden, and West Haven because of their college populations (Yale, Quinnipiac, and University of New Haven).</p>
+<p>The population structure in Guilford is much different than the nation-wide pattern. This
+made me curious about how Guilford compared with some other area towns. I picked eight other
+towns centered around New Haven. That gives me two large plots, each with nine towns. The
+first plot shows the population pyramid scaled by the size of the population. It emphasizes
+how much larger New Haven is that each surrounding town by itself. The second plot is scaled by
+the total population in each town. Looking at the percentage of population in each age category
+emphasizes differences in the structure of the population rather than the absolute size.</p>
+<p>One can see that Guilford is similar to Madison and to Woodbridge (and to a lesser extent
+North Haven) in terms of the thin band in
+the 20 to 40 age range. I assume this is related to housing costs for young families.
+Note the post-secondary student age bulges for New Haven, Hamden, and West Haven because of
+their college populations (Yale, Quinnipiac, and University of New Haven).</p>
 <pre class="r"><code>age &lt;- all_towns %&gt;% rename(town = NAME) %&gt;%
   mutate(town = str_replace(str_replace(town, &quot; town, New Haven County, Connecticut&quot;, &quot;&quot;), &quot; town&quot;, &quot;&quot;),
          town = factor(town, levels = c(&quot;Woodbridge&quot;, &quot;Hamden&quot;, &quot;North Haven&quot;, 
@@ -622,7 +694,9 @@ print(town_pyramids_pct)</code></pre>
 </div>
 <div id="guiford-regisration-rates" class="section level4">
 <h4>Guiford Regisration Rates</h4>
-<p>Let’s directly compare the Guilford registered voter counts of 2018 to the 2010 census. That’s not an exact comparison because the population changed between 2010 and 2018.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> And the registered voter list appears to include some people who moved away or died.</p>
+<p>Let’s directly compare the Guilford registered voter counts of 2018 to the 2010 census. That’s not an exact comparison because
+the population changed between 2010 and 2018.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> And the registered voter list appears
+to include some people who moved away or died.</p>
 <pre class="r"><code>regs_count &lt;- regs_age %&gt;% group_by(Age) %&gt;% tally() %&gt;%
   mutate(group = case_when(
     Age %in% c(&quot;100-104&quot;, &quot;105-109&quot;, &quot;85-89&quot;, &quot;90-94&quot;, &quot;95-99&quot;) ~ &quot;85+&quot;,
@@ -738,15 +812,30 @@ both &lt;- left_join(regs_count, census_count) %&gt;%
 </tr>
 </tbody>
 </table>
-<p>Remember that the numerator (voters) is from 2018 and the denominator (population) is from 2010. That’s how we are able to have some categories where we have more voters than population. Presumably the 70-74 category shows as 159% of the population in 2010 because a large chunk of people who were in the 65-69 category in 2010 were in the 70-74 category in 2018 for registrations. The same would be true for some other categories as a bulge of older people moved through the age categories.</p>
+<p>Remember that the numerator (voters) is from 2018 and the denominator (population) is from 2010.
+That’s how we are able to have some categories where we have more voters than population.
+Presumably the 70-74 category shows as 159% of the population in 2010 because a large chunk of
+people who were in the 65-69 category in 2010 were in the 70-74 category in 2018 for registrations.
+The same would be true for some other categories as a bulge of older people moved through the
+age categories.</p>
 </div>
 </div>
 <div id="voter_location" class="section level3">
 <h3>Geotagging – Where are the Voters?</h3>
-<p>I did some simple geotagging years ago, and this dataset of addresses cried out for more. The <a href="https://github.com/dkahle/ggmap">ggmap</a> package includes a function called <a href="https://www.rdocumentation.org/packages/ggmap/versions/2.6.1/topics/geocode">geocode</a> that takes an address and returns longitude and latitude.</p>
-<p>In theory geo-coding involves a straightforward call to the <code>geocode</code> function. That was true if I relied on the default source. But when I used Google as a source, it was much more problematic. I had to call geocode one address at a time and wrap that call with code that would survive failures. Google limits the number of calls and also the speed of the calls. As a result it doesn’t return a result and geocode does not handle those failures gracefully. I had to divide up the 8,000+ addresses into batches and feed them to Google in bits and pieces over a period of several days.</p>
-<p>First I’ll show the basic registration counts by polling place. Then I’ll display a basic map showing where the voters are located, separately by party.</p>
-<p>Here are the basic voter registration counts by polling place. The percentage of Republican voters ranges between 21% and 25%. There’s a somewhat larger range for Democratic voters (30% to 42%).</p>
+<p>I did some simple geotagging years ago, and this dataset of addresses cried out for more.
+The <a href="https://github.com/dkahle/ggmap">ggmap</a> package includes a function called <a href="https://www.rdocumentation.org/packages/ggmap/versions/2.6.1/topics/geocode">geocode</a> that
+takes an address and returns longitude and latitude.</p>
+<p>In theory geo-coding involves a straightforward call to the <code>geocode</code> function. That was true
+if I relied on the default source. But when I used Google as a source, it was much more
+problematic. I had to call geocode one address at a time and wrap that call with code that
+would survive failures. Google limits the number of calls and also the speed of the calls. As
+a result it doesn’t return a result and geocode does not handle those failures gracefully. I
+had to divide up the 8,000+ addresses into batches and feed them to Google in bits and pieces
+over a period of several days.</p>
+<p>First I’ll show the basic registration counts by polling place.
+Then I’ll display a basic map showing where the voters are located, separately by party.</p>
+<p>Here are the basic voter registration counts by polling place. The percentage of Republican voters
+ranges between 21% and 25%. There’s a somewhat larger range for Democratic voters (30% to 42%).</p>
 <pre class="r"><code>poll_loc &lt;- tribble(
    ~poll_place,                 ~lon,      ~lat,
 &quot;Guilford Fire Headquarters&quot;, -72.68924, 41.29657,
@@ -806,7 +895,9 @@ by_place_party &lt;- regs_age %&gt;%
 </tr>
 </tbody>
 </table>
-<p>There seems to be a tendency for the polling locations close to the Sound to have a higher percentage of Democrats and a lower percentage of Unaffiliated. The far north is the most Republican. None of these effects are large.</p>
+<p>There seems to be a tendency for the polling locations close to the Sound to have a higher
+percentage of Democrats and a lower percentage of Unaffiliated. The far north is the most
+Republican. None of these effects are large.</p>
 <pre class="r"><code># I&#39;m loading in data already geo-tagged because geocoding was a bit messy in practice.
 load(paste0(data_folder, &quot;google_addr.RData&quot;))
 load(paste0(data_folder, &quot;dsk_addr.RData&quot;))
@@ -822,9 +913,9 @@ guilford_boundaries &lt;- c(left = guilford_left_bottom_lon, bottom = guilford_l
                          right = guilford_right_top_lon, top = guilford_right_top_lat)
 guilford_base &lt;- ggmap(get_map(location = guilford_boundaries, zoom = 11,
               maptype = &quot;roadmap&quot;, source = &quot;google&quot;))</code></pre>
-<pre><code>## Warning: bounding box given to google - spatial extent only approximate.</code></pre>
-<pre><code>## converting bounding box to center/zoom specification. (experimental)</code></pre>
-<pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=41.339537,-72.690247&amp;zoom=11&amp;size=640x640&amp;scale=2&amp;maptype=roadmap&amp;language=en-EN&amp;sensor=false</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/11/610/764.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/11/610/765.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/11/610/766.png</code></pre>
 <pre class="r"><code>regs_loc &lt;- regs_age %&gt;%
   left_join(google_addr %&gt;% select(lat, lon, addresses = in_address)) %&gt;%
   filter(!is.na(lat), !is.na(lon), 
@@ -851,15 +942,53 @@ guilford_base &lt;- ggmap(get_map(location = guilford_boundaries, zoom = 11,
 # dusing the ggrepel package to keep the polling place summary visible
 p &lt;- p + geom_label_repel(data = place_summary, aes(label = summary), colour = &quot;black&quot;, size = 2.5)
 print(p)</code></pre>
-<pre><code>## Warning: Removed 3 rows containing missing values (geom_rect).</code></pre>
+<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
+<pre><code>## Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
+<pre><code>## Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/loc_by_party-1.png" width="672" /></p>
-<p>The plot shows each party separately. With a dot plot such as this sometimes one can have too much data. Things get lost in a swarm of dots. To thin things out a bit I am showing only a 50% sample. This is a ggplot2 dot plot with a Google map as background (based on the <code>ggmap</code> package). To my eye I don’t see much sign that voters are concentrated by party in different parts of Guilford. The summary of the party distribution by polling place is overlaid on the plot. The text labels are same on each plot. The location of the text corresponds roughly to the location of the polling place, with some adjustment to keep the summaries readable.</p>
+<p>The plot shows each party separately. With a
+dot plot such as this sometimes one can have too much data. Things get lost in a swarm of dots.
+To thin things out a bit I am showing only a 50% sample. This is a ggplot2 dot plot
+with a Google map as background (based on the <code>ggmap</code> package).
+To my eye I don’t see much sign that voters are concentrated by party in different parts of
+Guilford. The summary of the party distribution by polling place is overlaid on the plot.
+The text labels are same on each plot. The location of the text corresponds roughly
+to the location of the polling place, with some adjustment to keep the summaries readable.</p>
 </div>
 <div id="geocoding" class="section level3">
 <h3>Geotagging: Into the Weeds</h3>
-<p>There is a lot of information on the web about geocoding. The <code>geocode</code> function in <code>ggmap</code> provides an interface to two sources of geocoding: the <a href="http://www.datasciencetoolkit.org/about">Data Science Toolkit</a> and the <a href="https://cloud.google.com/maps-platform/terms/">Google Maps Platform</a>. The Google terms of services has a number of restrictions. Unless one gets set up to pay for the Google service, there is a limit on the total number of searches per day (which may be 2,500) and a limit on the number of searches per second. For most purposes the Data Science Toolkit is probably good enough. Out of curiosity I tried both. In practice I had a difficult time geocoding the 8,000+ addresses via Google. I was tripped up by both the daily limit and the search per second limit. The <code>geocode</code> function did not seem to fail gracefully so I had to wrap it in try-catch code. It ended up taking me almost a week to get all the addresses geocoded via Google.</p>
-<p>Via <code>ggmap</code> it’s easy to throw up a quick plot showing the results of the geocoding. Watch out for outliers. With both Data Science Toolkit and Google I had two addresses that ended up in Turkey. They were both addresses that had a street address that ended with something like “Unit #5”. All the addresses ended with “Guilford, CT.” Tacking on “USA” after the state helped eliminate the wackiest results. But I found a number of other cases that produced a latitude and longitude well outside of the boundaries of Guilford.</p>
-<p>For most purposes the default result from <code>geocode</code> will be adequate. But I was curious about the quality of the results and where they came from. A number of academic geography-type programs get into these issues. See <a href="http://geoservices.tamu.edu">Texas A&amp;M GeoServices</a> as an example. I think you can submit batch files of addresses to them as an alternative to using something like the <code>geocode</code> function in <code>ggmap</code>. Out of personal interest, I decided to evaluate my geocodes by directly comparing the results based on Google and on the Data Science Toolkit.</p>
+<p>There is a lot of information on the web about geocoding. The <code>geocode</code> function
+in <code>ggmap</code> provides an
+interface to two sources of geocoding: the <a href="http://www.datasciencetoolkit.org/about">Data Science Toolkit</a> and the <a href="https://cloud.google.com/maps-platform/terms/">Google Maps Platform</a>. The Google terms of services
+has a number of restrictions. Unless one gets set up to pay for the Google service,
+there is a limit on the total number of searches per day (which may be 2,500) and
+a limit on the number of searches per second. For most purposes the Data Science Toolkit
+is probably good enough. Out of curiosity I tried both. In practice I had a difficult time geocoding
+the 8,000+ addresses via Google. I was tripped up by both the daily limit and the
+search per second limit. The <code>geocode</code> function did not seem to fail gracefully so I had
+to wrap it in try-catch code. It ended up taking me almost a week to get all the addresses
+geocoded via Google.</p>
+<p>Via <code>ggmap</code> it’s easy to throw up a quick plot showing
+the results of the geocoding. Watch out for outliers. With both Data Science Toolkit and Google
+I had two addresses that ended up in Turkey. They were both addresses that had a street
+address that ended with something like “Unit #5”. All the addresses ended with “Guilford, CT.” Tacking on “USA” after the state helped eliminate the wackiest results. But
+I found a number of other cases that produced a latitude and longitude well outside of the
+boundaries of Guilford.</p>
+<p>For most purposes the default result from <code>geocode</code> will be adequate. But I was curious about
+the quality of the results and where they came from. A number of academic geography-type programs
+get into these issues. See <a href="http://geoservices.tamu.edu">Texas A&amp;M GeoServices</a> as an example.
+I think you can submit batch files of addresses to them as an alternative to using something
+like the <code>geocode</code> function in <code>ggmap</code>. Out of personal interest, I decided to evaluate
+my geocodes by directly comparing the results based on Google and on the Data Science Toolkit.</p>
 <pre class="r"><code>p_dsk_google &lt;- google_dsk_map &lt;- guilford_base + 
   geom_point(data = google_addr , 
              aes(x = lon, y = lat), size = 0.1, colour = &quot;red&quot;) +
@@ -881,7 +1010,13 @@ print(p)</code></pre>
 <pre><code>## Warning: Removed 1856 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 1854 rows containing missing values (geom_point).</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/compare_geocodes-1.png" width="672" /></p>
-<p>This plot uses the geocodes provided by Google (in red) and then Data Science Toolkit (in blue). Because of the order in which the points were applied, if an address has the same location from both sources, the blue point will overwrite the red point, that is, only blue will be visible. Blue points are along roads only. That means that the Data Science Toolkit geocodes show the location along the road only. Google codes are often on top of the building (as seen on a close-up view using the satellite map). In my immediate neighborhood one can only see blue points, meaning the Data Science Toolkit and Google are giving exactly the same latitude and longitude.</p>
+<p>This plot uses the geocodes provided by Google (in red) and then Data Science Toolkit (in blue).
+Because of the order in which the points were applied, if an address has the same location from
+both sources, the blue point will overwrite the red point, that is, only blue will be visible.
+Blue points are along roads only. That means that the Data Science Toolkit geocodes show the location
+along the road only. Google codes are often on top of the building (as seen on a close-up view using
+the satellite map). In my immediate neighborhood one can only see blue points, meaning the Data
+Science Toolkit and Google are giving exactly the same latitude and longitude.</p>
 <p>I don’t draw much of any practical conclusion from this.</p>
 <div id="zooming-in-on-my-local-neighborhood" class="section level4">
 <h4>Zooming in on my local neighborhood</h4>
@@ -893,9 +1028,15 @@ detail_boundaries &lt;- c(left = detail_left_bottom_lon, bottom = detail_left_bo
                          right = detail_right_top_lon, top = detail_right_top_lat)
 home_base &lt;- ggmap(get_map(location = detail_boundaries, zoom = 15,
               maptype = &quot;hybrid&quot;, source = &quot;google&quot;))</code></pre>
-<pre><code>## Warning: bounding box given to google - spatial extent only approximate.</code></pre>
-<pre><code>## converting bounding box to center/zoom specification. (experimental)</code></pre>
-<pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=41.27476,-72.70169&amp;zoom=15&amp;size=640x640&amp;scale=2&amp;maptype=hybrid&amp;language=en-EN&amp;sensor=false</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9765/12251.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9766/12251.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9767/12251.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9765/12252.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9766/12252.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9767/12252.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9765/12253.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9766/12253.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9767/12253.png</code></pre>
 <pre class="r"><code>p_myhome &lt;- home_base + 
   geom_point(data = google_addr, 
              aes(x = lon, y = lat), size = 1, colour = &quot;red&quot;) +
@@ -913,11 +1054,22 @@ home_base &lt;- ggmap(get_map(location = detail_boundaries, zoom = 15,
 <pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
 ## will replace the existing scale.</code></pre>
 <pre class="r"><code>print(p_myhome)</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_rect).</code></pre>
 <pre><code>## Warning: Removed 8470 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 8457 rows containing missing values (geom_point).</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/local_detail-1.png" width="672" /></p>
-<p>The satellite map of the area around my house shows the results of geocoding in detail. In this area there are lots of addresses for which Google and Data Science Toolkit give exactly the same longitude and latitude, in which case only a blue dot appears (because the red dot is underneath). In the satellite map one can see the actual houses, so one can see places (such as Three Corners Road) where geocoding is approximately correct, but the houses are more strung out than the geocodes imply. One interesting street is Greenwood Lane. Google correctly shows the locations of the houses on this small and relatively new street. The Data Science Toolkit shows all of the addresses as being at the location where Greenwood Lane intersects with Three Corners Road. It illustrates that the services that are providing geocodes have significant technical details when it comes down to identifying the precise location of address. Plus one wonders whether Google distinguishes the location of the house from the location of the entrance of driveway, given that the latter is what is relevant for providing turn-by-turn directions.</p>
+<p>The satellite map of the area around my house shows the results of geocoding in detail. In
+this area there are lots of addresses for which Google and Data Science Toolkit give exactly
+the same longitude and latitude, in which case only a blue dot appears (because the red dot
+is underneath). In the satellite map one can see the actual houses, so one can see places
+(such as Three Corners Road) where geocoding is approximately correct, but the houses are
+more strung out than the geocodes imply. One interesting street is Greenwood Lane. Google
+correctly shows the locations of the houses on this small and relatively new street. The
+Data Science Toolkit shows all of the addresses as being at the location where Greenwood Lane
+intersects with Three Corners Road. It illustrates that the services that are providing geocodes
+have significant technical details when it comes down to identifying the precise location of
+address. Plus one wonders whether Google distinguishes the location of the house from the
+location of the entrance of driveway, given that the latter is what is relevant for providing
+turn-by-turn directions.</p>
 <pre class="r"><code>detail_left_bottom_lon &lt;- -72.683863
 detail_left_bottom_lat &lt;- 41.302653
 detail_right_top_lon &lt;- -72.667307
@@ -926,9 +1078,10 @@ detail_boundaries &lt;- c(left = detail_left_bottom_lon, bottom = detail_left_bo
                          right = detail_right_top_lon, top = detail_right_top_lat)
 home_base &lt;- ggmap(get_map(location = detail_boundaries, zoom = 15,
               maptype = &quot;hybrid&quot;, source = &quot;google&quot;))</code></pre>
-<pre><code>## Warning: bounding box given to google - spatial extent only approximate.</code></pre>
-<pre><code>## converting bounding box to center/zoom specification. (experimental)</code></pre>
-<pre><code>## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=41.307662,-72.675585&amp;zoom=15&amp;size=640x640&amp;scale=2&amp;maptype=hybrid&amp;language=en-EN&amp;sensor=false</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9768/12247.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9769/12247.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9768/12248.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/15/9769/12248.png</code></pre>
 <pre class="r"><code>p_example &lt;- home_base + 
   geom_point(data = google_addr, 
              aes(x = lon, y = lat), size = 1, colour = &quot;red&quot;) +
@@ -946,21 +1099,31 @@ home_base &lt;- ggmap(get_map(location = detail_boundaries, zoom = 15,
 <pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
 ## will replace the existing scale.</code></pre>
 <pre class="r"><code>print(p_example)</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_rect).</code></pre>
 <pre><code>## Warning: Removed 8471 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 8467 rows containing missing values (geom_point).</code></pre>
 <p><img src="/post/2018-08-16-geotagging-voter-registrations_files/figure-html/another_local_detail-1.png" width="672" /></p>
-<p>Finally, here is another example that zooms in on a small local neighborhood. In this case you can see clearly how Google locates individual homes fairly well while the Digital Science Toolkit has blue dots strung out along the road, and not always lined up well with the location of the houses. The only identifying information on this bit of Google maps is Sullivans Pits Septic Lagoons. Not a very nice name for a neighborhood.</p>
+<p>Finally, here is another example that zooms in on a small local neighborhood. In this case you
+can see clearly how Google locates individual homes fairly well while the Digital Science Toolkit
+has blue dots strung out along the road, and not always lined up well with the location of the houses.
+The only identifying information on this bit of Google maps is Sullivans Pits Septic Lagoons. Not
+a very nice name for a neighborhood.</p>
 </div>
 </div>
 <div id="conclusion" class="section level3">
 <h3>Conclusion</h3>
 <p>Has anyone read this far? Why?</p>
-<p>I wouldn’t say I have learned a lot of new R techniques doing this exercise. What I did do was to solidify some bits and techniques I already knew. The way this post will be useful for me is that it contains lots of details that will come up again in other work that I will do. I’ll remember that I did something here and be able to go back and look at the code I used. That’s why I have left in every bit of R code here. Perhaps that makes the post unreadable for any general user (should such a critter actually encounter it), but that’s exactly what may make the post useful for me in the future.</p>
+<p>I wouldn’t say I have learned a lot of new R techniques doing this exercise. What I did do was to
+solidify some bits and techniques I already knew. The way this post will be useful for me is that
+it contains lots of details that will come up again in other work that I will do. I’ll remember
+that I did something here and be able to go back and look at the code I used. That’s why I have
+left in every bit of R code here. Perhaps that makes the post unreadable for any general user (should
+such a critter actually encounter it), but that’s exactly what may make the post useful for me in the
+future.</p>
 </div>
 <div id="geocode_funtion" class="section level3">
 <h3>Sample Function to Apply Geocode Function</h3>
-<p>As promised, below I have pasted the functions I wrote to try to cope with the difficulties of using the geocode function with Google as a source.</p>
+<p>As promised, below I have pasted the functions I wrote to try to cope with the difficulties of
+using the geocode function with Google as a source.</p>
 <pre class="r"><code># Geocoding a csv column of &quot;addresses&quot; in R
 # from:  http://www.storybench.org/geocode-csv-addresses-r/
 #test:  wrap_geocode(&quot;248 Sam Hill Rd, Guilford, CT&quot;, 28)
@@ -1012,7 +1175,7 @@ wrap_geocode &lt;- function(an_address, an_id, src = &quot;dsk&quot;) {
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The population pyramids using Census data are based a <a href="https://walkerke.github.io/2017/10/geofaceted-pyramids/">Geo-faceted population pyramids with tidycensus 0.3</a> by Kyle Walker.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>I tried looking at the American Community Survey, which is based on a sample taken by the Census Bureau in between the decennial census. Guilford seems to be too small to provide a reliable breakdown by age and sex using the American Community Survey. It might require something at the county level or higher to provide decent estimates for the 5-year age categories.<a href="#fnref2">↩</a></p></li>
+<li id="fn1"><p>The population pyramids using Census data are based a <a href="https://walkerke.github.io/2017/10/geofaceted-pyramids/">Geo-faceted population pyramids with tidycensus 0.3</a> by Kyle Walker.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>I tried looking at the American Community Survey, which is based on a sample taken by the Census Bureau in between the decennial census. Guilford seems to be too small to provide a reliable breakdown by age and sex using the American Community Survey. It might require something at the county level or higher to provide decent estimates for the 5-year age categories.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>

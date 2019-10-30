@@ -9,6 +9,7 @@ categories:
   - census
 tags: 
   - R
+  - Guilford
   - maps
   - census
 description: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. To see just the interesting plots without lots of R-related detail, skip this post and read the next one instead. '
@@ -26,7 +27,7 @@ data_folder <- "~/Dropbox/Programming/R_Stuff/ct_voters/"
 ```
 
 **Attention conservation notice:** Unless you are interested in R-related detail, skip this post and
-read the [next post](https://www.johngoldin.com/2018/09/guilford-demographics/) instead.
+read the [next post](/post/guilford-demographics/) instead.
 
 ### The Data Source
 
@@ -34,8 +35,8 @@ It's primary season and recently I learned about a somewhat strange
 [site](http://connvoters.com/download.html) that collects a lot of voter registration data. 
 One surprise is that it includes birth date and the full dataset also includes phone numbers. 
 I was a bit surprised that this data is publicly available. 
-Apparently I am not the only one. [Here](http://www.wfsb.com/story/26835982/website-displaying-voters-personal-information-has-right-to-do-so)
-is an article from Eyewitness News in Connecticut treating this data as a controversy.
+Apparently I am not the only one. [Here](https://www.nbcconnecticut.com/investigations/Troubleshooters-Investigation-Voting-Records-292310391.htm)
+is an article from TV News in Connecticut treating this data as a controversy.
 
 The author of this site is a fellow from new Hampshire. His primary interest is genealogy. 
 He is unapologetic about putting all this data out onto the web and includes a [robust defense](http://connvoters.com/publish.html) of his site. In his [about page](http://connvoters.com/about.html), he offers the following comment:
@@ -206,7 +207,7 @@ Of the small number of first names that were not found by the `gender` package, 
 guess that more than 90% are non-European or at least non-English-speaking names. 
 
 Now we are ready to do a basic table showing the number of registered voters
-by party and sex. Women are less likely to be unaffiliated and more likely to be
+by party and gender. Women are less likely to be unaffiliated and more likely to be
 Democrats than are men.
 
 ```{r sex_counts}
@@ -332,7 +333,7 @@ Next we will retrieve US Census data to do the same thing for the total populati
 
 [^2]: The population pyramids using Census data are based a [Geo-faceted population pyramids with tidycensus 0.3](https://walkerke.github.io/2017/10/geofaceted-pyramids/) by Kyle Walker.
 
-```{r census_pop_pyramid}
+```{r census_pop_pyramid, cache = TRUE}
 library(tidycensus)
 census_age_sex <- function(census_year = 2010, towns = c("Guilford")) {
   dec2010 <- load_variables(2010, "sf1", cache = TRUE)

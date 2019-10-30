@@ -13,7 +13,7 @@ description: 'A description of the demographic structure of Guilford by age comp
 keywords: []
 ---
 
-The [previous entry](https://www.johngoldin.com/2018/09/geotagging_voters/) was an exercise in using R
+The [previous entry](/post/geotagging_voters/) was an exercise in using R
 to process some data about voter registrations and the US Census related to Guilford. Because
 it was focused on the R code, it's very difficult to see the actual results. I
 decided to do this post to highlight some interesting charts about Guilford
@@ -119,7 +119,7 @@ Young families are less likely to be wealthy and also less likely to move to the
 affluent suburbs. Both demographic structure and median income have an effect on
 fairness of school funding across towns.
 
-For details about how these plots were produced, see the [previous entry](https://www.johngoldin.com/2018/09/geotagging_voters/).
+For details about how these plots were produced, see the [previous entry](/post/geotagging_voters/).
 
 In the future I expect to do more work with Census data in Connecticut and the area
 around New Haven and Guilford.
