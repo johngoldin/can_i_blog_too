@@ -29,7 +29,7 @@ This post will work through a basic setup to look at
 census data for the New Haven area. It will rely on the
 [tidycensus](https://walkerke.github.io/tidycensus/articles/basic-usage.html) 
 and [tigris](https://github.com/walkerke/tigris) 
-packages by [Kyle Walker](https://walkerke.github.io). The emphasis
+packages by [Kyle Walker](http://personal.tcu.edu/kylewalker). The emphasis
 will be on the R code for getting and using Census data rather than
 on the data itself.
 
@@ -60,7 +60,7 @@ the Bureau [does not levy fines for non-response to the ACS](https://slate.com/n
 
 Each year about 3% of households are included in the sample for the American
 Community Survey. It covers a wide range of topics. There's [a page that describes
-33 topics](https://www.census.gov/ac/www/about/why-we-ask-each-question/) on the survey and why they are included.
+the many topics](https://www.census.gov/acs/www/about/why-we-ask-each-question/) on the survey and why they are included.
 It also leads to links where you can see the actual questions as they appear on the ACS.
 There's lots of data about race and citizenship and household demographics and money.
 But there are also quite a few items on other aspects of life. It seems like it has
@@ -101,14 +101,18 @@ each cell in that table (and for many of the cross-tabulations as well).
 A tool that helped me to get used to the meaning of variables is the
 [American Factfinder](https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml), 
 an online tool at the Census Bureau web site.
-(There's also a [new data exploration platform](https://data.census.gov/cedsci/results/tables?q=population%20of%20new%20haven&g=0500000US09009&ps=table*currentPage@1).)
+The Factfinder has been superseded by a new data exploration
+platform at [census.data.com](https://data.census.gov/).
 Unfortunately, as far as I can tell, the American Factfinder doesn't display the
 table numbers used by the API. 
 (It feels like I should be able to get that; perhaps I just don't know how.)
+The new data.census.gov does show the overall table number, but not the
+variable names for individual cells.
 
 When I click on Table Notes on a Factfinder table, I get a popup
 window with a link to 
 [technical documentation](https://www.census.gov/programs-surveys/acs/technical-documentation/code-lists.html).
+(The same link is also available at data.census.gov.)
 On the left side of that page there is a guide to other items related to
 technical documentation. Of particular value is the link to 
 [Table Shells](https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html).
@@ -324,7 +328,7 @@ show how to use those technique to map data from the ACS.
 
 To begin we will create a basic map for Connecticut towns surrounding the City of New Haven.
 The Census Bureau provides extensive resources for geographic information and maps
-via its (TIGER)[https://www.census.gov/geo/maps-data/data/tiger.html] 
+via its [TIGER](https://www.census.gov/geo/maps-data/data/tiger.html) 
 (Topologically Integrated Geographic Encoding and Referencing) products.
 The [tigris](https://github.com/walkerke/tigris) package provides a simple
 way to get basic maps (represented as [shapefiles](https://en.wikipedia.org/wiki/Shapefile)) 
@@ -783,7 +787,7 @@ more info at [census.gov](https://www.census.gov).
 
 All of this relies on the [tidycensus](https://walkerke.github.io/tidycensus/articles/basic-usage.html) 
 and [tigris](https://github.com/walkerke/tigris) 
-packages by [Kyle Walker](https://walkerke.github.io).
+packages by [Kyle Walker](http://personal.tcu.edu/kylewalker).
 Several years ago I did a wee bit of work on making maps with census data without
 `tidycensus` or the `sf` package. It was much more difficult! The tools that
 Kyle has provided make it all much easier. I took his census course at 
