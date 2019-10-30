@@ -32,8 +32,8 @@ read the [next post](/post/guilford-demographics/) instead.
 ### The Data Source
 
 It's primary season and recently I learned about a somewhat strange
-[site](http://connvoters.com/download.html) that collects a lot of voter registration data. 
-One surprise is that it includes birth date and the full dataset also includes phone numbers. 
+[site](http://connvoters.com) that collects a lot of voter registration data. 
+It includes birth date and the full dataset also includes phone numbers. 
 I was a bit surprised that this data is publicly available. 
 Apparently I am not the only one. [Here](https://www.nbcconnecticut.com/investigations/Troubleshooters-Investigation-Voting-Records-292310391.htm)
 is an article from TV News in Connecticut treating this data as a controversy.
