@@ -110,7 +110,7 @@ byday <- byday + geom_smooth(method = "lm", se = FALSE,
 byday <- byday + geom_point(size = 0.5) +  
 	geom_smooth(data = wtm, aes(x = mid_month), span = 0.07)
 byday <- byday + 
-	ggtitle("One Individual's Daily Weight During a Twenty-one Year Span") + 
+	ggtitle("One Individual's Daily Weight During a Twenty+ Year Span") + 
 	ylab("weight (pounds)")
 ```
 ```{r byday, fig.width=10, echo=FALSE, message=FALSE, warning=FALSE}
@@ -120,10 +120,18 @@ plot(byday)
 ### Change in the Trend
 
 I have revised this post because there is a remarkable change in my weight.
-I go into the full circumstances. 
-
-I started to deliberately try to lose way. I used a calorie counting app called [Lose It](https://itunes.apple.com/us/app/lose-it-calorie-counter/id297368629?mt=8).
-
+I won't go into the full circumstances, but
+I started to deliberately try to lose kweight after a minor medical issue.
+I used a calorie counting app called [Lose It](https://itunes.apple.com/us/app/lose-it-calorie-counter/id297368629?mt=8).
+As demonstrated by this post, I have an appetite for recording data about myself, so *Lose It* fit
+my style well. I don't feel I made any drastic changes in my eating habits, but the fact that I
+recorded the calories consumed at each meal affected how much I ate at the margin. I 
+was less likely to have seconds, less likely to have a high calorie snack, and so on. For
+exmple all through this process I continued to frequently have an evening dish of soy ice cream.
+The difference is now I put a mug (rather than a bowel) on the kitchen scale as I'm
+scooping out my serving of ice cream. I aimed to lose about a pound a week, and ended up losing
+a bit less than that. The result is that my weight is down to where it was in my 40's. I didn't feel
+particularly overweight before, but I feel a bit better after losing the weight. 
 
 ### Seasonal Variation in Weight
 
@@ -208,7 +216,7 @@ of January being anomalously low. But this is a minor detail.
 
 ### Weight Gain by Year
 
-Am I getting fat? That is a question that has popped into my head from time to time over the years, 
+Am I getting heavier? That is a question that has popped into my head from time to time over the years, 
 especially after I increased the waist size for my pants.
 
 For a somewhat glib discussion of weight gain by year, see Wonkblog [Look at how much weight you are going to gain](https://www.washingtonpost.com/news/wonk/wp/2016/01/29/the-age-when-you-gain-the-most-weight/?utm_term=.082bca258fcb).
