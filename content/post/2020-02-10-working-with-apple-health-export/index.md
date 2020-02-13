@@ -1,7 +1,7 @@
 ---
 title: Working with Apple Health Export in R
 author: John Goldin
-date: '2019-11-01'
+date: '2020-02-10'
 categories:
   - R
 slug: working-with-apple-health-export
