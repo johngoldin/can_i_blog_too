@@ -1,24 +1,35 @@
 ---
-title: Working with Apple Health Export in R
-author: John Goldin
-date: '2020-02-10'
+title: "Apple Export Part I: Importing the Data and Adjusting the Time Stamps"
+author: "John Goldin"
+date: '2020-02-13'
+description: 'Export Apple Health Export data and then import it into R. The focus in Part I is on how to adjust time stamps to extract local (clock) time given changes in daylight savings and travel across time zones.'
 categories:
+  - quantified-self
+  - Apple-Health-Export
   - R
-slug: working-with-apple-health-export
-lastmod: '2019-10-06T08:50:22-04:00'
+tags:
+  - quantified-=self
+  - Apple-Health-Export
+  - R
+slug: importing-apple-health-export
 layout: post
 type: post
 highlight: no
 draft: yes
+output: 
+  html_document:
+    keep_md: yes
 ---
 
-This post will work through the mechanics of moving data from the Apple Health app
-out of your iPhone and into R where you can analyze it. Next it will offer some
-tips on how to prepare and clean up the data a bit. Finally, it will 
-explore some of the properties of the types of data available
-via the Health app.
 
-##### First, export the data from the Health app
+
+This post is Part I of a dive into the contents of the Apple Health Export. 
+It will work through the mechanics of moving data from the Apple Health app
+out of your iPhone and into R where you can analyze it. It also will describe in detail the problem of 
+adjusting the time stamps for daylight savings time and travel across time zones.
+Unfortunately the topic of time zones and the Apple Health Export is a complicated subject.
+
+## First, Export the Data from the Health App
 
 From the Health app on your iPhone, one can export all of the data you are able to view via the Health app. 
 Open the Health app on your iPhone. 
@@ -29,29 +40,15 @@ Click on the icon and you will see some of your personal settings.
 You will need to scroll to the bottom of this page, where you will
 see a clickable line "Export All Health Data", as shown in the second screenshot below. 
 
-<style> 
-.row {
-  display: flex;
-}
-.column {
-  flex: 100%;
-  padding: 5px;
-}
-</style>
-<div class="row">
-  <div class="column">
-    <figure>
-      <figcaption> Browse Health app</figcaption>
-      <img src="health_app.PNG" alt="health app screenshot1" width="75%" height="100%" align="center"/>
-    </figure>
-  </div>
-  <div class="column">
-    <figure>
-      <figcaption>Export All Health Data</figcaption>
-      <img src="health_export_dialog.PNG" alt="health export screenshot" width="75%" height="100%" align="center"/>
-    </figure>
-  </div>
+<div style="float: left; width: 50%; padding: 5px;">
+Tap upper right icon:<br>
+<img src="health_app.PNG" alt="Health app" height="333" width="187">
 </div>
+<div style="float: right; width: 50%; padding: 5px;">
+Scroll to very bottom:<br>
+<img src="health_export_dialog.PNG" alt="Health Export" height="333" width="187">
+</div>
+
 Once you click OK to go ahead with the export, it may take a significant amount of time.
 On my iPhone 8 it takes more than five minutes. Once it is complete, you'll get a 
 dialog that asks where to send the exported data. I use AirDrop to send it to the
@@ -61,99 +58,991 @@ via email or Dropbox.
 The exported file is named `export.zip`. If you double-click on that file it 
 will expand into a folder called `apple_health_export`. The uncompressed file is huge
 in comparison with the size of the zip file. In my case, `export.zip` is about
-79 megabytes while the `apple_health_export` folder is 2.45 gigabytes!
+79 megabytes which becomes an `apple_health_export` folder that is 2.45 gigabytes!
 In my R code, I uncompress the file into my Downloads folder, which is excluded
 from my Time Machine backups.
 
-##### R code to expand the export file and import it as XML data
+## R Code to Expand the Export File and Import It As XML Data
 
 The R code below shows how to decompress `export.zip` and follow some
 basic steps to import it into R. I'm following in the footsteps of
 several people who have published code to accomplish these steps.
-See  work by [Ryan Praskievicz](https://gist.github.com/ryanpraski/ba9baee2583cfb1af88ca4ec62311a3d), [Taras Kaduk](https://taraskaduk.com/2019/03/23/apple-health/), [Raul Eulogio](https://www.inertia7.com/projects/149), and [Deepankar Datta](https://github.com/deepankardatta/AppleHealthAnalysis) (who has
+See  work by [Ryan Praskievicz](https://gist.github.com/ryanpraski/ba9baee2583cfb1af88ca4ec62311a3d), [Taras Kaduk](https://taraskaduk.com/2019/03/23/apple-health/), and [Deepankar Datta](https://github.com/deepankardatta/AppleHealthAnalysis) (who has
 created a package called AppleHealthAnalysis). I'm sure there are other examples
-using R, and there are quite a number of examples using python (e.g., by [Mark Koester](http://www.markwk.com/data-analysis-for-apple-health.html).
+using R, and there are quite a number of examples using python (e.g., by [Mark Koester](http://www.markwk.com/data-analysis-for-apple-health.html)).
 
-The R code uncompresses the zip file and replaces the `apple_health_export` folder. The
-big file inside that folder is `export.xml`. We
+The R code uncompresses the zip file and replaces the `apple_health_export` folder.
+(Because of the size of this folder, I try to avoid having multiple copies and also
+avoid having it saved to my disk backup.)
+The big file inside that folder is `export.xml`. Following the examples cited above, I
 use the XML package to covert the major elements of the XML file into
 tidy data frames.
 
-```{r}
-library(tidyverse, quietly = TRUE)
-library(jsonlite, quietly = TRUE)
-library(lubridate, quietly = TRUE)
-library(XML, quietly = TRUE)
 
-rc <- unzip("~/Downloads/export.zip", exdir = "~/Downloads", overwrite = TRUE)
-if (length(rc) != 0) file.remove("~/Downloads/export.zip")
-# once unzipped, delete export.zip. Otherwise, the next time Air Drop sends export.zip
-# to your mac it will be renamed as export2.zip and you may accidentally process
-# an out-of-date set of data.
 
-system.time(     # takes a bit more than 20 seconds on my iMac
-xml <- xmlParse("~/Downloads/apple_health_export/export.xml"))
-system.time(     # takes about 70 seconds on my iMac
-df <- XML:::xmlAttrsToDataFrame(xml["//Record"], stringsAsFactors = FALSE) %>% 
- as_tibble() %>% mutate(value = as.numeric(value))
 
-df_activity <- XML:::xmlAttrsToDataFrame(xml["//ActivitySummary"]) %>% as_tibble()
-df_workout <-  XML:::xmlAttrsToDataFrame(xml["//Workout"], stringsAsFactors = FALSE) %>% as_tibble 
-df_clinical <- XML:::xmlAttrsToDataFrame(xml["//ClinicalRecord"]) %>% as_tibble()
+```r
+if (file_exists("~/Downloads/export.zip")) {
+  rc <- unzip("~/Downloads/export.zip", exdir = "~/Downloads", overwrite = TRUE)
+  if (length(rc) != 0) {
+    # once unzipped, delete export.zip. Otherwise, the next time Air Drop sends export.zip
+    # to your mac it will be renamed as export2.zip and you may accidentally process
+    # an out-of-date set of data.
+    
+    # takes a bit more than 20 seconds on my iMac
+    health_xml <- xmlParse("~/Downloads/apple_health_export/export.xml")
+    # takes about 70 seconds on my iMac
+    health_df <- XML:::xmlAttrsToDataFrame(health_xml["//Record"], stringsAsFactors = FALSE) %>%
+      as_tibble() %>% mutate(value = as.numeric(value))
+    
+    activity_df <- XML:::xmlAttrsToDataFrame(health_xml["//ActivitySummary"], stringsAsFactors = FALSE) %>% 
+      as_tibble()
+    workout_df <-  XML:::xmlAttrsToDataFrame(health_xml["//Workout"], stringsAsFactors = FALSE) %>% 
+      as_tibble
+    clinical_df <- XML:::xmlAttrsToDataFrame(health_xml["//ClinicalRecord"]) %>% 
+      as_tibble()
+    save(health_xml, health_df, activity_df, workout_df, clinical_df, 
+         file = paste0(path_saved_export, "exported_dataframes.RData"))
+    if (file.exists("~/Downloads/export.zip")) file.remove("~/Downloads/export.zip")
+  }
+} 
 ```
 
-I won't get into details of the XML structure of the health export.
+
+I won't go into the details of the XML structure of the health export.
 For most purposes, the Record, ActivitySummary, Workout, and Clinical data types
 will provide all that you are looking for. My expanded Apple Health Export
 folder also includes workout GPX files, electrocardiograms, and clinical
-records imported from my physician's medical records system.
+records imported from my health system's medical records system.
 
-I have a bit over two years of Apple Watch data in my iPhone. There is a lot of
-data in the Apple Health Export. In fact, after a full career working
+I have a bit over two years of Apple Watch data in my iPhone. 
+After a full career working
 as a data analyst, this is the largest number of data points
 I have ever dealt with. Extracting the "Record" data  from `export.xml` produces
-3.4 million rows and takes about 70 seconds on my 2019 iMac. 
+more than four million rows and takes about 70 seconds on my 2019 iMac. 
 
-The counts by "type"  and "sourceName" describe the breadth and quantity of data:
+### The Types of Data in the Export
 
-|type                                               |     Watch|   Phone| Lose It!| Other|     Total|
-|:--------------------------------------------------|---------:|-------:|--------:|-----:|---------:|
-|HKQuantityTypeIdentifierActiveEnergyBurned         | 1,236,768|       0|        0|     1| 1,236,769|
-|HKQuantityTypeIdentifierBasalEnergyBurned          |   754,729|       0|        0|     0|   754,729|
-|HKQuantityTypeIdentifierDistanceWalkingRunning     |   539,816| 136,122|        0|     1|   675,939|
-|HKQuantityTypeIdentifierHeartRate                  |   546,869|       0|        0| 1,363|   548,232|
-|HKQuantityTypeIdentifierStepCount                  |    49,152| 130,003|        0|     1|   179,156|
-|HKQuantityTypeIdentifierAppleExerciseTime          |    45,654|     337|        0|     0|    45,991|
-|HKQuantityTypeIdentifierFlightsClimbed             |    11,533|  10,455|        0|     1|    21,989|
-|HKCategoryTypeIdentifierAppleStandHour             |    17,616|       7|        0|     0|    17,623|
-|HKQuantityTypeIdentifierHeartRateVariabilitySDNN   |     3,672|       0|        0|     0|     3,672|
-|HKQuantityTypeIdentifierDietaryFatTotal            |         0|       0|    3,486|     0|     3,486|
-|HKQuantityTypeIdentifierDietaryFatSaturated        |         0|       0|    3,056|     0|     3,056|
-|HKCategoryTypeIdentifierSleepAnalysis              |         0|       0|        0| 2,972|     2,972|
-|HKQuantityTypeIdentifierDietaryEnergyConsumed      |         0|       0|    2,836|     0|     2,836|
-|HKQuantityTypeIdentifierDietaryProtein             |         0|       0|    2,670|     0|     2,670|
-|HKQuantityTypeIdentifierDietaryFiber               |         0|       0|    2,621|     0|     2,621|
-|HKQuantityTypeIdentifierDietarySodium              |         0|       0|    2,619|     0|     2,619|
-|HKQuantityTypeIdentifierDietarySugar               |         0|       0|    2,563|     1|     2,564|
-|HKQuantityTypeIdentifierDietaryCholesterol         |         0|       0|    2,481|     0|     2,481|
-|HKQuantityTypeIdentifierAppleStandTime             |     1,827|       0|        0|     0|     1,827|
-|HKQuantityTypeIdentifierBloodPressureDiastolic     |         0|       0|        0| 1,786|     1,786|
-|HKQuantityTypeIdentifierBloodPressureSystolic      |         0|       0|        0| 1,786|     1,786|
-|HKQuantityTypeIdentifierDistanceCycling            |     1,415|       0|        0|     0|     1,415|
-|HKQuantityTypeIdentifierEnvironmentalAudioExposure |     1,342|       0|        0|     0|     1,342|
-|HKQuantityTypeIdentifierRestingHeartRate           |       745|       0|        0|     0|       745|
-|HKQuantityTypeIdentifierWalkingHeartRateAverage    |       666|       0|        0|     0|       666|
-|HKQuantityTypeIdentifierBodyMass                   |         0|       1|      158|     1|       160|
-|HKQuantityTypeIdentifierVO2Max                     |       111|       0|        0|     0|       111|
-|HKCategoryTypeIdentifierMindfulSession             |        52|       0|        0|     0|        52|
-|HKQuantityTypeIdentifierHeight                     |         0|       1|        0|     1|         2|
-|HKQuantityTypeIdentifierDietaryCaffeine            |         0|       0|        0|     1|         1|
-|HKQuantityTypeIdentifierDietaryCarbohydrates       |         0|       0|        0|     1|         1|
-|HKQuantityTypeIdentifierNumberOfTimesFallen        |         1|       0|        0|     0|         1|
-|Total                                              | 3,211,968| 276,926|   22,490| 7,916| 3,519,300|
+The counts by "type" describe the breadth and quantity of data:
+<style>
+  .myTable td {
+    padding: 4px;
+  }
+</style>
+<table class="myTable">
+<caption>Frequency by Type and Data Source</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> type </th>
+   <th style="text-align:right;"> Watch </th>
+   <th style="text-align:right;"> Phone </th>
+   <th style="text-align:right;"> Lose It! </th>
+   <th style="text-align:right;"> Other </th>
+   <th style="text-align:right;"> Total </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierActiveEnergyBurned </td>
+   <td style="text-align:right;"> 1,459,787 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1,459,788 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierBasalEnergyBurned </td>
+   <td style="text-align:right;"> 911,246 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 911,246 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDistanceWalkingRunning </td>
+   <td style="text-align:right;"> 664,925 </td>
+   <td style="text-align:right;"> 140,647 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 805,573 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierHeartRate </td>
+   <td style="text-align:right;"> 655,002 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1,684 </td>
+   <td style="text-align:right;"> 656,686 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierStepCount </td>
+   <td style="text-align:right;"> 55,350 </td>
+   <td style="text-align:right;"> 136,637 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 191,988 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierAppleExerciseTime </td>
+   <td style="text-align:right;"> 53,944 </td>
+   <td style="text-align:right;"> 337 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 54,281 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierFlightsClimbed </td>
+   <td style="text-align:right;"> 13,358 </td>
+   <td style="text-align:right;"> 11,988 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 25,347 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKCategoryTypeIdentifierAppleStandHour </td>
+   <td style="text-align:right;"> 20,276 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 20,283 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierAppleStandTime </td>
+   <td style="text-align:right;"> 9,657 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 9,657 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierEnvironmentalAudioExposure </td>
+   <td style="text-align:right;"> 6,586 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6,586 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryFatTotal </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5,628 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5,628 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryEnergyConsumed </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5,064 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5,064 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryFatSaturated </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5,040 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5,040 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryProtein </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,736 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,736 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietarySodium </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,699 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,699 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryFiber </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,695 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,695 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietarySugar </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,603 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4,604 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierHeartRateVariabilitySDNN </td>
+   <td style="text-align:right;"> 4,573 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,573 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryCholesterol </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,447 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4,447 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKCategoryTypeIdentifierSleepAnalysis </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3,377 </td>
+   <td style="text-align:right;"> 3,377 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierBloodPressureDiastolic </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2,428 </td>
+   <td style="text-align:right;"> 2,428 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierBloodPressureSystolic </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2,428 </td>
+   <td style="text-align:right;"> 2,428 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDistanceCycling </td>
+   <td style="text-align:right;"> 1,415 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1,415 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierRestingHeartRate </td>
+   <td style="text-align:right;"> 861 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 861 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierWalkingHeartRateAverage </td>
+   <td style="text-align:right;"> 781 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 781 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierBodyMass </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 263 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 265 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierVO2Max </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 187 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKCategoryTypeIdentifierMindfulSession </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierHeadphoneAudioExposure </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierHeight </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryCaffeine </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierDietaryCarbohydrates </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HKQuantityTypeIdentifierNumberOfTimesFallen </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Total </td>
+   <td style="text-align:right;"> 3,858,025 </td>
+   <td style="text-align:right;"> 289,635 </td>
+   <td style="text-align:right;"> 39,175 </td>
+   <td style="text-align:right;"> 9,926 </td>
+   <td style="text-align:right;"> 4,196,761 </td>
+  </tr>
+</tbody>
+</table>
 
-Most of the data comes the Apple Watch. I have been using the **Lose It!** app on my iPhone for about six months to count calories,
-and that produces quite a bit of data. The free version of the app which I am using does not display much beyond
-basic calorie counts. It's interesting to see that the more detailed nutrition breakdowns are passed
-into the Health app even without paying for the upgrade. I haven't attempted to look at any of the
-nutrition information.
+The same data may be repeated from multiple sources
+so it is important to pay attention to `sourceName`.
+Note that step counts, flights climbed, and distance walking/running
+are recorded from both the Watch and the iPhone. 
+On any particular day you probably want to include only one of the sources.
+Otherwise you risk double counting. 
+Generally I focus on the Watch data, but I have almost three years of
+data from my iPhone before I started wearing the Apple Watch.
+
+The largest quantity of data is collected via my Apple Watch rather than my iPhone.
+There are other sources as well.
+I have been using the *Lose It!* app on my iPhone for about six months to count calories,
+and that produces a noticeable amount of data. 
+The free version of the app that I am using does not display much beyond
+basic calorie counts. 
+It's interesting to see that the more detailed nutrition breakdowns are passed
+into the Health app. 
+
+As far as the "Other" category, I'm using an Omron blood pressure cuff 
+that can transfer readings to the Omron app on the iPhone via Bluetooth. Those
+readings are then updated in the Apple Health database. 
+There are a few odds and ends contributed by apps on my iPhone
+such as AllTrails, Breathe, and AutoSleep. Note that heart rate data comes both from
+the watch and from the blood pressure data.
+
+The other major XML categories are ActivitySummary, Workout, and ClinicalRecord. 
+For ActivitySummary I have one row per
+day which basically summarizes some of the intra-day activity data. 
+Workout has one row per workout. If I were
+still running I would focus much more on that data frame. 
+For each workout it shows type, distance, duration, 
+and energy burned Most of my workouts are outdoor walks. 
+Quite often I forget to end the workout when I end the walk,
+which certainly reduces the usefulness of the data. 
+But I would imagine that for a runner or a swimmer or a cyclist, 
+the Workout information would be interesting and useful.
+
+ClinicalRecord is a bit tricky. 
+I have set things up so that my health organization shares my health records with the
+Apple Health app.
+
+
+|type                |   n|
+|:-------------------|---:|
+|AllergyIntolerance  |   1|
+|Condition           |  12|
+|DiagnosticReport    |  63|
+|Immunization        |  15|
+|MedicationOrder     |   7|
+|MedicationStatement |  13|
+|Observation         | 694|
+|Patient             |   1|
+|Procedure           |   7|
+
+In the clinical data frame there is a column called `resourceFilePath` that contains 
+the path to a json dataset in the `Apple Health Export/clinical records` folder. Presumably
+this would allow you to retrieve items such as individual lab test results. 
+I haven't attempted to get into this data. I only know what's available
+here because I can view it via the Apple Health app.
+
+# The Problem of Time Zones and of Daylight Savings
+
+When I first looked at day by day data for resting heart rate I bumped into
+problems caused by the issue of time zones. I have about 800 rows of data of type
+`HKQuantityTypeIdentifierRestingHeartRate` which should be one per day. 
+I quickly discovered I had several days where there were two values in a single day, 
+and these were related to
+occasions when I traveled by air to a different time zone.
+
+This leads to a long digression on the subject of computer time stamps and time zones. 
+(Here is an [entertaining video](https://www.youtube.com/watch?v=-5wpm-gesOY) that describes
+the general problem of time stamps and time zones, but it doesn't relate to the specific
+problems that I will get into here. It's fun if you want to nerd out on this topic.)
+
+**Attention Conservation Notice:** If you don't care about time of day and can tolerate
+a few things like resting heart rate being a day off, then you can ignore the 
+issues with the time stamps. Your life will be a lot simpler. You can basically skip
+the rest of this post and look forward to Part II. 
+
+Now we shall dive deep into the weeds.
+Each item in the records of the health dataset has a creation, start, and end time stamp.
+In the export dataset
+they appear as a character string that looks like this: "2019-04-10 08:10:34 -0500". 
+There is "-0500" on the end
+because as I write this local time is Eastern Standard Time which is five hours 
+earlier than UTC (universal
+time code). At first I thought the time code offset at the end of the text string would take care of everything. 
+In fact, it is useless.
+As near as I can tell, the internal data has no indication of time zone.[^1]
+The UTC offset is attached to the date and time information when the data is exported. 
+Every single time stamp in the exported dataset has the same "-0500" offset,
+which merely represent my local offset at the time the export was done. 
+When I exported the data during Eastern Daylight Savings, all of the offsets appeared as "-0400". 
+In fact, the exported data has no information about time zone or daylight savings. 
+One should think of the actual time stamp as being in universal time (UTC).
+The export creates a character string which displays the date and time
+in the time zone where and when the export is created and attaches an offset to UTC.
+
+When I go into the Activity app on my iPhone I see that it claims I started a walk in England 
+on 9/1/2019 at 05:51:58. I'm not that much of an early riser. 
+I know from my travel diary that I actually got started five hours later than that
+at 10:51:58 local time (British Summer Time) because I had to take a bus before
+I could start the walk. When I exported the workout data last October during
+Daylight Savings, the exported
+date showed "2019-09-01 05:51:58 -0400". When I export the data now during standard
+time it shows "2019-09-01 04:51:58 -0500". If I feed either of those
+character strings into `lubridate::as_datetime` I get "2019-09-01 09:51:58 UTC". 
+In absolute terms, there's no ambiguity about when the observation was added to the data.
+The ambiguity is the local time as it appeared on my watch at the moment the data was added. 
+Sometimes that matters and sometimes it doesn't.
+
+[^1]: The documentation for the Apple Health Kit does offer a way for developers to store [time zone meta data](https://developer.apple.com/documentation/healthkit/hkmetadatakeytimezone?language=objc) via the `HKMetadataKeyTimeZone` object. It appears that [not even Apple uses this feature](https://stackoverflow.com/questions/49250964/hkmetadatakeytimezone-is-always-nil-for-health-data-which-is-created-by-apples). And the Apple documentation only suggests using it for sleep data. It would be impractical to try to attach this meta data to every single observation.
+
+When does it matter? 
+A number of items like resting heart rate are recorded once per day.
+But because of time zone issues, you can end up with two on one day and none on another. 
+Also, there may be situations where you want to look at patterns over the course of a day. 
+At one point I wanted to look at whether there were periods when my heart rate was 
+unusually high during normal sleeping hours. 
+I looked for a heart rate above 120 between the hours of 11PM and 6AM. 
+I got hits for when I was hiking in a different time zone because the 
+time stamp appeared to be during those night time hours when in fact the local time
+was shifted five or seven hours because of the different time zone.
+
+The time stamp issues are tricky. If these kinds of situations are not a problem for you,
+then ignore them and skip this section. Your life will be simpler.
+
+I use the `lubridate` package to deal with the time stamps. 
+R relies on a Unix-based standard for dates and time called 
+[POSIX](https://en.wikipedia.org/wiki/POSIX) that is implemented as a class 
+called POSIXct. You can see lots of references to POSIXct in the `lubridate` documentation. 
+The `as_datetime` function in `lubridate` allows you to add a `tz` parameter that 
+specifies the time zone. 
+A significant difficulty is that in R the time zone is stored as an *attribute* of the vector 
+rather than as part of the data. 
+If you have a vector of `datetime` data, 
+the time zone attribute applies to the entire vector, not to individual elements
+in the vector. 
+If you want to store time zones that vary within the vector, you need to store them in a separate
+vector, and that's not part of the R standard for handling dates and times. 
+You're on your own. The `lubridate` package includes some functions to help convert vectors 
+from one time zone to another and to deal somewhat with
+daylight savings. 
+But it does not automatically help with a vector that contains datetime information from
+varying time zones (as well as different daylight savings issues). 
+(See [Clayton Yochum](https://blog.methodsconsultants.com/posts/timezone-troubles-in-r/) 
+for a more detailed discussion of general time zone messiness in R.)
+
+As I searched the web for tips on how to approach this issue, I discovered that
+there's a population of people who are working hard to maintain a streak 
+in filling their activity rings in the Apple Activity app.
+Some of those individuals get frustrated because they are tripped up
+by movement across time zones or even changes to daylight savings.
+There are a number of tips out there for activity tracking in the face of 
+[crossing time zones](https://9to5mac.com/2018/04/02/how-to-fill-apple-watch-activity-rings-while-traveling-timezones/). 
+
+## My Treatment of Time Zones and the Apple Health Export
+
+Here I describe the way I handled the time zone issue.
+There will be three steps.
+1. Identify when I was in a different time zone.
+2. Attach a time zone to each row of `health_df`.
+3. Use the time zone information to attach a local start and end time to each observation.
+
+The first task is to figure out when I was outside of my home time zone. 
+To do that I need a dataframe that shows me the time when
+I arrived in another time zone.
+I created a table that contains the date and time my
+watch switched to a new time zone. 
+In my case that means identifying airplane trips
+that landed in a different time zone. 
+As a bonus, I will describe in detail how I
+used data exported from TripIt to create most
+of the table of time zone changes. Later I converted
+that information to UTC and then used the table to
+establish the time zone in each of my 4+ million rows
+of data from the Apple Health Export.
+
+My TripIt data is missing one overseas trip. I needed to
+add that trip manually. Here is a `tribble` that creates a table
+to describe a trip to Greece via a two day stop
+in Amsterdam. If you have no
+data in TripIt then the manual table would have to
+describe all your trips to a different time zone.
+
+
+```r
+manual_timezone_changes <-
+  tibble::tribble(
+    ~local_arrive,        ~local_timezone,
+    "2018-04-18 09:15:00", "Europe/Amsterdam",
+    "2018-04-20 21:00:00", "Europe/Athens",
+    "2018-04-30 15:23:00", "America/New_York"
+  ) %>% 
+  mutate(local_arrive = as_datetime(local_arrive))
+```
+
+The `local_arrive` column records when I arrived in a new time zone and
+is the scheduled arrival time for the fight to that time zone. 
+For example, the first line represent a flight that I took
+from JFK to Amsterdam that arrived at 9:15 the next morning
+in Amsterdam time. My watch was on New York time until I turned off
+airplane mode after arrival in Amsterdam so I am focusing on
+the arrival time. One
+could do similar lines of data for arrivals by car, train, or boat.
+Later we will see how to transform this data so that it can
+be applied to the rows of the Apple Health Export. First,
+let's go into the details of how to complete this table
+using data from TripIt.
+
+### Using TripIt Data to Track Your Plane Flights
+
+I will use TripIt to get most of my flight information. This
+was inspired by a talk by Hadley Wickham. The point of the talk was 
+[data visualization](https://www.youtube.com/watch?v=ZdPNBF6GWBw&list=PLQ-RiBY-tjaV-cmCWenpYRf1zqYf-o0NU&index=6&t=0s), 
+but one of his [examples](https://github.com/hadley/vis-eda/blob/master/vis-eda.pdf) 
+was based on relationship between
+when he is traveling and number of commits on GitHub.
+For that example he used the history of his trips on TripIt, and
+that's the data I need to correct the time stamps. 
+
+OK, here we go. Remember that I warned you that adjusting the time
+stamps would involve complications.
+
+I started with [Hadley's code](https://github.com/hadley/vis-eda/blob/master/travel.R) 
+to fetch history from TripIt. There's a TripIt [developer page](https://www.tripit.com/developer) that points you to
+more information. TripIt has an OAuth API for full-strength applications. That was more
+than I needed. Hadley used a simpler form of authorization. Here's the [TripIt description](http://tripit.github.io/api/doc/v1/index.html):
+
+> TripIt API offers a very simple way of authenticating the API that should only be used for testing and development purposes.... Note that this authentication scheme is off by default for every TripIt user. If you want to have this turned on for your account so you can use it for development purposes please send email to support@tripit.com.    
+
+I sent them an email to request simple authentication, and TripIt support responded the next day.
+From then on I could use `httr` functions to get the data from TripIt via information
+from documentation of the TripIt API.
+
+I did one `GET` call from `httr` to get a list of my TripIt trips. Next I used the `purrr` package
+to extract data from the nested JSON lists returned by TripIt. In particular, I used the `map` function
+to get TripIt "air" objects for each trip ID. Individual airplane flights are "segments"
+with each air object. For example, a trip might be two connecting flights to get to the 
+destination and two flights to return home, each represented by a "segment". 
+I always feel like I'm a few steps away from thorough understanding of
+`purrr` and tend to rely on a certain amount of trial and error to get a sequence of `flatten`
+and `map` call that extract what I need. The code is available from [a GitHub repo I made to support
+this post](https://github.com/johngoldin/applehealth1/tree/master/R).
+
+I end up with a 
+data frame that has the scheduled departure and arrival for each fight and conveniently provides
+the time zone for each airport. Note that in practice this data might not be perfect. It is scheduled
+flights only and would not account for cancelled flights or even the time of a delayed flight. So keep
+that in mind before you
+try to use this data to examine something detailed such as whether your heart rate is elevated during takeoffs and landings.
+
+I took a quick detour and explored whether I could use the FlightAware API to get the actual arrival
+times. It is now easy to get free access to limited FlightAware data. But the API calls are
+oriented to retrieving current rather than historical data so I can't use it to find out about
+my past flights.
+
+
+```r
+# get list of trips
+trips_list <- GET_tripit("https://api.tripit.com/v1/list/trip/past/true/false")
+trip_ids <- trips_list$Trip %>% map_chr("id")
+# save_all_trips <- trip_ids %>% map
+# first get flights (i.e., segments) from all air trips
+air_trips <- save_all_trips %>% purrr::map("AirObject") %>% purrr::map("Segment") %>% flatten()
+save(trips_list, trip_ids, save_all_trips, air_trips, file = paste0(path_saved_export, "saved_tripit_data.RData"))
+```
+
+
+Once I have the trip ID's, I use trip ID to fetch the flight
+information. I used the RStudio `View()` function to examine
+the results I got back from calls to the TripIt API. 
+I get one trip at a time, fetch the
+air segments, and then bind them together with `purrr::map_dfr`. I
+fetched more than the minimum columns I needed partly out of curiosity over
+what was in the TripIt data. It's interesting to see all my flight information
+in one table, although much is not directly relevant to the task at hand.
+
+
+
+```r
+GET_air <- function(trip_id) {
+  atrip <-
+    GET_tripit(
+      paste0(
+        "https://api.tripit.com/v1/get/trip/id/",
+        trip_id,
+        "/include_objects/true"
+      ) )
+  air_trip <- atrip[["AirObject"]][["Segment"]]
+  flights <- dplyr::tibble(
+    trip_id = trip_id,
+    trip_start = atrip[["Trip"]][["start_date"]],
+    start_date = air_trip %>% purrr::map("StartDateTime") %>% map_chr("date"),
+    start_time =  air_trip %>% purrr::map("StartDateTime") %>% map_chr("time"),
+    start_timezone =  air_trip %>% purrr::map("StartDateTime") %>% map_chr("timezone"),
+    start_city = air_trip %>%  purrr::map_chr("start_city_name"),
+    end_date = air_trip %>% purrr::map("EndDateTime") %>% map_chr("date"),
+    end_time =  air_trip %>% purrr::map("EndDateTime") %>% map_chr("time"),
+    end_timezone =  air_trip %>% purrr::map("EndDateTime") %>% map_chr("timezone"),
+    end_city = air_trip %>%  purrr::map_chr("end_city_name"),
+    airline = air_trip %>%  purrr::map_chr("marketing_airline"),
+    code = air_trip %>%  purrr::map_chr("marketing_airline_code"),
+    number = air_trip %>%  purrr::map_chr("marketing_flight_number"),
+    aircraft = air_trip %>%  purrr::map_chr("aircraft_display_name"),
+    distance = air_trip %>%  purrr::map_chr("distance"),
+    duration = air_trip %>% purrr::map_chr("duration")
+  )
+}
+GET_air_mem <- memoise::memoise(GET_air)
+# I used memoise because TripIt typically doesn't let me fetch
+# all the data in a single call. With memoise, for each call
+# I only fetch the items it doesn't remember.
+```
+
+```r
+flying <- trip_ids %>% map_dfr(GET_air_mem)
+save(flying, file = paste0(path_saved_export, "flying.RData"))
+```
+
+
+I ended up with a tibble with one row per flight. 
+I selected the two columns I needed and used `bind_rows` to combine
+them with the manual data I created above. 
+I focused on the ending time and location
+of each flight. That's when I assume my watch gets changed to a new time zone and 
+life in that time zone begins. Life in that time zone ends when life in the next time
+zone begins. I wrote a short function to convert the local scheduled time
+in the flight information into UTC time comparable to what is in the health export.
+
+So after I bind together rows from TripIt and the manual rows above, I
+set `utc_until = lead(utc_arrive), until_timezone = lead(local_timezone)`.
+I set the last `utc_until` to `now()`
+
+
+```r
+local_to_utc <- function(dt, timezone) {
+  # UTC of this local time. Note: not vectorized
+  if (is.character(dt)) dt <- as_datetime(dt)
+  tz(dt) <- timezone
+  xt <- with_tz(dt, "UTC")
+  tz(xt) <- "UTC"
+  return(xt)
+}
+
+arrivals <- flying %>%
+  mutate(local_start = ymd_hms(paste0(start_date, start_time)),
+         local_arrive = ymd_hms(paste0(end_date, end_time))) %>% 
+  filter(start_timezone != end_timezone) %>% # only trips that change time zone matter
+  select(local_arrive, local_timezone = end_timezone) %>%
+  # manual additions here
+  bind_rows(manual_timezone_changes) %>%
+  mutate(utc_arrive = map2_dbl(local_arrive, local_timezone, local_to_utc) %>% as_datetime) %>% 
+  arrange(utc_arrive) %>% 
+  mutate(utc_until = lead(utc_arrive), until_timezone = lead(local_timezone))
+  arrivals$utc_until[nrow(arrivals)] <- with_tz(now(), "UTC")
+  arrivals$until_timezone[nrow(arrivals)] <- Sys.timezone() # I don't really need this.
+# Check that I have arrivals set up properly so that my last arrival is in my home time zone
+if (arrivals$local_timezone[nrow(arrivals)] != Sys.timezone()) warning("Expected to end in Sys.timezone:", 
+                                                       Sys.timezone(), " rather than ",
+                                                       arrivals$local_timezone[nrow(arrivals)])
+```
+
+### Assign a Time Zone to Each Row of the Data
+
+The next step was to associate a time zone with each of the 4+ million rows in `health_df`.
+I thought this would be difficult and very slow. I was wrong! 
+The [fuzzyjoin](https://cran.r-project.org/web/packages/fuzzyjoin/index.html) package
+by Dave Robinson
+came to the rescue. I can't do a simple join between flights and data rows because there is
+not an exact match for the time stamps. Instead I want to join the time stamps in `health_df`
+with a start and end time stamp for each row in the `arrivals` table. It turns out
+`fuzzyjoin` has that covered. 
+
+The `fuzzyjoin` package provides a variety of special joins that do not rely on an exact match.
+In this case, what I needed was the `interval_left_join` function which joins tables based
+on overlapping intervals. The help for `interval_left_join` explains that this function requires
+the IRanges package available from Bioconductor and points to 
+[instructions for installation](https://bioconductor.org/packages/release/bioc/html/IRanges.html).
+This was the first time I have used anything from the Bioconductor repository. I'm
+impressed by the speed of `interval_left_join`. I thought it would be impractical to run it
+on the full dataset, but it feels fast. I also used it to relate rows in 
+`health_df` to rows in `workout_df`, but I'll describe that in Part II.
+
+
+```r
+health_df <- health_df %>%
+  mutate(utc_start = as_datetime(startDate),
+         utc_end = as_datetime(endDate)) %>% 
+  filter(!is.na(utc_start)) %>%
+  interval_left_join(arrivals %>% 
+                       select(utc_arrive, utc_until, timezone = local_timezone),
+                     by = c("utc_start" = "utc_arrive", "utc_start" = "utc_until"))
+```
+
+Do a quick report to check whether the assignment of time zone makes sense. 
+If data documenting the transition from one time zone to
+another is missing the whole table will be off kilter. If
+there's something wrong with the `arrivals` table, it should show up as an
+unexpected result in this table:
+
+
+```r
+# shows trip by trip to check whether timezone assignment works as expected:
+# health_df %>% #filter(timezone != "America/New_York") %>%
+#   mutate(date = as_date(utc_start)) %>%
+#   group_by(timezone, utc_arrive) %>% summarise(arrive = min(utc_start), leave = max(utc_start),
+#                                    days = length(unique(date)),
+#                                    n = n())
+# Do a quick check whether the distribution of time zones makes sense
+health_df %>% mutate(date = as_date(utc_start)) %>% group_by(timezone) %>% 
+  summarise(dates = length(unique(date)), observations = n())  %>% 
+  kable(format.args = list(decimal.mark = " ", big.mark = ","),
+        table.attr='class="myTable"',
+        caption = "Frequency of Days by Time Zone")
+```
+
+<table class="myTable">
+<caption>Frequency of Days by Time Zone</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> timezone </th>
+   <th style="text-align:right;"> dates </th>
+   <th style="text-align:right;"> observations </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> America/Chicago </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 52,281 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> America/Los_Angeles </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 74,973 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> America/New_York </td>
+   <td style="text-align:right;"> 1,800 </td>
+   <td style="text-align:right;"> 3,458,188 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> America/Phoenix </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 10,535 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Europe/Amsterdam </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 5,105 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Europe/Athens </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 19,555 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Europe/London </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 574,659 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Europe/Rome </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 1,467 </td>
+  </tr>
+</tbody>
+</table>
+  
+### Using Row-by-Row Time Zone Data to Adjust Time Stamps
+
+Now that I have time zone information attached to each row of `health_df`,
+I can translate the UTC time into the local time as it appeared on my watch.
+In practice I find it quite hard to wrap my head around exactly
+what is happening with all these time manipulations. Sometimes it feels like
+a science fiction time travel story[^3]. 
+
+Remember that for the `datetime` class
+in R, time zone is an attribute that applies to an entire vector.
+That's a limitation we need to work around. First we will convert
+the character version of the time stamp (with universal time offset)
+to a datetime class value with UTC as the time zone.
+
+Next I create
+a function `exported_time_to_local` which will convert the time as
+it appears in the Apple Health Export to the time as it appeared at the
+time the data was originally added to the health data. 
+As a side effect the lubridate conversion
+functions will also adjust for daylight savings changes.
+This function
+will apply to data for a single time zone only so that it can be
+vectorized. This is important because it will be applied to millions of rows.
+
+[^3]: For the ultimate in time travel paradox, see Heinlein's 
+*All You Zombies*, described [here](https://en.wikipedia.org/wiki/All_You_Zombies).
+There's a movie version called *Predestination* starring Ethan Hawke.
+
+
+```r
+utc_dt_to_local <- function(dt, time_zone) {
+  # Adjust a vector of datetime from time zone where data was exported
+  # to a particular time_zone that that applies to the whole vector.
+  tz(dt) <- "UTC"
+  local <- with_tz(dt, time_zone) # now adjust utc to the time zone I want
+  tz(local) <- "UTC"    
+  # I mark the vector as UTC because I will be row_bind-ing vectors
+  # together and all need to have the same time zone attribute.
+  # Although the vector is marked as UTC, 
+  # in the end I will treat the hour as being whatever the local
+  # time was that I experienced then.
+  return(local)
+}
+```
+
+Next I will apply the `utc_dt_to_local` function to the character time stamps
+in the Apple Health Export. The function needs to be applied to a vector with
+the same time zone for all elements in the vector. By doing `group_by(start_time_zone)`
+before I use the function inside `mutate`, the function will be applied with a 
+different time zone for each group. 
+That way the function is vectorized for each group and is reasonably fast. 
+I did not group the time zones separately for the start date and the end date. Usually
+they would be in the same tine zone, and even if they are not I want to handle them as if they were. 
+All the time stamp vectors end up having the time zone attribute of "UTC".
+Remember that time zone is a single attribute that has to apply to the whole vector.
+In this case it is labelled UTC, but each time stamp describes the local time
+when and where the observation was recorded. So 16:42 means 4:42 PM in the time zone
+(and daylight savings status) at the place and time of the measurement that goes
+with that time stamp.
+
+
+```r
+health_df <- health_df %>% 
+  group_by(timezone) %>% 
+  # assume end_date is in the same time zone as start_date
+  mutate(local_start = utc_dt_to_local(utc_start, first(timezone)),
+         local_end = utc_dt_to_local(utc_end, first(timezone))) %>% 
+  # mutate(end_time_zone = get_my_time_zone(endDate)) %>% 
+  # group_by(end_time_zone) %>% 
+  # mutate(end_date = exported_time_to_local(endDate, first(end_time_zone))) %>% 
+  ungroup() %>% 
+  mutate(date = as_date(utc_start),
+         start_time = as.integer(difftime(local_start, floor_date(local_start, "day"), unit = "secs")) %>% hms::hms()) %>% 
+  arrange(type, utc_start) %>% 
+  ungroup()
+# Here I'll adjust time for workout_df as well
+workout_df <- workout_df %>%
+  mutate(utc_start = as_datetime(startDate),
+         utc_end = as_datetime(endDate)) %>% 
+  filter(!is.na(utc_start)) %>%
+  interval_left_join(arrivals %>% 
+                       select(utc_arrive, utc_until, timezone = local_timezone),
+                     by = c("utc_start" = "utc_arrive", "utc_start" = "utc_until"))
+workout_df <- workout_df %>% 
+  group_by(timezone) %>% 
+  mutate(local_start = utc_dt_to_local(utc_start, first(timezone)),
+         local_end = utc_dt_to_local(utc_end, first(timezone))) %>% 
+  arrange(utc_start) %>% 
+  ungroup()
+# I'm going to focus on health_df and workout_df, but I could adjust times in the other df's as well
+```
+
+
+At this point we have two sets of date and time stamps for `health_df` and `workout_df`. 
+The prefix "utc" is for universal time and
+should be used for sorting by time. The prefix "local" has local time as was shown on the watch when the
+measurement was recorded. Local time and date is what we need if we want to examine time during the day.
+For `health_df` there is also a column called `start_time` which is just the time of day, without date, expressed as hh:mm:ss.
+
+Let's do a plot to show the difference between looking at time of day in terms of UTC versus local time. The density
+plot below shows how the two scales overlap. I live in the Eastern Time Zone which is five hours later than
+UTC during standard
+time and four hours later during daylight savings. 
+As a compromise I
+subtracted 4.5 hours from the UTC time of day to make the distributions fit on the same scale. 
+The red scale shows the distribution of observations in 
+the export data in terms of UTC time of day and the blue scale shows local time. The blue scale corresponds more
+to my subjective experience of time of day. You can see that the red distribution is "fatter" during the period from
+4AM to 8AM than is the blue scale. That's primarily because of walking trips in England that are not in
+the Eastern Time. Observations that appear to be at 4AM in terms of UTC - 4.5 are probably happening in
+British Summer Time (because I'm on a hike in England during the summer) which is actually UTC + 1. In terms
+of my experience of local time, they are happening when my watch says 9AM. (The dataset also includes
+a 10 day walking holiday in Greece which is another two hours farther east than England.)
+
+If one looks at sleep time between 00:00 and 06:00, the Local Time distribution (blue) shows a
+consistent pattern of fewer observations because of less activity. A larger proportion of my
+activity outside of the Eastern Time Zone was in Europe rather than in Pacific Time and that's why
+the UTC distribution seems shifted to the left relative to Local Time. Also, Local Time is responding to 
+daylight savings changes and UTC is not. I think that explains why the peaks before and after 
+lunch time are higher in the Local Time distribution than in UTC. I'm actually fairly rigid about when
+I take time for lunch (and presumably reduce my physical activity) and taking daylight savings
+into account makes that more clear.
+
+In summary, if I did not correct for time zone and daylight savings the general bi-modal pattern would 
+still be apparent. But the translation into local time makes the time of day pattern more clear
+and more accurate, especially if one focuses on hours when I would expect to be asleep.
+
+![](post_apple_export_I_files/figure-html/hist_by_time-1.png)<!-- -->
+
+## Apple, If You're Listening...
+
+There may be a relatively simple item of data that Apple could add to the health data that would
+make it easier (and more accurate) to execute the adjustments for time zone described in this post.
+Whenever time zone on the watch or phone is changed, surely there is a log of that event. If
+those change events were added to the health dataset as a separate item, then one could construct
+an effective way to adjust all the time stamps in the datasets, similar
+to the way I have used the flight arrival times. I don't know whether there are 
+logs to accomplish this retrospectively, but even if it were added going forward
+that would be a big help. It would add very little data to the database. 
+Travel and daylight savings are the 
+only events that cause me to change the time on my phone or watch. 
+Perhaps there are some unusual situations where someone lives close to the border of
+a time zone where they frequently change among cell phone towers in different
+time zones. Perhaps that would add a lot more time change data, but such a person
+really needs a way to adjust for time zone even more than most people. The fancy solution from Apple
+would be if they added time change events to the data and then used that data to adjust the UTC offset
+at the time they produced the Apple Health Export. That would be a great help and make the data
+less confusing. In that case the time zone offsets that already appear in the
+exported data would actually mean something useful and would allow easy translation between
+UTC and local time.
+
+## Conclusion
+
+This ends Part I. I decided I need to do a separate Part I because this is mostly about
+the machinations to adjust time stamps to retrieve local time. But for most people that's
+an issue that can be ignored, meaning the bulk of Part I is not relevant for most people. 
+In Part II I will examine some of the data elements in more detail and give
+some examples using the data.
+
