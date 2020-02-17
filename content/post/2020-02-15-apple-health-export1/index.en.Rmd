@@ -19,13 +19,6 @@ draft: no
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{css echo=FALSE}
-code {
-  color: #97736C;
-  background-color: #FAF9F9;
-  font-weight: 400
-}
-```
 This post is Part I of a dive into the contents of the Apple Health Export. 
 It will work through the mechanics of moving data from the Apple Health app
 out of your iPhone and into R where you can analyze it. It also will describe in detail the problem of 
@@ -34,7 +27,14 @@ Unfortunately the topic of time zones and the Apple Health Export is a complicat
 
 ## First, Export the Data from the Health App
 
-You can export all of the data you are able to view via the Health app. 
+```{css echo=FALSE}
+code {
+
+    color: #97736C;
+  background-color: #FAF9F9;
+  font-weight: 400
+}
+```You can export all of the data you are able to view via the Health app. 
 Open the Health app on your iPhone. 
 To export, go to your personal settings by
 clicking on your icon near the upper right corner of the Browse screen. 
