@@ -1,0 +1,685 @@
+---
+title: Test Post to Explore Formatting
+author: John Goldin
+date: '2020-02-16'
+slug: []
+categories: []
+tags: []
+type: post
+subtitle: ''
+image: ''
+draft: yes
+---
+
+
+
+<div id="test-post" class="section level2">
+<h2>Test Post</h2>
+<p>If I have set this correctly (draft: yes), this post should only appear
+in my local RStudio session and not get into the distribution from Netlify.</p>
+<p>If anyone except me sees this, then I have made a mistake!</p>
+<pre class="r"><code>library(tidyverse, quietly = TRUE)
+library(knitr, quietly = TRUE)
+library(scales, quietly = TRUE)
+library(kableExtra, quietly = TRUE)</code></pre>
+<style>
+code {
+   color: #blue;
+}
+</style>
+<style type="text/css">
+code {
+  color: #97736C;
+  background-color: #FAF9F9;
+  font-weight: 400
+}
+</style>
+<p>Use <a href="https://htmlcolorcodes.com" class="uri">https://htmlcolorcodes.com</a> to find color.</p>
+<p>Can I highlight a single word with back-quote and not get the red highlight I normally see with
+code?</p>
+<p>This is a sentence with a <code>filename</code> that is highlighted.</p>
+<p>This is inline code: <span style="     color: red !important;">mpg</span>.</p>
+<p>Version 10</p>
+<p>previous css block:
+font-weight: 600</p>
+<pre class="r"><code>path_saved_export &lt;- &quot;~/Dropbox/Programming/R_Stuff/john_vitals/Apple-Health-Data/&quot;
+path_to_healthexport1 &lt;- &quot;~/Documents/R_local_repos/applehealth1/R/&quot;
+# source(paste0(path_to_healthexport1, &quot;find_timezone.R&quot;))
+# source(paste0(path_to_healthexport1, &quot;tripit_functions.R&quot;))
+load(paste0(path_saved_export, &quot;small_health_df.RData&quot;))
+health_df &lt;- small_health_df</code></pre>
+<div id="the-types-of-data-in-the-export" class="section level3">
+<h3>The Types of Data in the Export</h3>
+<p>The counts by “type” describe the breadth and quantity of data can be viewed in Table <a href="#tab:freq-type">1</a>:</p>
+<table>
+<caption>
+<span id="tab:freq-type">Table 1: </span>Frequency by Type and Data Source
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+type
+</th>
+<th style="text-align:right;">
+Watch
+</th>
+<th style="text-align:right;">
+Phone
+</th>
+<th style="text-align:right;">
+Lose It!
+</th>
+<th style="text-align:right;">
+Other
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierActiveEnergyBurned
+</td>
+<td style="text-align:right;">
+29,198
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+29,198
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierBasalEnergyBurned
+</td>
+<td style="text-align:right;">
+18,346
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+18,346
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDistanceWalkingRunning
+</td>
+<td style="text-align:right;">
+13,196
+</td>
+<td style="text-align:right;">
+2,679
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+15,875
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierHeartRate
+</td>
+<td style="text-align:right;">
+13,233
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+13,281
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierStepCount
+</td>
+<td style="text-align:right;">
+1,098
+</td>
+<td style="text-align:right;">
+2,717
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3,815
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierAppleExerciseTime
+</td>
+<td style="text-align:right;">
+1,036
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1,042
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierFlightsClimbed
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:right;">
+225
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+525
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKCategoryTypeIdentifierAppleStandHour
+</td>
+<td style="text-align:right;">
+396
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+396
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierAppleStandTime
+</td>
+<td style="text-align:right;">
+194
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+194
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierEnvironmentalAudioExposure
+</td>
+<td style="text-align:right;">
+142
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+142
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietaryFatTotal
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietaryEnergyConsumed
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+113
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierHeartRateVariabilitySDNN
+</td>
+<td style="text-align:right;">
+103
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+103
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietaryFatSaturated
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietaryProtein
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietarySodium
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+95
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietaryFiber
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietarySugar
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDietaryCholesterol
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKCategoryTypeIdentifierSleepAnalysis
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierBloodPressureDiastolic
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierBloodPressureSystolic
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierDistanceCycling
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierRestingHeartRate
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierWalkingHeartRateAverage
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKCategoryTypeIdentifierMindfulSession
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierBodyMass
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierHeadphoneAudioExposure
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HKQuantityTypeIdentifierVO2Max
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+77,315
+</td>
+<td style="text-align:right;">
+5,629
+</td>
+<td style="text-align:right;">
+789
+</td>
+<td style="text-align:right;">
+202
+</td>
+<td style="text-align:right;">
+83,935
+</td>
+</tr>
+</tbody>
+</table>
+<p>```</p>
+</div>
+</div>
