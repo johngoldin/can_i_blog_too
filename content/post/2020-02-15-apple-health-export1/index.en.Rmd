@@ -34,7 +34,8 @@ code {
   background-color: #FAF9F9;
   font-weight: 400
 }
-```You can export all of the data you are able to view via the Health app. 
+```
+You can export all of the data you are able to view via the Health app. 
 Open the Health app on your iPhone. 
 To export, go to your personal settings by
 clicking on your icon near the upper right corner of the Browse screen. 
