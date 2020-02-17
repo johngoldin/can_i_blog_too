@@ -18,6 +18,12 @@ in my local RStudio session and not get into the distribution from Netlify.
 
 If anyone except me sees this, then I have made a mistake!
 
+There will be three steps.    
+1. Identify when I was in a different time zone.    
+2. Attach a time zone to each row of `health_df`.    
+3. Use the time zone information to attach a local start and end time to each observation.    
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, out.width = "100%",

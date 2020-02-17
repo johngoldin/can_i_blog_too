@@ -322,10 +322,10 @@ There are a number of tips out there for activity tracking in the face of
 ## My Treatment of Time Zones and the Apple Health Export
 
 Here I describe the way I handled the time zone issue.
-There will be three steps.
-1. Identify when I was in a different time zone.
-2. Attach a time zone to each row of `health_df`.
-3. Use the time zone information to attach a local start and end time to each observation.
+There will be three steps.    
+1. Identify when I was in a different time zone.    
+2. Attach a time zone to each row of `health_df`.    
+3. Use the time zone information to attach a local start and end time to each observation.    
 
 The first task is to figure out when I was outside of my home time zone. 
 To do that I need a data frame that shows me the time when

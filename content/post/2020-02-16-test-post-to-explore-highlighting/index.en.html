@@ -18,6 +18,10 @@ draft: yes
 <p>If I have set this correctly (draft: yes), this post should only appear
 in my local RStudio session and not get into the distribution from Netlify.</p>
 <p>If anyone except me sees this, then I have made a mistake!</p>
+<p>There will be three steps.<br />
+1. Identify when I was in a different time zone.<br />
+2. Attach a time zone to each row of <code>health_df</code>.<br />
+3. Use the time zone information to attach a local start and end time to each observation.</p>
 <pre class="r"><code>library(tidyverse, quietly = TRUE)
 library(knitr, quietly = TRUE)
 library(scales, quietly = TRUE)
