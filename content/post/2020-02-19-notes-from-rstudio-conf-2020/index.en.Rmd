@@ -53,7 +53,8 @@ There were several heavy duty sessions on sports analytics including [this one](
 on NFL route tracking. And see [this one](https://resources.rstudio.com/rstudio-conf-2020/r-tidyverse-in-sports-namita-nandakumar) as well.
 
 I always find talks by Jenny Bryan to be very rewarding. She's my go-to source for miscellaneous practical tips
-on a number of R subjects I care about, such as her Happy Git book. The title of her talks was
+on a number of R subjects I care about, such as her [Happy Git book](https://happygitwithr.com) and [What They Forgot to Teach You About R](https://rstats.wtf). 
+The title of her talk was
 [Object of type ‘closure’ is not subsettable](https://resources.rstudio.com/rstudio-conf-2020/object-of-type-closure-is-not-subsettable-jenny-bryan),
 a message that every R coder encounters eventually. The talk addressed how to debug R code.
 
@@ -61,3 +62,9 @@ Because many sessions were presented in four parallel tracks, I want to go back 
 such as [Making a tidy dress](https://resources.rstudio.com/rstudio-conf-2020/lightning-talk-dr-amelia-mcnamara) by Dr. Amelia McNamara.
 
 Of course there were lots of sessions and not all of them were great. But there was a lot of good content.
+
+```{r, echo = FALSE}
+blogdown::shortcode("figure", src = "me_at_the_hex_wall.png", alt = "A nice figure")
+```
+
+
