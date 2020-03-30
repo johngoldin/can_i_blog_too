@@ -51,7 +51,7 @@ Next is the number of deaths.
 #### An Interesting Video That Explores Factors That Affect an Epidemic
 
 This is not directly related to the data for Connecticut, but
-I wanted to put in a plus for a very impressive video
+I wanted to put in a plug for a very impressive video
 that uses animated simulations to illustrate how various
 parameters affect the epidemic. It's about 20 minutes long
 and it is well worth your time. It's from the site [3blue1brown](https://www.3blue1brown.com/) by Grant Sanderson.
