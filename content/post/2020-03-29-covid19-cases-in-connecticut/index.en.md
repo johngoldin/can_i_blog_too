@@ -31,7 +31,7 @@ went into effect.
 The next figure displays the same counts of confirmed cases,
 but does not use a log scale. If you are unfamiliar with looking
 at log scales, this may provide a clearer display of the 
-relative magniture of cases among the counties. 
+relative magnitude of cases among the counties. 
 <br/><br/>
 
 {{< figure src="cases_nonlog.png" title="" caption="" >}}
@@ -53,6 +53,22 @@ Next is the number of deaths.
 
 <br/><br/>
 The R code that created these plots is available in a [GitHub repository](https://github.com/johngoldin/ctcorona).           
+<br/><br/>
+
+### Comments
+
+One large uncertainty is how the count of cases confirmed by a positive test 
+relates to the total number of cases in the population including those who
+have not been tested.
+
+I don't see a clear sign that the slope of the curves on the log
+plot are going down. That's what needs to happen to [flatten the curve](https://www.livescience.com/coronavirus-flatten-the-curve.html).
+I'm not an epidemiologist and I don't claim any expertise with
+this kind of data. I plan to update this post as time passes
+and we get more data. As someone who just turned 70, I'll
+be staying home in front of my computer aside from necessary
+trips to get food and a vigorous daily walk.
+
 <br/><br/>
 
 #### An Interesting Video That Explores Factors That Affect an Epidemic
