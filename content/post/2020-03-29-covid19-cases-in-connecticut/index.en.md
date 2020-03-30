@@ -20,6 +20,7 @@ at the end of each day. (Click on the box that says "TEST DATA".)
 The cumulative number of cases is plotted on a log scale, which makes it easier
 to compare the rate of grown among the eight counties of Connecticut. Similar slopes signal
 similar growth rates.
+<br/><br/>
 
 {{< figure src="log_cases.png" title="" caption="" >}}
 
@@ -30,6 +31,7 @@ The next figure displays the same counts of confirmed cases,
 but does not use a log scale. If you are unfamiliar with looking
 at log scales, this may provide a clearer display of the 
 relative magniture of cases among the counties. 
+<br/><br/>
 
 {{< figure src="cases_nonlog.png" title="" caption="" >}}
 
@@ -39,14 +41,18 @@ eight Connecticut counties, here is a map showing
 the county boundaries. The gray scale provides an indication
 of the cases per 100,000 persons in each county based
 on the most recent data.
+<br/>
 
 {{< figure src="county_map.png" title="" caption="" >}}
 
 Next is the number of deaths.
+<br/><br/>
 
 {{< figure src="deaths.png" title="" caption="" >}}
 
-           
+<br/><br/>
+The R code that created these plots is available in a [GitHub repository](https://github.com/johngoldin/ctcorona).           
+<br/><br/>
 
 #### An Interesting Video That Explores Factors That Affect an Epidemic
 
