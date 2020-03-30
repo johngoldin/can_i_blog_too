@@ -9,7 +9,6 @@ tags:
 type: post
 layout: post
 subtitle: ''
-draft: no
 ---
 
 This plot tracks the number of confirmed cases of Covid-19 in Connecticut.
