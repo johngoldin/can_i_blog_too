@@ -20,7 +20,7 @@ at the end of each day. (Click on the box that says "TEST DATA".)
 
 The cumulative number of cases is plotted on a log scale, which makes it easier
 to compare the rate of growth among the eight counties of Connecticut. Similar slopes signal
-similar growth rates.
+similar growth rates.  
 <br/><br/>
 
 {{< figure src="log_cases.png" title="" caption="" >}}
