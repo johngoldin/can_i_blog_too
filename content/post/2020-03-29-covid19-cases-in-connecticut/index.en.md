@@ -25,7 +25,7 @@ similar growth rates.
 
 {{< figure src="log_cases.png" title="" caption="" >}}
 
-Notes on the plot show when some of Governor Lamont's executive orders
+Notes on the plot show when some of Governor Lamont's [executive orders](https://portal.ct.gov/Coronavirus/Pages/Emergency-Orders-issued-by-the-Governor-and-State-Agencies)
 went into effect.
 
 The next figure displays the same counts of confirmed cases,
