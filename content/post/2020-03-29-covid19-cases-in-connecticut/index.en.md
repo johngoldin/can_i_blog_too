@@ -35,6 +35,13 @@ relative magnitude of cases among the counties.
 <br/><br/>
 
 {{< figure src="cases_nonlog.png" title="" caption="" >}}
+<br/><br/>
+
+Note that there are some cases and deaths for which the county
+is unknown. According to the New York Times, they will follow
+up with the state sources to get those resolved. As of 3/31/2020
+the Department of Public Health lists 77 confirmed cases 
+as "pending address validation" and two deaths.
 
 Because
 some of us may be a bit unclear about the location of all
@@ -68,6 +75,9 @@ this kind of data. I plan to update this post as time passes
 and we get more data. As someone who just turned 70, I'll
 be staying home in front of my computer aside from necessary
 trips to get food and a vigorous daily walk.
+
+For another view of this data, see the blog post at the
+[Connecticut Data Collaborative](https://www.ctdata.org/blog/stopping-the-spread-using-trusted-data-sources-to-prevent-misinformation-about-covid-19).
 
 <br/><br/>
 
