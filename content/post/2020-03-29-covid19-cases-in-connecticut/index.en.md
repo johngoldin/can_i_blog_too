@@ -68,8 +68,9 @@ One large uncertainty is how the count of cases confirmed by a positive test
 relates to the total number of cases in the population including those who
 have not been tested.
 
-I don't see a clear sign that the slope of the curves on the log
-plot are going down. That's what needs to happen to [flatten the curve](https://www.livescience.com/coronavirus-flatten-the-curve.html).
+Perhaps in recent days there is some sign that the slope of the trends on the log
+plot  of the confirmed cases are decreasing. 
+That's what needs to happen to [flatten the curve](https://www.livescience.com/coronavirus-flatten-the-curve.html).
 I'm not an epidemiologist and I don't claim any expertise with
 this kind of data. I plan to update this post as time passes
 and we get more data. As someone who just turned 70, I'll
