@@ -39,9 +39,10 @@ relative magnitude of cases among the counties.
 
 Note that there are some cases and deaths for which the county
 is unknown. According to the New York Times, they will follow
-up with the state sources to get those resolved. As of 3/31/2020
-the Department of Public Health lists 77 confirmed cases 
-as "pending address validation" and two deaths.
+up with the state sources to get those resolved. As of 4/3/2020
+the Department of Public Health lists 218 confirmed cases 
+as "pending address validation" and two deaths. Those cases are not
+in the figure. 
 
 Because
 some of us may be a bit unclear about the location of all
@@ -71,6 +72,11 @@ have not been tested.
 Perhaps in recent days there is some sign that the slope of the trends on the log
 plot  of the confirmed cases are decreasing. 
 That's what needs to happen to [flatten the curve](https://www.livescience.com/coronavirus-flatten-the-curve.html).
+It's less clear the "deaths" shows any decrease in the slope. "Deaths"
+are probably a better measure of the extent of covid-19 infection in
+Connecticut, but when a death occurs it may be one or two weeks after
+the case tested positive. 
+
 I'm not an epidemiologist and I don't claim any expertise with
 this kind of data. I plan to update this post as time passes
 and we get more data. As someone who just turned 70, I'll
