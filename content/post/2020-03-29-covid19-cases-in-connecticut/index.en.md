@@ -75,7 +75,7 @@ That's what needs to happen to [flatten the curve](https://www.livescience.com/c
 It's less clear the "deaths" shows any decrease in the slope. "Deaths"
 are probably a better measure of the extent of covid-19 infection in
 Connecticut, but when a death occurs it may be one or two weeks after
-the case tested positive. 
+the case tested positive.
 
 I'm not an epidemiologist and I don't claim any expertise with
 this kind of data. I plan to update this post as time passes
