@@ -63,6 +63,12 @@ Next is the number of deaths.
 The R code that created these plots is available in a [GitHub repository](https://github.com/johngoldin/ctcorona).           
 <br/><br/>
 
+I'll be adding hospitalizations momentarily! (I have a plot, but Hartford
+seems to have wandered off.)
+
+
+<br/><br/>
+
 ### Comments
 
 Note that I do not necessarily update these comments each time I 
