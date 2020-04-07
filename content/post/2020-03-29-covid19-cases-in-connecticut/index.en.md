@@ -60,14 +60,16 @@ Next is the number of deaths.
 {{< figure src="deaths.png" title="" caption="" >}}
 
 <br/><br/>
+
+The next plot shows hospitalizations. This shows
+"the number of patients currently hospitalized with laboratory-confirmed COVID19 by county based on data collected by the Connecticut Hospital Association. The distribution is by
+location of hospital, not patient residence."
+<br/><br/>
+{{< figure src="hospitalizations.png" title="" caption="" >}}
+<br/><br/>
 The R code that created these plots is available in a [GitHub repository](https://github.com/johngoldin/ctcorona).           
 <br/><br/>
 
-I'll be adding hospitalizations momentarily! (I have a plot, but Hartford
-seems to have wandered off.)
-
-
-<br/><br/>
 
 ### Comments
 
