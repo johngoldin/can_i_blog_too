@@ -65,6 +65,10 @@ The R code that created these plots is available in a [GitHub repository](https:
 
 ### Comments
 
+Note that I do not necessarily update these comments each time I 
+update the number from the Department of Public Health. So the
+comments may lag behind the data.
+
 One large uncertainty is how the count of cases confirmed by a positive test 
 relates to the total number of cases in the population including those who
 have not been tested.
@@ -72,7 +76,7 @@ have not been tested.
 Perhaps in recent days there is some sign that the slope of the trends on the log
 plot  of the confirmed cases are decreasing. 
 That's what needs to happen to [flatten the curve](https://www.livescience.com/coronavirus-flatten-the-curve.html).
-It's less clear the "deaths" shows any decrease in the slope. "Deaths"
+Perhaps "deaths" are also showing a decrease in the slope. "Deaths"
 are probably a better measure of the extent of covid-19 infection in
 Connecticut, but when a death occurs it may be one or two weeks after
 the case tested positive.
