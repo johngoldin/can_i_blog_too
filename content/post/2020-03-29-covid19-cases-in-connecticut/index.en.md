@@ -12,11 +12,14 @@ subtitle: ''
 ---
 
 This plot tracks the number of confirmed cases of Covid-19 in Connecticut.
-It is based on data downloaded from a [repository](https://github.com/nytimes/covid-19-data) made available by The New York Times.
+I started making these plots because data is available
+from a [repository](https://github.com/nytimes/covid-19-data) made maintained by The New York Times.
 It takes some time for NYT to update their data, so the
 data for the last day in the series was taken directly from the
 Connecticut Department of Public Health which provides an [update](https://portal.ct.gov/Coronavirus) via a PDF file
 at the end of each day. (Click on the box that says "TEST DATA".)
+I have also added data on hospitalizations from the daily report
+provided by the Connectiut Department of Public Health.
 
 The cumulative number of cases is plotted on a log scale, which makes it easier
 to compare the rate of growth among the eight counties of Connecticut. Similar slopes signal
