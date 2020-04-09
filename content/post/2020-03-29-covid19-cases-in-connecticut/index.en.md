@@ -54,16 +54,24 @@ on the most recent data.
 
 {{< figure src="county_map.png" title="" caption="" >}}
 
-Next is the number of deaths.
+### Cumulative Covid-19 Deaths in Connecticut
 <br/><br/>
 
 {{< figure src="deaths.png" title="" caption="" >}}
 
 <br/><br/>
+We have reached the point where the cumulative number of deaths is large
+enough that it may be helpful to show the cumulative counts on a log scale.
+Here is the same data from the plot above, this time presented on a log scale.
+<br/><br/>
+{{< figure src="log_deaths.png" title="" caption="" >}}
 
-The next plot shows hospitalizations. This shows
+### Hospitalizations
+
+The next plot shows hospitalizations with Covid-19. This shows
 "the number of patients currently hospitalized with laboratory-confirmed COVID19 by county based on data collected by the Connecticut Hospital Association. The distribution is by
-location of hospital, not patient residence."
+location of hospital, not patient residence." Note that unlike the plots above,
+this one is **not** cumulative. It is people currently in hospital.
 <br/><br/>
 {{< figure src="hospitalizations.png" title="" caption="" >}}
 <br/><br/>
