@@ -24,7 +24,7 @@ For most of my time at Yale we relied on SAS, but I started using R sometime
 around 2006 because
 I was looking for better graphics.
 Soon I learned to appreciate ggplot2. One early attraction of ggplot2 was that "gg"
-stands for The Grammar of Graphics, a book written by [Lee Wilkinson](https://en.wikipedia.org/wiki/Leland_Wilkinson. 
+stands for The Grammar of Graphics, a book written by [Lee Wilkinson](https://en.wikipedia.org/wiki/Leland_Wilkinson). 
 I was a teaching assistant for Lee while he was still a graduate student at Yale.
 
 I get a lot of R tips and new recipes from the [R-Bloggers digest](https://www.r-bloggers.com).
