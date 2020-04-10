@@ -104,7 +104,7 @@ I'm not an epidemiologist and I don't claim any expertise with
 this kind of data. I plan to update this post as time passes
 and we get more data. As someone who just turned 70, I'll
 be staying home in front of my computer aside from necessary
-trips to get food and a vigorous daily walk.
+trips to get food and a vigorous daily walk.  
 
 For another view of this data, see the blog post at the
 [Connecticut Data Collaborative](https://www.ctdata.org/blog/stopping-the-spread-using-trusted-data-sources-to-prevent-misinformation-about-covid-19).
