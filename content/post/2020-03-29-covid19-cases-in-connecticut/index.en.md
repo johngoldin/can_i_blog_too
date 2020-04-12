@@ -24,7 +24,7 @@ provided by the Connectiut Department of Public Health.
 The cumulative number of cases is plotted on a log scale, which makes it easier
 to compare the rate of growth among the eight counties of Connecticut. Similar slopes signal
 similar growth rates.  
-<br/><br/>
+<br/>
 
 {{< figure src="log_cases.png" title="" caption="" >}}
 
@@ -38,7 +38,7 @@ relative magnitude of cases among the counties.
 <br/><br/>
 
 {{< figure src="cases_nonlog.png" title="" caption="" >}}
-<br/><br/>
+<br/>
 
 Note that there are some cases and deaths for which the county
 is unknown. According to the New York Times, they will follow
@@ -81,8 +81,48 @@ this one is **not** cumulative. It is people currently in hospital.
 The R code that created these plots is available in a [GitHub repository](https://github.com/johngoldin/ctcorona).           
 <br/><br/>
 
+### Changes in the Rate of Increase of Cases and Deaths
 
-### Comments
+The next plot attempts to summarize the change in the the growth rate of 
+confirmed cases and deaths. In the log plots for cases and 
+deaths, the slope of the line is directly tied to the
+rate of incrase. In this plot we want to evaluate
+how those slopes are changing. In particular, we
+are looking for a sign that the curve is flattening 
+as the slope become more shallow.
+
+One way to evaluate how rapidly something
+is growing on an exponential curve is to calculate the
+[doubling time](https://en.wikipedia.org/wiki/Doubling_time),
+or the time it takes for the quantity to double. For 
+example, during an early week in Fairfield County, the
+cumulative count of confirmed cases was doubling in a little over
+every two days. Each bars show the doubling time for each
+one week period. We hope to see the bars get longer as
+more time passes under influence of the measurres to reduce
+interactions that enable spread of the virus. 
+
+Looking at deaths in Fairfield, New Haven, and Hartford
+counties, we can see some sign that the doubling time is
+getting longer. As I write this on April 12, there
+is clear evidence that the doubling time for the cumulative 
+count of deaths in
+Fairfield County has lengthened. The doubling time is 
+still 3 and 4 in Hartford, New Haven, and Middlesex Counties.
+
+The change in how fast the growth rate of cases or deaths
+is changing is confusing. It's sort of the growth rate
+of the growth rate. Perhaps in the future I will add some
+plots that show the number of additional cases and deaths
+each day rather than the cumulative counts. That might be
+easier to interpret.
+
+<br/>
+{{< figure src="doubling.png" title="" caption="" >}}
+<br/>
+
+
+### Comments as of April 12
 
 Note that I do not necessarily update these comments each time I 
 update the number from the Department of Public Health. So the
@@ -90,15 +130,24 @@ comments may lag behind the data.
 
 One large uncertainty is how the count of cases confirmed by a positive test 
 relates to the total number of cases in the population including those who
-have not been tested.
+have not been tested. Ideally we would be counting how many people have
+been infected. That is probably a much larger number than the
+number of confirmed tests. Some have speculated that it might be 100 times larger.
 
-Perhaps in recent days there is some sign that the slope of the trends on the log
-plot  of the confirmed cases are decreasing. 
+The slope of the trends on the log
+plot  of the confirmed cases are decreasing. We can
+see that most clearly in Fairfield and New Haven.
 That's what needs to happen to [flatten the curve](https://www.livescience.com/coronavirus-flatten-the-curve.html).
-Perhaps "deaths" are also showing a decrease in the slope. "Deaths"
+Perhaps "deaths" are also showing a decrease in the slope,
+but that's most clear in Fairfield. "Deaths"
 are probably a better measure of the extent of covid-19 infection in
 Connecticut, but when a death occurs it may be one or two weeks after
 the case tested positive.
+
+Hopitalizations have levelled off in Fairfield County, but
+are still increasing in New Haven and Hartford. That suggests that
+the growth in deaths in Fairfield should stop soon, but continue
+for at least another week or two in New Haven and Hartford.
 
 I'm not an epidemiologist and I don't claim any expertise with
 this kind of data. I plan to update this post as time passes
@@ -109,8 +158,21 @@ trips to get food and a vigorous daily walk.
 For another view of this data, see the blog post at the
 [Connecticut Data Collaborative](https://www.ctdata.org/blog/stopping-the-spread-using-trusted-data-sources-to-prevent-misinformation-about-covid-19).
 
-<br/><br/>
+<br/>
 
+### A Methodological Note
+
+The doubling times were calculated for each seven-day period for each
+county. I used least squares regression to fit a line to the
+natural log to the cumulative count for each day. The estimated
+coefficient for days gives me the slope of the line and is the estimated
+daily growth rate for week. To get the doubling time, the
+formula is 
+
+doubling-time = log(2) / (1 + r)
+
+where "r" is the estimated daily growth rate.
+<br/>
 #### An Interesting Video That Explores Factors That Affect an Epidemic
 
 This is not directly related to the data for Connecticut, but
