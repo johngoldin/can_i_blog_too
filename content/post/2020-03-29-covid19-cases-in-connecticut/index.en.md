@@ -122,7 +122,7 @@ easier to interpret.
 <br/>
 
 
-### Comments as of April 12
+### Comments as of April 12  
 
 Note that I do not necessarily update these comments each time I 
 update the number from the Department of Public Health. So the
