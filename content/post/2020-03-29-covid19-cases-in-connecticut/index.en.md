@@ -161,13 +161,13 @@ For another view of this data, see the blog post at the
 <br/>
 ### How Deaths Are Counted
 
-On April 9, the daily update says the following about deaths:
+On April 9, the [daily update](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary4092020.pdf?la=en) says the following about deaths:
 
 > For public health surveillance, laboratory-confirmed COVID-19-associated deaths are defined as patients
 > who tested positive for COVID-19 around the time of death; this is not a determination of the cause of
 death. 
 
-On April 10, the daily update text was changed to this:
+On April 10, the [daily update](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary4102020.pdf?la=en) text was changed to this:
 
 > For public health surveillance, COVID-19-associated deaths include persons who tested positive for
 > COVID-19 around the time of death and persons who were not tested for COVID-19 whose death
@@ -181,6 +181,13 @@ There were 380 deaths as of April 9 and 448 as of April 10. That's
 not an unusual increase. I checked the wording because there is
 an unusual jump between April 14 and April 15, a 29% increase
 to 868 on April 15.
+
+There is a related note on the [CDC page that describes counts in US](https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/cases-in-us.html):
+
+> *As of April 14, 2020, CDC case counts and death counts include both confirmed and probable cases and deaths. This change was made to reflect an interim COVID-19 position statement issued by the Council for State and Territorial Epidemiologists on April 5, 2020. The position statement included a case definition and made COVID-19 a nationally notifiable disease.
+
+> A confirmed case or death is defined by meeting confirmatory laboratory evidence for COVID-19. A probable case or death is defined by i) meeting clinical criteria AND epidemiologic evidence with no confirmatory laboratory testing performed for COVID-19; or ii) meeting presumptive laboratory evidence AND either clinical criteria OR epidemiologic evidence; or iii) meeting vital records criteria with no confirmatory laboratory testing performed for COVID19.
+
 
 ### A Methodological Note
 
