@@ -158,7 +158,7 @@ trips to get food and a vigorous daily walk.
 For another view of this data, see the blog post at the
 [Connecticut Data Collaborative](https://www.ctdata.org/blog/stopping-the-spread-using-trusted-data-sources-to-prevent-misinformation-about-covid-19).
 
-<br/>  
+<br/>
 
 ### A Methodological Note
 
