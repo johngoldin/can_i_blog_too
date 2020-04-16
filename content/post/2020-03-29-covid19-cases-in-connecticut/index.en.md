@@ -189,7 +189,7 @@ There is a related note on the [CDC page that describes counts in US](https://ww
 > A confirmed case or death is defined by meeting confirmatory laboratory evidence for COVID-19. A probable case or death is defined by i) meeting clinical criteria AND epidemiologic evidence with no confirmatory laboratory testing performed for COVID-19; or ii) meeting presumptive laboratory evidence AND either clinical criteria OR epidemiologic evidence; or iii) meeting vital records criteria with no confirmatory laboratory testing performed for COVID19.
 
 
-### A Methodological Note
+### A Methodological Note 
 
 The doubling times were calculated for each seven-day period for each
 county. I used least squares regression to fit a line to the
