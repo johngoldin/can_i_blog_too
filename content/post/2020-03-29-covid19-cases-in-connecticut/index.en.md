@@ -159,6 +159,28 @@ For another view of this data, see the blog post at the
 [Connecticut Data Collaborative](https://www.ctdata.org/blog/stopping-the-spread-using-trusted-data-sources-to-prevent-misinformation-about-covid-19).
 
 <br/>
+### How Deaths Are Counted
+
+On April 9, the daily update says the following about deaths:
+
+> For public health surveillance, laboratory-confirmed COVID-19-associated deaths are defined as patients
+> who tested positive for COVID-19 around the time of death; this is not a determination of the cause of
+death. 
+
+On April 10, the daily update text was changed to this:
+
+> For public health surveillance, COVID-19-associated deaths include persons who tested positive for
+> COVID-19 around the time of death and persons who were not tested for COVID-19 whose death
+> certificate lists COVID-19 disease as a cause of death or a significant condition contributing to death
+
+The earlier statement seemed to restrict the count to persons with
+a positive test. The later statement incudes person for whom
+COVID-19 is included on the certificate.
+
+There were 380 deaths as of April 9 and 448 as of April 10. That's
+not an unusual increase. I checked the wording because there is
+an unusual jump between April 14 and April 15, a 29% increase
+to 868 on April 15.
 
 ### A Methodological Note
 
