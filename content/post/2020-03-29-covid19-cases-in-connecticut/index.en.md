@@ -11,19 +11,27 @@ layout: post
 subtitle: ''
 ---
 
-This plot tracks the number of confirmed cases of Covid-19 in Connecticut.
-I started making these plots because data is available
-from a [repository](https://github.com/nytimes/covid-19-data) made maintained by The New York Times.
-It takes some time for NYT to update their data, so the
-data for the last day in the series was taken directly from the
-Connecticut Department of Public Health which provides an [update](https://portal.ct.gov/Coronavirus) via a PDF file
-at the end of each day. (Click on the box that says "TEST DATA".)
-I have also added data on hospitalizations from the daily report
-provided by the Connectiut Department of Public Health.
+I am in the process of making some changes to this daily report. The
+data now comes directly from [data.ct.gov](https://data.ct.gov/browse?q=COVID-19%20data&sortBy=relevance)
+so that makes it easier to do this daily update. There also is more
+data available, and I will use it to make some additions to these plots.
+
+The most visible change is that the counts
+are now smoothed using a rolling average over a seven-day period.
+This evens out some of the day to day variation.
+
+As the curve has become flattened it is has become interesting to focus
+on the number of new cases and new deaths each day. I have added some
+plots of new counts rather than only cumulative counts.
+
+The first plot tracks the cumulative number of confirmed cases of Covid-19 in Connecticut.
 
 The cumulative number of cases is plotted on a log scale, which makes it easier
 to compare the rate of growth among the eight counties of Connecticut. Similar slopes signal
-similar growth rates.  
+similar growth rates. The qualifier "confirmed" is important. It is widely acknowledged
+that there are many cases with clear symptoms of Covid-19 for which no positive
+test has been done to confirm that diagnosis. In these plots the count of 
+"confirmed cases" only includes cases with a positive laboratory test.
 <br/>
 
 {{< figure src="log_cases.png" title="" caption="" >}}
@@ -51,25 +59,47 @@ Because
 some of us may be a bit unclear about the location of all
 eight Connecticut counties, here is a map showing
 the county boundaries. The gray scale provides an indication
-of the cases per 100,000 persons in each county based
+of the cumulative cases per 100,000 persons in each county based
 on the most recent data.
 <br/>
 
 {{< figure src="county_map.png" title="" caption="" >}}
 
-### Cumulative Covid-19 Deaths in Connecticut
-<br/><br/>
+#### Cumulative Covid-19 Deaths in Connecticut
 
+The next two plots show the cumulative counts of deaths
+attributed to Covid-19. Before Aprirl 15, that required a
+positive lab test for the virus. That was changed so
+that a death is included if Covid-19 is included on the
+death certificate, even if there was no laboratory
+test for the virus.
+<br/>
 {{< figure src="deaths.png" title="" caption="" >}}
 
 <br/><br/>
-We have reached the point where the cumulative number of deaths is large
-enough that it may be helpful to show the cumulative counts on a log scale.
 Here is the same data from the plot above, this time presented on a log scale.
+On the log scale it is easier to see changes in the rate of growth.
 <br/><br/>
 {{< figure src="log_deaths.png" title="" caption="" >}}
+<br/>
 
-### Hospitalizations
+#### New Cases
+
+How many new cases of Covid-19 are reported each day?
+The next plot has daily new cases, averaged over a 
+seven-day period.
+<br/><br/>
+{{< figure src="new_cases.png" title="" caption="" >}}
+<br/>
+Here is the plot of deaths reported each day, again
+smoothed with a seven-day rolling average. Fairfield
+appeaers to be past a peak and the number of deaths
+each day is beginning to decline.
+
+<br/>
+{{< figure src="new_deaths.png" title="" caption="" >}}
+
+#### Hospitalizations
 
 The next plot shows hospitalizations with Covid-19. This shows
 "the number of patients currently hospitalized with laboratory-confirmed COVID19 by county based on data collected by the Connecticut Hospital Association. The distribution is by
@@ -77,11 +107,10 @@ location of hospital, not patient residence." Note that unlike the plots above,
 this one is **not** cumulative. It is people currently in hospital.
 <br/><br/>
 {{< figure src="hospitalizations.png" title="" caption="" >}}
-<br/><br/>
-The R code that created these plots is available in a [GitHub repository](https://github.com/johngoldin/ctcorona).           
+
 <br/><br/>
 
-### Changes in the Rate of Increase of Cases and Deaths
+#### Changes in the Rate of Increase of Cases and Deaths
 
 The next plot attempts to summarize the change in the the growth rate of 
 confirmed cases and deaths. In the log plots for cases and 
@@ -122,7 +151,7 @@ easier to interpret.
 <br/>
 
 
-### Comments as of April 12  
+#### Comments as of April 12  
 
 Note that I do not necessarily update these comments each time I 
 update the number from the Department of Public Health. So the
@@ -159,7 +188,7 @@ For another view of this data, see the blog post at the
 [Connecticut Data Collaborative](https://www.ctdata.org/blog/stopping-the-spread-using-trusted-data-sources-to-prevent-misinformation-about-covid-19).
 
 <br/>
-### How Deaths Are Counted
+#### How Deaths Are Counted as Covid-19 Deaths
 
 On April 9, the [daily update](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary4092020.pdf?la=en) says the following about deaths:
 
@@ -188,8 +217,8 @@ There is a related note on the [CDC page that describes counts in US](https://ww
 
 > A confirmed case or death is defined by meeting confirmatory laboratory evidence for COVID-19. A probable case or death is defined by i) meeting clinical criteria AND epidemiologic evidence with no confirmatory laboratory testing performed for COVID-19; or ii) meeting presumptive laboratory evidence AND either clinical criteria OR epidemiologic evidence; or iii) meeting vital records criteria with no confirmatory laboratory testing performed for COVID19.
 
-
-### A Methodological Note  
+<br/><br/>
+#### Some Methodological Notes
 
 The doubling times were calculated for each seven-day period for each
 county. I used least squares regression to fit a line to the
@@ -201,7 +230,23 @@ formula is
 doubling-time = log(2) / (1 + r)
 
 where "r" is the estimated daily growth rate.
-<br/>
+
+I started making these plots because data was available
+from a [repository](https://github.com/nytimes/covid-19-data) made maintained by The New York Times.
+It takes some time for NYT to update their data, so I
+started updating the series by typing in data taken directly from the
+Connecticut Department of Public Health which provides an [update](https://portal.ct.gov/Coronavirus) via a PDF file
+at the end of each day. (Click on the box that says "TEST DATA".)
+That report also had data on hospitalizations. 
+
+Now the data is directly available from [data.ct.gov](https://data.ct.gov/browse?q=COVID-19%20data&sortBy=relevance).
+It's now easy and fast for me to update my plots each day. I even
+get an email each day telling me that the data at `data.ct.gov` has
+been updated.
+<br/><br/>
+The R code that created these plots is available in a [GitHub repository](https://github.com/johngoldin/ctcorona).
+<br/><br/><br/>
+
 #### An Interesting Video That Explores Factors That Affect an Epidemic
 
 This is not directly related to the data for Connecticut, but
