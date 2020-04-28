@@ -19,7 +19,7 @@ enableRobotsTXT = true
 canonifyURLs = true
 
 [Params]
-#  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
+#  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page 
 	subtitle = "Some of my personal projects with R"
   mainSections = ["post","posts"]
   logo = "https://www.gravatar.com/avatar/f7dd8b52bc092b4e50e9324381b02d67?s=200"

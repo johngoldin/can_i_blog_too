@@ -194,7 +194,7 @@ On April 9, the [daily update](https://portal.ct.gov/-/media/Coronavirus/CTDPHCO
 
 > For public health surveillance, laboratory-confirmed COVID-19-associated deaths are defined as patients
 > who tested positive for COVID-19 around the time of death; this is not a determination of the cause of
-death. 
+death.
 
 On April 10, the [daily update](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary4102020.pdf?la=en) text was changed to this:
 
