@@ -205,7 +205,7 @@ On April 10, the [daily update](https://portal.ct.gov/-/media/Coronavirus/CTDPHC
 The earlier statement seemed to restrict the count to persons with
 a positive test. The later statement incudes person for whom
 COVID-19 is included on the certificate.
-
+ 
 There were 380 deaths as of April 9 and 448 as of April 10. That's
 not an unusual increase. I checked the wording because there is
 an unusual jump between April 14 and April 15, a 29% increase
