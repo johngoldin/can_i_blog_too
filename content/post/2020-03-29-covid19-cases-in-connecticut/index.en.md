@@ -209,7 +209,7 @@ COVID-19 is included on the certificate.
 There were 380 deaths as of April 9 and 448 as of April 10. That's
 not an unusual increase. I checked the wording because there is
 an unusual jump between April 14 and April 15, a 29% increase
-to 868 on April 15.
+to 868 on April 15. 
 
 There is a related note on the [CDC page that describes counts in US](https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/cases-in-us.html):
 
