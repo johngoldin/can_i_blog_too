@@ -31,7 +31,7 @@ to compare the rate of growth among the eight counties of Connecticut. Similar s
 similar growth rates. The qualifier "confirmed" is important. It is widely acknowledged
 that there are many cases with clear symptoms of Covid-19 for which no positive
 test has been done to confirm that diagnosis. In these plots the count of 
-"confirmed cases" only includes cases with a positive laboratory test. 
+"confirmed cases" only includes cases with a positive laboratory test.
 <br/>
 
 {{< figure src="log_cases.png" title="" caption="" >}}
