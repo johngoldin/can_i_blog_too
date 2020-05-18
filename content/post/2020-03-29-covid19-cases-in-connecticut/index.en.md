@@ -16,7 +16,7 @@ data now comes directly from [data.ct.gov](https://data.ct.gov/browse?q=COVID-19
 so that makes it easier to do this daily update. There also is more 
 data available, and I will use it to make some additions to these plots. 
 
-The most visible change is that the counts 
+The most visible change is that the counts
 are now smoothed using a rolling average over a seven-day period.
 This evens out some of the day to day variation. 
 
