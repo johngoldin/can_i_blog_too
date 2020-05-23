@@ -42,7 +42,7 @@ went into effect.
 The next figure displays the same counts of confirmed cases,
 but does not use a log scale. If you are unfamiliar with looking
 at log scales, this may provide a clearer display of the 
-relative magnitude of cases among the counties.
+relative magnitude of cases among the counties. 
 <br/><br/>
 
 {{< figure src="cases_nonlog.png" title="" caption="" >}}
