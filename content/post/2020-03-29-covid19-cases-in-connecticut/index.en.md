@@ -12,7 +12,7 @@ subtitle: ''
 ---
 
 I am in the process of making some changes to this daily report. The
-data now comes directly from [data.ct.gov](https://data.ct.gov/browse?q=COVID-19%20data&sortBy=relevance)
+data now comes directly from  [data.ct.gov](https://data.ct.gov/browse?q=COVID-19%20data&sortBy=relevance)
 so that makes it easier to do this daily update. There also is more 
 data available, and I will use it to make some additions to these plots. 
 

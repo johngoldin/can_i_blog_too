@@ -1,0 +1,39 @@
+---
+title: Test Post Two
+author: John Goldin
+date: '2020-06-07'
+slug: []
+categories:
+  - COVID19
+tags:
+  - COVID19
+type: post
+subtitle: 'subtitle of post'
+image: ''
+draft: yes
+---
+
+
+
+<pre class="r"><code>library(tidyverse, quietly = TRUE)
+library(knitr, quietly = TRUE)
+library(scales, quietly = TRUE)
+library(kableExtra, quietly = TRUE)</code></pre>
+<div id="post-content" class="section level3">
+<h3>Post content</h3>
+<p>Typical location to start editing</p>
+<p>Here’s a link to <a href="/2020-06-07-test-post-two/test2.html">other html</a>.</p>
+</div>
+<div id="r-image" class="section level3">
+<h3>R image</h3>
+<pre class="r"><code>## This imaged will be saved in the /post/*_files/ directory
+## Use echo = FALSE if you want to hide the code for making the plot
+plot(1:10, 10:1)</code></pre>
+<p>If you prefer not to use the <code>fig.width</code> and <code>fig.height</code> options in every plot chunk, edit the YAML (the part at the top of the post) with:</p>
+<pre><code>output:
+  blogdown::html_page:
+    toc: no
+    fig_width: 5
+    fig_height: 5</code></pre>
+<p>The spaces are important.</p>
+</div>
