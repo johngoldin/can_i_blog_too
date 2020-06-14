@@ -96,7 +96,7 @@ smoothed with a seven-day rolling average. Fairfield
 appeaers to be past a peak and the number of deaths
 each day is beginning to decline.
 
-<br/>
+<br/> 
 {{< figure src="new_deaths.png" title="" caption="" >}}
 
 #### Hospitalizations
