@@ -86,7 +86,7 @@ On the log scale it is easier to see changes in the rate of growth.
 #### New Cases
 
 How many new cases of Covid-19 are reported each day?
-The next plot has daily new cases, averaged over a 
+The next plot has daily new cases, averaged over a
 seven-day period.
 <br/><br/>
 {{< figure src="new_cases.png" title="" caption="" >}}
