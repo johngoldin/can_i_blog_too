@@ -1,23 +1,19 @@
 ---
 title: Tracking Covid-19 in Connecticut
 author: John Goldin
-date: '2020-06-12'
-slug: []
+date: '2020-06-19'
 categories:
   - COVID19
 tags:
   - COVID19
 type: post
-subtitle: ''
-image: ''
 draft: yes
 output:
-#  blogdown::html_page:
   bookdown::html_document2:
     toc: yes
     fig_width: 7
-    out.width: "70%" 
-    fig.align: "center"
+    out.width: 70%
+    fig.align: center
     fig.asp: 0.618
 ---
 
