@@ -20,7 +20,7 @@ The most visible change is that the counts
 are now smoothed using a rolling average over a seven-day period.
 This evens out some of the day to day variation. 
 
-As the curve has become flattened it is has become interesting to focus
+As the curve has become flattened it is has become interesting to focus 
 on the number of new cases and new deaths each day. I have added some
 plots of new counts rather than only cumulative counts. 
 
