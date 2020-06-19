@@ -156,10 +156,10 @@ box_score <- tribble(
 kable(box_score, 
       col.names = c(" ", "Total Today", "Change from\nYesterday", "Change from\nWeek Ago"),
       format.args = list(big.mark = ","),
-      align = "lrrr") #%>% 
-  # kableExtra::kable_styling(bootstrap_options = "basic") %>% 
-  # kableExtra::column_spec(2:4, width_max = "1.5in") %>% 
-  # kableExtra::column_spec(1, bold = TRUE, width_min = "1.5in")   
+      align = "lrrr") %>% 
+  kableExtra::kable_styling(bootstrap_options = "basic") %>% 
+  kableExtra::column_spec(2:4, width_max = "1.5in") %>% 
+  kableExtra::column_spec(1, bold = TRUE, width_min = "1.5in")   
 ```
  **Rate of positive tests:    **  `r round(test_rate * 100, 1.1)`%
  
@@ -362,7 +362,7 @@ print(p_rt_map)
 
 ## Deaths by Age
 
-```{r deaths-by-age, echo = FALSE, out.width = '40%', fig.show = 'hold', fig.cap = "Relationship of Age to Covid-19 Deaths andCases"}
+```{r deaths-by-age, echo = FALSE, out.width = '50%', fig.show = 'hold', fig.cap = "Relationship of Age to Covid-19 Deaths andCases"}
 ggplot(data = dph_age %>% filter(date == max(date)), 
        aes(x = agegroups, y = deaths)) + 
   geom_col() + 
@@ -554,6 +554,22 @@ have used "date of report" rather than "date of sample taken" or "date of death"
 because that gives me all of the recent data that is available
 and because that is what most other data projects (such as the Covid-19 Project
 or the New York Times) have been using.
+
+### Note from Certain Reports of the Department of Public Health
+
+[Note as of June 1](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6012020.pdf?la=en)
+
+> *In Connecticut during the early months of this pandemic, it became increasingly clear that it would be necessary to track probable COVID-19 cases and deaths, in addition to laboratory-confirmed (RT- PCR) cases and deaths. This was needed to better measure the burden and impact of this disease in our communities and is now part of the national surveillance case definition for COVID-19. Today for the first time, DPH is reporting cases and deaths as “confirmed” or “probable.” Previous reports
+> reported these as a combined number. The only change today is that they are being separated to conform with CDC reporting guidance. Probable cases of COVID-19 involve persons who have not had confirmatory laboratory testing (RT-PCR) performed for COVID-19, but whose symptoms indicate they are very likely to have a COVID-19 infection. In Connecticut, most of the probable COVID-19 cases involve persons whose death certificates list COVID-19 disease or SARS-CoV-2 as a cause of death or a significant condition contributing to death.
+
+[Note as of May 27](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary5272020.pdf?la=en)
+
+>The staff at the Department of Public Health have removed 356 cases and 808 tests in the past 24 hours, which were identified as duplicates in the system, affecting both test and overall case numbers. Since yesterday, there have been 341 new positive cases, and 5,215 new tests were reported.
+
+
+[Note as of June 18](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6182020.pdf)
+
+>Please note that 81 new cases were reported in the past 24-hours; 70 previously reported cases were removed from the total counts due to correction of data errors.
 
 
 
