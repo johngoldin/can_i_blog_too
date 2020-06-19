@@ -2,80 +2,214 @@
 title: Tracking Covid-19 in Connecticut
 author: John Goldin
 date: '2020-06-19'
+slug: []
 categories:
   - COVID19
 tags:
   - COVID19
 type: post
-draft: yes
+subtitle: ''
+image: ''
+draft: no
 output:
-  bookdown::html_document2:
-    toc: yes
+#  blogdown::html_page:
+  bookdown::html_page2:
+    toc: no
+    number_sections: false
+    # figure parameters based on recommendation in Hadley's book
     fig_width: 7
-    out.width: 70%
-    fig.align: center
+    out.width: "100%" 
+    fig.align: "center"
     fig.asp: 0.618
 ---
 
 
 
-<p>The <a href="https://johngoldin.com/post/2020-03-29-covid19-cases-in-connecticut/">post I created back in March</a>
+<div id="latest-connecticut-data-from-the-department-of-public-health" class="section level2">
+<h2>Latest Connecticut Data from the Department of Public Health</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Total Today
+</th>
+<th style="text-align:right;">
+Change from
+Yesterday
+</th>
+<th style="text-align:right;">
+Change from
+Week Ago
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Cases
+</td>
+<td style="text-align:right;">
+45,440
+</td>
+<td style="text-align:right;">
++11
+</td>
+<td style="text-align:right;">
++979
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Deaths
+</td>
+<td style="text-align:right;">
+4,226
+</td>
+<td style="text-align:right;">
++7
+</td>
+<td style="text-align:right;">
++80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hospitalizations
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+-10
+</td>
+<td style="text-align:right;">
+-70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tests
+</td>
+<td style="text-align:right;">
+370,638
+</td>
+<td style="text-align:right;">
++4,722
+</td>
+<td style="text-align:right;">
++50,594
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+—
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nursing home cases
+</td>
+<td style="text-align:right;">
+8,669
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
++152
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nursing home deaths
+</td>
+<td style="text-align:right;">
+2,647
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
++105
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rate of positive tests: </strong> 0.1%</p>
+<p>PDF report from the Connecticut Deprtment of Public Health:<a href="https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6182020.pdf">COVID-19 Update June 18, 2020</a></p>
+<p>Source: Multiple tables from <a href="https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/">Connecticut Open Data</a><br />
+——-</p>
+<p>A <a href="https://johngoldin.com/post/2020-03-29-covid19-cases-in-connecticut/">post I created back in March</a>
 aimed to track the growth of Covid-19 as it hit Connecticut.
-Back then (at the end of March) I did not realize that
+Back then at the end of March I did not realize that
 the greater New York area (including Connecticut)
 would be the center of the first wave in the US. At that time what I was reading
 focused on the nature of exponential growth of an epidemic. We were urged to
-“flatten the curve” and there was an emphasis on the shape of the growth of
-cumulative cases and deaths caused by the virus. I have been upading the figures
+“flatten the curve” and that shaped the way I presented the
+data in that post. I have been updating the figures
 in that post each evening. During that time the <a href="https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/">Connecticut data portal</a>
 has expanded considerably, and I’ve built <a href="https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R">some R code</a>
 that let’s me easily update
-that post. I’ll use the same data infrastructure for this post as well.</p>
-<p>.br</p>
-<div id="tracking-the-virus-in-connecticut" class="section level3">
-<h3>Tracking the Virus in Connecticut</h3>
+that post. I’ll use the same data infrastructure for this post as well.
+This post is much more oriented toward tracking the current status of
+the epidemic in Connecticut.</p>
+</div>
+<div id="tracking-the-virus-in-connecticut" class="section level2">
+<h2>Tracking the Virus in Connecticut</h2>
 <p>This post focuses on what is happening recently. The aim is to
 use the recent trend to get some idea of the near future. The first
 plot will show the average number of new cases reported each day along
 with a line that displays the rolling seven-day average. Typically there
 are day-of-the-week effects in the reporting so it’s best to focus
 on the seven-day average.</p>
-<p>The plot show the history of new cases and also shows the
-actions in some of Governor Lamont’s executive orders.</p>
+The plot shows the history of new cases and also shows the
+actions required by some of Governor Lamont’s executive orders.
+<br/><br/><br/>
 <div class="figure"><span id="fig:p-new-cases"></span>
-<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-new-cases-1.png" alt="New Cases" width="100%" />
+<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-new-cases-1.png" alt="New Cases" width="672" />
 <p class="caption">
 Figure 1: New Cases
 </p>
 </div>
-.br
+<br/><br/><br/>
 <div class="figure"><span id="fig:p-rt-live"></span>
-<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-rt-live-1.png" alt="Estimated R" width="100%" />
+<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-rt-live-1.png" alt="Estimated R&lt;sub&gt;t&lt;/sub&gt;" width="672" />
 <p class="caption">
-Figure 2: Estimated R
+Figure 2: Estimated R<sub>t</sub>
 </p>
 </div>
-.br
+<br/><br/><br/>
 <div class="figure"><span id="fig:p-daily-deaths"></span>
-<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-daily-deaths-1.png" alt="Daily Deaths" width="100%" />
+<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-daily-deaths-1.png" alt="Daily Deaths" width="672" />
 <p class="caption">
 Figure 3: Daily Deaths
 </p>
 </div>
-.br
-<div class="figure">
-<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p_hospitalizations-1.png" alt="Hospitalizations for Covid-19" width="100%" />
+<br/><br/><br/>
+<div class="figure"><span id="fig:p-hospitalizations"></span>
+<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-hospitalizations-1.png" alt="Hospitalizations for Covid-19" width="672" />
 <p class="caption">
-(#fig:p_hospitalizations)Hospitalizations for Covid-19
+Figure 4: Hospitalizations for Covid-19
 </p>
 </div>
-<p>.br
+<p><br/><br/>
 The number of new cases peaked in mid April and then began to
 decrease rapidly, although not as rapidly as it increased.
+A key issue is how fast epidemic is expanding or contracting.
+One indicator of that is to estimate the
+parameter R<sub>t</sub>, the average number of people
+who become infected by an infectious person.
+When R<sub>t</sub> is greater than 1 the number of daily new cases is
+increasing, If R<sub>t</sub> is less than 1, it is decreasing.
 See <a href="https://rt.live/">this site</a> for
 an estimate by state of the effective value for
-R<sub>t</sub>, the average number of people
-who become infected by an infectious person. The site
+R<sub>t</sub>. The site
 is described in <a href="https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate">this article</a> at Vox.com.</p>
 <p>Note that as of June (and a month
 previous), Connecticut, New York, and New Jersey have among the lowest
@@ -85,47 +219,79 @@ a state that has lately shown <a href="https://www.fox10phoenix.com/news/arizona
 The goal in Connecticut and in the entire New York City area is to
 keep R<sub>t</sub> well under 1. As of 2020-06-17 R<sub>t</sub> is
 0.83. On the other hand, in Arizona R<sub>t</sub> is about 1.06.</p>
-<p>The next display shows the trend of R<sub>t</sub> in each state
+The next display shows the trend of R<sub>t</sub> in each state
 arranged according to geographic position in the US. Remember
 that R<sub>t</sub> is a measure of the rate of increase. When R<sub>t</sub> (indicated by the blue line) is greater than 1
 (indicated by a dark gray line) the number of daily new cases is
-increasing, If R<sub>t</sub> is less than 1, it is decreasing.</p>
+increasing, If R<sub>t</sub> is less than 1, it is decreasing.
+<br/><br/><br/>
 <div class="figure"><span id="fig:p-rt-map"></span>
-<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-rt-map-1.png" alt="Estimate of R by State" width="100%" />
+<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/p-rt-map-1.png" alt="Estimate of R&lt;sub&gt;t&lt;/sub&gt; by State" width="672" />
 <p class="caption">
-Figure 4: Estimate of R by State
+Figure 5: Estimate of R<sub>t</sub> by State
+</p>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="deaths-by-age" class="section level2">
+<h2>Deaths by Age</h2>
+<div class="figure"><span id="fig:deaths-by-age"></span>
+<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-by-age-1.png" alt="Relationship of Age to Covid-19 Deaths andCases" width="40%" /><img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-by-age-2.png" alt="Relationship of Age to Covid-19 Deaths andCases" width="40%" />
+<p class="caption">
+Figure 6: Relationship of Age to Covid-19 Deaths andCases
 </p>
 </div>
 </div>
-<div id="variations-by-county-in-connecticut" class="section level3">
-<h3>Variations by County in Connecticut</h3>
+<div id="nursing-homes" class="section level2">
+<h2>Nursing Homes</h2>
+<p>Nursing homes have been hard hit by the epidemic. It’s hard to control coronavirus outbreak
+in a group living situation, which includes prisons and cruises ship. On top of that,
+Covid-19 is especially serious for the elderly. The combination in nursing homes
+has been deadly. There have been 2,647 deaths in Connecticut
+Nursing Homes which makes 62.6% of the total of 4,226 deaths from Covid-19.</p>
+</div>
+<div id="variations-by-county-in-connecticut" class="section level2">
+<h2>Variations by County in Connecticut</h2>
 <p>Next I’ll look at variations within Connecticut. Below are two maps
-showing the eight counties in Connecticut. The first map in Figure <a href="#fig:county-maps">5</a> shows new cases
+showing the eight counties in Connecticut. The first map in Figure <a href="#fig:county-maps">7</a> shows new cases
 per 1K of population. (Actually it show the rolling average the last seven days
 in order to smooth out varitions in day to day reporting.) The second map shows
 the cumulative total of cases. So the first map is an indication of the recent prevalence of the
 virus and the second map relates more to the total impact of the disease over the
 full course of the epidemic to date.</p>
-<p>Connecticut is part of the epidemic’s surge in the New York area and the magnitude
+Connecticut is part of the epidemic’s surge in the New York area and the magnitude
 of the epidemic has been greater in the counties closer to New York City. Back in March cases
 first appeared in Fairfield County and then spread to Litchfield, New Haven, and Hartford.
 More recently Hartford has been the area that we have to watch and even the most eastern
-counties in the state.</p>
+counties in the state.
+<br/><br/><br/>
 <div class="figure"><span id="fig:county-maps"></span>
-<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-1.png" alt="County Map of New Cases" width="100%" />
+<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-1.png" alt="County Maps of New and of Cumulative Cases" width="50%" /><img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-2.png" alt="County Maps of New and of Cumulative Cases" width="50%" />
 <p class="caption">
-Figure 5: County Map of New Cases
+Figure 7: County Maps of New and of Cumulative Cases
 </p>
 </div>
-<div class="figure"><span id="fig:county-maps-cum-cases"></span>
-<img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-cum-cases-1.png" alt="County Map Cumulative Cases" width="100%" />
-<p class="caption">
-Figure 6: County Map Cumulative Cases
-</p>
+<div id="by-county-and-type-of-town" class="section level3">
+<h3>By County and Type of Town</h3>
+<p>There are 169 towns in Connecticut, which makes it hard to eamine variations by town. To help
+examine variations within counties, I’ll use a typology of towns called
+<a href="https://ctdatahaven.org/sites/ctdatahaven/files/UConnCPR%20Changing%20Demographics-5%20CTs%202004.pdf">The Five Connecticuts</a>
+that divides towns into five categories based on census variables: Urban Core, Urban Periphery,
+Suburban, Rural, and a fifth category for Wealthy Suburbs used for some towns in Fairfield County.
+Adjusting for population, the number of cases has been greater in the counties closer
+to New York City.
+In the figure below I’ll fold the wealthy towns into the Suburban category. I have excluded
+Montville and Somers because the prisons in those towns complicates interpretation of the
+town statistics.</p>
+<p>Counties are laid out from top to bottom and the counties closer to New York are toward the top.
+The columns show the four categories. Urban towns have been hit harder than suburban and rural
+towns. While density may have some effect on case rates, the report <a href="https://ctdatahaven.org/reports/towards-health-equity-connecticut">Towards Health Equity in Connecticut: The Role of Social Inequality and the Impact of COVID-19</a>
+by DataHaven documents the unequal impact of the epidemic in Connecticut related to social inequality.</p>
+<p><img src="/post/2020-06-19-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-by-category-1.png" width="672" /></p>
 </div>
 </div>
-<div id="methodology-and-sources" class="section level3">
-<h3>Methodology and Sources</h3>
+<div id="methodology-and-sources" class="section level2">
+<h2>Methodology and Sources</h2>
 <div id="counts-from-connecticut-department-of-public-health" class="section level4">
 <h4>Counts from Connecticut Department of Public Health</h4>
 <p>The charts shows the counts of cases and deaths as they are reported by
