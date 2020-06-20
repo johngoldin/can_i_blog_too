@@ -1,15 +1,13 @@
 ---
 title: Tracking Covid-19 in Connecticut
 author: John Goldin
-date: '2020-06-19'
-slug: []
+date: '2020-06-22'
 categories:
   - COVID19
 tags:
   - COVID19
+slug: covid-19-in-Connecticut
 type: post
-subtitle: ''
-image: ''
 draft: no
 output:
 #  blogdown::html_page:
@@ -376,7 +374,7 @@ ggplot(data = dph_age %>% filter(date == max(date)),
   theme_minimal() + theme(panel.grid.major.x = element_blank())
 # ```
 # ```{r deaths-per-100k, echo = FALSE}
-ggplot(data = dph_age %>% filter(date == max(date)), 
+ggplot(data = dph_age %>% filter(date == max(date)),
        aes(x = agegroups, y = as.numeric(per_100k))) + 
   geom_col() + 
   labs(title = "Covid-19 Cases by Age in Connecticut per 100K Population") +
@@ -574,6 +572,3 @@ or the New York Times) have been using.
 [Note as of June 18](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6182020.pdf)
 
 >Please note that 81 new cases were reported in the past 24-hours; 70 previously reported cases were removed from the total counts due to correction of data errors.
-
-
-
