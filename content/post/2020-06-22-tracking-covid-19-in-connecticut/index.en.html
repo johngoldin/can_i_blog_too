@@ -21,127 +21,418 @@ output:
     fig.asp: 0.618
 ---
 
-<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 
 
 <div id="latest-connecticut-data-from-the-department-of-public-health" class="section level2">
 <h2>Latest Connecticut Data from the Department of Public Health</h2>
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-Total Today
-</th>
-<th style="text-align:right;">
-Change from
-Yesterday
-</th>
-<th style="text-align:right;">
-Change from
-Week Ago
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;min-width: 1.5in; font-weight: bold;">
-Cases
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-45,429
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+80
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+1,082
-</td>
-</tr>
-<tr>
-<td style="text-align:left;min-width: 1.5in; font-weight: bold;">
-Deaths
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-4,219
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+9
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+99
-</td>
-</tr>
-<tr>
-<td style="text-align:left;min-width: 1.5in; font-weight: bold;">
-Hospitalizations
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-186
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
--15
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
--84
-</td>
-</tr>
-<tr>
-<td style="text-align:left;min-width: 1.5in; font-weight: bold;">
-Tests
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-365,916
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+6,430
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+50,902
-</td>
-</tr>
-<tr>
-<td style="text-align:left;min-width: 1.5in; font-weight: bold;">
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;min-width: 1.5in; font-weight: bold;">
-Nursing home cases
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-8,669
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+152
-</td>
-</tr>
-<tr>
-<td style="text-align:left;min-width: 1.5in; font-weight: bold;">
-Nursing home deaths
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-2,647
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-</td>
-<td style="text-align:right;max-width: 1.5in; ">
-+105
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Rate of positive tests: </strong> 1.1%</p>
-<p>PDF report from the Connecticut Deprtment of Public Health:<a href="https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6172020.pdf">COVID-19 Update June 17, 2020</a></p>
-<p>Source: Multiple tables from <a href="https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/">Connecticut Open Data</a><br />
+<p><style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#jmdnjlsvtc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jmdnjlsvtc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jmdnjlsvtc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jmdnjlsvtc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jmdnjlsvtc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jmdnjlsvtc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jmdnjlsvtc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jmdnjlsvtc .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jmdnjlsvtc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jmdnjlsvtc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jmdnjlsvtc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jmdnjlsvtc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jmdnjlsvtc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jmdnjlsvtc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#jmdnjlsvtc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jmdnjlsvtc .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jmdnjlsvtc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jmdnjlsvtc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jmdnjlsvtc .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jmdnjlsvtc .gt_left {
+  text-align: left;
+}
+
+#jmdnjlsvtc .gt_center {
+  text-align: center;
+}
+
+#jmdnjlsvtc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jmdnjlsvtc .gt_font_normal {
+  font-weight: normal;
+}
+
+#jmdnjlsvtc .gt_font_bold {
+  font-weight: bold;
+}
+
+#jmdnjlsvtc .gt_font_italic {
+  font-style: italic;
+}
+
+#jmdnjlsvtc .gt_super {
+  font-size: 65%;
+}
+
+#jmdnjlsvtc .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="jmdnjlsvtc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Latest Data on Covid-19 in Connecticut</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Should correspond to <a href="https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6172020.pdf">COVID-19 Update June 17, 2020</a> from the Department of Public Health</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Connecticut Covid-19</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">today</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">yesterday</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">week ago</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">Cases</td>
+      <td class="gt_row gt_right">45,429</td>
+      <td class="gt_row gt_right">+80</td>
+      <td class="gt_row gt_right">+1,082</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Deaths</td>
+      <td class="gt_row gt_right">4,219</td>
+      <td class="gt_row gt_right">+9</td>
+      <td class="gt_row gt_right">+99</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Hospitalizations</td>
+      <td class="gt_row gt_right">186</td>
+      <td class="gt_row gt_right">-15</td>
+      <td class="gt_row gt_right">-84</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Tests</td>
+      <td class="gt_row gt_right">365,916</td>
+      <td class="gt_row gt_right">+6,430</td>
+      <td class="gt_row gt_right">+50,902</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Rate of positive tests</td>
+      <td class="gt_row gt_right">1.1%</td>
+      <td class="gt_row gt_right"></td>
+      <td class="gt_row gt_right"></td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left"> </td>
+      <td class="gt_row gt_right"></td>
+      <td class="gt_row gt_right"> </td>
+      <td class="gt_row gt_right"> </td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Nursing home cases</td>
+      <td class="gt_row gt_right">8,669</td>
+      <td class="gt_row gt_right"> </td>
+      <td class="gt_row gt_right">+152</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left">Nursing home deaths</td>
+      <td class="gt_row gt_right">2,647</td>
+      <td class="gt_row gt_right"> </td>
+      <td class="gt_row gt_right">+105</td>
+    </tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="4">Source: Multiple tables from <a href="https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/">Connecticut Open Data</a></td>
+    </tr>
+  </tfoot>
+  
+</table></div>
 ——-</p>
 <p>A <a href="https://johngoldin.com/post/2020-03-29-covid19-cases-in-connecticut/">post I created back in March</a>
 aimed to track the growth of Covid-19 as it hit Connecticut.
@@ -231,14 +522,15 @@ Figure 5: Estimate of R<sub>t</sub> by State
 </div>
 <p><br/><br/><br/></p>
 </div>
-<div id="deaths-by-age" class="section level2">
-<h2>Deaths by Age</h2>
-<div class="figure"><span id="fig:deaths-by-age"></span>
-<img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-by-age-1.png" alt="Relationship of Age to Covid-19 Deaths andCases" width="50%" /><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-by-age-2.png" alt="Relationship of Age to Covid-19 Deaths andCases" width="50%" />
-<p class="caption">
-Figure 6: Relationship of Age to Covid-19 Deaths andCases
-</p>
+<div id="deaths-and-cases-by-age" class="section level2">
+<h2>Deaths and Cases by Age</h2>
+<div style="float: left; width: 50%; padding: 5PX;">
+<p><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-by-age2-1.png" width="672" /></p>
 </div>
+<div style="float: right; width: 50%; padding: 5PX;">
+<p><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-per-100k2-1.png" width="672" /></p>
+</div>
+<p><br/></p>
 </div>
 <div id="nursing-homes" class="section level2">
 <h2>Nursing Homes</h2>
@@ -251,7 +543,7 @@ Nursing Homes which makes 62.7% of the total of 4,219 deaths from Covid-19.</p>
 <div id="variations-by-county-in-connecticut" class="section level2">
 <h2>Variations by County in Connecticut</h2>
 <p>Next I’ll look at variations within Connecticut. Below are two maps
-showing the eight counties in Connecticut. The first map in Figure <a href="#fig:county-maps">7</a> shows new cases
+showing the eight counties in Connecticut. The first map in Figure <a href="#fig:county-maps">6</a> shows new cases
 per 1K of population. (Actually it show the rolling average the last seven days
 in order to smooth out varitions in day to day reporting.) The second map shows
 the cumulative total of cases. So the first map is an indication of the recent prevalence of the
@@ -266,7 +558,7 @@ counties in the state.
 <div class="figure"><span id="fig:county-maps"></span>
 <img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-1.png" alt="County Maps of New and of Cumulative Cases" width="50%" /><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-2.png" alt="County Maps of New and of Cumulative Cases" width="50%" />
 <p class="caption">
-Figure 7: County Maps of New and of Cumulative Cases
+Figure 6: County Maps of New and of Cumulative Cases
 </p>
 </div>
 <div id="by-county-and-type-of-town" class="section level3">
