@@ -48,6 +48,7 @@ library(fuzzyjoin) # for interval_left_join
 library(broom)
 library(RSocrata)
 library(RcppRoll)
+# library(formattable)
 ```
 ```{r `load_basic_data`, echo = FALSE, message = FALSE}
 path_to_post <- "~/Dropbox/Programming/R_Stuff/can_i_blog_too/content/post/2020-03-29-covid19-cases-in-connecticut/"
@@ -72,7 +73,8 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
     region == "AZ" ~ "Arizona"
   )) %>% 
   group_by(region) %>% arrange(date) %>% 
-  mutate(above_one = ifelse(last(mean) > 1, "> 1", "<= 1") %>% factor(levels = c("> 1", "<= 1"))) %>% 
+  mutate(above_one = ifelse(last(mean) > 1, "> 1", "<= 1") %>% factor(levels = c("> 1", "<= 1")),
+         recent_rt = last(mean)) %>% 
   ungroup()
 ```
 
@@ -139,27 +141,30 @@ box_fmt <- function(x) {
 ###########################################################################
 # Box score comes here:
 box_score <- tribble(
-  ~` `, ~`today`, ~`yesterday`, ~`week_ago`,
+  ~`Connecticut Covid-19`, ~`today`, ~`yesterday`, ~`week ago`,
   "Cases", today_cases, yesterday_cases, week_ago_cases,
   "Deaths", today_deaths, yesterday_deaths, week_ago_deaths,
   "Hospitalizations", today_hospital, yesterday_hospital, week_ago_hospital,
   "Tests",    today_tests, yesterday_tests, week_ago_tests,
-  "--- ", NA , NA, NA,
+  " ", NA , NA, NA,
   "Nursing home cases", nursing_hm_cases, NA, nh_previous_cases,
   "Nursing home deaths", nursing_hm_deaths, NA, nh_previous_deaths
 ) %>% 
-    mutate(yesterday = map_chr(yesterday, box_fmt),
-           week_ago = map_chr(week_ago, box_fmt), today = ifelse(is.na(today), "", comma(today)))
+   mutate(yesterday = map_chr(yesterday, box_fmt),
+         `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", comma(today)))
 
   # mutate(across(c(yesterday, week_ago), box_fmt), today = ifelse(is.na(today), "", comma(today)))
 
-kable(box_score, 
+#formattable::format_table(box_score, align = c("l", "r", "r", "r")) 
+
+kable(box_score,
       col.names = c(" ", "Total Today", "Change from\nYesterday", "Change from\nWeek Ago"),
       format.args = list(big.mark = ","),
-      align = "lrrr") %>% 
-  kableExtra::kable_styling(bootstrap_options = "basic") %>% 
-  kableExtra::column_spec(2:4, width_max = "1.5in") %>% 
-  kableExtra::column_spec(1, bold = TRUE, width_min = "1.5in")   
+      align = "lrrr") %>%
+  kableExtra::kable_styling(bootstrap_options = "basic") %>%
+  kableExtra::column_spec(2:4, width_max = "1.5in") %>%
+  kableExtra::column_spec(1, bold = TRUE, width_min = "1.5in")
+
 ```
  **Rate of positive tests:    **  `r round(test_rate * 100, 1.1)`%
  
@@ -238,18 +243,18 @@ r_data_ct <- rt_live %>% filter(region == "CT")
 r_data_az <- rt_live %>% filter(region == "AZ")
 # colors from colorbrewer:  https://colorbrewer2.org/#type=diverging&scheme=PRGn&n=3
 p_rt_live <- ggplot(data = r_data_ct, aes(x = date, y = mean)) +
-  geom_ribbon(aes(ymin = lower_90, ymax = upper_90), fill = "grey92") +
-  geom_ribbon(data = r_data_az, aes(ymin = lower_90, ymax = upper_90), fill = "grey92") +
-  geom_ribbon(aes(ymin = lower_50, ymax = upper_50), fill = "grey83") +
-  geom_ribbon(data = r_data_az, aes(ymin = lower_50, ymax = upper_50), fill = "grey83") +
+  geom_ribbon(aes(ymin = lower_80, ymax = upper_80), fill = "grey83") +
+  geom_ribbon(data = r_data_az, aes(ymin = lower_80, ymax = upper_80), fill = "grey83") +
   geom_line(aes(colour = above_one), size = 1) + theme_minimal() + 
   geom_hline(yintercept = 1, colour = "gray") +
   geom_line(data = r_data_az, aes(colour = above_one), size = 1) + theme_minimal() + 
-  geom_text(data = rt_live %>% filter(region %in% c("CT", "AZ"), date == min(date)),
-            aes(label = state), hjust = 1, size = 3, nudge_x = -2) +
+  geom_text(data = rt_live %>% filter(region %in% c("CT", "AZ")) %>%
+              group_by(region, state) %>% arrange(region, state, date) %>%
+              summarise(date = min(date), recent_rt = last(recent_rt)),
+            aes(label = state, x = ymd("2020-03-23"), y = recent_rt), hjust = 1, size = 3, nudge_x = 2) +
   theme(legend.position = "none") +
   theme(axis.title.y = element_text(angle=0, vjust = 0.5)) +
-  scale_color_manual(values = c("> 1" = "#7fbf7b", "<= 1" = "#af8dc3")) +
+  scale_color_manual(values = c("<= 1" = "#7fbf7b", "> 1" = "#af8dc3")) +
   scale_y_continuous(limits = c(0.5, 1.5), breaks = c(0.5, 1, 1.5)) +
                      #minor_breaks = seq(0.2, 1.4, 0.2)) +
   scale_x_date(date_breaks = "2 weeks", date_minor_breaks = "1 week", 
@@ -280,11 +285,10 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
          rename(state = region), aes(x = date, y = mean)) + 
   xlab(NULL) + ylab(NULL) + 
   theme_bw() + 
-  geom_ribbon(aes(ymin = lower_90, ymax = upper_90), fill = "grey92") +
-  geom_ribbon(aes(ymin = lower_50, ymax = upper_50), fill = "grey88") +
+  geom_ribbon(aes(ymin = lower_80, ymax = upper_80), fill = "grey88") +
   geom_hline(yintercept = 1, colour = "grey50") +
   geom_line(aes(colour = above_one), size = 1) + theme(legend.position = "left") +
-  scale_color_manual(values = c("> 1" = "#7fbf7b", "<= 1" = "#af8dc3")) +
+  scale_color_manual(values = c("<= 1" = "#7fbf7b", "> 1" = "#af8dc3")) +
   scale_y_continuous(limits = c(0.5, 1.5), breaks = c(0.5, 1, 1.5)) +
                      #minor_breaks = seq(0.2, 1.4, 0.2)) +
   scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", 
@@ -355,14 +359,14 @@ that R<sub>t</sub> is a measure of the rate of increase. When R<sub>t</sub> (ind
 (indicated by a dark gray line) the number of daily new cases is
 increasing, If R<sub>t</sub> is less than 1, it is decreasing.
 <br/><br/><br/>
-```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 0.9}
+```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 0.8, out.width = "90%"}
 print(p_rt_map)
 ```
 <br/><br/><br/>
 
 ## Deaths by Age
 
-```{r deaths-by-age, echo = FALSE, out.width = '50%', fig.show = 'hold', fig.cap = "Relationship of Age to Covid-19 Deaths andCases"}
+```{r deaths-by-age, echo = FALSE, out.width = '50%', fig.show = 'hold', fig.cap = "Relationship of Age to Covid-19 Deaths andCases", fig.align = "default"}
 ggplot(data = dph_age %>% filter(date == max(date)), 
        aes(x = agegroups, y = deaths)) + 
   geom_col() + 
