@@ -12,7 +12,7 @@ subtitle: ''
 ---
 
 A [later post](https://johngoldin.com/post/2020/06/covid-19-in-connecticut/) 
-provides a better view of the latest data on Covid-19 in Connecticut.
+provides a better view of the latest data on Covid-19 in Connecticut. 
 
 The 
 data comes directly from [data.ct.gov](https://data.ct.gov/browse?q=COVID-19%20data&sortBy=relevance)
