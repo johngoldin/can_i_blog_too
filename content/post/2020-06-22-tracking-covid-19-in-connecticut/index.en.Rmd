@@ -11,8 +11,8 @@ type: post
 draft: no
 output:
 #  blogdown::html_page:
-  bookdown::html_page2:
-    toc: no
+  blogdown::html_page:
+    toc: yes
     number_sections: false
     # figure parameters based on recommendation in Hadley's book
     fig_width: 7 
@@ -163,10 +163,9 @@ box_score <- tribble(
    mutate(yesterday = map_chr(yesterday, box_fmt),
          `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", comma(today)))
 
-  # mutate(across(c(yesterday, week_ago), box_fmt), today = ifelse(is.na(today), "", comma(today)))
-
-#formattable::format_table(box_score, align = c("l", "r", "r", "r")) 
-
+# columns for box scores:
+# town, category, population, cases, cases per 100K, recent cases per 100K, percent positive tests
+# deaths, percent of deaths in nh, 
 box_score %>% 
   tibble::add_row(`Connecticut Covid-19` = "Rate of positive tests", 
                   today = "", 
@@ -190,6 +189,7 @@ box_score %>%
       columns = vars(`Connecticut Covid-19`),
       rows = 7)
   ) %>% 
+  # kable_styling(bootstrap_options = ".table", position = "left")
   opt_row_striping(row_striping = FALSE)
 
   # tab_options(row.striping.include_table_body = FALSE)
@@ -632,3 +632,8 @@ are not corrected.
 [Note as of June 18](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6182020.pdf)
 
 >Please note that 81 new cases were reported in the past 24-hours; 70 previously reported cases were removed from the total counts due to correction of data errors.
+
+In the data portal, the number of cases reported for Montville was 381 on June 17.
+As of June 18 it reports 293 cases, a reduction of 88 cases. That's more than
+the 70 cases removed. Perhaps the case counts for Montville were affected by
+inmates being moved within the Connecticut prison system.
