@@ -162,7 +162,8 @@ box_score <- tribble(
 ) %>% 
    mutate(yesterday = map_chr(yesterday, box_fmt),
          `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", comma(today)))
-
+```
+```{r format-box-score-table, echo = FALSE}
 # columns for box scores:
 # town, category, population, cases, cases per 100K, recent cases per 100K, percent positive tests
 # deaths, percent of deaths in nh, 
@@ -192,6 +193,9 @@ box_score %>%
   # kable_styling(bootstrap_options = ".table", position = "left")
   opt_row_striping(row_striping = FALSE)
 
+# issue about css and gt table 
+# https://github.com/rstudio/gt/issues/547
+
   # tab_options(row.striping.include_table_body = FALSE)
 
 
@@ -213,11 +217,11 @@ box_score %>%
  # Source: Multiple tables from [Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/)  
 
 ```
- -------
+
  
 [My post on Covid-19 back in March](https://johngoldin.com/post/2020-03-29-covid19-cases-in-connecticut/) 
-aimed to track the growth of the epidemic as it hit Connecticut.
-Back then at the end of March I did not realize that 
+attempted to track the growth of the epidemic as it hit Connecticut.
+Back at the end of March I did not realize that 
 the greater New York area (including Connecticut)
 would be the center of the first wave in the US. At that time what I was reading
 focused on the nature of exponential growth of an epidemic. We were urged to
@@ -317,7 +321,7 @@ p_hospitalizations <- ggplot(data = dph_total %>% filter(!is.na(hospital)),
   theme(legend.position = "none") +
   ylab("in hospital") +
   labs(
-    title = "COVID19 Patients Currently in Hospital",
+    title = "COVID19 Patients Currently in Hospital in Connecticut",
     subtitle = NULL,
     caption = "Source: Connecticut Hospital Association, via CT DPH"
   )
@@ -446,6 +450,100 @@ Covid-19 is especially serious for the elderly. The combination in nursing homes
 has been deadly. There have been `r comma(nursing_home_totals$deaths)` deaths in Connecticut 
 Nursing Homes which makes `r paste0(round((nursing_home_totals$deaths/dph_total$deaths[dph_total$date == max(dph_total$date)]) * 100, 1), "%")` of the total of `r comma(dph_total$deaths[dph_total$date == max(dph_total$date)])` deaths from Covid-19.
 
+```{r prisons, echo = FALSE}
+# see wikipedia entry: https://en.wikipedia.org/wiki/List_of_Connecticut_state_prisons
+# Locations in Connecticut
+# Bridgeport Correctional Center (inmate population 712)
+# Brooklyn Correctional Institution (inmate population 454) Brooklyn
+# Cheshire Correctional Institution (inmate population 1322)
+# Corrigan-Radgowski Correctional Center (inmate population 760) Montville
+# Garner Correctional Institution (inmate population 584) Newtown
+# Hartford Correctional Center (inmate population 933)
+# MacDougall-Walker Correctional Institution (inmate population 1522) Suffield
+# Manson Youth Institution (inmate population 322) Cheshire
+# New Haven Correctional Center (inmate population 718)
+# Northern Correctional Institution (inmate population 135) Somers
+# Osborn Correctional Institution (inmate population 1322)  Somers
+# Robinson Correctional Institution (inmate population 1449) Enfield
+# Willard-Cybulski Correctional Institution (inmate population 1142) Enfield
+# York Correctional Institution (inmate population 898) Niantic (women)
+```
+
+## Prisons
+
+Prisons even more than nursing homes create a situation
+where it is hard to limit exposure among individuals living together. We
+have less information about prisons than about nursing homes. The
+Department of Corrections (DOC) posts some statistics on 
+[total Covid19 rates among prisoners and staff](https://data.ct.gov/Public-Safety/COVID-19-in-Correctional-Facilities/6t8i-du3u) 
+via the state open data site and some limited information of 
+[rates by individual facility](https://portal.ct.gov/DOC/Common-Elements/Common-Elements/Health-Information-and-Advisories) on their web site,
+but the data are not as detailed or as accessible as the data on nursing
+homes.
+
+As of `r format(max(doc_covid$date, na.rm = TRUE), "%m/%d/%Y")`, 
+`r scales::comma(max(doc_covid$inmates_positive, na.rm = TRUE))` inmates
+have tested positive for Covid-19. At the peak of the epidemic, 
+`r scales::comma(max(doc_covid$northern_med, na.rm = TRUE))` inmates were
+isolated at the Nothern Correctional Institution medical facilty.
+The most recent report is that 
+`r scales::comma(doc_covid$inmate_deaths[doc_covid$date == max(doc_covid$date)])`
+died, and currently 
+`r scales::comma(doc_covid$northern_med[doc_covid$date == max(doc_covid$date)])`
+Covid-19 inmates remain in that medical facility. 
+
+Unlike nursing homes, the number of deaths from 
+Covid-19 in prisons is relatively low. Presumably that
+is because the prison population has many fewer 
+elderly people who are expecially vulnerable to 
+the effects of Covid-19.
+
+In addition to prisoners, the Department of Corrections reports that 
+`r scales::comma(max(doc_covid$staff_positive, na.rm = TRUE))`
+staff have tested positive for Covid-19, of whom
+`r scales::comma(max(doc_covid$staff_returned, na.rm = TRUE))`
+have been cleared to return to work.
+
+One cannot easily relate the number of cases reported by the 
+Department of Corrections to the town by town counts reported
+by the Department of Public Health. It's clear that for small
+rural towns the prison cases may swamp the community counts in those
+towns. For example, in the town of Brooklyn in Windham County
+(population about 8,200)
+the DPH town stats between June 17 and June 18
+showed the number of cases
+jumped from 24 to 116.
+That's the home of the Brooklyn Correctional Institutin
+and I have to believe that site dominated those numbers
+and that the process by which the Department of Corrections
+repoted test results to the Department of Public Health
+affected the magnitude of the one-day jump.
+
+In effect there is a separate epidemic occurring inside
+the prison system and the pace of that epidemic does not
+necessarily correspond to trends in the wider community.
+For the purposes of tracking Covid-19 in the population
+of Connecticut generally, in some cases I will exclude some
+of the small rural towns with prisons such as Somers,
+Montville, and Brooklyn. But it's not practical for
+me to segregate the effect of prisons on counts for
+larger towns such as New Haven, Cheshire, Hartford,
+and others. As of 6/16/2020, the DOC reported a cumulative total
+of 117 cases amongs prisoners in Bridgeport,
+125 in New Haven, 94 in Hartford, and 21 in Cheshire.
+Enfield is a tricky case. There are two DOC facilities
+in Enfield and as of 6/16/2020 DOC reported 265
+cases there. Enfield has a population of about 44,000,
+but the prison cases may have a significant effect
+on the picture of Covid-19 in Enfield. Similar to Brooklyn,
+one can see likely effects in the reports. On
+6/10/20 DPH reported a total of 447 Covid-19 cases
+in Enfield and the next day on 6/11/2020 they
+reported 546, and increase of 22% in one day. 
+That's highly likely to be an effect of
+how cases were reported from the DOC facilities in Enfield
+and how those reports reached the Department of Public Health.
+
 
 ## Variations by County in Connecticut
 
@@ -494,7 +592,7 @@ p_county_map_new_cases <- ggplot() +
   coord_sf(datum = NA, label_axes = "----") +
   xlab("") + ylab("") + theme_minimal()  +
   # theme(legend.position = "none") +
-  labs(title = "New Cases by Connecticut County",
+  labs(title = "New Cases (7-Day Rolling Average) by Connecticut County",
        subtitle = "shading shows new cases per 100K of population as of most recent report",
        # fill = "cases per 1K",
        caption = "Sources: CT DPH, US Census, tidycensus package")
@@ -521,7 +619,7 @@ p_county_map_cum_cases <- ggplot() +
 Next I'll look at variations within Connecticut. Below are two maps
 showing the eight counties in Connecticut. The first map in Figure \@ref(fig:county-maps) shows new cases 
 per 1K of population. (Actually it show the rolling average the last seven days
-in order to smooth out varitions in day to day reporting.) The second map shows
+in order to smooth out variations in day to day reporting.) The second map shows
 the cumulative total of cases. So the first map is an indication of the recent prevalence of the
 virus and the second map relates more to the total impact of the disease over the
 full course of the epidemic to date.
@@ -531,6 +629,8 @@ of the epidemic has been greater in the counties closer to New York City. Back i
 first appeared in Fairfield County and then spread to Litchfield, New Haven, and Hartford.
 More recently Hartford has been the area that we have to watch and even the most eastern
 counties in the state.
+
+\[To do: remove Montville, Somers, Brooklyn, and maybe Enfield from the county stats.\]
 <br/><br/><br/>
 ```{r county-maps, echo = FALSE, fig.cap = "County Maps of New and of Cumulative Cases", out.width = '50%', fig.show = 'hold'}
 print(p_county_map_cum_cases)
@@ -548,7 +648,7 @@ p_by_category <- ggplot(data = by_category,
 
 ### By County and Type of Town
 
-There are 169 towns in Connecticut, which makes it hard to eamine variations by town. To help
+There are 169 towns in Connecticut, which makes it hard to examine variations by town. To help
 examine variations within counties, I'll use a typology of towns called 
 [The Five Connecticuts](https://ctdatahaven.org/sites/ctdatahaven/files/UConnCPR%20Changing%20Demographics-5%20CTs%202004.pdf)
 that divides towns into five categories based on census variables: Urban Core, Urban Periphery,
@@ -594,13 +694,17 @@ ggplot(data = for_chart,
 ## Methodology and Sources
 
 #### Counts from Connecticut Department of Public Health
-The charts shows the counts of cases and deaths as they are reported by
-the Connecticut Department of Public Health. Reports sometimes end up in
-batches. There is a day of the week effect, with fewer cases on weekends.
+The figures show the counts of cases and deaths as they are reported by
+the [Connecticut Department of Public Health](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um). 
+Sometimes there is a lag before cases and deaths end up in the daily reports.
+As a result, there tends to be a "day of the week" effect.
+For that reason, observers of the Covid-19 statistics generally focus
+on a 7-day rolling average of the daily counts.
 Some of the unusually large peaks and valleys in these charts are due
 to reporting process. The DPH has also begun producing reports based
-on the date a sample was taken for a test and for the date of
-death. That's a more accurate way to look at the change over time, but it
+on the [date a sample was taken for a test](https://data.ct.gov/Health-and-Human-Services/Number-of-COVID-19-Cases-by-Date-of-Specimen-Colle/xz44-6swc) 
+and [by the date of death](https://data.ct.gov/Health-and-Human-Services/COVID-19-associated-deaths-by-date-of-death/abag-bjkj). 
+That's a more accurate way to look at the change over time, but it
 means the data for the most recent days are hard to interpret because
 some data may be "in process" and not yet reported. In these charts I 
 have used "date of report" rather than "date of sample taken" or "date of death"
@@ -608,7 +712,7 @@ because that gives me all of the recent data that is available
 and because that is what most other data projects (such as the Covid-19 Project
 or the New York Times) have been using.
 
-### Note from Certain Reports of the Department of Public Health
+### Notes from Certain Reports of the Department of Public Health
 
 The DPH reports always include a comment that "all data are preliminary and subject
 to change." But when they make and adjustment to correct errors, as far as

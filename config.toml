@@ -4,10 +4,12 @@ DefaultContentLanguage = "en"
 title = "Can I Blog Too"
 theme = "beautifulhugo"
 metaDataFormat = "yaml"
+footnotereturnlinkcontents = "↩"
 pygmentsStyle = "trac"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
 pygmentsCodefencesGuessSyntax = true
+
 #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
 googleAnalytics = "UA-92008736-2"
@@ -18,6 +20,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 enableRobotsTXT = true
 canonifyURLs = true
 
+[permalinks]
+    post = "/:year/:month/:slug/"
+    
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page 
 	subtitle = "Some of my personal projects with R"
