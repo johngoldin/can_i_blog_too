@@ -667,8 +667,10 @@ by DataHaven documents the unequal impact of the epidemic in Connecticut related
 ```{r county-by-category, echo = FALSE, fig.asp = 1.2}
 
 # create 
-for_chart <- dph_towns %>% filter(!(town %in% c("Montville", "Somers"))) %>% 
+for_chart <- dph_towns %>% filter(!(town %in% c("Montville", "Somers", "Brooklyn"))) %>% 
   mutate(category = fct_recode(category, Suburban = "Wealthy")) %>% 
+         # category = fct_expand(category, "With Prisons"),
+         # category = ifelse(town %in% c("Somers", "Brooklyn", "Montville"), "With Prisons", category)) %>% 
   combine_dph_towns(county, category) %>% 
   mutate(rnew_cases_per100k = rnew_cases_per1k * 100,
     county = factor(county,
@@ -685,7 +687,7 @@ ggplot(data = for_chart,
   ylab("New Cases per 100K") + xlab(NULL) +
   labs(title = "New Cases by County and by Type of Town Per Population",
        subtitle = "(7-day rolling average of new cases)",
-       caption = '"Wealthy" towns are included with "Suburban".\nSomers and Montville are omitted because prison data may dominate town data.',
+       caption = '"Wealthy" towns are included with "Suburban".\nSomers, Brooklyn, and Montville are omitted because prison data may dominate town data.',
        tag = NULL)
 
 ```
