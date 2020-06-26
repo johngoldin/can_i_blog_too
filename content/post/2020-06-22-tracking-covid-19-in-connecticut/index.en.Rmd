@@ -692,6 +692,28 @@ ggplot(data = for_chart,
 
 ```
 
+### Details by Town
+
+I've created a separate web page by for each county
+which displays some detail for each individual county. Click
+on the links below to see the detail for the towns in that county.
+
+[Fairfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/fairfield_summary.html)
+
+[Hartford County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/hartford_summary.html)
+
+[Litchfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/litchfield_summary.html)
+
+[Middlesex County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/middlesex_summary.html)
+
+[New Haven County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_haven_summary.html)
+
+[New London County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_london_summary.html)
+
+[Tolland County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/tolland_summary.html)
+
+[Windham County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/windham_summary.html)
+
 
 ## Methodology and Sources
 
@@ -743,3 +765,7 @@ In the data portal, the number of cases reported for Montville was 381 on June 1
 As of June 18 it reports 293 cases, a reduction of 88 cases. That's more than
 the 70 cases removed. Perhaps the case counts for Montville were affected by
 inmates being moved within the Connecticut prison system.
+
+[Note as of June 24, 2020](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6242020.pdf)
+
+>1175 new test results were reported since the last report and 2770 previously reported PCR tests were removed due to correction of data errors.
