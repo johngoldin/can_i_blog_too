@@ -12,7 +12,7 @@ type: post
 subtitle: ''
 image: ''
 draft: yes
-summary: "This is a test post used to explore some features of Hugo and how they relate to my blog posts."
+.summary: "This is a test post used to explore some features of Hugo and how they relate to my blog posts."
 output:
   blogdown::html_page:
     toc: no
@@ -27,6 +27,7 @@ output:
 <p>Typical location to start editing
 <!--more-->
 ### R image</p>
+<p>{{ .Scratch.Set “.Summary” “Hello this is a Summary” }}</p>
 <p>If you prefer not to use the <code>fig.width</code> and <code>fig.height</code> options in every plot chunk, edit the YAML (the part at the top of the post) with:</p>
 <p>{{&lt; columns &gt;}}</p>
 <p>This is column 1.</p>

@@ -2,7 +2,6 @@
 title: Tracking Covid-19 in Connecticut
 author: John Goldin
 date: '2020-06-22'
-subtitle: "Updated `r format(Sys.time(), '%a %d %b %Y')`"
 categories:
   - COVID19
 tags:
@@ -28,6 +27,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, #out.width = "1
 # knitr.table.format is for kable. Needed this to get blogdown table to format correctly.
 ```
 ```{r libraries, echo = FALSE, message = FALSE, warning = FALSE}
+# subtitle: "Updated `r format(Sys.time(), '%a %d %b %Y')`"
 library(tidyverse, quietly = TRUE)
 library(knitr, quietly = TRUE)
 library(scales, quietly = TRUE)
@@ -78,10 +78,11 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
   ungroup()
 ```
 
-<!--more-->
+
 ## Latest Connecticut Data from the Department of Public Health
 
 ```{r box-score, echo = FALSE}
+#<!--more-->
 recent_date <- max(dph_total$date, na.rm = TRUE)
 week_ago <- recent_date - 7
 if (!(week_ago %in% dph_total$date)) week_ago <- NA
@@ -200,24 +201,6 @@ box_score %>%
 # https://github.com/rstudio/gt/issues/547
 
   # tab_options(row.striping.include_table_body = FALSE)
-
-
- # PDF report from the Connecticut Deprtment of Public Health:[`r dph_reports$name[1]`](`r dph_reports$url[1]`)
- # 
- # Source: Multiple tables from [Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/)
- 
-# kable(box_score,
-#       col.names = c(" ", "Total Today", "Change from\nYesterday", "Change from\nWeek Ago"),
-#       format.args = list(big.mark = ","),
-#       align = "lrrr") %>%
-#   kableExtra::kable_styling(bootstrap_options = "basic") %>%
-#   kableExtra::column_spec(2:4, width_max = "1.5in") %>%
-#   kableExtra::column_spec(1, bold = TRUE, width_min = "1.5in")
- # **Rate of positive tests:    **  `r round(test_rate * 100, 1.1)`%
- # 
- # PDF report from the Connecticut Deprtment of Public Health:[`r dph_reports$name[1]`](`r dph_reports$url[1]`)
- # 
- # Source: Multiple tables from [Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/)  
 
 ```
 
@@ -598,71 +581,114 @@ for_plot2 <- dph_counties %>%
   mutate(county = factor(county, levels = county_max$county)) %>% 
   pivot_longer(cols = c(cases, deaths)) %>% 
   mutate(the_measure = factor(name, levels = c("new cases", "deaths")))
-p_county_cum <- ggplot(data = for_plot2, aes(x = date, y = value)) +
-  geom_line(aes(colour = county)) +
-  scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", 
-               date_labels = "%b %d") + 
-  theme_minimal() + 
-  xlab(NULL) + ylab("Cumulative Count (7-day rolling average)") +
-  # facet_wrap(~ the_measure)
-  facet_wrap(~ name, scales = "free_y")
+# p_county_cum <- ggplot(data = for_plot2, aes(x = date, y = value)) +
+#   geom_line(aes(colour = county)) +
+#   scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", 
+#                date_labels = "%b %d") + 
+#   theme_minimal() + 
+#   xlab(NULL) + ylab("Cumulative Count (7-day rolling average)") +
+#   # facet_wrap(~ the_measure)
+#   facet_wrap(~ name, scales = "free_y")
 
-p_county_map_new_cases <- ggplot() +
-  geom_sf(data = county_geometries %>%
-            left_join(dph_counties %>% filter(date == max(date, na.rm = TRUE)) %>%
-                        select(county, rnew_cases_per1k),
-                      by = "county") %>% 
-            mutate(`new per 100k` = rnew_cases_per1k * 100),
-          # need aes(geometry = geometry) because joined sf to a tibble and so lost sf
-          aes(fill = `new per 100k`, geometry = geometry)) +
+modified_counties <- dph_towns %>% 
+  filter(date == max(dph_towns$date, na.rm = TRUE),
+         !town %in% c("Montville", "Somers", "Brooklyn")) %>% # and maybe Enfield.  Prison towns
+  group_by(county) %>% 
+  summarise(across(c(total_pop, rnew_cases, current_cases, rnew_deaths, cases, deaths), sum, na.rm = TRUE)) %>% 
+  mutate(across(c(rnew_cases, current_cases, cases), ~ .x / (total_pop / 100000), .names = "{col}_per100k"))
+p_county_map_current_cases <- ggplot(data = county_geometries %>%
+            left_join(modified_counties %>% 
+                        select(county, `current per 100k` = current_cases_per100k),
+                      by = "county"),
+             aes(geometry = geometry)) +
+  geom_sf(# need aes(geometry = geometry) because joined sf to a tibble and so lost sf
+          aes(fill = `current per 100k`, geometry = geometry)) +
   scale_fill_gradient(low = "white", high = "grey") +
-  geom_sf_text(data = county_centroid, aes(label = paste0(county, "\n", round(rnew_cases_per1k*100, 1), " per 100K")), color = "black", size = 3) +
+  geom_sf_text(aes(label = paste0(county, "\n", round(`current per 100k`, 1), " per 100K")), color = "black", size = 3) +
   coord_sf(datum = NA, label_axes = "----") +
   xlab("") + ylab("") + theme_minimal()  +
   # theme(legend.position = "none") +
-  labs(title = "New Cases (7-Day Rolling Average) by Connecticut County",
-       subtitle = "shading shows new cases per 100K of population as of most recent report",
-       # fill = "cases per 1K",
+  labs(title = "Current Cases (total of last 14 days) by Connecticut County",
+       subtitle = "shading shows current cases per 100K of population as of most recent report\n(without Somers, Brooklyn, and Montville)",
+       caption = "Sources: CT DPH, US Census, tidycensus package")
+p_county_map_cum_cases <- ggplot(data = county_geometries %>%
+            left_join(modified_counties %>% 
+                        select(county, `cases per 100k` = cases_per100k),
+                      by = "county"),
+             aes(geometry = geometry)) +
+  geom_sf(aes(fill = `cases per 100k`, geometry = geometry)) +
+  scale_fill_gradient(low = "white", high = "grey") +
+  geom_sf_text(aes(label = paste0(county, "\n", scales::comma(`cases per 100k`, accuracy = 1), " per 100K")), color = "black", size = 3) +
+  coord_sf(datum = NA, label_axes = "----") +
+  xlab("") + ylab("") + theme_minimal()  +
+  # theme(legend.position = "none") +
+  labs(title = "Total Cumulative Cases by Connecticut County",
+       subtitle = "shading shows total cases per 100K of population as of most recent report\n(without Somers, Brooklyn, and Montville)",
        caption = "Sources: CT DPH, US Census, tidycensus package")
 
-p_county_map_cum_cases <- ggplot() +
-  geom_sf(data = county_geometries %>%
-            left_join(dph_counties %>% filter(date == max(date, na.rm = TRUE)) %>%
-                        select(county, cases, deaths),
-                      by = "county") %>% 
-            mutate(`cases per 100k` = cases / (total_pop / 100000)),
-          # need aes(geometry = geometry) because joined sf to a tibble and so lost sf
-          aes(fill = `cases per 100k`, geometry = geometry)) +
-  scale_fill_gradient(low = "white", high = "grey") +
-  geom_sf_text(data = county_centroid, aes(label = paste0(county, "\n", comma(cases, accuracy = 1.0), " cases\n", comma(deaths, accuracy = 1.0), " deaths")), color = "black", size = 3) +
-  coord_sf(datum = NA, label_axes = "----") +
-  xlab("") + ylab("") + theme_minimal()  +
-  # theme(legend.position = "none") +
-  labs(title = "Cumulative Cases and Deaths by Connecticut County",
-       subtitle = "shading shows total cases per 100K of population",
-       # fill = "cases per 1K",
-       caption = "Source: CT DPH, US Census, tidycensus package")
+# p_county_map_new_cases <- ggplot() +
+#   geom_sf(data = county_geometries %>%
+#             left_join(dph_counties %>% filter(date == max(date, na.rm = TRUE)) %>%
+#                         select(county, rnew_cases_per1k),
+#                       by = "county") %>% 
+#             mutate(`new per 100k` = rnew_cases_per1k * 100),
+#           # need aes(geometry = geometry) because joined sf to a tibble and so lost sf
+#           aes(fill = `new per 100k`, geometry = geometry)) +
+#   scale_fill_gradient(low = "white", high = "grey") +
+#   geom_sf_text(data = county_centroid, aes(label = paste0(county, "\n", round(rnew_cases_per1k*100, 1), " per 100K")), color = "black", size = 3) +
+#   coord_sf(datum = NA, label_axes = "----") +
+#   xlab("") + ylab("") + theme_minimal()  +
+#   # theme(legend.position = "none") +
+#   labs(title = "New Cases (7-Day Rolling Average) by Connecticut County",
+#        subtitle = "shading shows new cases per 100K of population as of most recent report",
+#        # fill = "cases per 1K",
+#        caption = "Sources: CT DPH, US Census, tidycensus package")
+# 
+# p_county_map_cum_cases <- ggplot() +
+#   geom_sf(data = county_geometries %>%
+#             left_join(dph_counties %>% filter(date == max(date, na.rm = TRUE)) %>%
+#                         select(county, cases, deaths),
+#                       by = "county") %>% 
+#             mutate(`cases per 100k` = cases / (total_pop / 100000)),
+#           # need aes(geometry = geometry) because joined sf to a tibble and so lost sf
+#           aes(fill = `cases per 100k`, geometry = geometry)) +
+#   scale_fill_gradient(low = "white", high = "grey") +
+#   geom_sf_text(data = county_centroid, aes(label = paste0(county, "\n", comma(cases, accuracy = 1.0), " cases\n", comma(deaths, accuracy = 1.0), " deaths")), color = "black", size = 3) +
+#   coord_sf(datum = NA, label_axes = "----") +
+#   xlab("") + ylab("") + theme_minimal()  +
+#   # theme(legend.position = "none") +
+#   labs(title = "Cumulative Cases and Deaths by Connecticut County",
+#        subtitle = "shading shows total cases per 100K of population",
+#        # fill = "cases per 1K",
+#        caption = "Source: CT DPH, US Census, tidycensus package")
 
 ```
 Next I'll look at variations within Connecticut. Below are two maps
-showing the eight counties in Connecticut. The first map in Figure \@ref(fig:county-maps) shows new cases 
-per 1K of population. (Actually it show the rolling average the last seven days
-in order to smooth out variations in day to day reporting.) The second map shows
-the cumulative total of cases. So the first map is an indication of the recent prevalence of the
-virus and the second map relates more to the total impact of the disease over the
-full course of the epidemic to date.
+showing the eight counties in Connecticut^[The data displayed on these maps excludes the towns of 
+Somers, Brooklyn, and Montville because they
+are small rural towns with prisons, and the cases reported in 
+the prisons may dominate the total in the town and even affect the 
+reporting for the county overall. Covid-19 in prisons is a significant
+issue, but it's helpful to try to evaluate it separately from 
+data from the non-prison community.]. 
+The first map in Figure \@ref(fig:county-maps) shows 
+the cumulative total of cases since the start of the epidemic.
+The second map shows only new cases reporting during the last two weeks.
+On both maps, cases are adjusted to show cases per 100K of population.
+So the first map relates more to the total impact of the disease over the
+full course of the epidemic to date, and the second
+map is an indication of the recent prevalence of the
+virus. 
 
 Connecticut is part of the epidemic's surge in the New York area and the magnitude
 of the epidemic has been greater in the counties closer to New York City. Back in March cases
 first appeared in Fairfield County and then spread to Litchfield, New Haven, and Hartford.
-More recently Hartford has been the area that we have to watch and even the most eastern
-counties in the state.
+More recently Hartford has been the area that we have to watch.
 
-\[To do: remove Montville, Somers, Brooklyn, and maybe Enfield from the county stats.\]
 <br/><br/><br/>
 ```{r county-maps, echo = FALSE, fig.cap = "County Maps of New and of Cumulative Cases", out.width = '50%', fig.show = 'hold'}
 print(p_county_map_cum_cases)
-print(p_county_map_new_cases)
+print(p_county_map_current_cases)
 ```
 ```{r town-categories, echo = FALSE}
 by_category <- dph_towns %>% 
