@@ -75,13 +75,13 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
   group_by(region) %>% arrange(date) %>% 
   mutate(above_one = ifelse(last(mean) > 1, "> 1", "<= 1") %>% factor(levels = c("> 1", "<= 1")),
          recent_rt = last(mean)) %>% 
-  ungroup()
+  ungroup() 
 ```
 
 
 ## Latest Connecticut Data from the Department of Public Health
 
-```{r box-score, echo = FALSE}
+```{r box-score, echo = FALSE} 
 #<!--more-->
 recent_date <- max(dph_total$date, na.rm = TRUE)
 week_ago <- recent_date - 7
