@@ -327,6 +327,7 @@ p_hospitalizations <- ggplot(data = dph_total %>% filter(!is.na(hospital)),
   )
 ```
 ```{r geofacets, echo = FALSE}
+#  <span style="color: #ff0000">January 30, 2011</span> > 1 #af8dc3 <= 1 #7fbf7b
 p_rt_map <- ggplot(data = rt_live %>% select(-state) %>% 
          rename(state = region), aes(x = date, y = mean)) + 
   xlab(NULL) + ylab(NULL) + 
@@ -389,6 +390,11 @@ See [this site](https://rt.live/) for
 an estimate by state of the effective value for 
 R<sub>t</sub>. The site
 is described in [this article](https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate) at Vox.com.
+I don't claim to have the expertise to evalute the
+quality of the calculation of R at the
+[rt.live](https://rt.live/) site, but it seems to jive
+with other information about the pattern of the epidemic
+among states.
 
 Note that as of June (and a month
 previous), Connecticut, New York, and New Jersey have among the lowest
@@ -399,13 +405,24 @@ The goal in Connecticut and in the entire New York City area is to
 keep R<sub>t</sub> well under 1. As of `r max(rt_live$date)` R<sub>t</sub> is
 `r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "CT")], 2)`. On the other hand, in Arizona R<sub>t</sub> is about `r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "AZ")], 2)`.
 
+## Estimate of R<sub>t</sub> by State (from [rt.live](https://rt.live/))
+
 The next display shows the trend of R<sub>t</sub> in each state
 arranged according to geographic position in the US. Remember
-that R<sub>t</sub> is a measure of the rate of increase. When R<sub>t</sub> (indicated by the blue line) is greater than 1
-(indicated by a dark gray line) the number of daily new cases is
-increasing, If R<sub>t</sub> is less than 1, it is decreasing.
+that R<sub>t</sub> is a measure of the rate of increase. When R<sub>t</sub> (indicated by the purple line) is greater than 1
+the number of daily new cases is
+increasing, If R<sub>t</sub> is less than 1, it is decreasing. 
+The color of the R line shows whether the most recent estimate of R for
+a state is <span style="color: #af8dc3">above 1 (purple line)</span>
+or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
+
+R is estimated from the state data and the gray area around the line
+indicates the statistical uncertainty of the estimat showing
+an 80% confidence interval.
+
 <br/><br/><br/>
 ```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 0.8, out.width = "90%"}
+#  <span style="color: ##af8dc">above 1 (purple line)</span> > 1 #af8dc <= 1 #7fbf7b
 print(p_rt_map)
 ```
 <br/><br/><br/>
