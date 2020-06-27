@@ -2,6 +2,7 @@
 title: Tracking Covid-19 in Connecticut
 author: John Goldin
 date: '2020-06-22'
+subtitle: "Updated `r format(Sys.time(), '%a %d %b %Y')`"
 categories:
   - COVID19
 tags:
@@ -332,13 +333,13 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
          rename(state = region), aes(x = date, y = mean)) + 
   xlab(NULL) + ylab(NULL) + 
   theme_bw() + 
-  geom_ribbon(aes(ymin = lower_80, ymax = upper_80), fill = "grey88") +
+  geom_ribbon(aes(ymin = lower_80, ymax = upper_80), fill = "grey80") +  # higher grey number is lighter
   geom_hline(yintercept = 1, colour = "grey50") +
   geom_line(aes(colour = above_one), size = 1) + theme(legend.position = "left") +
   scale_color_manual(values = c("<= 1" = "#7fbf7b", "> 1" = "#af8dc3")) +
   scale_y_continuous(limits = c(0.5, 1.8), breaks = c(0.5, 1, 1.5)) +
                      #minor_breaks = seq(0.2, 1.4, 0.2)) +
-  scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 month", 
+  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", 
                date_labels = "%b") + 
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, size = 6)) +
   theme(axis.text.x = element_text(size=5)) +
@@ -357,6 +358,8 @@ with a line that displays the rolling seven-day average. Typically there
 are day-of-the-week effects in the reporting so it's best to focus
 on the seven-day average.
 
+### New Covid-19 Cases in Connecticut
+
 The plot shows the history of new cases and also shows the 
 actions required by some of Governor Lamont's executive orders. 
 <br/><br/><br/>
@@ -368,12 +371,18 @@ print(p_new_cases)
 ```{r p-rt-live, echo = FALSE, fig.asp = 0.3, fig.cap = "Estimated R<sub>t</sub>"}
 print(p_rt_live)
 ```
-<br/><br/><br/>
+<br/>
+
+### Covid-19 Deaths in Connecticut
+
 ```{r p-daily-deaths, echo = FALSE, fig.cap = "Daily Deaths"}
 print(p_daily_deaths)
 
 ```
-<br/><br/><br/>
+<br/>
+
+### Covid-19 Hospitalizations in Connecticut
+
 ```{r p-hospitalizations, echo = FALSE, fig.cap = "Hospitalizations for Covid-19"}
 print(p_hospitalizations)
 ```
