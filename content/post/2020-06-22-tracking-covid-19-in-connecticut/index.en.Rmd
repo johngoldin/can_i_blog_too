@@ -197,7 +197,7 @@ box_score %>%
   # kable_styling(bootstrap_options = ".table", position = "left")
   opt_row_striping(row_striping = FALSE)
 
-# issue about css and gt table 
+# issue about css and gt table
 # https://github.com/rstudio/gt/issues/547
 
   # tab_options(row.striping.include_table_body = FALSE)
