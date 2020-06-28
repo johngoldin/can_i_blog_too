@@ -158,7 +158,7 @@ box_score <- tribble(
   ~`Connecticut Covid-19`, ~`today`, ~`yesterday`, ~`week ago`,
   "Cases", today_cases, yesterday_cases, week_ago_cases,
   "Deaths", today_deaths, yesterday_deaths, week_ago_deaths,
-  "Hospitalizations", today_hospital, yesterday_hospital, week_ago_hospital,
+  "Currently in Hospital", today_hospital, yesterday_hospital, week_ago_hospital,
   "Tests",    today_tests, yesterday_tests, week_ago_tests,
   " ", NA , NA, NA,
   "Nursing home cases", nursing_hm_cases, NA, nh_previous_cases,
