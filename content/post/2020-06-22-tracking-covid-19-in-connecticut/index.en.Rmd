@@ -539,7 +539,7 @@ towns. For example, in the town of Brooklyn in Windham County
 (population about 8,200)
 the DPH town stats between June 17 and June 18
 showed the number of cases
-jumped from 24 to 116.
+jumped from 24 to 116. 
 That's the home of the Brooklyn Correctional Institutin
 and I have to believe that site dominated those numbers
 and that the process by which the Department of Corrections
