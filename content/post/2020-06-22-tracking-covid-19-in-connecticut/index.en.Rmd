@@ -205,8 +205,8 @@ box_score %>%
 ```
 
  
-[My post on Covid-19 back in March](https://johngoldin.com/post/2020-03-29-covid19-cases-in-connecticut/) 
-attempted to track the growth of the epidemic as it hit Connecticut.
+[My post on Covid-19 back in March](https://www.johngoldin.com/2020/03/covid-19-cases-in-connecticut/) 
+tracked the growth of the epidemic as it hit Connecticut.
 Back at the end of March I did not realize that 
 the greater New York area (including Connecticut)
 would be the center of the first wave in the US. At that time what I was reading
@@ -217,7 +217,7 @@ in that post each evening. During that time the [Connecticut data portal](https:
 has expanded considerably, and I've built [some R code](https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R) 
 that let's me easily update
 that post. I'll use the same data infrastructure for this post as well.
-This post is much more oriented toward tracking the current status of 
+This post is more oriented toward tracking the current status of 
 the epidemic in Connecticut.
 
 ```{r 'new-cases-plot', echo = FALSE, eval = TRUE}
@@ -336,7 +336,7 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
 ```
 ## Tracking the Virus in Connecticut
 
-This post focuses on what is happening recently. The aim is to
+This post focuses on what is happening currently. The aim is to
 use the recent trend to get some idea of the near future. The first
 plot will show the average number of new cases reported each day along
 with a line that displays the rolling seven-day average. Typically there 
@@ -390,20 +390,21 @@ quality of the calculation of R at the
 with other information about the pattern of the epidemic
 among states.
 
-Note that as of June (and a month
+As of June (and a month
 previous), Connecticut, New York, and New Jersey have among the lowest
 values for R<sub>t</sub> in the country. This is good news for us
-in Connecticut. I have included R<sub>t</sub> for Arizona as a contrast with
+in Connecticut. I have included R<sub>t</sub> for Arizona as
+well as Connecticut to provide a contrast with
 a state that has lately shown [signs of a growing outbreak](https://www.fox10phoenix.com/news/arizona-medical-experts-alarmed-over-surge-in-covid-19-cases).
 The goal in Connecticut and in the entire New York City area is to
-keep R<sub>t</sub> well under 1. As of `r max(rt_live$date)` R<sub>t</sub> is
+keep R<sub>t</sub> well under 1. As of `r format(max(rt_live$date),"%m/%d/%Y")` R<sub>t</sub> is
 `r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "CT")], 2)`. On the other hand, in Arizona R<sub>t</sub> is about `r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "AZ")], 2)`.
 
 ## Estimate of R<sub>t</sub> by State (from [rt.live](https://rt.live/))
 
 The next display shows the trend of R<sub>t</sub> in each state
 arranged according to geographic position in the US. Remember
-that R<sub>t</sub> is a measure of the rate of increase. When R<sub>t</sub> (indicated by the purple line) is greater than 1
+that R<sub>t</sub> is a measure of the rate of increase. When R<sub>t</sub> is greater than 1
 the number of daily new cases is
 increasing, If R<sub>t</sub> is less than 1, it is decreasing. 
 The color of the R line shows whether the most recent estimate of R for
@@ -412,7 +413,9 @@ or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
 
 R is estimated from the state data and the gray area around the line
 indicates the statistical uncertainty of the estimat showing
-an 80% confidence interval.
+an 80% confidence interval. Note that this display shows only whether
+transmission seems to be growing or shrinking. Not shown is whether the
+volume of current cases are at a low or high level.
 
 <br/><br/><br/>
 ```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 0.8, out.width = "90%"}
@@ -448,6 +451,19 @@ ggplot(data = dph_age %>% filter(date == max(date)),
 ```
 </div>
 <br/>
+
+Deaths increase with age, as has been well known since the beginning of the epidemic. For cases, the number of cases per population stays relatively
+flat from 20 to 79 and rises very rapidly for the oldest category. I haven't
+examined this data closely, but I assume this pattern is related to the
+high rates of mortality in nursig homes. For the age range from 60 to 79 there
+probably are a lot of seniors who are going to a great deal of trouble
+avoiding places and situations where there is risk of catching the virus.
+But individuals in nursing homes don't have that much control over their
+own lives. I would guess that the older population outside of nursing
+homes has a lower rate of catching the virus and the populaton inside
+nursing homes has a higher rate. The two trends may average out to a rate that
+is the same as middle aged adults. This is just speculation. I haven't dug
+into the data to say anthing firm about this
 
 ## Nursing Homes
 
