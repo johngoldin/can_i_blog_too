@@ -752,28 +752,33 @@ I've created a separate web page by for each county
 which displays some detail for each individual county. Click
 on the links below to see the detail for the towns in that county.
 
-[Fairfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/fairfield_summary.html)
+   |  |   | 
+--------------------- | --------------------- | --------------------- | --------------------- 
+[Litchfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/litchfield_summary.html) | [Hartford County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/hartford_summary.html) | [Tolland County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/tolland_summary.html) | [Windham County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/windham_summary.html)
+[Fairfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/fairfield_summary.html) | [New Haven County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_haven_summary.html) | [Middlesex County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/middlesex_summary.html) | [New London County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_london_summary.html)
 
-[Hartford County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/hartford_summary.html)
+************************
 
-[Litchfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/litchfield_summary.html)
+## Links to Sources
 
-[Middlesex County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/middlesex_summary.html)
+* State of Connecticut Department of Public Health
+    + Daily Covid-19 Update in the form of a PDF. A [list of the reports](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um) is available via Connecticut Open Data.
+    + [Connecticut Covid-19 Data Tracker](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker)
+    + Links to [all the items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) The Connectiut Open Data site has been a pleasure to use. 
+    
+* [Mapping and Covid-19 at the Yale Medical School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
+observe some of these efforts for me it has been a great source of information and inspiration.
 
-[New Haven County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_haven_summary.html)
+* [New York Times Tracking the Coronavirus](https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html)
 
-[New London County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_london_summary.html)
+* [rt.live](https://rt.live) I have made heavy use of this site so I'll link to it here as well.
 
-[Tolland County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/tolland_summary.html)
-
-[Windham County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/windham_summary.html)
-
+* [Covid-19 Tracking Project](https://covidtracking.com)
 
 ## Methodology and Sources 
 
-#### Counts from Connecticut Department of Public Health
-The figures show the counts of cases and deaths as they are reported by
-the [Connecticut Department of Public Health](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um). 
+### Some Notes on the Data Available From the Department of Public Health
+
 Sometimes there is a lag before cases and deaths end up in the daily reports.
 As a result, there tends to be a "day of the week" effect.
 For that reason, observers of the Covid-19 statistics generally focus
@@ -789,8 +794,6 @@ have used "date of report" rather than "date of sample taken" or "date of death"
 because that gives me all of the recent data that is available
 and because that is what most other data projects (such as the Covid-19 Project
 or the New York Times) have been using.
-
-### Notes from Certain Reports of the Department of Public Health
 
 The DPH reports always include a comment that "all data are preliminary and subject
 to change." But when they make and adjustment to correct errors, as far as

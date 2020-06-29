@@ -33,18 +33,11 @@ library(knitr, quietly = TRUE)
 library(scales, quietly = TRUE)
 library(kableExtra, quietly = TRUE)
 ```
-### Post content
 
-Typical location to start editing 
-### R image
-
-
-```{r 'plot', echo = TRUE, fig.width = 6, fig.height = 6, eval = FALSE, echo = FALSE}
-## This imaged will be saved in the /post/*_files/ directory
-## Use echo = FALSE if you want to hide the code for making the plot
-plot(1:10, 10:1)
-```
-
+   |  |   | 
+--------------------- | --------------------- | --------------------- | --------------------- 
+[Litchfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/litchfield_summary.html) | [Hartford County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/hartford_summary.html) | [Tolland County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/tolland_summary.html) | [Windham County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/windham_summary.html)
+[Fairfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/fairfield_summary.html) | [New Haven County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_haven_summary.html) | [Middlesex County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/middlesex_summary.html) | [New London County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_london_summary.html)
 If you prefer not to use the `fig.width` and `fig.height` options in every plot chunk, edit the YAML (the part at the top of the post) with:
 
 {{< columns >}}
