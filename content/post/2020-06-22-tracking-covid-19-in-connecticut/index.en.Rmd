@@ -748,9 +748,8 @@ ggplot(data = for_chart,
 
 ### Details by Town
 
-I've created a separate web page by for each county
-which displays some detail for each individual county. Click
-on the links below to see the detail for the towns in that county.
+Below are links to a separate web page by for each of the eight counties in Connecticut.
+Click on the county name for detail about individual towns within that county. 
 
    |  |   | 
 --------------------- | --------------------- | --------------------- | --------------------- 
@@ -761,7 +760,7 @@ on the links below to see the detail for the towns in that county.
 
 ## Links to Sources
 
-* State of Connecticut Department of Public Health
+* State of Connecticut Department of Public Health 
     + Daily Covid-19 Update in the form of a PDF. A [list of the reports](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um) is available via Connecticut Open Data.
     + [Connecticut Covid-19 Data Tracker](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker)
     + Links to [all the items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) The Connectiut Open Data site has been a pleasure to use. 
