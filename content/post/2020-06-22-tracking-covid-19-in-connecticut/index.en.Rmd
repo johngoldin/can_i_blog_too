@@ -229,7 +229,7 @@ exec_orders <- tibble(
             "covid-19\ndeath\nchanged", "masks\nrequired",
             "phase 1\nreopen", "hair\nreopen", "phase 2\nreopen"),
   fudge = c(1, 0.4, 0.7, 0.9, 0.8, 0.9, 0.8, 0.8, 1)
-) %>% 
+) %>%
   left_join(dph_total %>% select(date, rnew_cases, rnew_deaths, cases, deaths))
 
 # try a version with understated bars
