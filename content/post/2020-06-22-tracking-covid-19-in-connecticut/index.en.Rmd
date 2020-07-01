@@ -384,7 +384,7 @@ See [this site](https://rt.live/) for
 an estimate by state of the effective value for 
 R<sub>t</sub>. The site
 is described in [this article](https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate) at Vox.com.
-I don't claim to have the expertise to evalute the
+I don't claim to have the expertise to evaluate the
 quality of the calculation of R at the
 [rt.live](https://rt.live/) site, but it seems to jive
 with other information about the pattern of the epidemic
@@ -412,7 +412,7 @@ a state is <span style="color: #af8dc3">above 1 (purple line)</span>
 or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
 
 R is estimated from the state data and the gray area around the line
-indicates the statistical uncertainty of the estimat showing
+indicates the statistical uncertainty of the estimate showing
 an 80% confidence interval. Note that this display shows only whether
 transmission seems to be growing or shrinking. Not shown is whether the
 volume of current cases are at a low or high level.
@@ -455,15 +455,15 @@ ggplot(data = dph_age %>% filter(date == max(date)),
 Deaths increase with age, as has been well known since the beginning of the epidemic. For cases, the number of cases per population stays relatively
 flat from 20 to 79 and rises very rapidly for the oldest category. I haven't
 examined this data closely, but I assume this pattern is related to the
-high rates of mortality in nursig homes. For the age range from 60 to 79 there
+high rates of mortality in nursing homes. For the age range from 60 to 79 there
 probably are a lot of seniors who are going to a great deal of trouble
 avoiding places and situations where there is risk of catching the virus.
 But individuals in nursing homes don't have that much control over their
 own lives. I would guess that the older population outside of nursing
-homes has a lower rate of catching the virus and the populaton inside
+homes has a lower rate of catching the virus and the population inside
 nursing homes has a higher rate. The two trends may average out to a rate that
 is the same as middle aged adults. This is just speculation. I haven't dug
-into the data to say anthing firm about this
+into the data to say anything firm about this
 
 ## Nursing Homes
 
@@ -512,7 +512,7 @@ As of `r format(max(doc_covid$date, na.rm = TRUE), "%m/%d/%Y")`,
 `r scales::comma(max(doc_covid$inmates_positive, na.rm = TRUE))` inmates
 have tested positive for Covid-19. At the peak of the epidemic, 
 `r scales::comma(max(doc_covid$northern_med, na.rm = TRUE))` inmates were
-isolated at the Nothern Correctional Institution medical facilty.
+isolated at the Northern Correctional Institution medical facility.
 The most recent report is that 
 `r scales::comma(doc_covid$inmate_deaths[doc_covid$date == max(doc_covid$date)])`
 died, and currently 
@@ -522,7 +522,7 @@ Covid-19 inmates remain in that medical facility.
 Unlike nursing homes, the number of deaths from 
 Covid-19 in prisons is relatively low. Presumably that
 is because the prison population has many fewer 
-elderly people who are expecially vulnerable to 
+elderly people who are especially vulnerable to 
 the effects of Covid-19.
 
 In addition to prisoners, the Department of Corrections reports that 
@@ -540,10 +540,10 @@ towns. For example, in the town of Brooklyn in Windham County
 the DPH town stats between June 17 and June 18
 showed the number of cases
 jumped from 24 to 116. 
-That's the home of the Brooklyn Correctional Institutin
+That's the home of the Brooklyn Correctional Institution
 and I have to believe that site dominated those numbers
 and that the process by which the Department of Corrections
-repoted test results to the Department of Public Health
+reported test results to the Department of Public Health
 affected the magnitude of the one-day jump.
 
 In effect there is a separate epidemic occurring inside
@@ -556,7 +556,7 @@ Montville, and Brooklyn. But it's not practical for
 me to segregate the effect of prisons on counts for
 larger towns such as New Haven, Cheshire, Hartford,
 and others. As of 6/16/2020, the DOC reported a cumulative total
-of 117 cases amongs prisoners in Bridgeport,
+of 117 cases among prisoners in Bridgeport,
 125 in New Haven, 94 in Hartford, and 21 in Cheshire.
 Enfield is a tricky case. There are two DOC facilities
 in Enfield and as of 6/16/2020 DOC reported 265
@@ -779,7 +779,7 @@ Click on the county name for detail about individual towns within that county.
 * State of Connecticut Department of Public Health 
     + Daily Covid-19 Update in the form of a PDF. A [list of the reports](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um) is available via Connecticut Open Data.
     + [Connecticut Covid-19 Data Tracker](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker)
-    + Links to [all the items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) The Connectiut Open Data site has been a pleasure to use. 
+    + Links to [all the items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) The Connecticut Open Data site has been a pleasure to use. 
     
 * [Mapping and Covid-19 at the Yale Medical School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
 observe some of these efforts for me it has been a great source of information and inspiration.
