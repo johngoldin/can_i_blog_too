@@ -39,7 +39,7 @@ options(tigris_use_cache = TRUE)
 library(tigris, quietly = TRUE)
 library(tidycensus, quietly = TRUE)
 library(viridis, quietly = TRUE)
-library(ggrepel)
+library(ggrepel) 
 options(tigris_class = "sf")
 library(lubridate, quietly = TRUE)
 library(janitor)
@@ -335,6 +335,27 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
 
 ```
 ## Tracking the Virus in Connecticut
+```{r covid19_project_map, echo = FALSE}
+p_states_map <- ggplot(data = covid19_project %>% 
+                         left_join(rt_live %>% 
+                                     select(state = region, above_one),
+                                   by = "state"), 
+                   aes(x = date, y = renw_cases_per100k)) + 
+  xlab(NULL) + ylab(NULL) + 
+  theme_bw() + 
+  geom_line(size = 1, aes(colour = above_one)) + 
+  theme(legend.position = "left") +
+  scale_color_manual(values = c("<= 1" = "#7fbf7b", "> 1" = "#af8dc3")) +
+  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", 
+               date_labels = "%b") + 
+  theme(axis.title.y = element_text(angle=0, vjust = 0.5, size = 6)) +
+  theme(axis.text.x = element_text(size=5)) +
+  labs(title = "New Cases per 100K of Population",
+       subtitle = expression(paste("Color of lines based on most recent estimate of ", R[t], " ")),
+       caption = "Source: Covid19 Tracking Project",
+       colour = expression(paste("Recent ", R[t]))) +
+  facet_geo(~ state)
+```
 
 This post focuses on what is happening currently. The aim is to
 use the recent trend to get some idea of the near future. The first
@@ -400,7 +421,9 @@ The goal in Connecticut and in the entire New York City area is to
 keep R<sub>t</sub> well under 1. As of `r format(max(rt_live$date),"%m/%d/%Y")` R<sub>t</sub> is
 `r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "CT")], 2)`. On the other hand, in Arizona R<sub>t</sub> is about `r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "AZ")], 2)`.
 
-## Estimate of R<sub>t</sub> by State (from [rt.live](https://rt.live/))
+## Comparisons with Other States
+
+### Estimate of R<sub>t</sub> by State (from [rt.live](https://rt.live/))
 
 The next display shows the trend of R<sub>t</sub> in each state
 arranged according to geographic position in the US. Remember
@@ -410,18 +433,39 @@ increasing, If R<sub>t</sub> is less than 1, it is decreasing.
 The color of the R line shows whether the most recent estimate of R for
 a state is <span style="color: #af8dc3">above 1 (purple line)</span>
 or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
-
-R is estimated from the state data and the gray area around the line
-indicates the statistical uncertainty of the estimate showing
-an 80% confidence interval. Note that this display shows only whether
-transmission seems to be growing or shrinking. Not shown is whether the
-volume of current cases are at a low or high level.
-
-<br/><br/><br/>
-```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 0.8, out.width = "90%"}
+<br/>
+```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 1, out.width = "95%"}
 #  <span style="color: ##af8dc">above 1 (purple line)</span> > 1 #af8dc <= 1 #7fbf7b
 print(p_rt_map)
 ```
+<br/>
+R is estimated from the state data and the gray area around the line
+indicates the statistical uncertainty of the estimate showing
+an 80% confidence interval. Note that this map shows only whether
+transmission seems to be growing or shrinking. How concerned one
+should be about the epidemic in a particular state also depends on
+the prevalence of cases. 
+
+### Trends in New Cases by State
+
+The next map shows the history of new
+cases in each state per 100K of population. The lines are color
+coded the same as in the previous map to indicate whether the most recent 
+estimate of R for
+a state is <span style="color: #af8dc3">above 1 (purple line)</span>
+or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
+<br/><br/>
+```{r p-states-map, echo = FALSE, fig.cap = "New Cases per 100K by State", fig.asp = 1, out.width = "95%"}
+print(p_states_map)
+```
+<br/>
+The tallest graph of new cases per 100K of population is New York. 
+Arizona is almost at the same level. From the point of view of someone
+living in Connecticut, the striking thing is how thoroughly Connecticut
+(and New York, New Jersey, Rhode Island, and Massachusetts) have recovered from
+the peak. New cases are low and the low value of the estimate of R
+confirms that they are likely to decrease even more. The great contrast
+is with the increase of cases in some of the southern states.
 <br/><br/><br/>
 
 ## Deaths and Cases by Age
