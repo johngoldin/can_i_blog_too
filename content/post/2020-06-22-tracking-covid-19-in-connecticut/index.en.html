@@ -34,7 +34,7 @@ output:
 <li><a href="#estimate-of-rt-by-state-from-rt.live">Estimate of R<sub>t</sub> by State (from <span>rt.live</span>)</a></li>
 <li><a href="#trends-in-new-cases-by-state">Trends in New Cases by State</a></li>
 </ul></li>
-<li><a href="#deaths-and-cases-by-age">Deaths and Cases by Age</a></li>
+<li><a href="#connecticut-covid-19-deaths-and-cases-by-age">Connecticut Covid-19 Deaths and Cases by Age</a></li>
 <li><a href="#nursing-homes">Nursing Homes</a></li>
 <li><a href="#prisons">Prisons</a></li>
 <li><a href="#variations-by-county-in-connecticut">Variations by County in Connecticut</a><ul>
@@ -42,7 +42,8 @@ output:
 <li><a href="#details-by-town">Details by Town</a></li>
 </ul></li>
 <li><a href="#links-to-sources">Links to Sources</a></li>
-<li><a href="#methodology-and-sources">Methodology and Sources</a><ul>
+<li><a href="#methodology-and-notes">Methodology and Notes</a><ul>
+<li><a href="#code-used-to-produce-this-post">Code Used to Produce This Post</a></li>
 <li><a href="#some-notes-on-the-data-available-from-the-department-of-public-health">Some Notes on the Data Available From the Department of Public Health</a></li>
 </ul></li>
 </ul>
@@ -54,7 +55,7 @@ output:
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#atjwycoauc .gt_table {
+#eevioonbnk .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -77,7 +78,7 @@ output:
   border-left-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_heading {
+#eevioonbnk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -89,7 +90,7 @@ output:
   border-right-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_title {
+#eevioonbnk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -99,7 +100,7 @@ output:
   border-bottom-width: 0;
 }
 
-#atjwycoauc .gt_subtitle {
+#eevioonbnk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -109,13 +110,13 @@ output:
   border-top-width: 0;
 }
 
-#atjwycoauc .gt_bottom_border {
+#eevioonbnk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_col_headings {
+#eevioonbnk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -130,7 +131,7 @@ output:
   border-right-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_col_heading {
+#eevioonbnk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -150,7 +151,7 @@ output:
   overflow-x: hidden;
 }
 
-#atjwycoauc .gt_column_spanner_outer {
+#eevioonbnk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -162,15 +163,15 @@ output:
   padding-right: 4px;
 }
 
-#atjwycoauc .gt_column_spanner_outer:first-child {
+#eevioonbnk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#atjwycoauc .gt_column_spanner_outer:last-child {
+#eevioonbnk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#atjwycoauc .gt_column_spanner {
+#eevioonbnk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -182,7 +183,7 @@ output:
   width: 100%;
 }
 
-#atjwycoauc .gt_group_heading {
+#eevioonbnk .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -204,7 +205,7 @@ output:
   vertical-align: middle;
 }
 
-#atjwycoauc .gt_empty_group_heading {
+#eevioonbnk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -219,19 +220,19 @@ output:
   vertical-align: middle;
 }
 
-#atjwycoauc .gt_striped {
+#eevioonbnk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#atjwycoauc .gt_from_md > :first-child {
+#eevioonbnk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#atjwycoauc .gt_from_md > :last-child {
+#eevioonbnk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#atjwycoauc .gt_row {
+#eevioonbnk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -250,7 +251,7 @@ output:
   overflow-x: hidden;
 }
 
-#atjwycoauc .gt_stub {
+#eevioonbnk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -262,7 +263,7 @@ output:
   padding-left: 12px;
 }
 
-#atjwycoauc .gt_summary_row {
+#eevioonbnk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -272,7 +273,7 @@ output:
   padding-right: 5px;
 }
 
-#atjwycoauc .gt_first_summary_row {
+#eevioonbnk .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -282,7 +283,7 @@ output:
   border-top-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_grand_summary_row {
+#eevioonbnk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -292,7 +293,7 @@ output:
   padding-right: 5px;
 }
 
-#atjwycoauc .gt_first_grand_summary_row {
+#eevioonbnk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -302,7 +303,7 @@ output:
   border-top-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_table_body {
+#eevioonbnk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -311,7 +312,7 @@ output:
   border-bottom-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_footnotes {
+#eevioonbnk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -325,13 +326,13 @@ output:
   border-right-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_footnote {
+#eevioonbnk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#atjwycoauc .gt_sourcenotes {
+#eevioonbnk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -345,46 +346,46 @@ output:
   border-right-color: #D3D3D3;
 }
 
-#atjwycoauc .gt_sourcenote {
+#eevioonbnk .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#atjwycoauc .gt_left {
+#eevioonbnk .gt_left {
   text-align: left;
 }
 
-#atjwycoauc .gt_center {
+#eevioonbnk .gt_center {
   text-align: center;
 }
 
-#atjwycoauc .gt_right {
+#eevioonbnk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#atjwycoauc .gt_font_normal {
+#eevioonbnk .gt_font_normal {
   font-weight: normal;
 }
 
-#atjwycoauc .gt_font_bold {
+#eevioonbnk .gt_font_bold {
   font-weight: bold;
 }
 
-#atjwycoauc .gt_font_italic {
+#eevioonbnk .gt_font_italic {
   font-style: italic;
 }
 
-#atjwycoauc .gt_super {
+#eevioonbnk .gt_super {
   font-size: 65%;
 }
 
-#atjwycoauc .gt_footnote_marks {
+#eevioonbnk .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="atjwycoauc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="eevioonbnk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Latest Data on Covid-19 in Connecticut</th>
@@ -541,7 +542,7 @@ parameter R<sub>t</sub>, the average number of people
 who become infected by an infectious person.
 When R<sub>t</sub> is greater than 1 the number of daily new cases is
 increasing, If R<sub>t</sub> is less than 1, it is decreasing.
-See <a href="https://rt.live/">this site</a> for
+See the site <a href="https://rt.live/">rt.live</a> for
 an estimate by state of the effective value for
 R<sub>t</sub>. The site
 is described in <a href="https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate">this article</a> at Vox.com.
@@ -557,8 +558,8 @@ in Connecticut. I have included R<sub>t</sub> for Arizona as
 well as Connecticut to provide a contrast with
 a state that has lately shown <a href="https://www.fox10phoenix.com/news/arizona-medical-experts-alarmed-over-surge-in-covid-19-cases">signs of a growing outbreak</a>.
 The goal in Connecticut and in the entire New York City area is to
-keep R<sub>t</sub> well under 1. As of 06/30/2020 R<sub>t</sub> is
-0.78. On the other hand, in Arizona R<sub>t</sub> is about 1.17.</p>
+keep R<sub>t</sub> well under 1. As of 07/01/2020 R<sub>t</sub> is
+0.75. On the other hand, in Arizona R<sub>t</sub> is about 1.15.</p>
 </div>
 </div>
 <div id="comparisons-with-other-states" class="section level2">
@@ -614,13 +615,23 @@ is with the increase of cases in some of the southern states.
 <br/><br/><br/></p>
 </div>
 </div>
-<div id="deaths-and-cases-by-age" class="section level2">
-<h2>Deaths and Cases by Age</h2>
+<div id="connecticut-covid-19-deaths-and-cases-by-age" class="section level2">
+<h2>Connecticut Covid-19 Deaths and Cases by Age</h2>
 <div style="float: left; width: 50%; padding: 5PX;">
-<p><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-by-age2-1.png" width="672" /></p>
+<div class="figure"><span id="fig:deaths-by-age2"></span>
+<img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-by-age2-1.png" alt="Covid-19 Deaths by Age" width="672" />
+<p class="caption">
+Figure 7: Covid-19 Deaths by Age
+</p>
+</div>
 </div>
 <div style="float: right; width: 50%; padding: 5PX;">
-<p><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-per-100k2-1.png" width="672" /></p>
+<div class="figure"><span id="fig:deaths-per-100k2"></span>
+<img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/deaths-per-100k2-1.png" alt="Covid-19 Cases by Age" width="672" />
+<p class="caption">
+Figure 8: Covid-19 Cases by Age
+</p>
+</div>
 </div>
 <p><br/></p>
 <p>Deaths increase with age, as has been well known since the beginning of the epidemic. For cases, the number of cases per population stays relatively
@@ -718,7 +729,7 @@ and how those reports reached the Department of Public Health.</p>
 <h2>Variations by County in Connecticut</h2>
 <p>Next I’ll look at variations within Connecticut. Below are two maps
 showing the eight counties in Connecticut<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
-The first map in Figure <a href="#fig:county-maps">7</a> shows
+The first map in Figure <a href="#fig:county-maps">9</a> shows
 the cumulative total of cases since the start of the epidemic.
 The second map shows only new cases reporting during the last two weeks.
 On both maps, cases are adjusted to show cases per 100K of population.
@@ -734,7 +745,7 @@ More recently Hartford has been the area that we have to watch.</p>
 <div class="figure"><span id="fig:county-maps"></span>
 <img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-1.png" alt="County Maps of New and of Cumulative Cases" width="50%" /><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-maps-2.png" alt="County Maps of New and of Cumulative Cases" width="50%" />
 <p class="caption">
-Figure 7: County Maps of New and of Cumulative Cases
+Figure 9: County Maps of New and of Cumulative Cases
 </p>
 </div>
 <div id="by-county-and-type-of-town" class="section level3">
@@ -753,7 +764,12 @@ town statistics.</p>
 The columns show the four categories. Urban towns have been hit harder than suburban and rural
 towns. While density may have some effect on case rates, the report <a href="https://ctdatahaven.org/reports/towards-health-equity-connecticut">Towards Health Equity in Connecticut: The Role of Social Inequality and the Impact of COVID-19</a>
 by DataHaven documents the unequal impact of the epidemic in Connecticut related to social inequality.</p>
-<p><img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-by-category-1.png" width="672" /></p>
+<div class="figure"><span id="fig:county-by-category"></span>
+<img src="/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/figure-html/county-by-category-1.png" alt="Cases by County" width="672" />
+<p class="caption">
+Figure 10: Cases by County
+</p>
+</div>
 </div>
 <div id="details-by-town" class="section level3">
 <h3>Details by Town</h3>
@@ -786,16 +802,41 @@ Click on the county name for detail about individual towns within that county.</
 <li>Daily Covid-19 Update in the form of a PDF. A <a href="https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um">list of the reports</a> is available via Connecticut Open Data.</li>
 <li><a href="https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker">Connecticut Covid-19 Data Tracker</a></li>
 <li>Links to <a href="https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library">all the items available via Connecticut Open Data</a> The Connecticut Open Data site has been a pleasure to use.</li>
-</ul></li>
+</ul>
+<p>The <a href="https://data.ct.gov">Connecticut Open Data</a> site
+is a tremendous resource and I expect to use it for other
+projects in the future. The RSocrata package made it very
+easy to download this data.</p></li>
 <li><p><a href="https://covid.yale.edu/innovation/mapping/">Mapping and Covid-19 at the Yale Medical School</a> I have had an opportunity to
 observe some of these efforts for me it has been a great source of information and inspiration.</p></li>
+<li><p><a href="https://covidtracking.com">COVID Tracking Project</a> The data for Figure <a href="#fig:p-states-map">6</a> is from <a href="https://covidtracking.com/data">COVID Tracking Project</a> and is used under a Creative Commons CC BY-NC-4.0 license.</p></li>
 <li><p><a href="https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html">New York Times Tracking the Coronavirus</a></p></li>
-<li><p><a href="https://rt.live">rt.live</a> I have made heavy use of this site so I’ll link to it here as well.</p></li>
-<li><p><a href="https://covidtracking.com">Covid-19 Tracking Project</a></p></li>
+<li><p><a href="https://rt.live">rt.live</a> I have made heavy use of this site in Figure <a href="#fig:p-rt-map">5</a> so I’ll link to it here as well.</p></li>
 </ul>
 </div>
-<div id="methodology-and-sources" class="section level2">
-<h2>Methodology and Sources</h2>
+<div id="methodology-and-notes" class="section level2">
+<h2>Methodology and Notes</h2>
+<div id="code-used-to-produce-this-post" class="section level3">
+<h3>Code Used to Produce This Post</h3>
+<p>The R code used to download and process the data from Connecticut and elsewhere
+is in the file <a href="https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R">daily_ct_stats</a>.
+This post was created using RMarkdown so the code to create most of
+the figures is in the <a href="https://github.com/johngoldin/can_i_blog_too/blob/master/content/post/2020-06-22-tracking-covid-19-in-connecticut/index.en.Rmd">.Rmd file for this post</a>.</p>
+<p>The separate HTML files for each Connecticut county were created using the
+<a href="https://github.com/johngoldin/ctcorona/blob/master/R/render_town_summary_html.R">rmarkdown::render function</a>.
+The RMarkdown document that actually formatted the town details (including
+sparklines and county maps) is <a href="https://github.com/johngoldin/ctcorona/blob/master/code/county_summary.Rmd">here</a>.</p>
+<p>Some noteworthy packages used here:</p>
+<ul>
+<li><p><a href="https://hafen.github.io/geofacet/">geofacet</a> used to create the map of US states in Figures <a href="#fig:p-rt-map">5</a> and <a href="#fig:p-states-map">6</a>.</p></li>
+<li><p><a href="https://walker-data.com/tidycensus/">tidycensus</a> used to create the
+Connecticut maps and retrieve Census data (most of which I didn’t use).</p></li>
+<li><p><a href="https://github.com/htmlwidgets/sparkline">sparkline</a></p></li>
+<li><p><a href="https://www.displayr.com/formattable/">formattable</a> – Used to create the town-by-town
+detail tables primarily because this was the only tool I found
+that would readily add a sparkline to a table.</p></li>
+</ul>
+</div>
 <div id="some-notes-on-the-data-available-from-the-department-of-public-health" class="section level3">
 <h3>Some Notes on the Data Available From the Department of Public Health</h3>
 <p>Sometimes there is a lag before cases and deaths end up in the daily reports.
@@ -811,7 +852,7 @@ means the data for the most recent days are hard to interpret because
 some data may be “in process” and not yet reported. In these charts I
 have used “date of report” rather than “date of sample taken” or “date of death”
 because that gives me all of the recent data that is available
-and because that is what most other data projects (such as the Covid-19 Project
+and because that is what most other data projects (such as the COVID Tracking Project
 or the New York Times) have been using.</p>
 <p>The DPH reports always include a comment that “all data are preliminary and subject
 to change.” But when they make and adjustment to correct errors, as far as

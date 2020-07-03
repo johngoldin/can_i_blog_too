@@ -401,7 +401,7 @@ parameter R<sub>t</sub>, the average number of people
 who become infected by an infectious person. 
 When R<sub>t</sub> is greater than 1 the number of daily new cases is
 increasing, If R<sub>t</sub> is less than 1, it is decreasing.
-See [this site](https://rt.live/) for
+See the site [rt.live](https://rt.live/) for
 an estimate by state of the effective value for 
 R<sub>t</sub>. The site
 is described in [this article](https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate) at Vox.com.
@@ -468,10 +468,10 @@ confirms that they are likely to decrease even more. The great contrast
 is with the increase of cases in some of the southern states.
 <br/><br/><br/>
 
-## Deaths and Cases by Age
+## Connecticut Covid-19 Deaths and Cases by Age
 
 <div style="float: left; width: 50%; padding: 5PX;">
-```{r deaths-by-age2, echo = FALSE}
+```{r deaths-by-age2, echo = FALSE, fig.cap = "Covid-19 Deaths by Age"}
 
 #```{r deaths-by-age2, echo = FALSE, out.width = '50%', fig.show = 'hold', fig.cap = "Relationship of Age to Covid-19 Deaths andCases", fig.align = "default"}
 ggplot(data = dph_age %>% filter(date == max(date)), 
@@ -484,7 +484,7 @@ ggplot(data = dph_age %>% filter(date == max(date)),
 ```
 </div>
 <div style="float: right; width: 50%; padding: 5PX;">
-```{r deaths-per-100k2, echo = FALSE}
+```{r deaths-per-100k2, echo = FALSE, fig.cap = "Covid-19 Cases by Age"}
 ggplot(data = dph_age %>% filter(date == max(date)),
        aes(x = agegroups, y = as.numeric(per_100k))) + 
   geom_col() + 
@@ -778,7 +778,7 @@ The columns show the four categories. Urban towns have been hit harder than subu
 towns. While density may have some effect on case rates, the report [Towards Health Equity in Connecticut: The Role of Social Inequality and the Impact of COVID-19](https://ctdatahaven.org/reports/towards-health-equity-connecticut)
 by DataHaven documents the unequal impact of the epidemic in Connecticut related to social inequality.
 
-```{r county-by-category, echo = FALSE, fig.asp = 1.2}
+```{r county-by-category, echo = FALSE, fig.asp = 1.2, fig.cap = "Cases by County"}
 
 # create 
 for_chart <- dph_towns %>% filter(!(town %in% c("Montville", "Somers", "Brooklyn"))) %>% 
@@ -825,16 +825,47 @@ Click on the county name for detail about individual towns within that county.
     + [Connecticut Covid-19 Data Tracker](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker)
     + Links to [all the items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) The Connecticut Open Data site has been a pleasure to use. 
     
+    The [Connecticut Open Data](https://data.ct.gov) site
+    is a tremendous resource and I expect to use it for other
+    projects in the future. The RSocrata package made it very
+    easy to download this data.
+    
 * [Mapping and Covid-19 at the Yale Medical School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
 observe some of these efforts for me it has been a great source of information and inspiration.
 
+* [COVID Tracking Project](https://covidtracking.com) The data for Figure \@ref(fig:p-states-map) is from [COVID Tracking Project](https://covidtracking.com/data) and is used under a Creative Commons CC BY-NC-4.0 license.
+
 * [New York Times Tracking the Coronavirus](https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html)
 
-* [rt.live](https://rt.live) I have made heavy use of this site so I'll link to it here as well.
+* [rt.live](https://rt.live) I have made heavy use of this site in Figure \@ref(fig:p-rt-map) so I'll link to it here as well.
 
-* [Covid-19 Tracking Project](https://covidtracking.com)
 
-## Methodology and Sources 
+## Methodology and Notes 
+
+### Code Used to Produce This Post
+
+The R code used to download and process the data from Connecticut and elsewhere 
+is in the file [daily_ct_stats](https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R).
+This post was created using RMarkdown so the code to create most of
+the figures is in the [.Rmd file for this post](https://github.com/johngoldin/can_i_blog_too/blob/master/content/post/2020-06-22-tracking-covid-19-in-connecticut/index.en.Rmd).
+
+The separate HTML files for each Connecticut county were created using the
+[rmarkdown::render function](https://github.com/johngoldin/ctcorona/blob/master/R/render_town_summary_html.R).
+The RMarkdown document that actually formatted the town details (including
+sparklines and county maps) is [here](https://github.com/johngoldin/ctcorona/blob/master/code/county_summary.Rmd).
+
+Some noteworthy packages used here:
+
+* [geofacet](https://hafen.github.io/geofacet/) used to create the map of US states in Figures \@ref(fig:p-rt-map) and \@ref(fig:p-states-map).
+
+* [tidycensus](https://walker-data.com/tidycensus/) used to create the
+Connecticut maps and retrieve Census data (most of which I didn't use).
+
+* [sparkline](https://github.com/htmlwidgets/sparkline)
+
+* [formattable](https://www.displayr.com/formattable/) -- Used to create the town-by-town
+detail tables primarily because this was the only tool I found
+that would readily add a sparkline to a table.
 
 ### Some Notes on the Data Available From the Department of Public Health
 
@@ -851,7 +882,7 @@ means the data for the most recent days are hard to interpret because
 some data may be "in process" and not yet reported. In these charts I 
 have used "date of report" rather than "date of sample taken" or "date of death"
 because that gives me all of the recent data that is available
-and because that is what most other data projects (such as the Covid-19 Project
+and because that is what most other data projects (such as the COVID Tracking Project
 or the New York Times) have been using.
 
 The DPH reports always include a comment that "all data are preliminary and subject
