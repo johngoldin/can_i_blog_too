@@ -154,7 +154,7 @@ box_fmt <- function(x) {
 
 ###########################################################################
 # Box score comes here:
-box_score <- tribble(
+box_score <- tribble( 
   ~`Connecticut Covid-19`, ~`today`, ~`yesterday`, ~`week ago`,
   "Cases", today_cases, yesterday_cases, week_ago_cases,
   "Deaths", today_deaths, yesterday_deaths, week_ago_deaths,
@@ -330,7 +330,8 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
   theme(axis.text.x = element_text(size=5)) +
   # labs(title = paste0("Trends in ", expression("R"[t]), "(as computed by https://rt.live/)")) +
   labs(title = expression(paste("Trend in ", R[t], " by State (as computed by https://rt.live/)")),
-       colour = expression(paste("Recent ", R[t]))) +
+       colour = expression(paste("Recent ", R[t])),
+       caption = "Source: rt.live, geofacet package") +
   facet_geo(~ state)
 
 ```
@@ -350,9 +351,9 @@ p_states_map <- ggplot(data = covid19_project %>%
                date_labels = "%b") + 
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, size = 6)) +
   theme(axis.text.x = element_text(size=5)) +
-  labs(title = "New Cases per 100K of Population",
+  labs(title = "New Cases per 100K of Population (7-day rolling average)",
        subtitle = expression(paste("Color of lines based on most recent estimate of ", R[t], " ")),
-       caption = "Source: Covid19 Tracking Project",
+       caption = "Source: Covid19 Tracking Project, geofacet package",
        colour = expression(paste("Recent ", R[t]))) +
   facet_geo(~ state)
 ```
@@ -387,12 +388,12 @@ print(p_daily_deaths)
 ```
 <br/>
 
-### Covid-19 Hospitalizations in Connecticut
+### Connecticut Covid-19 Patients in Hospital
 
-```{r p-hospitalizations, echo = FALSE, fig.cap = "Hospitalizations for Covid-19"}
+```{r p-hospitalizations, echo = FALSE, fig.cap = "Covid-19 Patients in Hospital"}
 print(p_hospitalizations)
 ```
-<br/><br/>
+<br/>
 The number of new cases peaked in mid April and then began to
 decrease rapidly, although not as rapidly as it increased. 
 A key issue is how fast epidemic is expanding or contracting.
@@ -433,7 +434,7 @@ increasing, If R<sub>t</sub> is less than 1, it is decreasing.
 The color of the R line shows whether the most recent estimate of R for
 a state is <span style="color: #af8dc3">above 1 (purple line)</span>
 or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
-<br/>
+<br/><br/>
 ```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 1, out.width = "95%"}
 #  <span style="color: ##af8dc">above 1 (purple line)</span> > 1 #af8dc <= 1 #7fbf7b
 print(p_rt_map)
