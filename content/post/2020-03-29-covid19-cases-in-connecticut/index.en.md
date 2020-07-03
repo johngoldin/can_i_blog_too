@@ -12,7 +12,7 @@ subtitle: ''
 ---
 
 A [later post](https://www.johngoldin.com/2020/06/covid-19-in-connecticut/) 
-provides a better view of the latest data on Covid-19 in Connecticut. 
+provides a better view of the latest data on Covid-19 in Connecticut.  
 
 <!--more-->
 The

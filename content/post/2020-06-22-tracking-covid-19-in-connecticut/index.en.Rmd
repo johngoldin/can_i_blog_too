@@ -451,7 +451,7 @@ the prevalence of cases.
 The next map shows the history of new
 cases in each state per 100K of population. The lines are color
 coded the same as in the previous map to indicate whether the most recent 
-estimate of R for
+estimate of R for 
 a state is <span style="color: #af8dc3">above 1 (purple line)</span>
 or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
 <br/><br/>
