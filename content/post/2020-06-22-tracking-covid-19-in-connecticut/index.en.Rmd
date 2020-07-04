@@ -853,7 +853,6 @@ for deaths, the maximum value shown is `r round(town_deaths_max, 1)`. For both n
 deaths, the sparkline shows the rolling seven day average of new cases or deaths. 
 
 ```{r, echo = FALSE, results = "asis"}
-
 town_summary <- dph_towns %>%
   filter(town == "Guilford", #total_pop > 10000,
          !is.na(rnew_cases))  %>%
@@ -918,6 +917,33 @@ Click on the county name for detail about individual towns within that county.
 ******************************************************************
 <br/>
 
+## Where Do Things Stand Today?
+
+As I write this on July 4, Connecticut seems to be in relatively good shape. [Covid ActNow](https://covidactnow.org/?s=61890)
+shows it as one of only three states "on track to contain COVID" along with Massachusetts and Vermont. 
+It won't be easy to sustain that situation. Some of our fellow northeastern states have also done well but
+are struggling to maintain their success.
+
+I started burrowing into the Covid-19 data back in March in part because I'm a 70 year old male who therefore
+is at high risk (and because I love to work in R and I'm always looking for an excuse). The situation 
+in Connecticut looks and feels very different than it did in March-April. One amazing feature of this
+epidemic is how differently it affects subsets of the population. As a financially comfortable semi-retiree,
+it was quite easy for me to hide from the virus by hiding from people in general. Many, many people were not so
+fortunate. If you can get out of the way of the virus, you do it. But if economic circumstances force you
+to work face to face or if you are confined to a group living situation or if where you live forces
+you to mingle with multiple generations and multiple networks of interactions, it is much harder to
+avoid the virus. I'm equally shocked by how the economic effects hit individuals in dramatically
+different ways. For
+someone in my circumstances there is almost no effect. Meanwhile many people face economic ruin that will
+affect them for the rest of their lives. The virus and its effects cannot be contained by uncoordinated
+individual efforts. It takes collective will and collective action. Many individuals are coping, but collectively
+we are failing.
+
+It is tragic watching the virus explode in the south and southwest. New York and others showed that you
+can get it back under control, but it took a maximum concerted effort. There is no sign that going to happen
+in many parts of the country.
+<br/>
+
 ## Links to Sources
 
 * State of Connecticut Department of Public Health 
@@ -928,7 +954,9 @@ Click on the county name for detail about individual towns within that county.
     The [Connecticut Open Data](https://data.ct.gov) site
     is a tremendous resource and I expect to use it for other
     projects in the future. The RSocrata package made it very
-    easy to download this data.
+    easy to download this data. It's run by Connecticut's Chief
+    Data Officer under the auspices of the Office of Policy and Management. They 
+    have produced a high-quality data portal.
     
 * [Mapping and Covid-19 at the Yale Medical School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
 observe some of these efforts for me it has been a great source of information and inspiration.
@@ -944,6 +972,8 @@ on how Covid-19 relates to existing inequalities in Connecticut.
 * [New York Times Tracking the Coronavirus](https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html)
 
 * [rt.live](https://rt.live) I have made heavy use of this site in Figure \@ref(fig:p-rt-map) so I'll link to it here as well.
+
+* [Covid ActNow](https://covidactnow.org/?s=61890) I only learned about this project today, but it seems quite interesting. 
 
 
 ## Methodology and Notes 
