@@ -48,7 +48,8 @@ library(broom)
 library(RSocrata)
 library(RcppRoll)
 library(gt)
-# library(formattable)
+library(formattable)
+# note that both scales and formattable have a comma function and they take different parameters
 ```
 ```{r `load_basic_data`, echo = FALSE, message = FALSE}
 path_to_post <- "~/Dropbox/Programming/R_Stuff/can_i_blog_too/content/post/2020-03-29-covid19-cases-in-connecticut/"
@@ -146,8 +147,8 @@ nh_previous_deaths <-  nursing_hm_deaths - dph_nursing_cases %>% filter(date == 
 box_fmt <- function(x) {
   case_when(
     (is.na(x) | is.null(x) | (length(x) == 0)) ~ " ",
-    x < 0 ~ comma(x),
-    x > 0 ~ comma(x, prefix = "+"),
+    x < 0 ~ scales::comma(x),
+    x > 0 ~ scales::comma(x, prefix = "+"),
     TRUE ~  "0"
   )
 }
@@ -160,12 +161,12 @@ box_score <- tribble(
   "Deaths", today_deaths, yesterday_deaths, week_ago_deaths,
   "Currently in Hospital", today_hospital, yesterday_hospital, week_ago_hospital,
   "Tests",    today_tests, yesterday_tests, week_ago_tests,
-  " ", NA , NA, NA,
+  " ", NA , NA_real_, NA,
   "Nursing home cases", nursing_hm_cases, NA, nh_previous_cases,
   "Nursing home deaths", nursing_hm_deaths, NA, nh_previous_deaths
 ) %>% 
-   mutate(yesterday = map_chr(yesterday, box_fmt),
-         `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", comma(today)))
+   mutate( yesterday = map_chr(yesterday, box_fmt),
+         `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", scales::comma(today)))
 ```
 ```{r format-box-score-table, echo = FALSE}
 # columns for box scores:
@@ -242,7 +243,7 @@ p_new_cases <- ggplot(data = dph_total %>%
             aes(x = date, y = new_cases)) +
   geom_col(fill = "gray95", colour = "gray90") + 
   # scale_fill_viridis(discrete = TRUE, begin = 0.5, end = 0.7, option = "viridis") + 
-  scale_y_continuous(labels = comma, limits = c(0, NA)) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, NA)) +
   scale_x_date(date_breaks = "2 weeks", date_minor_breaks = "1 week", date_labels = "%b %d") +
   geom_line(aes(y = rnew_cases), size = 1) +
   theme_minimal() + theme(legend.position = "none") +
@@ -303,7 +304,7 @@ p_hospitalizations <- ggplot(data = dph_total %>% filter(!is.na(hospital)),
   scale_x_date(date_breaks = "2 weeks", date_minor_breaks = "1 week", 
                date_labels = "%b %d", 
                limits = c(min(dph_total$date), NA)) +
-  theme_minimal() + scale_y_continuous(labels = comma) +
+  theme_minimal() + scale_y_continuous(labels = scales::comma) +
   theme(legend.position = "none") +
   ylab("in hospital") +
   labs(
@@ -480,7 +481,7 @@ ggplot(data = dph_age %>% filter(date == max(date)),
   geom_col() + 
   labs(title = "Covid-19 Deaths in Connecticut by Age") +
   xlab("Age Groups") + ylab(NULL) +
-  scale_y_continuous(labels = comma) +
+  scale_y_continuous(labels = scales::comma) +
   theme_minimal() + theme(panel.grid.major.x = element_blank())
 ```
 </div>
@@ -491,7 +492,7 @@ ggplot(data = dph_age %>% filter(date == max(date)),
   geom_col() + 
   labs(title = "Covid-19 Cases by Age in Connecticut per 100K Population") +
   xlab("Age Groups") + ylab("Cases per 100K of Population") +
-  scale_y_continuous(labels = comma) +
+  scale_y_continuous(labels = scales::comma) +
   theme_minimal() + theme(panel.grid.major.x = element_blank())
 ```
 </div>
@@ -519,8 +520,8 @@ nursing_home_totals <- dph_nursing_cases %>% filter(date == max(date)) %>%
 Nursing homes have been hard hit by the epidemic. It's hard to control  coronavirus outbreak
 in a group living situation, which includes prisons and cruises ship. On top of that,
 Covid-19 is especially serious for the elderly. The combination in nursing homes
-has been deadly. There have been `r comma(nursing_home_totals$deaths)` deaths in Connecticut 
-Nursing Homes which makes `r paste0(round((nursing_home_totals$deaths/dph_total$deaths[dph_total$date == max(dph_total$date)]) * 100, 1), "%")` of the total of `r comma(dph_total$deaths[dph_total$date == max(dph_total$date)])` deaths from Covid-19.
+has been deadly. There have been `r scales::comma(nursing_home_totals$deaths)` deaths in Connecticut 
+Nursing Homes which makes `r paste0(round((nursing_home_totals$deaths/dph_total$deaths[dph_total$date == max(dph_total$date)]) * 100, 1), "%")` of the total of `r scales::comma(dph_total$deaths[dph_total$date == max(dph_total$date)])` deaths from Covid-19.
 
 ```{r prisons, echo = FALSE}
 # see wikipedia entry: https://en.wikipedia.org/wiki/List_of_Connecticut_state_prisons
@@ -777,7 +778,8 @@ town statistics.
 Counties are laid out from top to bottom and the counties closer to New York are toward the top. 
 The columns show the four categories. Urban towns have been hit harder than suburban and rural
 towns. While density may have some effect on case rates, the report [Towards Health Equity in Connecticut: The Role of Social Inequality and the Impact of COVID-19](https://ctdatahaven.org/reports/towards-health-equity-connecticut)
-by DataHaven documents the unequal impact of the epidemic in Connecticut related to social inequality.
+by DataHaven documents how the epidemic interacts with existing social inequality in Connecticut.
+<br/>
 
 ```{r county-by-category, echo = FALSE, fig.asp = 1.2, fig.cap = "Cases by County"}
 
@@ -790,7 +792,7 @@ for_chart <- dph_towns %>% filter(!(town %in% c("Montville", "Somers", "Brooklyn
   mutate(rnew_cases_per100k = rnew_cases_per1k * 100,
     county = factor(county,
       levels = c("Litchfield", "Fairfield", "Hartford", "New Haven", "Middlesex", "Tolland", "New London", "Windham")),
-    for_label = paste0(towns, ifelse(towns > 1, " towns", "town"), ", pop=", comma(total_pop, accuracy = 1)))
+    for_label = paste0(towns, ifelse(towns > 1, " towns", "town"), ", pop=", scales::comma(total_pop, accuracy = 1)))
 ggplot(data = for_chart,
                         aes(x = date, y = rnew_cases_per100k)) +
   geom_line() +
@@ -809,6 +811,101 @@ ggplot(data = for_chart,
 
 ### Details by Town
 
+The links below take you to a separate HTML page for each
+Connecticut county. That page contains a table with one row
+for each town in the county.
+
+For each town it shows the category, the population, 
+the total number of cases to date, the number of recent cases per
+100K of population (total new cases in the last two weeks), total deaths, and the percentage of total deaths
+in that town
+attributed to nursing home residents.
+
+Next there are two [sparklines](https://en.wikipedia.org/wiki/Sparkline)
+that show the trend in daily new cases and daily deaths (based on 
+14 day moving average). Cases and deaths are shown as a ratio to population
+in the town. 
+
+The purpose of these tables is to make it easier to quickly scan
+for trends in local towns. Here is sample (based on my home of Guilford)
+showing what is available for each town.
+
+For each county there is also a map showing the towns in that county and the relative number
+of total cases in the town and a second map that shows the percentage of individuals
+who are below the poverty line.
+
+```{r sparkline_ranges, echo  = FALSE}
+county_cases_max <- max(dph_counties$rnew_cases_per1k, na.rm = TRUE) * 100
+county_deaths_max <- max(dph_counties$rnew_deaths_per1k, na.rm = TRUE) * 100
+town_cases_max <- max(dph_towns$rnew_cases_per1k, na.rm = TRUE) * 100
+town_cases_max <- 1.0 * 100 # Somers is 2 and Montville is 1.06 
+town_deaths_max <- max(dph_towns$rnew_deaths_per1k, na.rm = TRUE) * 100
+
+
+# For the county sparklines, maximum range for cases is `r round(county_cases_max,1)`
+# maximum range for deaths is `r round(county_deaths_max, 1)`
+```
+
+The town sparklines at the right show the trends over time.
+The vertical scale is different for new cases and for deaths.
+For new cases, the maximum height shown on the scale is `r round(town_cases_max, 1)` while 
+for deaths, the maximum value shown is `r round(town_deaths_max, 1)`. For both new cases and
+deaths, the sparkline shows the rolling seven day average of new cases or deaths. 
+
+```{r, echo = FALSE, results = "asis"}
+
+town_summary <- dph_towns %>%
+  filter(town == "Guilford", #total_pop > 10000,
+         !is.na(rnew_cases))  %>%
+  # left_join(town_info %>% select(county, category, town)) %>% 
+  group_by(county, category, town) %>% 
+  # summarise(`max cases` = round(max(rnew_cases, na.rm = TRUE)),
+  summarise(`total cases` = max(cases, na.rm = TRUE),
+            `total deaths` = max(deaths, na.rm = TRUE),
+            total_pop = scales::comma(max(total_pop, na.rm = TRUE), accuracy = 1),
+            
+    `town cases` = spk_chr(rnew_cases_per1k*100, chartRangeMin = 0, 
+                           chartRangeMax = town_cases_max),
+    `town deaths` = spk_chr(rnew_deaths_per1k*100, chartRangeMin = 0, 
+                           chartRangeMax = town_deaths_max), .groups = "drop") %>% 
+  left_join(towns_recent_weeks %>% mutate(recent_rate = cases / (total_pop / 100000),
+                                          recent_rate = ifelse(recent_rate < 0, 0, recent_rate)) %>% 
+              select(town, recent_rate), by = "town") %>% 
+  left_join(town_with_nursing %>% 
+              filter(date == max(date)) %>% 
+              select(town, nh_death_pct), by = "town") %>% 
+  select(town, category, total_pop, `total cases`, `total deaths`,
+         nh_death_pct, `town cases`, recent_rate,
+         `town deaths`) %>% 
+  mutate(nh_death_pct = formattable::percent(nh_death_pct, digits = 0),
+         recent_rate = sprintf("%7.1f", recent_rate),
+         `total cases` = scales::comma(`total cases`, accuracy = 1)) %>% 
+  # use col.names to get column names in format_table
+  select(town, category, `total population` = total_pop, `total cases`, 
+         `recent cases per 100K` = recent_rate, 
+         `total deaths`, `% deaths from nursing homes` = nh_death_pct, 
+         `town cases`, `town deaths`) %>% 
+  formattable::format_table(
+    col.names <- c("x", "category", "total\npopulation", "total\ncases",
+                   "recent cases\nper 100K", "total\ndeaths",
+                   "care home deaths\nas % of total","trend in cases", "trend in deaths"),
+     format = "html",
+    align = c("l", "l", "r", "r", "r", "r", "r", "c", "c")
+  ) %>%
+  # kable_styling("striped", full_width = F) %>%
+  # kable_styling(full_width = F) %>%
+  # group_rows("group1", 1, 2) %>%
+  # group_rows("group1", 1, 2) %>%
+  # group_rows("group2", 3,3) %>%
+  htmltools::HTML() %>%
+  shiny::div() %>%
+  sparkline::spk_add_deps()
+# county_summary
+town_summary
+```
+
+### Links to Summary Page for Each Connecticut County
+
 Below are links to a separate web page by for each of the eight counties in Connecticut.
 Click on the county name for detail about individual towns within that county. 
 
@@ -816,8 +913,10 @@ Click on the county name for detail about individual towns within that county.
 --------------------- | --------------------- | --------------------- | --------------------- 
 [Litchfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/litchfield_summary.html) | [Hartford County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/hartford_summary.html) | [Tolland County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/tolland_summary.html) | [Windham County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/windham_summary.html)
 [Fairfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/fairfield_summary.html) | [New Haven County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_haven_summary.html) | [Middlesex County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/middlesex_summary.html) | [New London County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_london_summary.html) 
+<br/>
 
-************************
+******************************************************************
+<br/>
 
 ## Links to Sources
 
@@ -833,6 +932,12 @@ Click on the county name for detail about individual towns within that county.
     
 * [Mapping and Covid-19 at the Yale Medical School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
 observe some of these efforts for me it has been a great source of information and inspiration.
+
+* [DataHaven](https://ctdatahaven.org/reports/covid-19-connecticut-data-analysis) provides some Connecticut-focused information
+on Covid-19. They also published a [report](https://ctdatahaven.org/reports/towards-health-equity-connecticut) 
+on how Covid-19 relates to existing inequalities in Connecticut.
+
+* [CTData Collaborative](https://www.ctdata.org/covid19) also provides data on Covid-19 and its impact in Connecticut.
 
 * [COVID Tracking Project](https://covidtracking.com) The data for Figure \@ref(fig:p-states-map) is from [COVID Tracking Project](https://covidtracking.com/data) and is used under a Creative Commons CC BY-NC-4.0 license.
 
