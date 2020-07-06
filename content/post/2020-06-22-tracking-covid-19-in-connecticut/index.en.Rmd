@@ -85,9 +85,9 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
 ```{r box-score, echo = FALSE} 
 #<!--more-->
 recent_date <- max(dph_total$date, na.rm = TRUE)
-week_ago <- recent_date - 7
+week_ago <- recent_date - days(7)
 if (!(week_ago %in% dph_total$date)) week_ago <- NA
-yesterday <- recent_date - 1
+yesterday <- recent_date - days(1)
 # if (!(yesterday %in% dph_total$date)) yesterday <- NA
 # if (is.na(yesterday) || (length(dph_total$deaths[dph_total$date == yesterday]))) {
 #   yesterday_deaths <- ""
