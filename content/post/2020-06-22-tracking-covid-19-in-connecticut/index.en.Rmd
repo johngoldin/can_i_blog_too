@@ -205,6 +205,7 @@ box_score %>%
 
 ```
 
+There was no Department of Public Health daily report on Jul 4th or July 5th so there's no one-day change. 
  
 [My post on Covid-19 back in March](https://www.johngoldin.com/2020/03/covid-19-cases-in-connecticut/) 
 tracked the growth of the epidemic as it hit Connecticut.
