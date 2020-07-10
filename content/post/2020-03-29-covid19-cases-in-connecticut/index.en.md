@@ -17,7 +17,7 @@ provides a better view of the latest data on Covid-19 in Connecticut.
 <!--more-->
 The
 data comes directly from [data.ct.gov](https://data.ct.gov/browse?q=COVID-19%20data&sortBy=relevance)
-so that makes it easier to do this daily update. There also is more
+so that makes it easier to do this daily update. There also is more 
 data available, and I will use it to make some additions to these plots. 
 
 The most visible change is that the counts
