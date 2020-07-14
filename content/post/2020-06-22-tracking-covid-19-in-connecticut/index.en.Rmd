@@ -205,6 +205,10 @@ box_score %>%
 
 ```
 
+The Department of Public Health is no longer producing the daily PDF report on Saturday or Sunday. Also
+the format for reporting nursing home cases and deaths has changed, and I have not yet modified
+my code to process the new format. So the nursing home data is not up to date. 
+
 [My post on Covid-19 back in March](https://www.johngoldin.com/2020/03/covid-19-cases-in-connecticut/) 
 tracked the growth of the epidemic as it hit Connecticut.
 Back at the end of March I did not realize that
@@ -212,7 +216,7 @@ the greater New York area (including Connecticut)
 would be the center of the first wave in the US. At that time what I was reading
 focused on the nature of exponential growth of an epidemic. We were urged to
 "flatten the curve" and that shaped the way I presented the
-data in that post. I have been updating the figures
+data in that post. I have been updating the figures 
 in that post each evening. During that time the [Connecticut data portal](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/)
 has expanded considerably, and I've built [some R code](https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R) 
 that let's me easily update
