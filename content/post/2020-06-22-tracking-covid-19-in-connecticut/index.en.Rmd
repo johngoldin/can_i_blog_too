@@ -212,7 +212,7 @@ my code to process the new format. So the nursing home data is not up to date.
 [My post on Covid-19 back in March](https://www.johngoldin.com/2020/03/covid-19-cases-in-connecticut/) 
 tracked the growth of the epidemic as it hit Connecticut.
 Back at the end of March I did not realize that
-the greater New York area (including Connecticut)
+the greater New York area (including Connecticut) 
 would be the center of the first wave in the US. At that time what I was reading
 focused on the nature of exponential growth of an epidemic. We were urged to
 "flatten the curve" and that shaped the way I presented the
