@@ -80,7 +80,7 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
 ```
 
 
-## Latest Connecticut Data from the Department of Public Health
+## Latest Connecticut Data from the Department of Public Health 
 
 ```{r box-score, echo = FALSE} 
 #<!--more-->
