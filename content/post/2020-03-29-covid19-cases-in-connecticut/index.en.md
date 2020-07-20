@@ -26,7 +26,7 @@ This evens out some of the day to day variation.
 
 As the curve has become flattened it is has become interesting to focus 
 on the number of new cases and new deaths each day. I have added some
-plots of new counts rather than only cumulative counts. 
+plots of new counts rather than only cumulative counts.
 
 The first plot tracks the cumulative number of confirmed cases of Covid-19 in Connecticut.
 
