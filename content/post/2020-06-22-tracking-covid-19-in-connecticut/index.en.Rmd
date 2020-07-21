@@ -83,7 +83,7 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
 ## Latest Connecticut Data from the Department of Public Health 
 
 ```{r box-score, echo = FALSE} 
-#<!--more--> 
+#<!--more-->
 recent_date <- max(dph_total$date, na.rm = TRUE)
 week_ago <- recent_date - days(7)
 if (!(week_ago %in% dph_total$date)) week_ago <- NA

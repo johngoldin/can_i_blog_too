@@ -15,7 +15,7 @@ A [later post](https://www.johngoldin.com/2020/06/covid-19-in-connecticut/)
 provides a better view of the latest data on Covid-19 in Connecticut. 
 
 <!--more-->
-The
+The 
 data comes directly from [data.ct.gov](https://data.ct.gov/browse?q=COVID-19%20data&sortBy=relevance)
 so that makes it easier to do this daily update. There also is more 
 data available, and I will use it to make some additions to these plots. 
@@ -26,7 +26,7 @@ This evens out some of the day to day variation.
 
 As the curve has become flattened it is has become interesting to focus 
 on the number of new cases and new deaths each day. I have added some
-plots of new counts rather than only cumulative counts.
+plots of new counts rather than only cumulative counts. 
 
 The first plot tracks the cumulative number of confirmed cases of Covid-19 in Connecticut.
 
