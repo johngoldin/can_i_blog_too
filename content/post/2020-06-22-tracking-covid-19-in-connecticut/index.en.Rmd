@@ -1054,9 +1054,15 @@ inmates being moved within the Connecticut prison system.
 
 [Note as of June 24, 2020](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6242020.pdf)
 
->1175 new test results were reported since the last report and 2770 previously reported PCR tests were removed due to correction of data errors.
+>1175 new test results were reported since the last report and 2770 previously reported PCR tests were removed due to correction of data errors. 
 
 [Note as of July 23, 2020](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary7232020.pdf)
 
 > *Please note 83 new cases were reported to DPH since yesterday. In addition, 74 previously reported cases were removed due to updated laboratory findings of false positive results.
+
+[Hartford Courant, July 24, 2020](https://www.courant.com/coronavirus/hc-news-coronavirus-daily-numbers-0724-20200724-cqtkcw4zzraenoz5kbw5wxckmy-story.html) I don't see any explanation of this in the Department of Public Health PDF, but it was
+clear that an increase of 544 cases in one day would be remarkable.
+
+>On Friday, the state also announced a backlog of unreported test results for Connecticut residents dating back to mid-May. Among these approximately 12,000 tests, 440 were positive. On Thursday, the state reported an additional 13,000 tests.
+With the 544 new cases, the state has now recorded 48,776 coronavirus cases.
 
