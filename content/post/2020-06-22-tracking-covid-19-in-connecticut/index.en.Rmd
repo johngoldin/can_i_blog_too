@@ -1064,7 +1064,7 @@ inmates being moved within the Connecticut prison system.
 
 > *Please note 83 new cases were reported to DPH since yesterday. In addition, 74 previously reported cases were removed due to updated laboratory findings of false positive results.
 
-*July 24, 2020*: [Governor's press release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-24)
+*July 24, 2020*: [Governor's press  release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-24)
 
 > *NOTE: Today’s update includes a large set of data provided by an out-of-state lab on tests that were conducted on Connecticut residents between May 23 and July 20 and not reported to the State of Connecticut until today. This data set provided by the out-of-state lab includes approximately 12,000 tests, 440 of which were positive. The remaining 104 positive cases in today’s report are newly reported cases in the day-to-day update, giving a 0.79% positivity rate for the day.
 
