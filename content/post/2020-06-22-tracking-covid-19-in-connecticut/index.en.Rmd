@@ -6,6 +6,7 @@ categories:
   - COVID19
 tags:
   - COVID19
+subtitle: "Summary of Daily Connecticut Report"
 slug: covid-19-in-Connecticut
 type: post
 draft: no
