@@ -9,8 +9,7 @@ tags:
 slug: covid-19-in-Connecticut
 type: post
 draft: no
-output:
-#  blogdown::html_page:
+output: 
   blogdown::html_page:
     toc: yes
     number_sections: false
