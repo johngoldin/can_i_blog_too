@@ -82,6 +82,10 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
 
 ## Latest Connecticut Data from the Department of Public Health 
 
+July 29, 2020: Press release explains:
+
+> In addition to the 79 recently diagnosed cases and 12,367 tests, 384 cases and 750 tests performed between April and June were newly reported to the Department of Public Health in connection with a transition to electronic reporting by an out-of-state regional laboratory.
+
 July 24, 2020: Governor Lamont’s Facebook page includes the following explanation:
 
 > ➡️An out-of-state lab today provided the state with previously unreported data going to back to mid-May on cases involving CT residents. This data set amounts to approximately 12,000 tests, 440 of which were positive. ➡️The remaining 104 positive cases in the report are newly reported cases in the day-to-day update – a 0.79% positivity rate for the day
@@ -982,6 +986,11 @@ on how Covid-19 relates to existing inequalities in Connecticut.
 
 * [Covid ActNow](https://covidactnow.org/?s=61890) I only learned about this project today, but it seems quite interesting. 
 
+* [CovidTrackCT](https://covidtrackerct.com/portfolio/current/) uses
+genetic sequence mapping to trace what strains have they have
+seen in Connecticut. This shows connection to New York and
+continued local transmission within Connectiut.
+
 
 ## Methodology and Notes 
 
@@ -1073,4 +1082,8 @@ clear that an increase of 544 cases in one day would be remarkable.
 
 >On Friday, the state also announced a backlog of unreported test results for Connecticut residents dating back to mid-May. Among these approximately 12,000 tests, 440 were positive. On Thursday, the state reported an additional 13,000 tests.
 With the 544 new cases, the state has now recorded 48,776 coronavirus cases.
+
+[July 29, 2020 press release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-29)
+
+> *In addition to the 79 recently diagnosed cases and 12,367 tests, 384 cases and 750 tests performed between April and June were newly reported to the Department of Public Health in connection with a transition to electronic reporting by an out-of-state regional laboratory. For surveillance purposes, that data has been added to the total case and total test counts.
 
