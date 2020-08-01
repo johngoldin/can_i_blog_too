@@ -754,7 +754,7 @@ map is an indication of the recent prevalence of the
 virus. 
 
 Connecticut is part of the epidemic's surge in the New York area and the magnitude
-of the epidemic has been greater in the counties closer to New York City. Back in March cases
+of the epidemic has been greater in the counties closer to New York City. Back in March cases 
 first appeared in Fairfield County and then spread to Litchfield, New Haven, and Hartford.
 More recently Hartford has been the area that we have to watch.
 
