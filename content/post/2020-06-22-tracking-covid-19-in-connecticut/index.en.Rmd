@@ -512,7 +512,7 @@ ggplot(data = dph_age %>% filter(date == max(date)),
 Deaths increase with age, as has been well known since the beginning of the epidemic. For cases, the number of cases per population stays relatively
 flat from 20 to 79 and rises very rapidly for the oldest category. I haven't
 examined this data closely, but I assume this pattern is related to the
-high rates of mortality in nursing homes. For the age range from 60 to 79 there
+high rates of mortality in nursing homes. For the age range from 60 to 79 there 
 probably are a lot of seniors who are going to a great deal of trouble
 avoiding places and situations where there is risk of catching the virus.
 But individuals in nursing homes don't have that much control over their
