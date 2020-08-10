@@ -82,14 +82,6 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
 
 ## Latest Connecticut Data from the Department of Public Health 
 
-July 29, 2020: Press release explains:
-
-> In addition to the 79 recently diagnosed cases and 12,367 tests, 384 cases and 750 tests performed between April and June were newly reported to the Department of Public Health in connection with a transition to electronic reporting by an out-of-state regional laboratory.
-
-July 24, 2020: Governor Lamont’s Facebook page includes the following explanation:
-
-> ➡️An out-of-state lab today provided the state with previously unreported data going to back to mid-May on cases involving CT residents. This data set amounts to approximately 12,000 tests, 440 of which were positive. ➡️The remaining 104 positive cases in the report are newly reported cases in the day-to-day update – a 0.79% positivity rate for the day
-
 ```{r box-score, echo = FALSE} 
 #<!--more-->
 recent_date <- max(dph_total$date, na.rm = TRUE)
@@ -519,7 +511,7 @@ But individuals in nursing homes don't have that much control over their
 own lives. I would guess that the older population outside of nursing
 homes has a lower rate of catching the virus and the population inside
 nursing homes has a higher rate. The two trends may average out to a rate that
-is the same as middle aged adults. This is just speculation. I haven't dug
+is the same as middle aged adults. This is just speculation. I haven't dug 
 into the data to say anything firm about this
 
 ## Nursing Homes
