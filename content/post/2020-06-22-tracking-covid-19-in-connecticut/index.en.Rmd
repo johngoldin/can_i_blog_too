@@ -110,25 +110,25 @@ yesterday_hospital <- today_hospital - dph_total %>% filter(date == yesterday) %
   select(hospital) %>% pluck(1, .default = NA)
 week_ago_hospital <-  today_hospital - dph_total %>% filter(date == week_ago) %>% 
   select(hospital) %>% pluck(1, .default = NA)
-today_tests <- dph_total %>% filter(date == recent_date) %>% select(covid_19_pcr_tests_reported) %>% pluck(1, .default = NA)
-yesterday_tests <- today_tests - dph_total %>% filter(date == yesterday) %>% select(covid_19_pcr_tests_reported) %>% pluck(1, .default = NA)
-week_ago_tests <-  today_tests - dph_total %>% filter(date == week_ago) %>% select(covid_19_pcr_tests_reported) %>% pluck(1, .default = NA)
+today_tests <- dph_total %>% filter(date == recent_date) %>% select(tests) %>% pluck(1, .default = NA)
+yesterday_tests <- today_tests - dph_total %>% filter(date == yesterday) %>% select(tests) %>% pluck(1, .default = NA)
+week_ago_tests <-  today_tests - dph_total %>% filter(date == week_ago) %>% select(tests) %>% pluck(1, .default = NA)
 test_rate_day <- ((dph_total %>% filter(date == recent_date) %>% 
                  select(confirmedcases) %>% pluck(1, .default = NA)) -
                 (dph_total %>% filter(date == yesterday) %>% 
                    select(confirmedcases) %>% pluck(1, .default = NA))) / 
   ((dph_total %>% filter(date == recent_date) %>% 
-      select(covid_19_pcr_tests_reported) %>% pluck(1, .default = NA)) -
+      select(tests) %>% pluck(1, .default = NA)) -
      (dph_total %>% filter(date == yesterday) %>% 
-        select(covid_19_pcr_tests_reported) %>% pluck(1, .default = NA)))
+        select(tests) %>% pluck(1, .default = NA))) 
 test_rate_week <- ((dph_total %>% filter(date == recent_date) %>% 
                  select(confirmedcases) %>% pluck(1, .default = NA)) -
                 (dph_total %>% filter(date == week_ago) %>% 
                    select(confirmedcases) %>% pluck(1, .default = NA))) / 
   ((dph_total %>% filter(date == recent_date) %>% 
-      select(covid_19_pcr_tests_reported) %>% pluck(1, .default = NA)) -
+      select(tests) %>% pluck(1, .default = NA)) -
      (dph_total %>% filter(date == week_ago) %>% 
-        select(covid_19_pcr_tests_reported) %>% pluck(1, .default = NA)))
+        select(tests) %>% pluck(1, .default = NA)))
 # next two versions don't deal with confirmed cases only
 test_rate_day2 <- yesterday_cases / yesterday_tests
 test_rate_week2 <- week_ago_cases / week_ago_tests
@@ -767,7 +767,7 @@ p_by_category <- ggplot(data = by_category,
 
 ### By County and Type of Town
 
-There are 169 towns in Connecticut, which makes it hard to examine variations by town. To help
+There are 169 towns in Connecticut, which makes it hard to examine variations by town. To help 
 examine variations within counties, I'll use a typology of towns called 
 [The Five Connecticuts](https://ctdatahaven.org/sites/ctdatahaven/files/UConnCPR%20Changing%20Demographics-5%20CTs%202004.pdf)
 that divides towns into five categories based on census variables: Urban Core, Urban Periphery,
@@ -1065,7 +1065,7 @@ inmates being moved within the Connecticut prison system.
 
 > *Please note 83 new cases were reported to DPH since yesterday. In addition, 74 previously reported cases were removed due to updated laboratory findings of false positive results.
 
-*July 24, 2020*: [Governor's press  release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-24)
+*July 24, 2020*: [Governor's press release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-24)
 
 > *NOTE: Today’s update includes a large set of data provided by an out-of-state lab on tests that were conducted on Connecticut residents between May 23 and July 20 and not reported to the State of Connecticut until today. This data set provided by the out-of-state lab includes approximately 12,000 tests, 440 of which were positive. The remaining 104 positive cases in today’s report are newly reported cases in the day-to-day update, giving a 0.79% positivity rate for the day.
 
