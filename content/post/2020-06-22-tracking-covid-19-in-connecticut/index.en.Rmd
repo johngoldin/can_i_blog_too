@@ -753,7 +753,7 @@ More recently Hartford has been the area that we have to watch.
 <br/><br/><br/>
 ```{r county-maps, echo = FALSE, fig.cap = "County Maps of New and of Cumulative Cases", out.width = '50%', fig.show = 'hold'}
 print(p_county_map_cum_cases)
-print(p_county_map_current_cases)
+print(p_county_map_current_cases) 
 ```
 ```{r town-categories, echo = FALSE}
 by_category <- dph_towns %>% 
