@@ -757,7 +757,7 @@ print(p_county_map_current_cases)
 ```
 ```{r town-categories, echo = FALSE}
 by_category <- dph_towns %>% 
-  combine_dph_towns(category)
+  combine_dph_towns(category) 
 p_by_category <- ggplot(data = by_category,
                         aes(x = date, y = rnew_cases_per1k * 100)) +
   geom_line() + 
