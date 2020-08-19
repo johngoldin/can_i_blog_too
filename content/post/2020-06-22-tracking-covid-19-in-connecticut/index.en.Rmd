@@ -924,7 +924,7 @@ Click on the county name for detail about individual towns within that county.
 ## Where Do Things Stand Today?
 
 As I write this on July 4, Connecticut seems to be in relatively good shape. [Covid ActNow](https://covidactnow.org/?s=61890)
-shows it as one of only three states "on track to contain COVID" along with Massachusetts and Vermont. 
+shows it as one of only three states "on track to contain COVID" along with Massachusetts and Vermont.  
 It won't be easy to sustain that situation. Some of our fellow northeastern states have also done well but
 are struggling to maintain their success.
 
