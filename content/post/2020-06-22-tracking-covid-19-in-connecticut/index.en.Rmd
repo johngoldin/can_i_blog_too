@@ -44,7 +44,7 @@ options(tigris_class = "sf")
 library(lubridate, quietly = TRUE)
 library(janitor)
 library(fuzzyjoin) # for interval_left_join
-library(broom)
+library(broom) 
 library(RSocrata)
 library(RcppRoll)
 library(gt)
