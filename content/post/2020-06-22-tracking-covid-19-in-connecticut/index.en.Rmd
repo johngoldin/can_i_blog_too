@@ -673,7 +673,7 @@ p_county_map_current_cases <- ggplot(data = county_geometries %>%
   geom_sf_text(aes(label = paste0(county, "\n", round(`current per 100k`, 1), " per 100K")), color = "black", size = 3) +
   coord_sf(datum = NA, label_axes = "----") +
   xlab("") + ylab("") + theme_minimal()  +
-  # theme(legend.position = "none") + 
+  # theme(legend.position = "none") +
   labs(title = "Current Cases (total of last 14 days) by Connecticut County", 
        subtitle = "shading shows current cases per 100K of population as of most recent report\n(without Somers, Brooklyn, and Montville)",
        caption = "Sources: CT DPH, US Census, tidycensus package")
