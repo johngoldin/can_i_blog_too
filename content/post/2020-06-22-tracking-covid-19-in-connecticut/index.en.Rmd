@@ -953,19 +953,19 @@ in many parts of the country.
 * State of Connecticut Department of Public Health 
     + Daily Covid-19 Update in the form of a PDF. A [list of the reports](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um) is available via Connecticut Open Data.
     + [Connecticut Covid-19 Data Tracker](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker)
-    + Links to [all the items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) The Connecticut Open Data site has been a pleasure to use. 
+    + Links to [all Covid-19 items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) 
     
     The [Connecticut Open Data](https://data.ct.gov) site
     is a tremendous resource and I expect to use it for other
     projects in the future. The RSocrata package made it very
-    easy to download this data. It's run by Connecticut's Chief
-    Data Officer under the auspices of the Office of Policy and Management. They 
+    easy to download this data. It's run by Connecticut's [Chief
+    Data Officer](https://portal.ct.gov/OPM/Secr-General/Data-and-Analytics-Policy/Chief-Data-Officer) under the auspices of the Office of Policy and Management. They 
     have produced a high-quality data portal.
     
 * [Yale community Covid-19 Statistics](https://covid19.yale.edu/yale-covid-19-statistics)
     
 * [Mapping and Covid-19 at the Yale Medical School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
-observe some of these efforts for me it has been a great source of information and inspiration.
+observe some of these efforts for me it has been a great source of information and inspiration. 
 
 * [DataHaven](https://ctdatahaven.org/reports/covid-19-connecticut-data-analysis) provides some Connecticut-focused information
 on Covid-19. They also published a [report](https://ctdatahaven.org/reports/towards-health-equity-connecticut) 
