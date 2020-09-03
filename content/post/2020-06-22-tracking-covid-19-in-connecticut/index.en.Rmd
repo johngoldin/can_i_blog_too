@@ -964,7 +964,7 @@ in many parts of the country.
     
 * [Yale community Covid-19 Statistics](https://covid19.yale.edu/yale-covid-19-statistics)
     
-* [Mapping and Covid-19 at the Yale Medical School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
+* [Mapping and Covid-19 at the Yale Medical  School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
 observe some of these efforts for me it has been a great source of information and inspiration.
 
 * [DataHaven](https://ctdatahaven.org/reports/covid-19-connecticut-data-analysis) provides some Connecticut-focused information
