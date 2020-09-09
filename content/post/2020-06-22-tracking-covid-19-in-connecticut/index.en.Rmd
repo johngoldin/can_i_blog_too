@@ -987,7 +987,7 @@ seen in Connecticut. This shows connection to New York and
 continued local transmission within Connectiut.
 
 
-## Methodology and Notes 
+## Methodology and Notes
 
 ### Code Used to Produce This Post
 
