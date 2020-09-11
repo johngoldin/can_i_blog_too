@@ -984,7 +984,7 @@ on how Covid-19 relates to existing inequalities in Connecticut.
 * [CovidTrackCT](https://covidtrackerct.com/portfolio/current/) uses
 genetic sequence mapping to trace what strains have they have
 seen in Connecticut. This shows connection to New York and
-continued local transmission within Connectiut.
+continued local transmission within Connectiut. 
 
 
 ## Methodology and Notes
