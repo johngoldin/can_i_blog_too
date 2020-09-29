@@ -48,7 +48,7 @@ library(broom)
 library(RSocrata)
 library(RcppRoll)
 library(gt)
-library(formattable) 
+library(formattable)
 # note that both scales and formattable have a comma function and they take different parameters
 ```
 ```{r `load_basic_data`, echo = FALSE, message = FALSE}
