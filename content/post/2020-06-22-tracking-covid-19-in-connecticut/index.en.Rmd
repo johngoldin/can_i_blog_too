@@ -12,13 +12,16 @@ type: post
 draft: no
 output: 
   blogdown::html_page:
+    # figure parameters based on recommendation in Hadley's book
     toc: yes
     number_sections: false
-    # figure parameters based on recommendation in Hadley's book
     fig_width: 7 
     out.width: "100%" 
     fig.align: "center"
     fig.asp: 0.618
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE, echo = FALSE}
@@ -26,6 +29,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, #out.width = "1
                       knitr.table.format = "html")
 # knitr.table.format is for kable. Needed this to get blogdown table to format correctly.
 ```
+
 ```{r libraries, echo = FALSE, message = FALSE, warning = FALSE}
 # subtitle: "Updated `r format(Sys.time(), '%a %d %b %Y')`"
 library(tidyverse, quietly = TRUE)
@@ -51,6 +55,7 @@ library(gt)
 library(formattable)  
 # note that both scales and formattable have a comma function and they take different parameters
 ```
+
 ```{r `load_basic_data`, echo = FALSE, message = FALSE}
 path_to_post <- "~/Dropbox/Programming/R_Stuff/can_i_blog_too/content/post/2020-03-29-covid19-cases-in-connecticut/"
 path_to_static_for_this_post <-  "~/Dropbox/Programming/R_Stuff/can_i_blog_too/static/post/2020-06-19-tracking-covid-19-in-connecticut"
@@ -79,10 +84,9 @@ rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>%
   ungroup() 
 ```
 
+## Latest Connecticut Data from the Department of Public Health
 
-## Latest Connecticut Data from the Department of Public Health 
-
-```{r box-score, echo = FALSE} 
+```{r box-score, echo = FALSE}
 #<!--more-->
 recent_date <- max(dph_total$date, na.rm = TRUE)
 week_ago <- recent_date - days(7)
@@ -168,6 +172,7 @@ box_score <- tribble(
    mutate( yesterday = map_chr(yesterday, box_fmt),
          `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", scales::comma(today)))
 ```
+
 ```{r format-box-score-table, echo = FALSE}
 # columns for box scores:
 # town, category, population, cases, cases per 100K, recent cases per 100K, percent positive tests
@@ -205,24 +210,26 @@ box_score %>%
 
 ```
 
-The Department of Public Health is no longer producing the daily PDF report on Saturday or Sunday. Also
-the format for reporting nursing home cases and deaths has changed, and I have not yet modified
-my code to process the new format. So the nursing home data is not up to date.
+The Department of Public Health is no longer producing the daily PDF
+report on Saturday or Sunday. Also the format for reporting nursing home
+cases and deaths has changed, and I have not yet modified my code to
+process the new format. So the nursing home data is not up to date.
 
-[My post on Covid-19 back in March](https://www.johngoldin.com/2020/03/covid-19-cases-in-connecticut/) 
-tracked the growth of the epidemic as it hit Connecticut.
-Back at the end of March I did not realize that
-the greater New York area (including Connecticut) 
-would be the center of the first wave in the US. At that time what I was reading
-focused on the nature of exponential growth of an epidemic. We were urged to
-"flatten the curve" and that shaped the way I presented the
-data in that post. I have been updating the figures 
-in that post each evening. During that time the [Connecticut data portal](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/)
-has expanded considerably, and I've built [some R code](https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R) 
-that let's me easily update
-that post. I'll use the same data infrastructure for this post as well.
-This post is more oriented toward tracking the current status of 
-the epidemic in Connecticut.
+[My post on Covid-19 back in
+March](https://www.johngoldin.com/2020/03/covid-19-cases-in-connecticut/)
+tracked the growth of the epidemic as it hit Connecticut. Back at the
+end of March I did not realize that the greater New York area (including
+Connecticut) would be the center of the first wave in the US. At that
+time what I was reading focused on the nature of exponential growth of
+an epidemic. We were urged to "flatten the curve" and that shaped the
+way I presented the data in that post. I have been updating the figures
+in that post each evening. During that time the [Connecticut data
+portal](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/) has
+expanded considerably, and I've built [some R
+code](https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R)
+that let's me easily update that post. I'll use the same data
+infrastructure for this post as well. This post is more oriented toward
+tracking the current status of the epidemic in Connecticut.
 
 ```{r 'new-cases-plot', echo = FALSE, eval = TRUE}
 ## This imaged will be saved in the /post/*_files/ directory
@@ -300,6 +307,7 @@ p_rt_live <- ggplot(data = r_data_ct, aes(x = date, y = mean)) +
   # see: http://strata.uga.edu/8370/rtips/subscriptsSuperscripts.html
   labs(title = expression(paste("Trend in ", R[t], " (as computed by https://rt.live/)")))
 ```
+
 ```{r hospitalizations, echo = FALSE, out.width = "70%", fig.align = "center"}
 p_hospitalizations <- ggplot(data = dph_total %>% filter(!is.na(hospital)),
                     aes(x = date, y = hospital)) +
@@ -316,6 +324,7 @@ p_hospitalizations <- ggplot(data = dph_total %>% filter(!is.na(hospital)),
     caption = "Source: Connecticut Hospital Association, via CT DPH"
   )
 ```
+
 ```{r geofacets, echo = FALSE}
 #  <span style="color: #ff0000">January 30, 2011</span> > 1 #af8dc3 <= 1 #7fbf7b
 p_rt_map <- ggplot(data = rt_live %>% select(-state) %>% 
@@ -339,7 +348,9 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
   facet_geo(~ state)
 
 ```
+
 ## Tracking the Virus in Connecticut
+
 ```{r covid19_project_map, echo = FALSE}
 p_states_map <- ggplot(data = covid19_project %>% 
                          left_join(rt_live %>% 
@@ -362,26 +373,29 @@ p_states_map <- ggplot(data = covid19_project %>%
   facet_geo(~ state)
 ```
 
-This post focuses on what is happening currently. The aim is to
-use the recent trend to get some idea of the near future. The first
-plot will show the average number of new cases reported each day along
-with a line that displays the rolling seven-day average. Typically there 
-are day-of-the-week effects in the reporting so it's best to focus
-on the seven-day average.
+This post focuses on what is happening currently. The aim is to use the
+recent trend to get some idea of the near future. The first plot will
+show the average number of new cases reported each day along with a line
+that displays the rolling seven-day average. Typically there are
+day-of-the-week effects in the reporting so it's best to focus on the
+seven-day average.
 
 ### New Covid-19 Cases in Connecticut
 
-The plot shows the history of new cases and also shows the 
-actions required by some of Governor Lamont's executive orders. 
-<br/><br/><br/>
+The plot shows the history of new cases and also shows the actions
+required by some of Governor Lamont's executive orders. <br/><br/><br/>
+
 ```{r p-new-cases, echo = FALSE, fig.cap = "New Cases"}
 print(p_new_cases)
 
 ```
+
 <br/><br/><br/>
+
 ```{r p-rt-live, echo = FALSE, fig.asp = 0.3, fig.cap = "Estimated R<sub>t</sub>"}
 print(p_rt_live)
 ```
+
 <br/>
 
 ### Covid-19 Deaths in Connecticut
@@ -390,6 +404,7 @@ print(p_rt_live)
 print(p_daily_deaths)
 
 ```
+
 <br/>
 
 ### Connecticut Covid-19 Patients in Hospital
@@ -397,86 +412,84 @@ print(p_daily_deaths)
 ```{r p-hospitalizations, echo = FALSE, fig.cap = "Covid-19 Patients in Hospital"}
 print(p_hospitalizations)
 ```
-<br/>
-The number of new cases peaked in mid April and then began to
-decrease rapidly, although not as rapidly as it increased. 
-A key issue is how fast epidemic is expanding or contracting.
-One indicator of that is to estimate the
-parameter R<sub>t</sub>, the average number of people 
-who become infected by an infectious person. 
-When R<sub>t</sub> is greater than 1 the number of daily new cases is
-increasing, If R<sub>t</sub> is less than 1, it is decreasing.
-See the site [rt.live](https://rt.live/) for
-an estimate by state of the effective value for 
-R<sub>t</sub>. The site
-is described in [this article](https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate) at Vox.com.
-I don't claim to have the expertise to evaluate the
-quality of the calculation of R at the
-[rt.live](https://rt.live/) site, but it seems to jive
-with other information about the pattern of the epidemic
+
+<br/> The number of new cases peaked in mid April and then began to
+decrease rapidly, although not as rapidly as it increased. A key issue
+is how fast epidemic is expanding or contracting. One indicator of that
+is to estimate the parameter R<sub>t</sub>, the average number of people
+who become infected by an infectious person. When R<sub>t</sub> is
+greater than 1 the number of daily new cases is increasing, If
+R<sub>t</sub> is less than 1, it is decreasing. See the site
+[rt.live](https://rt.live/) for an estimate by state of the effective
+value for R<sub>t</sub>. The site is described in [this
+article](https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate)
+at Vox.com. I don't claim to have the expertise to evaluate the quality
+of the calculation of R at the [rt.live](https://rt.live/) site, but it
+seems to jive with other information about the pattern of the epidemic
 among states.
 
-As of June (and a month
-previous), Connecticut, New York, and New Jersey have among the lowest
-values for R<sub>t</sub> in the country. This is good news for us
-in Connecticut. I have included R<sub>t</sub> for Arizona as
-well as Connecticut to provide a contrast with
-a state that has lately shown [signs of a growing outbreak](https://www.fox10phoenix.com/news/arizona-medical-experts-alarmed-over-surge-in-covid-19-cases).
-The goal in Connecticut and in the entire New York City area is to
-keep R<sub>t</sub> well under 1. As of `r format(max(rt_live$date),"%m/%d/%Y")` R<sub>t</sub> is
-`r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "CT")], 2)`. On the other hand, in Arizona R<sub>t</sub> is about `r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "AZ")], 2)`.
+As of June (and a month previous), Connecticut, New York, and New Jersey
+have among the lowest values for R<sub>t</sub> in the country. This is
+good news for us in Connecticut. I have included R<sub>t</sub> for
+Arizona as well as Connecticut to provide a contrast with a state that
+has lately shown [signs of a growing
+outbreak](https://www.fox10phoenix.com/news/arizona-medical-experts-alarmed-over-surge-in-covid-19-cases).
+The goal in Connecticut and in the entire New York City area is to keep
+R<sub>t</sub> well under 1. As of
+`r format(max(rt_live$date),"%m/%d/%Y")` R<sub>t</sub> is
+`r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "CT")], 2)`.
+On the other hand, in Arizona R<sub>t</sub> is about
+`r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "AZ")], 2)`.
 
 ## Comparisons with Other States
 
 ### Estimate of R<sub>t</sub> by State (from [rt.live](https://rt.live/))
 
-The next display shows the trend of R<sub>t</sub> in each state
-arranged according to geographic position in the US. Remember
-that R<sub>t</sub> is a measure of the rate of increase. When R<sub>t</sub> is greater than 1
-the number of daily new cases is
-increasing, If R<sub>t</sub> is less than 1, it is decreasing. 
-The color of the R line shows whether the most recent estimate of R for
-a state is <span style="color: #af8dc3">above 1 (purple line)</span>
-or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
-<br/><br/>
+The next display shows the trend of R<sub>t</sub> in each state arranged
+according to geographic position in the US. Remember that R<sub>t</sub>
+is a measure of the rate of increase. When R<sub>t</sub> is greater than
+1 the number of daily new cases is increasing, If R<sub>t</sub> is less
+than 1, it is decreasing. The color of the R line shows whether the most
+recent estimate of R for a state is [above 1 (purple
+line)]{style="color: #af8dc3"} or [equal or below 1 (green
+line)]{style="color: #7fbf7b"}. <br/><br/>
+
 ```{r p-rt-map, echo = FALSE, fig.cap = "Estimate of R<sub>t</sub> by State", fig.asp = 1, out.width = "95%"}
 #  <span style="color: ##af8dc">above 1 (purple line)</span> > 1 #af8dc <= 1 #7fbf7b
 print(p_rt_map)
 ```
-<br/>
-R is estimated from the state data and the gray area around the line
-indicates the statistical uncertainty of the estimate showing
-an 80% confidence interval. Note that this map shows only whether
-transmission seems to be growing or shrinking. How concerned one
-should be about the epidemic in a particular state also depends on
-the prevalence of cases. 
+
+<br/> R is estimated from the state data and the gray area around the
+line indicates the statistical uncertainty of the estimate showing an
+80% confidence interval. Note that this map shows only whether
+transmission seems to be growing or shrinking. How concerned one should
+be about the epidemic in a particular state also depends on the
+prevalence of cases.
 
 ### Trends in New Cases by State
 
-The next map shows the history of new
-cases in each state per 100K of population. The lines are color
-coded the same as in the previous map to indicate whether the most recent 
-estimate of R for 
-a state is <span style="color: #af8dc3">above 1 (purple line)</span>
-or <span style="color: #7fbf7b">equal or below 1 (green line)</span>.
-<br/><br/>
+The next map shows the history of new cases in each state per 100K of
+population. The lines are color coded the same as in the previous map to
+indicate whether the most recent estimate of R for a state is [above 1
+(purple line)]{style="color: #af8dc3"} or [equal or below 1 (green
+line)]{style="color: #7fbf7b"}. <br/><br/>
+
 ```{r p-states-map, echo = FALSE, fig.cap = "New Cases per 100K by State", fig.asp = 1, out.width = "95%"}
 print(p_states_map)
 ```
-<br/>
-The tallest graphs of new cases per 100K of population are 
-New York and Arizona.. 
-From the point of view of someone
-living in Connecticut, the striking thing is how thoroughly Connecticut
-(and New York, New Jersey, Rhode Island, and Massachusetts) have recovered from
+
+<br/> The tallest graphs of new cases per 100K of population are New
+York and Arizona.. From the point of view of someone living in
+Connecticut, the striking thing is how thoroughly Connecticut (and New
+York, New Jersey, Rhode Island, and Massachusetts) have recovered from
 the peak. New cases are low and the low value of the estimate of R
 confirms that they are likely to decrease even more. The great contrast
 is with the increase of cases in some of the southern states.
-<br/><br/><br/> 
+<br/><br/><br/>
 
 ## Connecticut Covid-19 Deaths and Cases by Age
 
-<div style="float: left; width: 50%; padding: 5PX;">
+::: {style="float: left; width: 50%; padding: 5PX;"}
 ```{r deaths-by-age2, echo = FALSE, fig.cap = "Covid-19 Deaths by Age"}
 
 #```{r deaths-by-age2, echo = FALSE, out.width = '50%', fig.show = 'hold', fig.cap = "Relationship of Age to Covid-19 Deaths andCases", fig.align = "default"}
@@ -488,8 +501,9 @@ ggplot(data = dph_age %>% filter(date == max(date)),
   scale_y_continuous(labels = scales::comma) +
   theme_minimal() + theme(panel.grid.major.x = element_blank())
 ```
-</div>
-<div style="float: right; width: 50%; padding: 5PX;">
+:::
+
+::: {style="float: right; width: 50%; padding: 5PX;"}
 ```{r deaths-per-100k2, echo = FALSE, fig.cap = "Covid-19 Cases by Age"}
 ggplot(data = dph_age %>% filter(date == max(date)),
        aes(x = agegroups, y = as.numeric(per_100k))) + 
@@ -499,21 +513,24 @@ ggplot(data = dph_age %>% filter(date == max(date)),
   scale_y_continuous(labels = scales::comma) +
   theme_minimal() + theme(panel.grid.major.x = element_blank())
 ```
-</div>
+:::
+
 <br/>
 
-Deaths increase with age, as has been well known since the beginning of the epidemic. For cases, the number of cases per population stays relatively 
-flat from 20 to 79 and rises very rapidly for the oldest category. I haven't
-examined this data closely, but I assume this pattern is related to the
-high rates of mortality in nursing homes. For the age range from 60 to 79 there
-probably are a lot of seniors who are going to a great deal of trouble
-avoiding places and situations where there is risk of catching the virus.
-But individuals in nursing homes don't have that much control over their
-own lives. I would guess that the older population outside of nursing
-homes has a lower rate of catching the virus and the population inside
-nursing homes has a higher rate. The two trends may average out to a rate that
-is the same as middle aged adults. This is just speculation. I haven't dug 
-into the data to say anything firm about this
+Deaths increase with age, as has been well known since the beginning of
+the epidemic. For cases, the number of cases per population stays
+relatively flat from 20 to 79 and rises very rapidly for the oldest
+category. I haven't examined this data closely, but I assume this
+pattern is related to the high rates of mortality in nursing homes. For
+the age range from 60 to 79 there probably are a lot of seniors who are
+going to a great deal of trouble avoiding places and situations where
+there is risk of catching the virus. But individuals in nursing homes
+don't have that much control over their own lives. I would guess that
+the older population outside of nursing homes has a lower rate of
+catching the virus and the population inside nursing homes has a higher
+rate. The two trends may average out to a rate that is the same as
+middle aged adults. This is just speculation. I haven't dug into the
+data to say anything firm about this
 
 ## Nursing Homes
 
@@ -521,11 +538,17 @@ into the data to say anything firm about this
 nursing_home_totals <- dph_nursing_cases %>% filter(date == max(date)) %>% 
   summarise(cases = sum(nh_cases, na.rm = TRUE), deaths = sum(nh_deaths, na.rm = TRUE))
 ```
-Nursing homes have been hard hit by the epidemic. It's hard to control  coronavirus outbreak
-in a group living situation, which includes prisons and cruises ship. On top of that,
-Covid-19 is especially serious for the elderly. The combination in nursing homes
-has been deadly. There have been `r scales::comma(nursing_home_totals$deaths)` deaths in Connecticut 
-Nursing Homes which makes `r paste0(round((nursing_home_totals$deaths/dph_total$deaths[dph_total$date == max(dph_total$date)]) * 100, 1), "%")` of the total of `r scales::comma(dph_total$deaths[dph_total$date == max(dph_total$date)])` deaths from Covid-19.
+
+Nursing homes have been hard hit by the epidemic. It's hard to control
+coronavirus outbreak in a group living situation, which includes prisons
+and cruises ship. On top of that, Covid-19 is especially serious for the
+elderly. The combination in nursing homes has been deadly. There have
+been `r scales::comma(nursing_home_totals$deaths)` deaths in Connecticut
+Nursing Homes which makes
+`r paste0(round((nursing_home_totals$deaths/dph_total$deaths[dph_total$date == max(dph_total$date)]) * 100, 1), "%")`
+of the total of
+`r scales::comma(dph_total$deaths[dph_total$date == max(dph_total$date)])`
+deaths from Covid-19.
 
 ```{r prisons, echo = FALSE}
 # see wikipedia entry: https://en.wikipedia.org/wiki/List_of_Connecticut_state_prisons
@@ -548,79 +571,70 @@ Nursing Homes which makes `r paste0(round((nursing_home_totals$deaths/dph_total$
 
 ## Prisons
 
-Prisons even more than nursing homes create a situation
-where it is hard to limit exposure among individuals living together. We
-have less information about prisons than about nursing homes. The
-Department of Corrections (DOC) posts some statistics on 
-[total Covid19 rates among prisoners and staff](https://data.ct.gov/Public-Safety/COVID-19-in-Correctional-Facilities/6t8i-du3u) 
-via the state open data site and some limited information of 
-[rates by individual facility](https://portal.ct.gov/DOC/Common-Elements/Common-Elements/Health-Information-and-Advisories) on their web site,
-but the data are not as detailed or as accessible as the data on nursing
-homes.
+Prisons even more than nursing homes create a situation where it is hard
+to limit exposure among individuals living together. We have less
+information about prisons than about nursing homes. The Department of
+Corrections (DOC) posts some statistics on [total Covid19 rates among
+prisoners and
+staff](https://data.ct.gov/Public-Safety/COVID-19-in-Correctional-Facilities/6t8i-du3u)
+via the state open data site and some limited information of [rates by
+individual
+facility](https://portal.ct.gov/DOC/Common-Elements/Common-Elements/Health-Information-and-Advisories)
+on their web site, but the data are not as detailed or as accessible as
+the data on nursing homes.
 
-As of `r format(max(doc_covid$date, na.rm = TRUE), "%m/%d/%Y")`, 
+As of `r format(max(doc_covid$date, na.rm = TRUE), "%m/%d/%Y")`,
 `r scales::comma(max(doc_covid$inmates_positive, na.rm = TRUE))` inmates
-have tested positive for Covid-19. At the peak of the epidemic, 
-`r scales::comma(max(doc_covid$northern_med, na.rm = TRUE))` inmates were
-isolated at the Northern Correctional Institution medical facility.
-The most recent report is that 
+have tested positive for Covid-19. At the peak of the epidemic,
+`r scales::comma(max(doc_covid$northern_med, na.rm = TRUE))` inmates
+were isolated at the Northern Correctional Institution medical facility.
+The most recent report is that
 `r scales::comma(doc_covid$inmate_deaths[doc_covid$date == max(doc_covid$date)])`
-died, and currently 
+died, and currently
 `r scales::comma(doc_covid$northern_med[doc_covid$date == max(doc_covid$date)])`
-Covid-19 inmates remain in that medical facility. 
+Covid-19 inmates remain in that medical facility.
 
-Unlike nursing homes, the number of deaths from 
-Covid-19 in prisons is relatively low. Presumably that
-is because the prison population has many fewer 
-elderly people who are especially vulnerable to 
-the effects of Covid-19.
+Unlike nursing homes, the number of deaths from Covid-19 in prisons is
+relatively low. Presumably that is because the prison population has
+many fewer elderly people who are especially vulnerable to the effects
+of Covid-19.
 
-In addition to prisoners, the Department of Corrections reports that 
-`r scales::comma(max(doc_covid$staff_positive, na.rm = TRUE))`
-staff have tested positive for Covid-19, of whom
-`r scales::comma(max(doc_covid$staff_returned, na.rm = TRUE))`
-have been cleared to return to work.
+In addition to prisoners, the Department of Corrections reports that
+`r scales::comma(max(doc_covid$staff_positive, na.rm = TRUE))` staff
+have tested positive for Covid-19, of whom
+`r scales::comma(max(doc_covid$staff_returned, na.rm = TRUE))` have been
+cleared to return to work.
 
-One cannot easily relate the number of cases reported by the 
-Department of Corrections to the town by town counts reported
-by the Department of Public Health. It's clear that for small
-rural towns the prison cases may swamp the community counts in those
-towns. For example, in the town of Brooklyn in Windham County
-(population about 8,200)
-the DPH town stats between June 17 and June 18
-showed the number of cases
-jumped from 24 to 116. 
-That's the home of the Brooklyn Correctional Institution
-and I have to believe that site dominated those numbers
-and that the process by which the Department of Corrections
-reported test results to the Department of Public Health
-affected the magnitude of the one-day jump.
+One cannot easily relate the number of cases reported by the Department
+of Corrections to the town by town counts reported by the Department of
+Public Health. It's clear that for small rural towns the prison cases
+may swamp the community counts in those towns. For example, in the town
+of Brooklyn in Windham County (population about 8,200) the DPH town
+stats between June 17 and June 18 showed the number of cases jumped from
+24 to 116. That's the home of the Brooklyn Correctional Institution and
+I have to believe that site dominated those numbers and that the process
+by which the Department of Corrections reported test results to the
+Department of Public Health affected the magnitude of the one-day jump.
 
-In effect there is a separate epidemic occurring inside
-the prison system and the pace of that epidemic does not
-necessarily correspond to trends in the wider community.
-For the purposes of tracking Covid-19 in the population
-of Connecticut generally, in some cases I will exclude some
-of the small rural towns with prisons such as Somers,
-Montville, and Brooklyn. But it's not practical for
-me to segregate the effect of prisons on counts for
-larger towns such as New Haven, Cheshire, Hartford,
-and others. As of 6/16/2020, the DOC reported a cumulative total
-of 117 cases among prisoners in Bridgeport,
-125 in New Haven, 94 in Hartford, and 21 in Cheshire.
-Enfield is a tricky case. There are two DOC facilities
-in Enfield and as of 6/16/2020 DOC reported 265
-cases there. Enfield has a population of about 44,000,
-but the prison cases may have a significant effect
-on the picture of Covid-19 in Enfield. Similar to Brooklyn,
-one can see likely effects in the reports. On
-6/10/20 DPH reported a total of 447 Covid-19 cases
-in Enfield and the next day on 6/11/2020 they
-reported 546, and increase of 22% in one day. 
-That's highly likely to be an effect of
-how cases were reported from the DOC facilities in Enfield
-and how those reports reached the Department of Public Health.
-
+In effect there is a separate epidemic occurring inside the prison
+system and the pace of that epidemic does not necessarily correspond to
+trends in the wider community. For the purposes of tracking Covid-19 in
+the population of Connecticut generally, in some cases I will exclude
+some of the small rural towns with prisons such as Somers, Montville,
+and Brooklyn. But it's not practical for me to segregate the effect of
+prisons on counts for larger towns such as New Haven, Cheshire,
+Hartford, and others. As of 6/16/2020, the DOC reported a cumulative
+total of 117 cases among prisoners in Bridgeport, 125 in New Haven, 94
+in Hartford, and 21 in Cheshire. Enfield is a tricky case. There are two
+DOC facilities in Enfield and as of 6/16/2020 DOC reported 265 cases
+there. Enfield has a population of about 44,000, but the prison cases
+may have a significant effect on the picture of Covid-19 in Enfield.
+Similar to Brooklyn, one can see likely effects in the reports. On
+6/10/20 DPH reported a total of 447 Covid-19 cases in Enfield and the
+next day on 6/11/2020 they reported 546, and increase of 22% in one day.
+That's highly likely to be an effect of how cases were reported from the
+DOC facilities in Enfield and how those reports reached the Department
+of Public Health.
 
 ## Variations by County in Connecticut
 
@@ -729,33 +743,37 @@ p_county_map_cum_cases <- ggplot(data = county_geometries %>%
 #        caption = "Source: CT DPH, US Census, tidycensus package")
 
 ```
-Next I'll look at variations within Connecticut. Below are two maps
-showing the eight counties in Connecticut^[The data displayed on these maps excludes the towns of 
-Somers, Brooklyn, and Montville because they
-are small rural towns with prisons, and the cases reported in 
-the prisons may dominate the total in the town and even affect the 
-reporting for the county overall. Covid-19 in prisons is a significant
-issue, but it's helpful to try to evaluate it separately from 
-data from the non-prison community.]. 
-The first map in Figure \@ref(fig:county-maps) shows 
-the cumulative total of cases since the start of the epidemic.
-The second map shows only new cases reporting during the last two weeks.
-On both maps, cases are adjusted to show cases per 100K of population.
-So the first map relates more to the total impact of the disease over the
-full course of the epidemic to date, and the second
-map is an indication of the recent prevalence of the
-virus. 
 
-Connecticut is part of the epidemic's surge in the New York area and the magnitude
-of the epidemic has been greater in the counties closer to New York City. Back in March cases 
-first appeared in Fairfield County and then spread to Litchfield, New Haven, and Hartford.
-More recently Hartford has been the area that we have to watch.
+Next I'll look at variations within Connecticut. Below are two maps
+showing the eight counties in Connecticut[^1]. The first map in Figure
+\@ref(fig:county-maps) shows the cumulative total of cases since the
+start of the epidemic. The second map shows only new cases reporting
+during the last two weeks. On both maps, cases are adjusted to show
+cases per 100K of population. So the first map relates more to the total
+impact of the disease over the full course of the epidemic to date, and
+the second map is an indication of the recent prevalence of the virus.
+
+[^1]: The data displayed on these maps excludes the towns of Somers,
+    Brooklyn, and Montville because they are small rural towns with
+    prisons, and the cases reported in the prisons may dominate the
+    total in the town and even affect the reporting for the county
+    overall. Covid-19 in prisons is a significant issue, but it's
+    helpful to try to evaluate it separately from data from the
+    non-prison community.
+
+Connecticut is part of the epidemic's surge in the New York area and the
+magnitude of the epidemic has been greater in the counties closer to New
+York City. Back in March cases first appeared in Fairfield County and
+then spread to Litchfield, New Haven, and Hartford. More recently
+Hartford has been the area that we have to watch.
 
 <br/><br/><br/>
+
 ```{r county-maps, echo = FALSE, fig.cap = "County Maps of New and of Cumulative Cases", out.width = '50%', fig.show = 'hold'}
 print(p_county_map_cum_cases) 
 print(p_county_map_current_cases) 
 ```
+
 ```{r town-categories, echo = FALSE}
 by_category <- dph_towns %>% 
   combine_dph_towns(category) 
@@ -768,22 +786,27 @@ p_by_category <- ggplot(data = by_category,
 
 ### By County and Type of Town
 
-There are 169 towns in Connecticut, which makes it hard to examine variations by town. To help 
-examine variations within counties, I'll use a typology of towns called 
-[The Five Connecticuts](https://ctdatahaven.org/sites/ctdatahaven/files/UConnCPR%20Changing%20Demographics-5%20CTs%202004.pdf)
-that divides towns into five categories based on census variables: Urban Core, Urban Periphery,
-Suburban, Rural, and a fifth category for Wealthy Suburbs used for some towns in Fairfield County. 
-Adjusting for population, the number of cases has been greater in the counties closer
-to New York City. 
-In the figure below I'll fold the wealthy towns into the Suburban category. I have excluded
-Montville and Somers because the prisons in those towns complicates interpretation of the
-town statistics.
+There are 169 towns in Connecticut, which makes it hard to examine
+variations by town. To help examine variations within counties, I'll use
+a typology of towns called [The Five
+Connecticuts](https://ctdatahaven.org/sites/ctdatahaven/files/UConnCPR%20Changing%20Demographics-5%20CTs%202004.pdf)
+that divides towns into five categories based on census variables: Urban
+Core, Urban Periphery, Suburban, Rural, and a fifth category for Wealthy
+Suburbs used for some towns in Fairfield County. Adjusting for
+population, the number of cases has been greater in the counties closer
+to New York City. In the figure below I'll fold the wealthy towns into
+the Suburban category. I have excluded Montville and Somers because the
+prisons in those towns complicates interpretation of the town
+statistics.
 
-Counties are laid out from top to bottom and the counties closer to New York are toward the top. 
-The columns show the four categories. Urban towns have been hit harder than suburban and rural
-towns. While density may have some effect on case rates, the report [Towards Health Equity in Connecticut: The Role of Social Inequality and the Impact of COVID-19](https://ctdatahaven.org/reports/towards-health-equity-connecticut)
-by DataHaven documents how the epidemic interacts with existing social inequality in Connecticut.
-<br/>
+Counties are laid out from top to bottom and the counties closer to New
+York are toward the top. The columns show the four categories. Urban
+towns have been hit harder than suburban and rural towns. While density
+may have some effect on case rates, the report [Towards Health Equity in
+Connecticut: The Role of Social Inequality and the Impact of
+COVID-19](https://ctdatahaven.org/reports/towards-health-equity-connecticut)
+by DataHaven documents how the epidemic interacts with existing social
+inequality in Connecticut. <br/>
 
 ```{r county-by-category, echo = FALSE, fig.asp = 1.2, fig.cap = "Cases by County"}
 
@@ -815,28 +838,27 @@ ggplot(data = for_chart,
 
 ### Details by Town
 
-The links below take you to a separate HTML page for each
-Connecticut county. That page contains a table with one row
-for each town in the county.
+The links below take you to a separate HTML page for each Connecticut
+county. That page contains a table with one row for each town in the
+county.
 
-For each town it shows the category, the population, 
-the total number of cases to date, the number of recent cases per
-100K of population (total new cases in the last two weeks), total deaths, and the percentage of total deaths
-in that town
-attributed to nursing home residents.
+For each town it shows the category, the population, the total number of
+cases to date, the number of recent cases per 100K of population (total
+new cases in the last two weeks), total deaths, and the percentage of
+total deaths in that town attributed to nursing home residents.
 
 Next there are two [sparklines](https://en.wikipedia.org/wiki/Sparkline)
-that show the trend in daily new cases and daily deaths (based on 
-14 day moving average). Cases and deaths are shown as a ratio to population
-in the town. 
+that show the trend in daily new cases and daily deaths (based on 14 day
+moving average). Cases and deaths are shown as a ratio to population in
+the town.
 
-The purpose of these tables is to make it easier to quickly scan
-for trends in local towns. Here is sample (based on my home of Guilford)
+The purpose of these tables is to make it easier to quickly scan for
+trends in local towns. Here is sample (based on my home of Guilford)
 showing what is available for each town.
 
-For each county there is also a map showing the towns in that county and the relative number
-of total cases in the town and a second map that shows the percentage of individuals
-who are below the poverty line.
+For each county there is also a map showing the towns in that county and
+the relative number of total cases in the town and a second map that
+shows the percentage of individuals who are below the poverty line.
 
 ```{r sparkline_ranges, echo  = FALSE}
 county_cases_max <- max(dph_counties$rnew_cases_per100k, na.rm = TRUE) * 100
@@ -850,11 +872,12 @@ town_deaths_max <- max(dph_towns$rnew_deaths_per100k, na.rm = TRUE)
 # maximum range for deaths is `r round(county_deaths_max, 1)`
 ```
 
-The town sparklines at the right show the trends over time.
-The vertical scale is different for new cases and for deaths.
-For new cases, the maximum height shown on the scale is `r round(town_cases_max, 1)` while 
-for deaths, the maximum value shown is `r round(town_deaths_max, 1)`. For both new cases and
-deaths, the sparkline shows the rolling seven day average of new cases or deaths. 
+The town sparklines at the right show the trends over time. The vertical
+scale is different for new cases and for deaths. For new cases, the
+maximum height shown on the scale is `r round(town_cases_max, 1)` while
+for deaths, the maximum value shown is `r round(town_deaths_max, 1)`.
+For both new cases and deaths, the sparkline shows the rolling seven day
+average of new cases or deaths.
 
 ```{r, echo = FALSE, results = "asis"}
 town_summary <- dph_towns %>%
@@ -909,179 +932,268 @@ town_summary
 
 ### Links to Summary Page for Each Connecticut County
 
-Below are links to a separate web page by for each of the eight counties in Connecticut.
-Click on the county name for detail about individual towns within that county. 
+Below are links to a separate web page by for each of the eight counties
+in Connecticut. Click on the county name for detail about individual
+towns within that county.
 
-   |  |   | 
---------------------- | --------------------- | --------------------- | --------------------- 
-[Litchfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/litchfield_summary.html) | [Hartford County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/hartford_summary.html) | [Tolland County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/tolland_summary.html) | [Windham County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/windham_summary.html)
-[Fairfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/fairfield_summary.html) | [New Haven County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_haven_summary.html) | [Middlesex County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/middlesex_summary.html) | [New London County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_london_summary.html) 
+|                                                                                                               |                                                                                                             |                                                                                                             |                                                                                                               |
+|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| [Litchfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/litchfield_summary.html) | [Hartford County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/hartford_summary.html)   | [Tolland County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/tolland_summary.html)     | [Windham County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/windham_summary.html)       |
+| [Fairfield County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/fairfield_summary.html)   | [New Haven County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_haven_summary.html) | [Middlesex County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/middlesex_summary.html) | [New London County](/post/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/new_london_summary.html) |
+
 <br/>
 
-******************************************************************
+------------------------------------------------------------------------
+
 <br/>
 
 ## Where Do Things Stand Today?
 
-As I write this on July 4, Connecticut seems to be in relatively good shape. [Covid ActNow](https://covidactnow.org/?s=61890)
-shows it as one of only three states "on track to contain COVID" along with Massachusetts and Vermont.  
-It won't be easy to sustain that situation. Some of our fellow northeastern states have also done well but 
-are struggling to maintain their success.
+As I write this on July 4, Connecticut seems to be in relatively good
+shape. [Covid ActNow](https://covidactnow.org/?s=61890) shows it as one
+of only three states "on track to contain COVID" along with
+Massachusetts and Vermont.\
+It won't be easy to sustain that situation. Some of our fellow
+northeastern states have also done well but are struggling to maintain
+their success.
 
-I started burrowing into the Covid-19 data back in March in part because I'm a 70 year old male who therefore
-is at high risk (and because I love to work in R and I'm always looking for an excuse). The situation 
-in Connecticut looks and feels very different than it did in March-April. One amazing feature of this
-epidemic is how differently it affects subsets of the population. As a financially comfortable semi-retiree,
-it was quite easy for me to hide from the virus by hiding from people in general. Many, many people were not so
-fortunate. If you can get out of the way of the virus, you do it. But if economic circumstances force you
-to work face to face or if you are confined to a group living situation or if where you live forces
-you to mingle with multiple generations and multiple networks of interactions, it is much harder to
-avoid the virus. I'm equally shocked by how the economic effects hit individuals in dramatically
-different ways. For
-someone in my circumstances there is almost no effect. Meanwhile many people face economic ruin that will
-affect them for the rest of their lives. The virus and its effects cannot be contained by uncoordinated
-individual efforts. It takes collective will and collective action. Many individuals are coping, but collectively
-we are failing.
+I started burrowing into the Covid-19 data back in March in part because
+I'm a 70 year old male who therefore is at high risk (and because I love
+to work in R and I'm always looking for an excuse). The situation in
+Connecticut looks and feels very different than it did in March-April.
+One amazing feature of this epidemic is how differently it affects
+subsets of the population. As a financially comfortable semi-retiree, it
+was quite easy for me to hide from the virus by hiding from people in
+general. Many, many people were not so fortunate. If you can get out of
+the way of the virus, you do it. But if economic circumstances force you
+to work face to face or if you are confined to a group living situation
+or if where you live forces you to mingle with multiple generations and
+multiple networks of interactions, it is much harder to avoid the virus.
+I'm equally shocked by how the economic effects hit individuals in
+dramatically different ways. For someone in my circumstances there is
+almost no effect. Meanwhile many people face economic ruin that will
+affect them for the rest of their lives. The virus and its effects
+cannot be contained by uncoordinated individual efforts. It takes
+collective will and collective action. Many individuals are coping, but
+collectively we are failing.
 
-It is tragic watching the virus explode in the south and southwest. New York and others showed that you
-can get it back under control, but it took a maximum concerted effort. There is no sign that going to happen
-in many parts of the country.
-<br/> 
+It is tragic watching the virus explode in the south and southwest. New
+York and others showed that you can get it back under control, but it
+took a maximum concerted effort. There is no sign that going to happen
+in many parts of the country. <br/>
 
 ## Links to Sources
 
-* State of Connecticut Department of Public Health 
-    + Daily Covid-19 Update in the form of a PDF. A [list of the reports](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um) is available via Connecticut Open Data.
-    + [Connecticut Covid-19 Data Tracker](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker)
-    + Links to [all Covid-19 items available via Connecticut Open Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library) 
-    
-    The [Connecticut Open Data](https://data.ct.gov) site
-    is a tremendous resource and I expect to use it for other
-    projects in the future. The RSocrata package made it very
-    easy to download this data. It's run by Connecticut's [Chief
-    Data Officer](https://portal.ct.gov/OPM/Secr-General/Data-and-Analytics-Policy/Chief-Data-Officer) under the auspices of the Office of Policy and Management. They 
-    have produced a high-quality data portal.
-    
-* [Yale community Covid-19 Statistics](https://covid19.yale.edu/yale-covid-19-statistics)
-    
-* [Mapping and Covid-19 at the Yale Medical  School](https://covid.yale.edu/innovation/mapping/) I have had an opportunity to
-observe some of these efforts for me it has been a great source of information and inspiration.
+-   State of Connecticut Department of Public Health
 
-* [DataHaven](https://ctdatahaven.org/reports/covid-19-connecticut-data-analysis) provides some Connecticut-focused information
-on Covid-19. They also published a [report](https://ctdatahaven.org/reports/towards-health-equity-connecticut) 
-on how Covid-19 relates to existing inequalities in Connecticut.
+    -   Daily Covid-19 Update in the form of a PDF. A [list of the
+        reports](https://data.ct.gov/Health-and-Human-Services/COVID-19-Daily-DPH-Reports-Library/bqve-e8um)
+        is available via Connecticut Open Data.
+    -   [Connecticut Covid-19 Data
+        Tracker](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker)
+    -   Links to [all Covid-19 items available via Connecticut Open
+        Data](https://data.ct.gov/stories/s/COVID-19-data/wa3g-tfvc/#data-library)
 
-* [CTData Collaborative](https://www.ctdata.org/covid19) also provides data on Covid-19 and its impact in Connecticut.
+    The [Connecticut Open Data](https://data.ct.gov) site is a
+    tremendous resource and I expect to use it for other projects in the
+    future. The RSocrata package made it very easy to download this
+    data. It's run by Connecticut's [Chief Data
+    Officer](https://portal.ct.gov/OPM/Secr-General/Data-and-Analytics-Policy/Chief-Data-Officer)
+    under the auspices of the Office of Policy and Management. They have
+    produced a high-quality data portal.
 
-* [COVID Tracking Project](https://covidtracking.com) The data for Figure \@ref(fig:p-states-map) is from [COVID Tracking Project](https://covidtracking.com/data) and is used under a Creative Commons CC BY-NC-4.0 license.
+-   [Yale community Covid-19
+    Statistics](https://covid19.yale.edu/yale-covid-19-statistics)
 
-* [New York Times Tracking the Coronavirus](https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html)
+-   [Mapping and Covid-19 at the Yale Medical
+    School](https://covid.yale.edu/innovation/mapping/) I have had an
+    opportunity to observe some of these efforts for me it has been a
+    great source of information and inspiration.
 
-* [rt.live](https://rt.live) I have made heavy use of this site in Figure \@ref(fig:p-rt-map) so I'll link to it here as well.
+-   [DataHaven](https://ctdatahaven.org/reports/covid-19-connecticut-data-analysis)
+    provides some Connecticut-focused information on Covid-19. They also
+    published a
+    [report](https://ctdatahaven.org/reports/towards-health-equity-connecticut)
+    on how Covid-19 relates to existing inequalities in Connecticut.
 
-* [Covid ActNow](https://covidactnow.org/?s=61890) I only learned about this project today, but it seems quite interesting. 
+-   [CTData Collaborative](https://www.ctdata.org/covid19) also provides
+    data on Covid-19 and its impact in Connecticut.
 
-* [CovidTrackCT](https://covidtrackerct.com/portfolio/current/) uses
-genetic sequence mapping to trace what strains have they have
-seen in Connecticut. This shows connection to New York and
-continued local transmission within Connectiut. 
+-   [COVID Tracking Project](https://covidtracking.com) The data for
+    Figure \@ref(fig:p-states-map) is from [COVID Tracking
+    Project](https://covidtracking.com/data) and is used under a
+    Creative Commons CC BY-NC-4.0 license.
 
+-   [New York Times Tracking the
+    Coronavirus](https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html)
 
-## Methodology and Notes 
+-   [rt.live](https://rt.live) I have made heavy use of this site in
+    Figure \@ref(fig:p-rt-map) so I'll link to it here as well.
+
+-   [Covid ActNow](https://covidactnow.org/?s=61890) I only learned
+    about this project today, but it seems quite interesting.
+
+-   [CovidTrackCT](https://covidtrackerct.com/portfolio/current/) uses
+    genetic sequence mapping to trace what strains have they have seen
+    in Connecticut. This shows connection to New York and continued
+    local transmission within Connectiut.
+
+## Methodology and Notes
 
 ### Code Used to Produce This Post
 
-The R code used to download and process the data from Connecticut and elsewhere 
-is in the file [daily_ct_stats](https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R).
-This post was created using RMarkdown so the code to create most of
-the figures is in the [.Rmd file for this post](https://github.com/johngoldin/can_i_blog_too/blob/master/content/post/2020-06-22-tracking-covid-19-in-connecticut/index.en.Rmd).
+The R code used to download and process the data from Connecticut and
+elsewhere is in the file
+[daily\_ct\_stats](https://github.com/johngoldin/ctcorona/blob/master/R/daily_ct_stats.R).
+This post was created using RMarkdown so the code to create most of the
+figures is in the [.Rmd file for this
+post](https://github.com/johngoldin/can_i_blog_too/blob/master/content/post/2020-06-22-tracking-covid-19-in-connecticut/index.en.Rmd).
 
-The separate HTML files for each Connecticut county were created using the
-[rmarkdown::render function](https://github.com/johngoldin/ctcorona/blob/master/R/render_town_summary_html.R).
-The RMarkdown document that actually formatted the town details (including
-sparklines and county maps) is [here](https://github.com/johngoldin/ctcorona/blob/master/code/county_summary.Rmd).
+The separate HTML files for each Connecticut county were created using
+the [rmarkdown::render
+function](https://github.com/johngoldin/ctcorona/blob/master/R/render_town_summary_html.R).
+The RMarkdown document that actually formatted the town details
+(including sparklines and county maps) is
+[here](https://github.com/johngoldin/ctcorona/blob/master/code/county_summary.Rmd).
 
 Some noteworthy packages used here:
 
-* [geofacet](https://hafen.github.io/geofacet/) used to create the map of US states in Figures \@ref(fig:p-rt-map) and \@ref(fig:p-states-map).
+-   [geofacet](https://hafen.github.io/geofacet/) used to create the map
+    of US states in Figures \@ref(fig:p-rt-map) and
+    \@ref(fig:p-states-map).
 
-* [tidycensus](https://walker-data.com/tidycensus/) used to create the
-Connecticut maps and retrieve Census data (most of which I didn't use).
+-   [tidycensus](https://walker-data.com/tidycensus/) used to create the
+    Connecticut maps and retrieve Census data (most of which I didn't
+    use).
 
-* [sparkline](https://github.com/htmlwidgets/sparkline)
+-   [sparkline](https://github.com/htmlwidgets/sparkline)
 
-* [formattable](https://www.displayr.com/formattable/) -- Used to create the town-by-town
-detail tables primarily because this was the only tool I found
-that would readily add a sparkline to a table.
+-   [formattable](https://www.displayr.com/formattable/) -- Used to
+    create the town-by-town detail tables primarily because this was the
+    only tool I found that would readily add a sparkline to a table.
 
 ### Some Notes on the Data Available From the Department of Public Health
 
-Sometimes there is a lag before cases and deaths end up in the daily reports.
-As a result, there tends to be a "day of the week" effect.
-For that reason, observers of the Covid-19 statistics generally focus
-on a 7-day rolling average of the daily counts.
-Some of the unusually large peaks and valleys in these charts are due
-to reporting process. The DPH has also begun producing reports based
-on the [date a sample was taken for a test](https://data.ct.gov/Health-and-Human-Services/Number-of-COVID-19-Cases-by-Date-of-Specimen-Colle/xz44-6swc) 
-and [by the date of death](https://data.ct.gov/Health-and-Human-Services/COVID-19-associated-deaths-by-date-of-death/abag-bjkj). 
-That's a more accurate way to look at the change over time, but it
-means the data for the most recent days are hard to interpret because
-some data may be "in process" and not yet reported. In these charts I 
-have used "date of report" rather than "date of sample taken" or "date of death"
-because that gives me all of the recent data that is available
-and because that is what most other data projects (such as the COVID Tracking Project
-or the New York Times) have been using.
+Sometimes there is a lag before cases and deaths end up in the daily
+reports. As a result, there tends to be a "day of the week" effect. For
+that reason, observers of the Covid-19 statistics generally focus on a
+7-day rolling average of the daily counts. Some of the unusually large
+peaks and valleys in these charts are due to reporting process. The DPH
+has also begun producing reports based on the [date a sample was taken
+for a
+test](https://data.ct.gov/Health-and-Human-Services/Number-of-COVID-19-Cases-by-Date-of-Specimen-Colle/xz44-6swc)
+and [by the date of
+death](https://data.ct.gov/Health-and-Human-Services/COVID-19-associated-deaths-by-date-of-death/abag-bjkj).
+That's a more accurate way to look at the change over time, but it means
+the data for the most recent days are hard to interpret because some
+data may be "in process" and not yet reported. In these charts I have
+used "date of report" rather than "date of sample taken" or "date of
+death" because that gives me all of the recent data that is available
+and because that is what most other data projects (such as the COVID
+Tracking Project or the New York Times) have been using.
 
-The DPH reports always include a comment that "all data are preliminary and subject
-to change." But when they make and adjustment to correct errors, as far as
-I can tell they do not go back and adjust the earlier reports. That can
-lead to a misleading report of recent changes. For example, in one note
-below they removed 70 cases because of errors on a day in which there were
-81 new cases. In the data series that I download, that shows up as having
-been 11 new cases that day, not 81, because 70 were removed. Earlier days
-are not corrected.
+The DPH reports always include a comment that "all data are preliminary
+and subject to change." But when they make and adjustment to correct
+errors, as far as I can tell they do not go back and adjust the earlier
+reports. That can lead to a misleading report of recent changes. For
+example, in one note below they removed 70 cases because of errors on a
+day in which there were 81 new cases. In the data series that I
+download, that shows up as having been 11 new cases that day, not 81,
+because 70 were removed. Earlier days are not corrected.
 
-[Note as of June 1](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6012020.pdf?la=en)
+[Note as of June
+1](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6012020.pdf?la=en)
 
-> *In Connecticut during the early months of this pandemic, it became increasingly clear that it would be necessary to track probable COVID-19 cases and deaths, in addition to laboratory-confirmed (RT- PCR) cases and deaths. This was needed to better measure the burden and impact of this disease in our communities and is now part of the national surveillance case definition for COVID-19. Today for the first time, DPH is reporting cases and deaths as “confirmed” or “probable.” Previous reports
-> reported these as a combined number. The only change today is that they are being separated to conform with CDC reporting guidance. Probable cases of COVID-19 involve persons who have not had confirmatory laboratory testing (RT-PCR) performed for COVID-19, but whose symptoms indicate they are very likely to have a COVID-19 infection. In Connecticut, most of the probable COVID-19 cases involve persons whose death certificates list COVID-19 disease or SARS-CoV-2 as a cause of death or a significant condition contributing to death.
+> \*In Connecticut during the early months of this pandemic, it became
+> increasingly clear that it would be necessary to track probable
+> COVID-19 cases and deaths, in addition to laboratory-confirmed (RT-
+> PCR) cases and deaths. This was needed to better measure the burden
+> and impact of this disease in our communities and is now part of the
+> national surveillance case definition for COVID-19. Today for the
+> first time, DPH is reporting cases and deaths as "confirmed" or
+> "probable." Previous reports reported these as a combined number. The
+> only change today is that they are being separated to conform with CDC
+> reporting guidance. Probable cases of COVID-19 involve persons who
+> have not had confirmatory laboratory testing (RT-PCR) performed for
+> COVID-19, but whose symptoms indicate they are very likely to have a
+> COVID-19 infection. In Connecticut, most of the probable COVID-19
+> cases involve persons whose death certificates list COVID-19 disease
+> or SARS-CoV-2 as a cause of death or a significant condition
+> contributing to death.
 
-[Note as of May 27](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary5272020.pdf?la=en)
+[Note as of May
+27](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary5272020.pdf?la=en)
 
->The staff at the Department of Public Health have removed 356 cases and 808 tests in the past 24 hours, which were identified as duplicates in the system, affecting both test and overall case numbers. Since yesterday, there have been 341 new positive cases, and 5,215 new tests were reported.
+> The staff at the Department of Public Health have removed 356 cases
+> and 808 tests in the past 24 hours, which were identified as
+> duplicates in the system, affecting both test and overall case
+> numbers. Since yesterday, there have been 341 new positive cases, and
+> 5,215 new tests were reported.
 
+[Note as of June
+18](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6182020.pdf)
 
-[Note as of June 18](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6182020.pdf)
+> Please note that 81 new cases were reported in the past 24-hours; 70
+> previously reported cases were removed from the total counts due to
+> correction of data errors.
 
->Please note that 81 new cases were reported in the past 24-hours; 70 previously reported cases were removed from the total counts due to correction of data errors.
+In the data portal, the number of cases reported for Montville was 381
+on June 17. As of June 18 it reports 293 cases, a reduction of 88 cases.
+That's more than the 70 cases removed. Perhaps the case counts for
+Montville were affected by inmates being moved within the Connecticut
+prison system.
 
-In the data portal, the number of cases reported for Montville was 381 on June 17.
-As of June 18 it reports 293 cases, a reduction of 88 cases. That's more than
-the 70 cases removed. Perhaps the case counts for Montville were affected by
-inmates being moved within the Connecticut prison system.
+[Note as of June 24,
+2020](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6242020.pdf)
 
-[Note as of June 24, 2020](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary6242020.pdf)
+> 1175 new test results were reported since the last report and 2770
+> previously reported PCR tests were removed due to correction of data
+> errors.
 
->1175 new test results were reported since the last report and 2770 previously reported PCR tests were removed due to correction of data errors. 
+[Note as of July 23,
+2020](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary7232020.pdf)
 
-[Note as of July 23, 2020](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary7232020.pdf)
+> \*Please note 83 new cases were reported to DPH since yesterday. In
+> addition, 74 previously reported cases were removed due to updated
+> laboratory findings of false positive results.
 
-> *Please note 83 new cases were reported to DPH since yesterday. In addition, 74 previously reported cases were removed due to updated laboratory findings of false positive results.
+*July 24, 2020*: [Governor's press
+release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-24)
 
-*July 24, 2020*: [Governor's press release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-24)
+> \*NOTE: Today's update includes a large set of data provided by an
+> out-of-state lab on tests that were conducted on Connecticut residents
+> between May 23 and July 20 and not reported to the State of
+> Connecticut until today. This data set provided by the out-of-state
+> lab includes approximately 12,000 tests, 440 of which were positive.
+> The remaining 104 positive cases in today's report are newly reported
+> cases in the day-to-day update, giving a 0.79% positivity rate for the
+> day.
 
-> *NOTE: Today’s update includes a large set of data provided by an out-of-state lab on tests that were conducted on Connecticut residents between May 23 and July 20 and not reported to the State of Connecticut until today. This data set provided by the out-of-state lab includes approximately 12,000 tests, 440 of which were positive. The remaining 104 positive cases in today’s report are newly reported cases in the day-to-day update, giving a 0.79% positivity rate for the day.
+See also [Hartford Courant, July 24,
+2020](https://www.courant.com/coronavirus/hc-news-coronavirus-daily-numbers-0724-20200724-cqtkcw4zzraenoz5kbw5wxckmy-story.html)
+I don't see any explanation of this in the Department of Public Health
+PDF, but it was clear that an increase of 544 cases in one day would be
+remarkable.
 
-See also [Hartford Courant, July 24, 2020](https://www.courant.com/coronavirus/hc-news-coronavirus-daily-numbers-0724-20200724-cqtkcw4zzraenoz5kbw5wxckmy-story.html) I don't see any explanation of this in the Department of Public Health PDF, but it was
-clear that an increase of 544 cases in one day would be remarkable.
+> On Friday, the state also announced a backlog of unreported test
+> results for Connecticut residents dating back to mid-May. Among these
+> approximately 12,000 tests, 440 were positive. On Thursday, the state
+> reported an additional 13,000 tests. With the 544 new cases, the state
+> has now recorded 48,776 coronavirus cases.
 
->On Friday, the state also announced a backlog of unreported test results for Connecticut residents dating back to mid-May. Among these approximately 12,000 tests, 440 were positive. On Thursday, the state reported an additional 13,000 tests.
-With the 544 new cases, the state has now recorded 48,776 coronavirus cases.
+[July 29, 2020 press
+release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-29)
 
-[July 29, 2020 press release](https://portal.ct.gov/Office-of-the-Governor/News/Press-Releases/2020/07-2020/Governor-Lamont-Coronavirus-Update-July-29)
+> \*In addition to the 79 recently diagnosed cases and 12,367 tests, 384
+> cases and 750 tests performed between April and June were newly
+> reported to the Department of Public Health in connection with a
+> transition to electronic reporting by an out-of-state regional
+> laboratory. For surveillance purposes, that data has been added to the
+> total case and total test counts.
 
-> *In addition to the 79 recently diagnosed cases and 12,367 tests, 384 cases and 750 tests performed between April and June were newly reported to the Department of Public Health in connection with a transition to electronic reporting by an out-of-state regional laboratory. For surveillance purposes, that data has been added to the total case and total test counts.
+[Note as of August 18, 2020 DPH daily
+update:](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary8182020.pdf)
 
-[Note as of August 18, 2020 DPH daily update:](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary8182020.pdf)
-
->*Forty new cases were reported to CT DPH since yesterday; in addition, DPH removed 52 previously reported cases because of newly identified data errors.
+> \*Forty new cases were reported to CT DPH since yesterday; in
+> addition, DPH removed 52 previously reported cases because of newly
+> identified data errors.
