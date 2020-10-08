@@ -170,7 +170,7 @@ box_score <- tribble(
   "Nursing home deaths", nursing_hm_deaths, NA, nh_previous_deaths
 ) %>% 
    mutate( yesterday = map_chr(yesterday, box_fmt),
-         `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", scales::comma(today)))
+         `week ago` = map_chr(`week ago`, box_fmt), today = ifelse(is.na(today), "", scales::comma(today))) 
 ```
 
 ```{r format-box-score-table, echo = FALSE}
