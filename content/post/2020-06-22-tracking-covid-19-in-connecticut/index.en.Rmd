@@ -924,10 +924,10 @@ town_summary <- dph_towns %>%
   # group_rows("group1", 1, 2) %>%
   # group_rows("group2", 3,3) %>%
   htmltools::HTML() %>%
-  shiny::div() %>%
+  shiny::div() %>% 
   sparkline::spk_add_deps()
 # county_summary
-town_summary
+town_summary 
 ```
 
 ### Links to Summary Page for Each Connecticut County
@@ -1197,3 +1197,11 @@ update:](https://portal.ct.gov/-/media/Coronavirus/CTDPHCOVID19summary8182020.pd
 > \*Forty new cases were reported to CT DPH since yesterday; in
 > addition, DPH removed 52 previously reported cases because of newly
 > identified data errors.
+
+[Note as of October 12,
+2020:](https://www.fox61.com/article/news/health/coronavirus/governor-lamont-covid-19-update-connecticut/520-57baa88a-fbe8-47f3-9d06-600b2222d96a)
+
+> As of Monday, there were additional 1,066 positive cases from Friday.
+> That included over 270 positive cases out of 23,130 tests conducted
+> between September 26 and October 8 that are newly reported as part of
+> catch-up reporting.
