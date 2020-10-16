@@ -927,7 +927,7 @@ town_summary <- dph_towns %>%
   shiny::div() %>% 
   sparkline::spk_add_deps()
 # county_summary
-town_summary 
+town_summary
 ```
 
 ### Links to Summary Page for Each Connecticut County
