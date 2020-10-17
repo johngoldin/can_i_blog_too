@@ -210,10 +210,10 @@ box_score %>%
 
 ```
 
-The Department of Public Health is no longer producing the daily PDF
-report on Saturday or Sunday. Also the format for reporting nursing home
-cases and deaths has changed, and I have not yet modified my code to
-process the new format. So the nursing home data is not up to date.
+There is a new [data tracker
+map](https://portal.ct.gov/Coronavirus/COVID-19-Data-Tracker) that
+displays the rate of cases in the last two weeks by town. It is
+color-coded to indicate where cases are most prevalent.
 
 [My post on Covid-19 back in
 March](https://www.johngoldin.com/2020/03/covid-19-cases-in-connecticut/)
