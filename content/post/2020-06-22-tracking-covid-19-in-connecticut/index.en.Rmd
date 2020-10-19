@@ -232,7 +232,7 @@ infrastructure for this post as well. This post is more oriented toward
 tracking the current status of the epidemic in Connecticut.
 
 ```{r 'new-cases-plot', echo = FALSE, eval = TRUE}
-## This imaged will be saved in the /post/*_files/ directory
+## This imaged will be saved in the /post/*_files/ directory 
 ## Use echo = FALSE if you want to hide the code for making the plot
 exec_orders <- tibble(
   date = as.Date(c("2020-03-10", "2020-03-17", "2020-03-23", "2020-03-26", "2020-04-11", "2020-04-20", "2020-05-20", "2020-06-01", "2020-06-17")),
