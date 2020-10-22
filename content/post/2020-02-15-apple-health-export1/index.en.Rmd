@@ -331,7 +331,7 @@ The first task is to figure out when I was outside of my home time zone.
 To do that I need a data frame that shows me the time when
 I arrived in another time zone.
 I created a table that contains the date and time my
-watch switched to a new time zone. 
+watch switched to a new time zone.
 In my case that means identifying airplane trips
 that landed in a different time zone. 
 As a bonus, I will describe in detail how I
