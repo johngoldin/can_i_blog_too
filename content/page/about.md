@@ -7,7 +7,7 @@ date: "2018-07-05"
 [![Netlify Status](https://api.netlify.com/api/v1/badges/64a2f27e-a4c8-4604-a400-b1b4c7f9d3cd/deploy-status)](https://app.netlify.com/sites/distracted-swanson-8d1a85/deploys)
 
 Until 2011 I was the Director of Institutional Research at Yale University. 
-I now call myself sem-retired because I still work for Yale about ten hours a week.
+I now call myself sem-retired because I still work for Yale a few hours a week.
 No one outside of academia knows what institutional research means and relatively
 few inside academia. At Yale institutional research provides data and analysis
 to support the administration, especially the Provost.
