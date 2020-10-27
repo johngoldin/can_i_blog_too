@@ -566,7 +566,7 @@ deaths from Covid-19.
 # Osborn Correctional Institution (inmate population 1322)  Somers
 # Robinson Correctional Institution (inmate population 1449) Enfield
 # Willard-Cybulski Correctional Institution (inmate population 1142) Enfield
-# York Correctional Institution (inmate population 898) Niantic (women)
+# York Correctional Institution (inmate population 898) Niantic (women) 
 ```
 
 ## Prisons
@@ -1018,6 +1018,16 @@ in many parts of the country. <br/>
 
 -   [CTData Collaborative](https://www.ctdata.org/covid19) also provides
     data on Covid-19 and its impact in Connecticut.
+
+-   [New Haven Covid Site](https://covid19.newhavenct.gov)
+
+-   [Connecticut COVID-19 Wastewater
+    Project](https://covidtrackerct.com/wastewater-report/) Report on
+    test results on New Haven area sewage.
+
+-   [Yale SARS-CoV-2 Genomic Surveillance
+    Initiative](https://covidtrackerct.com/portfolio/current/) Genomic
+    sequencing of some cases in Connecticut.
 
 -   [COVID Tracking Project](https://covidtracking.com) The data for
     Figure \@ref(fig:p-states-map) is from [COVID Tracking
