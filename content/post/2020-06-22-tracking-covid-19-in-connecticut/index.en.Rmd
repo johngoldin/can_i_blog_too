@@ -566,7 +566,7 @@ deaths from Covid-19.
 # Osborn Correctional Institution (inmate population 1322)  Somers
 # Robinson Correctional Institution (inmate population 1449) Enfield
 # Willard-Cybulski Correctional Institution (inmate population 1142) Enfield
-# York Correctional Institution (inmate population 898) Niantic (women) 
+# York Correctional Institution (inmate population 898) Niantic (women)
 ```
 
 ## Prisons
