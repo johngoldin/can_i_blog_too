@@ -235,7 +235,7 @@ tracking the current status of the epidemic in Connecticut.
 ## This imaged will be saved in the /post/*_files/ directory 
 ## Use echo = FALSE if you want to hide the code for making the plot
 exec_orders <- tibble( 
-  date = as.Date(c("2020-03-10", "2020-03-17", "2020-03-23", "2020-03-26", "2020-04-11", "2020-04-20", "2020-05-20", "2020-06-01", "2020-06-17", "2020-10-08", "2020-11-03")), 
+  date = as.Date(c("2020-03-10", "2020-03-17",  "2020-03-23", "2020-03-26", "2020-04-11", "2020-04-20", "2020-05-20", "2020-06-01", "2020-06-17", "2020-10-08", "2020-11-03")), 
   label = c("prohibit large\ngatherings", "cancel\nclasses", "restrict\nbusiness", "5 or\nfewer",
             "covid-19\ndeath\nchanged", "masks\nrequired",
             "phase 1\nreopen", "hair\nreopen", "phase 2\nreopen", "phase 3\nreopen", "phase 2\nreturn"),
