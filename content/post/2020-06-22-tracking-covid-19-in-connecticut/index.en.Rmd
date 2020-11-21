@@ -142,7 +142,7 @@ nursing_previous_date <- nursing_previous_date$date[2]
 nursing_hm_cases <- dph_nursing_cases %>% filter(date == recent_nursing_date) %>% 
   select(nh_cases) %>% pluck(1, .default = NA) %>% sum(na.rm = TRUE)
 nh_previous_cases <-  nursing_hm_cases - dph_nursing_cases %>% filter(date == nursing_previous_date) %>% 
-  select(nh_cases) %>% pluck(1, .default = NA) %>% sum(na.rm = TRUE)
+  select(nh_cases) %>% pluck(1, .default = NA) %>% sum(na.rm = TRUE) 
 nursing_hm_deaths <- dph_nursing_cases %>% filter(date == recent_nursing_date) %>% 
   select(nh_deaths) %>% pluck(1, .default = NA) %>% sum(na.rm = TRUE) 
 nh_previous_deaths <-  nursing_hm_deaths - dph_nursing_cases %>% filter(date == nursing_previous_date) %>% 
