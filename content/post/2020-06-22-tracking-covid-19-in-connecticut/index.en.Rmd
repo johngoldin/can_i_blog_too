@@ -183,8 +183,9 @@ box_score %>%
                   yesterday = paste0(round(test_rate_day * 100, 1.1), "%"), `week ago` = paste0(round(test_rate_week * 100, 1.1), "%"), .after = 4) %>% 
   gt() %>% 
   tab_header(title = "Latest Data on Covid-19 in Connecticut",
-             subtitle = md(paste0('Should correspond to [', dph_reports$name[1],
-                                  '](', dph_reports$url[1], ') from the Department of Public Health'))) %>% 
+             # subtitle = md(paste0('Should correspond to [', dph_reports$name[1],
+             #                      '](', dph_reports$url[1], ') from the Department of Public Health'))) %>% 
+             subtitle = md(paste("Data as of ", format(max(dph_counties$date, na.rm = TRUE), "%B %d, %Y")))) %>% 
   cols_label(
     `Connecticut Covid-19` = html(""),
     today = html("total<br>to date"),
