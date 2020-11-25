@@ -149,7 +149,7 @@ nh_previous_deaths <-  nursing_hm_deaths - dph_nursing_cases %>% filter(date == 
   select(nh_deaths) %>% pluck(1, .default = NA) %>% sum(na.rm = TRUE)
 # use: sprintf("%+3d %%", x)
 box_fmt <- function(x) {
-  case_when(
+  case_when( 
     (is.na(x) | is.null(x) | (length(x) == 0)) ~ " ",
     x < 0 ~ scales::comma(x),
     x > 0 ~ scales::comma(x, prefix = "+"),
