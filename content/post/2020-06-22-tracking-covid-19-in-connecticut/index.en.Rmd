@@ -18,7 +18,7 @@ output:
     fig_width: 7 
     out.width: "100%" 
     fig.align: "center"
-    fig.asp: 0.618
+    fig.asp: 0.618 
 editor_options:
   markdown: 
     wrap: 72
