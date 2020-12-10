@@ -1041,6 +1041,8 @@ in many parts of the country. <br/>
 -   [rt.live](https://rt.live) I have made heavy use of this site in
     Figure \@ref(fig:p-rt-map) so I'll link to it here as well.
 
+-  [covidestimd Covid-19 Nowcasting](https://covidestim.org)
+
 -   [Covid ActNow](https://covidactnow.org/?s=61890) I only learned
     about this project today, but it seems quite interesting.
 
