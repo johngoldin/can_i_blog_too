@@ -1035,7 +1035,7 @@ in many parts of the country. <br/>
     Project](https://covidtracking.com/data) and is used under a
     Creative Commons CC BY-NC-4.0 license.
 
--   [New York Times Tracking the
+-   [New York Times Tracking the 
     Coronavirus](https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html)
 
 -   [rt.live](https://rt.live) I have made heavy use of this site in
