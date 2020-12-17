@@ -123,7 +123,7 @@ test_rate_day <- ((dph_total %>% filter(date == recent_date) %>%
                    select(confirmedcases) %>% pluck(1, .default = NA))) / 
   ((dph_total %>% filter(date == recent_date) %>% 
       select(tests) %>% pluck(1, .default = NA)) -
-     (dph_total %>% filter(date == yesterday) %>% 
+     (dph_total %>% filter(date == yesterday) %>%
         select(tests) %>% pluck(1, .default = NA))) 
 test_rate_week <- ((dph_total %>% filter(date == recent_date) %>% 
                  select(confirmedcases) %>% pluck(1, .default = NA)) -
