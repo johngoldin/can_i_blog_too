@@ -10,7 +10,7 @@ subtitle: "Summary of Daily Connecticut Report"
 slug: covid-19-in-Connecticut
 type: post
 draft: no
-output: 
+output:
   blogdown::html_page:
     # figure parameters based on recommendation in Hadley's book
     toc: yes
