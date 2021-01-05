@@ -15,7 +15,7 @@ output:
     # figure parameters based on recommendation in Hadley's book
     toc: yes
     number_sections: false
-    fig_width: 7 
+    fig_width: 7
     out.width: "100%" 
     fig.align: "center"
     fig.asp: 0.618 

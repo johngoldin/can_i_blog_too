@@ -15,7 +15,7 @@ pygmentsCodefencesGuessSyntax = true
 googleAnalytics = "UA-92008736-2"
 gravatarHash = "f7dd8b52bc092b4e50e9324381b02d67"
 disqusShortname = "johngoldin" # Optional, enable Disqus integration
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$",  "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 # next two lines suggested for seo by: https://keithpblog.org/post/hugo-website-seo/
 enableRobotsTXT = true
 canonifyURLs = true
