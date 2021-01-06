@@ -3,7 +3,7 @@ title: Tracking Covid-19 in Connecticut
 author: John Goldin
 date: '2020-06-22'
 categories:
-  - COVID19
+  - COVID19 
 tags:
   - COVID19 
 subtitle: "Summary of Daily Connecticut Report"
