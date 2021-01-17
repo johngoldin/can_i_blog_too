@@ -3,7 +3,7 @@ title: Tracking Covid-19 in Connecticut
 author: John Goldin
 date: '2020-06-22'
 categories:
-  - COVID19 
+  - COVID19
 tags:
   - COVID19
 subtitle: "Summary of Daily Connecticut Report"
@@ -496,7 +496,7 @@ is with the increase of cases in some of the southern states.
 #```{r deaths-by-age2, echo = FALSE, out.width = '50%', fig.show = 'hold', fig.cap = "Relationship of Age to Covid-19 Deaths andCases", fig.align = "default"}
 ggplot(data = dph_age %>% filter(date == max(date)), 
        aes(x = agegroups, y = deaths)) + 
-  geom_col() + 
+  geom_col() +
   labs(title = "Covid-19 Deaths in Connecticut by Age") +
   xlab("Age Groups") + ylab(NULL) +
   scale_y_continuous(labels = scales::comma) +
