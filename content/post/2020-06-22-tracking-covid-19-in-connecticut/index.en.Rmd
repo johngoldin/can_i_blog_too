@@ -425,7 +425,7 @@ R<sub>t</sub> is less than 1, it is decreasing. See the site
 value for R<sub>t</sub>. The site is described in [this
 article](https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate)
 at Vox.com. I don't claim to have the expertise to evaluate the quality
-of the calculation of R at the [rt.live](https://rt.live/) site, but it
+of the calculation of R at the [rt.live](https://rt.live/) site, but it 
 seems to jive with other information about the pattern of the epidemic
 among states.
 
