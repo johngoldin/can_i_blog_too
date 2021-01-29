@@ -393,7 +393,7 @@ print(p_new_cases)
 
 <br/><br/><br/> 
 
-```{r p-rt-live, echo = FALSE, fig.asp = 0.3, fig.cap = "Estimated R<sub>t</sub>"} 
+```{r p-rt-live, echo = FALSE, fig.asp = 0.3, fig.cap = "Estimated R<sub>t</sub>"}
 print(p_rt_live)
 ```
 
