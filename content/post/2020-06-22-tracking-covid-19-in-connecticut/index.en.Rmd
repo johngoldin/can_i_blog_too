@@ -512,7 +512,7 @@ ggplot(data = dph_age %>% filter(date == max(date)),
   labs(title = "Covid-19 Cases by Age in Connecticut per 100K Population") +
   xlab("Age Groups") + ylab("Cases per 100K of Population") +
   scale_y_continuous(labels = scales::comma) +
-  theme_minimal() + theme(panel.grid.major.x = element_blank())
+  theme_minimal() + theme(panel.grid.major.x = element_blank()) 
 ```
 :::
 
