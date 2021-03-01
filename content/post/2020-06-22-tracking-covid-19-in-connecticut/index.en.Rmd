@@ -358,7 +358,7 @@ p_states_map <- ggplot(data = covid19_project %>%
                                      select(state = region, above_one),
                                    by = "state"), 
                    aes(x = date, y = renw_cases_per100k)) + 
-  xlab(NULL) + ylab(NULL) + 
+  xlab(NULL) + ylab(NULL) +  
   theme_bw() + 
   geom_line(size = 1, aes(colour = above_one)) + 
   theme(legend.position = "left") +
