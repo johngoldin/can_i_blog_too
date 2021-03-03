@@ -352,8 +352,8 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
 
 ## Tracking the Virus in Connecticut
 
-```{r covid19_project_map, echo = FALSE}
-p_states_map <- ggplot(data = covid19_project %>% 
+```{r cdc_covid_map, echo = FALSE}
+p_states_map <- ggplot(data = cdc_covid %>% 
                          left_join(rt_live %>% 
                                      select(state = region, above_one),
                                    by = "state"), 
@@ -369,7 +369,7 @@ p_states_map <- ggplot(data = covid19_project %>%
   theme(axis.text.x = element_text(size=5)) +
   labs(title = "New Cases per 100K of Population (7-day rolling average)",
        subtitle = expression(paste("Color of lines based on most recent estimate of ", R[t], " ")),
-       caption = "Source: Covid19 Tracking Project, geofacet package",
+       caption = "Source: CDC, geofacet package",
        colour = expression(paste("Recent ", R[t]))) +
   facet_geo(~ state)
 ```
