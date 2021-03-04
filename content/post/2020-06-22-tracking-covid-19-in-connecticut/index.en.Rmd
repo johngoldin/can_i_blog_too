@@ -12,7 +12,7 @@ type: post
 draft: no
 output: 
   blogdown::html_page:
-    # figure parameters based on recommendation in Hadley's book
+    # figure parameters based on recommendation in Hadley's book 
     toc: yes
     number_sections: false
     fig_width: 7
