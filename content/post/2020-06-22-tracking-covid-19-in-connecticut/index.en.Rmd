@@ -21,7 +21,7 @@ output:
     fig.asp: 0.618  
 editor_options:
   markdown: 
-    wrap: 72
+    wrap: 72 
 ---
 
 ```{r setup, include=FALSE, echo = FALSE} 
