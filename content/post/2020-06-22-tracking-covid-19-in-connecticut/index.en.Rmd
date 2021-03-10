@@ -40,7 +40,7 @@ library(sparkline)
 library(geofacet) # https://hafen.github.io/geofacet/
 library(sf, quietly = TRUE)
 options(tigris_use_cache = TRUE)
-library(tigris, quietly = TRUE)
+library(tigris, quietly = TRUE) 
 library(tidycensus, quietly = TRUE)
 library(viridis, quietly = TRUE)
 library(ggrepel) 
