@@ -44,7 +44,7 @@ library(tigris, quietly = TRUE)
 library(tidycensus, quietly = TRUE)
 library(viridis, quietly = TRUE)
 library(ggrepel) 
-options(tigris_class = "sf")
+options(tigris_class = "sf") 
 library(lubridate, quietly = TRUE)
 library(janitor)
 library(fuzzyjoin) # for interval_left_join
