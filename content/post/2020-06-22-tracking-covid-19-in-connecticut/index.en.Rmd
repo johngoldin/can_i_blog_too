@@ -8,7 +8,7 @@ tags:
   - COVID19
 subtitle: "Summary of Daily Connecticut Report"
 slug: covid-19-in-Connecticut
-type: post
+type: post 
 draft: no
 output: 
   blogdown::html_page:
