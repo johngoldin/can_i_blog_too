@@ -49,7 +49,7 @@ library(lubridate, quietly = TRUE)
 library(janitor)
 library(fuzzyjoin) # for interval_left_join
 library(broom) 
-library(RSocrata)
+library(RSocrata) 
 library(RcppRoll) 
 library(gt)
 library(formattable)  
