@@ -17,10 +17,92 @@ draft: yes
 ---
 
 This is a follow-up to an [earlier  post](https://johngoldin.com/2020/02/apple-health-export-part-i/) 
-exploring the Apple Health Export. The earier post describes how
+exploring the Apple Health Export. The earlier post describes how
 to export the Health data from the iPhone and import it into R.
 
 In this post I will look at issues of the stability of how some
 summary measures are defined and look for other changes in the export.
 
 ### Resting Heart Rate
+
+Resting Heart Rate was [added](https://www.apple.com/newsroom/2017/09/apple-watch-series-3-features-built-in-cellular-and-more/) 
+to the Health app in Watch OS 4.
+
+The [press release for OS 7](https://www.apple.com/newsroom/2020/06/watchos-7-adds-significant-personalization-health-and-fitness-features-to-apple-watch/)
+makes no mention of changes in Resting Heart Rate.
+
+WatchOS 7 introduced [sleep tracking](https://discussions.apple.com/thread/251819127).
+
+Users on Apple Community puzzled by the observation of
+[changes in Resting Heart Rate](https://discussions.apple.com/thread/251819127) 
+after updating to OS7.
+
+### VO2 Max
+
+[VO2 Max](https://en.wikipedia.org/wiki/VO2_max) is the rate of oxygen
+consumption during heavy exercise. Direct measures involve excercising
+while wearing a face mask that measures oxygen and carbon dioxide concentration 
+of the inhaled and exhaled air. 
+
+Obviously that's  not something your Apple Watch can do. Instead, Apple
+attempts to estimate
+
+[press release for Series 6 and Watch OS 7](https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/)  introduced low range VO2 Max
+
+> Apple Watch already estimates average and higher levels of VO2 max during vigorous outdoor walks, runs, or hikes, which many runners and other athletes monitor to improve performance.
+Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical heart sensor, GPS, and the accelerometer, to estimate lower levels, too. [https://www.apple.com/newsroom/2020/12/cardio-fitness-notifications-are-available-today-on-apple-watch/]
+
+[Various VO2 Max estimates at home](https://9to5strength.com/vo2-max-testing/)
+https://www.runnersblueprint.com/vo2-max/
+
+### What Happened to My Million Rows of Data?
+
+When I did my [first  post](https://johngoldin.com/2020/02/apple-health-export-part-i/) 
+on the Apple Health Export, I had a total of 4,012,907 rows of
+data. My most recent export has only 3,026,367 so about a
+million rows smaller even though I have added a whole additional
+year of data. What gives?
+
+Fortunately I had an archive of the dataset that I used from a year
+earlier. I did a `full_join` of the two datasets by start time, 
+end time, and type. It was very easy to spot the source of the change.
+At some point during the last year Apple changed how the 
+export handles workouts. Data outside of workouts is unchanged.
+For workouts older than 90 days, the export now summarizes the
+items that are frequently measured: Active Energy Burned, Basal Energy Burned, Heart Rate, and Distance Walking or Running. The two energy
+items and distance are each 
+summed over a five minute period. Heart rate is the average
+over a ten minute period.  
+Normally heart rate is reported as a whole number, but in
+the summarized workout data it is now displayed to one decimal point.
+
+On a typical 65-minute outdoor walk done within the last three months
+the export has 1,515 Active Energy and Basal Energy measures, 
+658 Heart Rate readings, and 1,493 Distance Walking Running measures.
+For the same walk done more than three months ago, there are
+only 15 Active and Basal Energy measures, 7 Heart Rate, and
+13 Distance. There are about one-tenth as many measures 
+in the older workouts and
+each value is a summary for a period of time. Workouts generate
+a very large number of measurements so summarizing those
+measurements can make a big difference in the size of the exported
+dataset.
+
+Does this matter? Summarizing some of the workout detail seems reasonable.
+Although one might imagine a hypothetical case where the detail in 
+the older workouts would be needed, it doesn't seem like
+a practical problem. I write crazy blog posts like this so
+in my case I may try to archive a copy of the data every 90 days,
+just in case.
+
+I wondered whether the details were removed from the Health Kit data
+on my phone or only in the Health Export. When I use the Fitness
+app to look at old workouts I can still see all of the detail of the
+heart rate measurements. It's clear that a summary of
+workout data is created for the Health Export, but the
+actual data remains on the iPhone. So all of the detail is still
+there, it's just not included in the export. Using the premium
+version of the [Heart Analyzer app](https://apps.apple.com/us/app/heart-analyzer/id1006420410) (which is only $1.99),
+one can clearly see that the original heart rate data is
+available even for older months that are summarized in the
+Health Export.
