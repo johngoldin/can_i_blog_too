@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE,   message=FALSE, #out.width = 
 # subtitle: "Updated `r format(Sys.time(), '%a %d %b %Y')`"
 library(tidyverse, quietly = TRUE)
 library(knitr, quietly = TRUE) 
-library(scales, quietly = TRUE)
+library(scales, quietly = TRUE) 
 library(kableExtra, quietly = TRUE) 
 library(sparkline)
 library(geofacet) # https://hafen.github.io/geofacet/
@@ -99,7 +99,7 @@ yesterday <- recent_date - days(1)
 today_cases <- dph_total %>% filter(date == recent_date) %>% 
   select(cases) %>% pluck(1, .default = NA)
 yesterday_cases <- today_cases - dph_total %>% filter(date == yesterday) %>% 
-  select(cases) %>% pluck(1, .default = NA)
+  select(cases) %>% pluck(1, .default = NA) 
 week_ago_cases <-  today_cases - dph_total %>% filter(date == week_ago) %>% 
   select(cases) %>% pluck(1, .default = NA)
 today_deaths <- dph_total %>% filter(date == recent_date) %>% 

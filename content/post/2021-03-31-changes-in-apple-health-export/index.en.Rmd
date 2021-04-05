@@ -16,6 +16,43 @@ image: ''
 draft: yes
 ---
 
+```{r libraries, echo = FALSE, message = FALSE}
+library(tidyverse)
+library(lubridate)
+library(kableExtra)
+library(janitor)
+library(scales)
+library(scico)       ## scico color palettes(http://www.fabiocrameri.ch/colourmaps.php) in R 
+library(ggtext)      ## add improved text rendering to ggplot2
+library(ggforce)     ## add missing functionality to ggplot2
+library(ggdist)      ## add uncertainity visualizations to ggplot2
+# library(magick)      ## load images into R
+library(patchwork)   ## combine outputs from ggplot2
+
+path_saved_export <- "~/Dropbox/Programming/R_Stuff/john_vitals/Apple-Health-Data/"
+path_to_healthexport1 <- "~/Documents/R_local_repos/applehealth1/R/"
+# save(vo2max, resting_hr, file = paste0(path_saved_export, "vo2max_resting_hr.RData"))
+load(paste0(path_saved_export, "vo2max_resting_hr.RData"))
+# load(paste0(path_saved_export,"save_processed_export.RData"))
+```
+```{r setup_ggplot, echo = FALSE}
+# cribbed directly from: https://github.com/Z3tt/OutlierConf2021/blob/main/R/OutlierConf2021_ggplotWizardry_HandsOn.Rmd
+## change global theme settings (for all following plots)
+# open sans downloaded from https://fonts.google.com/specimen/Open+Sans?preview.text_type=custom
+theme_set(theme_minimal(base_size = 12, base_family = "Open Sans")) #originally 12
+## modify plot elements globally (for all following plots)
+theme_update(
+  axis.ticks = element_line(color = "grey92"),
+  axis.ticks.length = unit(.5, "lines"),
+  panel.grid.minor = element_blank(),
+  legend.title = element_text(size = 12),
+  legend.text = element_text(color = "grey30"),
+  plot.title = element_text(size = 14, face = "bold"),  # originally 18
+  plot.subtitle = element_text(size = 10, color = "grey30"), # originally 12
+  plot.caption = element_text(size = 9, margin = margin(t = 15))
+)
+```
+
 This is a follow-up to an [earlier  post](https://johngoldin.com/2020/02/apple-health-export-part-i/) 
 exploring the Apple Health Export. The earlier post describes how
 to export the Health data from the iPhone and import it into R.
@@ -25,27 +62,253 @@ summary measures are defined and look for other changes in the export.
 
 ### Resting Heart Rate
 
-Resting Heart Rate was [added](https://www.apple.com/newsroom/2017/09/apple-watch-series-3-features-built-in-cellular-and-more/) 
-to the Health app in Watch OS 4.
+According to [Wikipedia](https://en.wikipedia.org/wiki/Heart_rate#Resting_heart_rate):
 
-The [press release for OS 7](https://www.apple.com/newsroom/2020/06/watchos-7-adds-significant-personalization-health-and-fitness-features-to-apple-watch/)
-makes no mention of changes in Resting Heart Rate.
+> resting heart rate … is defined as the heart rate when a person is awake, 
+> in a neutrally temperate environment, and has not been subject to any recent 
+> exertion or stimulation, such as stress or surprise. 
 
-WatchOS 7 introduced [sleep tracking](https://discussions.apple.com/thread/251819127).
+But note the passive voice. In practice I have not found clarity about
+the conceptual definition of resting heart rate. One must
+be aware of the *operational definition*, that is, how is the measurement
+actually made. Let's start with the national norms compiled by the CDC.
+They conduct an annual survey called NHANES 
+(National Health and Nutrition Examination Survey). NHANES
+includes information on pulse rate as part of their
+measurement of blood pressure. The protocol for collecting data as
+for NHANES is specified in exhaustive detail in their 
+[physician procedures manual](https://wwwn.cdc.gov/Nchs/Data/Nhanes/2015-2016/Manuals/2015_Physician_Examination_Procedures_Manual.pdf).
+For individuals eight years or older, pulse is taken as
+part of the procedure for measuring blood pressure. First there are elaborate
+instructions on how to measure for the size of blood pressure cuff needed 
+and how to place the cuff. The next step is the measurement of pulse:
 
-Users on Apple Community puzzled by the observation of
-[changes in Resting Heart Rate](https://discussions.apple.com/thread/251819127) 
-after updating to OS7.
+> The pulse is taken after the SP [subject person] has been seated and resting
+> quietly for at least 3 minutes. Position the arm with the right palm 
+> upward. Palpate the radial pulse on the lateral flexor surface of the wrist
+> with the pads of the index and middle figure. The pulse is counted for
+> 30 seconds and the number of beats in a 30-second period is entered in
+> the heart rate field.
+
+So the national norms for heart rate are based on sitting quietly for at least
+3 minutes and then a physician takes your pulse. That procedure leads to 
+articles such as [Relation of Higher Resting Heart Rate to Risk of Cardiovascular Versus Noncardiovascular Death](https://pubmed.ncbi.nlm.nih.gov/28132682/)  
+which used NHANES data to examine the association of higher resting heart rate with
+mortality. 
+
+New devices
+such as Fitbit or Apple Watch make the measurement procedure used
+by NHANES seem like the horse and buggy days. There may be hundreds of
+heart rate readings during the day. Which one is interpreted as being
+the resting heart rate?
+
+### How does the Apple Watch measure resting heart rate?
+
+Here's what the Apple [developer documentation](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/2867756-restingheartrate) 
+says about resting heart rate:
+
+> Resting heart rate is commonly correlated with overall cardiovascular health. It is an estimation of the user’s lowest heart rate during periods of rest, and is intended to be used as a medically relevant metric. A resting heart rate sample is different than a sedentary heart rate sample (that is, a sample using the heartRate identifier with a HKHeartRateMotionContext.sedentary motion context). For example, if the user finishes a high-intensity workout, and then sits down to rest, the next heart rate sample may be marked as a sedentary sample, but it is still much higher than the user’s actual resting heart rate. To produce more accurate results, the system estimates the resting heart rate by analyzing sedentary heart rate samples throughout the day.
+
+> Because the resting heart rate estimates become more accurate as the day progresses, the system may delete earlier samples and replace them with better estimates. Apple Watch replaces only the samples written by the watch for the current or previous day.
+
+That text is fairly long and seems very concrete, 
+but in it is not so clear what it means in practice. I am going
+to dive deep into my own data to try to observe what is actually happening with
+the measurement of resting heart rate.
+
+```{r hr_boundaries, echo = FALSE, message = FALSE}
+# resting_hr <- health_df %>% filter(sourceName == "Watch") %>% 
+#   filter(type == "RestingHeartRate")
+
+dup_resting <- resting_hr %>% count(local_date) %>% filter(n > 1) %>% arrange(desc(local_date))
+
+hr_versions <- unique(resting_hr %>% filter(str_detect(sourceName, "Watch"), !is.na(sourceVersion)) %>% 
+                     select(sourceVersion)) %>% 
+                     separate(sourceVersion, into = c("major", "minor", "subminor"), remove = FALSE) %>% 
+  mutate(subminor = ifelse(is.na(subminor), "0", subminor)) %>% 
+  arrange(sourceVersion)
+
+hr_boundaries <- resting_hr %>% 
+  left_join(hr_versions, by = "sourceVersion") %>% 
+  arrange(sourceVersion, local_start, creationDate) %>% 
+  group_by(sourceVersion, major, minor, subminor) %>% 
+  summarise(first_date = first(local_start), last_date = last(local_start))
+
+hr_boundaries <- hr_boundaries %>% 
+  ungroup() %>% 
+  arrange(first_date) %>% 
+  mutate(test = lag(major),
+         test2 = lead(major),
+    level = case_when(
+    major != lag(major) ~ 3,
+    minor != lag(minor) ~ 2,
+    subminor != lag(subminor) ~ 1,
+    TRUE ~ NA_real_
+  ))
+min_date <- min(resting_hr$local_date[resting_hr$type == "RestingHeartRate"])
+max_date <- max(resting_hr$local_date[resting_hr$type == "RestingHeartRate"])
+min_resting_heart_rate <- min(resting_hr$value[resting_hr$type == "RestingHeartRate"])
+half_year_sequence <- seq(floor_date(min_date, "year"), ceiling_date(max_date, "year"), by = "quarter")
+half_year_sequence <- half_year_sequence[month(half_year_sequence) %in% c(1, 7)]
+
+p_noversion1 <- ggplot(data = resting_hr, aes(x = local_date, y = value)) +
+  ggtitle("Resting Heart Rate by Day") +
+  geom_point(size = 0.5, alpha = .6) +
+  scale_x_date(limits = c(min_date + 0, max_date - 0), 
+               date_labels = "%b %Y",
+               breaks = half_year_sequence)  + 
+  scale_y_continuous(breaks = seq(45, 65, by = 5), 
+                     limits = c(min_resting_heart_rate, NA)) +
+  labs(
+    title = 'Resting Heart Rate by Day', 
+    subtitle = 'Data from Apple Watch via Health Export',
+    x = NULL,
+    y = 'Resting Heart Rate'
+  )
+# ggsave("temp.png", p_noversion1, width = 9, height = 8, device = cairo_pdf, dpi = "retina")
+
+#  as.hexmode(col2rgb("seagreen3"))   # #43cd80
+
+p_noversion2 <- p_noversion1 +
+  geom_smooth(fill = "lightgrey")
+p_version0 <- p_noversion1 +
+  labs(subtitle = '<i style="color:#28A87D;">Vertical lines show major and minor versions of Watch OS</i>') +
+  theme(
+    plot.subtitle = ggtext::element_markdown())
+p_version1 <- p_version0 +
+  geom_vline(data = hr_boundaries %>% filter(level == 3), 
+             aes(xintercept = as_date(first_date)), size = 1, colour = "seagreen3", alpha = 0.6) +
+  geom_richtext(data = hr_boundaries %>% filter(level == 3),
+            aes(label = paste0("**v", sourceVersion, "**"), x = as_date(first_date), y = Inf), 
+            colour = "seagreen3", alpha = 0.6, hjust = 0, vjust = 1, nudge_x = 5, size = 3.5) +
+  geom_vline(data = hr_boundaries %>% filter(level == 2), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = "seagreen2", alpha = 0.6)
+p_version2 = p_version1 + geom_smooth(fill = "lightgrey")
+big_change <- hr_boundaries$first_date[hr_boundaries$sourceVersion == "7.0"] %>% as_date()
+p_version3 <- p_version1 +
+  geom_smooth(data = resting_hr %>% filter(local_date < big_change)) +
+  geom_smooth(data = resting_hr %>% filter(local_date >= big_change)) 
+
+
+p_tod1 <- ggplot(data = resting_hr, aes(x = local_date, y = 
+                                  as.integer(difftime(local_end, floor_date(local_end, "day"), unit = "secs")) %>% hms::hms())) +
+  geom_point(size = 0.5, alpha = 0.6) + 
+  geom_vline(data = hr_boundaries %>% filter(level == 3), 
+             aes(xintercept = as_date(first_date)), size = 1, colour = "seagreen3", alpha = 0.6) +
+  geom_richtext(data = hr_boundaries %>% filter(level == 3),
+            aes(label = paste0("**v", sourceVersion, "**"), x = as_date(first_date), y = Inf), 
+            colour = "seagreen3", alpha = 0.6, hjust = 0, vjust = 1, nudge_x = 5, size = 3.5) +
+  geom_vline(data = hr_boundaries %>% filter(level == 2), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = "seagreen2", alpha = 0.6) +
+  geom_vline(data = hr_boundaries %>% filter(level == 1), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = "seagreen1", alpha = 0.6, linetype = "dotted") +
+  scale_x_date(limits = c(min_date + 0, max_date - 0), 
+               date_labels = "%b %Y",
+               breaks = half_year_sequence)  + 
+  scale_y_time(labels = function(l) strftime(l, '%H:%M')) +  # thanks to https://stackoverflow.com/a/50173616/5828243
+  labs(
+    title = 'Resting Heart Rate endDate Shown as Time of Day' , 
+    subtitle = '<i style="color:#28A87D;">Vertical lines show major and minor versions of Watch OS</i>',
+    x = NULL,
+    y = 'Resting Heart Rate endDate (hours:minutes)'
+  ) +
+  theme(
+    plot.subtitle = ggtext::element_markdown(),
+    plot.title = ggtext::element_markdown())
+# use the line below to examine outliers
+# resting_hr %>%
+#   filter(sourceVersion > "7.", 
+#          as.integer(difftime(local_end, floor_date(local_end, "day"), unit = "secs")) > hms::hms(0,0,21)) %>%
+#   select(value, local_start, local_end, creationDate, sourceVersion) %>%
+#   View()
+# p_tod1 + geom_point(data = resting_hr %>% filter(sourceVersion > "7.", as.integer(difftime(local_end, floor_date(local_end, "day"), unit = "secs")) > hms::hms(0,0,23)), colour = "red", size = 0.6, alpha = 0.6)
+```
+```{r base_resting_hr_figure, echo = FALSE, message = FALSE}
+print(p_noversion2)
+```
+
+This figure shows my daily resting heart rate back to 2017. I have
+added a smoothed curve to show the trend during this time period.
+Note that resting heart rate seems to be higher in winter and lower in summer.
+That's interesting and not something I noticed until I did this graph.
+
+You can also see that my heart rate is noticeably higher starting around 
+December of 2020. Should I interpret that as being medically significant?
+Has my health changed? Has my fitness level changed?
+
+We'll see that the change is in how Apple constructs "resting heart rate"
+rather than in me.
+
+The next figure adds vertical green lines to show when I upgraded the
+Watch OS software.
+
+```{r resting_hr_figure_with_version, echo = FALSE, message = FALSE}
+print(p_version1)
+```
+
+It's clear that resting heart rate was suddenly higher after I upgraded
+to Version 7 of WatchOS. I did some searching, but the 
+[release notes for Version 7](https://www.apple.com/newsroom/2020/06/watchos-7-adds-significant-personalization-health-and-fitness-features-to-apple-watch/)
+don't mention this. I did come across a brief article by
+[Harry Guinness](https://www.howtogeek.com/711238/why-your-resting-heart-rate-just-got-higher-on-apple-watch/) 
+in which he picked up on this change. He noted that Version 7 also introduced Apple
+sleep tracking. What appears to be going on is that before Version 7, resting
+heart rate was close to the lowest heart rate while one is asleep (if, like me,
+you wear the watch at night). He also pointed out that when you go to the
+Resting Heart Rate section of the Health app, at the bottom of the screen
+there is an "about Resting Heart Rate" note that partly explains what they
+are doing:
+
+> Your resting heart rate is the average heart beats per minute
+> measured when you've been inactive or relaxed for several minutes....
+> Resting heart rate does not include your heart rate while you're asleep.
+
+The key is "not while you're asleep" combined with the fact that Apple didn't
+start tracking sleep until Version 7. Before Version 7 the calculation of
+resting heart rate couldn't take
+note of whether or not you were asleep, only whether you were inactive. 
+
+So Apple isn't hiding what they are doing, but they didn't do anything to 
+help users interpret changes in their resting heart rate. On the Apple
+discussion board, there's a [thread](https://discussions.apple.com/thread/251819127)
+in which users try to puzzle out what is happening to their resting heart rate.
+
+Here's yet another graph of my resting heart rate, but in this one I show a
+separate smoothed trend line for the periods before and after I upgraded to
+Version 7. 
+
+```{r resting_hr_two_parts, echo = FALSE, message = FALSE}
+print(p_version3)
+```
+
+Just to beat this issue to death, I did a bit more digging into the details
+of the Apple Health Export. For each data row in the export their is a start date
+and an end date (where date in R terms is a `datetime` value with both date
+and time). For resting heart rate, the start date is usually just after 
+midnight, at the start of the new day. The end date varies quite a bit and
+changes with Version 7. The next graph shows the time of day for those
+end dates. You can see that after Version 7, the time of day for the
+end date generally occurs before my normal bedtime, i.e., while I'm
+still awake.
+
+```{r resting_hr_tod, echo = FALSE, message = FALSE}
+print(p_tod1)
+```
+
+One might expect additional changes in the future. It seems likely that
+Apple's determination of when one is asleep may be improved, i.e., changed,
+over time. That might directly affect the measurement of resting heart
+rate.
 
 ### VO2 Max
 
 [VO2 Max](https://en.wikipedia.org/wiki/VO2_max) is the rate of oxygen
-consumption during heavy exercise. Direct measures involve excercising
+consumption during heavy exercise. Direct measures involve exercising
 while wearing a face mask that measures oxygen and carbon dioxide concentration 
 of the inhaled and exhaled air. 
 
 Obviously that's  not something your Apple Watch can do. Instead, Apple
-attempts to estimate
+attempts to estimate VO2 Max.
 
 [press release for Series 6 and Watch OS 7](https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/)  introduced low range VO2 Max
 
@@ -106,3 +369,37 @@ version of the [Heart Analyzer app](https://apps.apple.com/us/app/heart-analyzer
 one can clearly see that the original heart rate data is
 available even for older months that are summarized in the
 Health Export.
+
+### Lack of Transparency
+
+Apple wants the Watch to be taken seriously as a medical device. 
+They may not be willing to describe the operational definition
+of the summary measurements they provide. Here we have looked at
+resting heart rate and VO2max and alluded to sleep.
+
+There's an interesting [article](https://www.theverge.com/2020/10/7/21504023/apple-watch-ekg-blood-oxygen-fda-clearance) in The Verge by Nicole Wetsman that
+discusses why Apple got FDA approval for its EKG feature but not for its
+measurement of blood oxygen level.
+
+> Blood oxygen monitors, or pulse oximeters, are considered Class II medical devices by the FDA. Generally, any company that wants to sell one in the United States has to submit documentation to the agency confirming that its product works just as well as other versions of the same product already on the market. There’s a workaround, though: if the company says that the product is just for fun, or for general “wellness,” they don’t have to go through that process.
+
+To search for clinical trials involving the Apple Watch, click
+[here](https://www.clinicaltrials.gov/ct2/results?recrs=ab&cond=&term=Apple+Watch&cntry=&state=&city=&dist=).
+
+### Appendix: Some of the R Code Used to Make This Post
+
+In my [earlier post](https://johngoldin.com/2020/02/apple-health-export-part-i/) 
+I included a lot of R code for setting
+up the Health Export data. Here's I'll describe some of the
+additional code used for this post.
+
+While working on this post I discovered that there were a fair number of
+duplicate rows in the Apple Health Export. Most of these are related to
+non-Apple sources such as Lose It! or my Omron blood pressure cuff. But
+there were some duplicates for other items as well. So I added a step to
+my import to delete duplicates. One needs to exclude the `device` column
+before looking for duplicates.
+
+Generally there is one row of resting heart rate data for each date. But
+sometimes a second rows is created, possibly when the iPhone is restarted
+as part of an update or if there is a time change for daylight savings.
