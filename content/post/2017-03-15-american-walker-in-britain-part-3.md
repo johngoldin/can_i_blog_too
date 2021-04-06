@@ -96,7 +96,7 @@ restaurant. In other cases, they the pub is the core business and they just have
 couple of rooms that they let out as a B&B. Some pubs can be a bit noisy on a weekend night. In general, I have modest expectations and I am rarely disappointed.
 
 A cooked breakfast is always part of the package and is included with the price.
-Feel free to ask for "packed lunch". At a small B&B it would be best to do that
+Feel free to ask for "packed lunch." At a small B&B it would be best to do that
 at the time you book the room.
 
 An "en suite" bathroom means the bathroom (with toilet) is in the room. A "private bath" means that you have to go out of your room to get to your bathroom.

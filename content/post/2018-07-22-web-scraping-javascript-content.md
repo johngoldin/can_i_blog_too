@@ -26,7 +26,7 @@ Here's a Stack Overflow [response](https://stackoverflow.com/questions/8598836/j
 
 In my case, javascript processed by my browser is adding html after the original page was sent. (Or at least I think that is what is going on.)
 
-The solution is a "headless browser". This is a program that functions like a web browser,
+The solution is a "headless browser." This is a program that functions like a web browser,
 but it's purpose is to produce HTML rather than to put something on the screen (hence, headless, if
 one thinks of the screen as the head).
 [This article](http://www.rladiesnyc.org/post/scraping-javascript-websites-in-r/) by Brooke Watson

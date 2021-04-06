@@ -10,13 +10,13 @@ Since retiring in 2011, I have been on a binge of walking in the UK. I will try 
 I doubt this would be of any use to someone raised in the UK. Much of what I would say here would be obvious or second nature.
 But lots of things weren't obvious to me as an American and therefore a foreigner unfamiliar with the British countryside.
 
-As an example right at the outset, compare the words "hiking" and "walking". In the
+As an example right at the outset, compare the words "hiking" and "walking." In the
 US we use the word "hike" a lot. My impression is that "hiking" is not the usual term
-in England. Instead one refers to "walking". In America, "walking" implies a short ramble. In the UK one has the hard-core [Long Distance Walkers Association](https://www.ldwa.org.uk/). Their idea of a good time starts
+in England. Instead one refers to "walking." In America, "walking" implies a short ramble. In the UK one has the hard-core [Long Distance Walkers Association](https://www.ldwa.org.uk/). Their idea of a good time starts
 with about 50 miles in a day. Or a more human-scaled example would be [The Walking Englishman](https://www.walkingenglishman.com/) web site, a great source
 of information. In these notes and tips I will try to use English terminology
 (based on my imperfect knowledge) and so I will
-refer to "walking" rather than "hiking".
+refer to "walking" rather than "hiking."
 
 ### Why Walking in Britain
 
@@ -131,7 +131,7 @@ the car entirely (a big plus if one has qualms about driving on the left side of
 
 ### Tour Companies
 
-There are many companies that arrange walking holidays. ^[More language issues: they say "holiday" where we say "vacation".] I used [Sherpa](https://www.sherpaexpeditions.com/United-Kingdom) for a self-guided
+There are many companies that arrange walking holidays. ^[More language issues: they say "holiday" where we say "vacation."] I used [Sherpa](https://www.sherpaexpeditions.com/United-Kingdom) for a self-guided
 tour on the West Highland Way. There are many others. A "self-guided" tour means that they will organize a route and accommodations, provide you with a map and
 directions, and usually also arrange to transport your luggage. Guided tours mean that you walk with a group. The only group tour I have done was an REI tour in the United States walking rim to rim across the Grand Canyon. I can't claim to have any expertise about organized tours. It's a definite possibility, and well
 worth your consideration. Just Google "walking" and "britain" or "England" or "Scotland" and you will find a lot of options. An organized tour is a good way
