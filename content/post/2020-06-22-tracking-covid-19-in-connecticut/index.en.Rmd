@@ -26,7 +26,7 @@ editor_options:
 
 ```{r setup, include=FALSE, echo = FALSE} 
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE,   message=FALSE, #out.width = "100%",
-                      knitr.table.format = "html")
+                      knitr.table.format = "html") 
 # knitr.table.format is for kable. Needed this to get blogdown table to format correctly.
 ```
 
