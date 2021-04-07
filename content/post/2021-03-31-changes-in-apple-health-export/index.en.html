@@ -76,16 +76,18 @@ with the pads of the index and middle figure. The pulse is counted for
 30 seconds and the number of beats in a 30-second period is entered in
 the heart rate field.</p>
 </blockquote>
-<p>So the national norms for heart rate are based on sitting quietly for at least
-3 minutes and then a physician takes your pulse. That procedure leads to
+<p>So the national norms for heart rate are based on putting on a blood
+pressure duff, sitting quietly for at least
+3 minutes, and then a physician takes your pulse. That procedure leads to
 articles such as <a href="https://pubmed.ncbi.nlm.nih.gov/28132682/">Relation of Higher Resting Heart Rate to Risk of Cardiovascular Versus Noncardiovascular Death</a><br />
 which used NHANES data to examine the association of higher resting heart rate with
-mortality.</p>
+mortality. In other words, the procedure is the operational definition
+of “resting heart rate” in studies based on NHANES.</p>
 <p>New devices
 such as Fitbit or Apple Watch make the measurement procedure used
 by NHANES seem like the horse and buggy days. There may be hundreds of
 heart rate readings during the day. Which one is interpreted as being
-the resting heart rate?</p>
+the resting heart rate? The key issues is how one interprets “resting.”</p>
 </div>
 <div id="how-does-the-apple-watch-measure-resting-heart-rate" class="section level3">
 <h3>How does the Apple Watch measure resting heart rate?</h3>
@@ -98,8 +100,8 @@ says about resting heart rate:</p>
 <p>Because the resting heart rate estimates become more accurate as the day progresses, the system may delete earlier samples and replace them with better estimates. Apple Watch replaces only the samples written by the watch for the current or previous day.</p>
 </blockquote>
 <p>That text is fairly long and seems very concrete,
-but in it is not so clear what it means in practice. I am going
-to dive deep into my own data to try to observe what is actually happening with
+but it is not so clear what it means in practice. I will dive deep into my own data
+to try to observe what is actually happening with
 the measurement of resting heart rate.</p>
 <pre><code>## Warning: Expected 3 pieces. Missing pieces filled with `NA` in 12 rows [1, 2, 3,
 ## 6, 11, 13, 15, 17, 25, 28, 29, 30].</code></pre>
