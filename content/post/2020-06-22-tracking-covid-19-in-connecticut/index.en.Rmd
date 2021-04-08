@@ -35,8 +35,8 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE,   message=FALSE, #out.width = 
 library(tidyverse, quietly = TRUE)
 library(knitr, quietly = TRUE) 
 library(scales, quietly = TRUE) 
-library(kableExtra, quietly = TRUE) 
-library(sparkline)
+library(kableExtra, quietly = TRUE)
+library(sparkline) 
 library(geofacet) # https://hafen.github.io/geofacet/
 library(sf, quietly = TRUE)
 options(tigris_use_cache = TRUE)

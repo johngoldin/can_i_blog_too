@@ -93,7 +93,7 @@ actually made. Let's start with the national norms compiled by the CDC.
 They conduct an annual survey called NHANES 
 (National Health and Nutrition Examination Survey). NHANES
 includes information on pulse rate as part of their
-measurement of blood pressure. The protocol for collecting data as
+measurement of blood pressure. The protocol for collecting data
 for NHANES is specified in exhaustive detail in their 
 [physician procedures manual](https://wwwn.cdc.gov/Nchs/Data/Nhanes/2015-2016/Manuals/2015_Physician_Examination_Procedures_Manual.pdf).
 For individuals eight years or older, pulse is taken as
@@ -109,16 +109,18 @@ and how to place the cuff. The next step is the measurement of pulse:
 > the heart rate field.
 
 So the national norms for heart rate are based on putting on a blood 
-pressure duff, sitting quietly for at least
+pressure cuff, sitting quietly for at least
 3 minutes, and then a physician takes your pulse. That procedure leads to 
-articles such as [Relation of Higher Resting Heart Rate to Risk of Cardiovascular Versus Noncardiovascular Death](https://pubmed.ncbi.nlm.nih.gov/28132682/)  
+articles such as 
+[Relation of Higher Resting Heart Rate to Risk of Cardiovascular Versus Noncardiovascular Death](https://pubmed.ncbi.nlm.nih.gov/28132682/)
 which used NHANES data to examine the association of higher resting heart rate with
 mortality. In other words, the procedure is the operational definition
 of "resting heart rate" in studies based on NHANES.
 
 New devices
 such as Fitbit or Apple Watch make the measurement procedure used
-by NHANES seem like the horse and buggy days. There may be hundreds of
+by NHANES seem like the horse and buggy days. With wearable devices, 
+there may be hundreds of
 heart rate readings during the day. Which one is interpreted as being
 the resting heart rate? The key issues is how one interprets "resting."
 
@@ -316,9 +318,11 @@ print(p_tod1)
 ```
 
 One might expect additional changes in the future. It seems likely that
-Apple's determination of when one is asleep may be improved, i.e., changed,
+Apple's determination of when one is asleep will be improved, i.e., changed,
 over time. That might directly affect the measurement of resting heart
-rate.
+rate. In general terms, for the Apple Watch and for other wearables such
+as Fitbit, to interpret resting heart rate you need to know whether
+"resting" includes sleep time.
 
 ### VO2 Max
 

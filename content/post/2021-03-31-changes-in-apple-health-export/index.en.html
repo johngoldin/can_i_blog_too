@@ -28,7 +28,7 @@ editor_options:
     wrap: 72
 ---
 
-<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
@@ -61,7 +61,7 @@ actually made. Let’s start with the national norms compiled by the CDC.
 They conduct an annual survey called NHANES
 (National Health and Nutrition Examination Survey). NHANES
 includes information on pulse rate as part of their
-measurement of blood pressure. The protocol for collecting data as
+measurement of blood pressure. The protocol for collecting data
 for NHANES is specified in exhaustive detail in their
 <a href="https://wwwn.cdc.gov/Nchs/Data/Nhanes/2015-2016/Manuals/2015_Physician_Examination_Procedures_Manual.pdf">physician procedures manual</a>.
 For individuals eight years or older, pulse is taken as
@@ -77,15 +77,17 @@ with the pads of the index and middle figure. The pulse is counted for
 the heart rate field.</p>
 </blockquote>
 <p>So the national norms for heart rate are based on putting on a blood
-pressure duff, sitting quietly for at least
+pressure cuff, sitting quietly for at least
 3 minutes, and then a physician takes your pulse. That procedure leads to
-articles such as <a href="https://pubmed.ncbi.nlm.nih.gov/28132682/">Relation of Higher Resting Heart Rate to Risk of Cardiovascular Versus Noncardiovascular Death</a><br />
+articles such as
+<a href="https://pubmed.ncbi.nlm.nih.gov/28132682/">Relation of Higher Resting Heart Rate to Risk of Cardiovascular Versus Noncardiovascular Death</a>
 which used NHANES data to examine the association of higher resting heart rate with
 mortality. In other words, the procedure is the operational definition
 of “resting heart rate” in studies based on NHANES.</p>
 <p>New devices
 such as Fitbit or Apple Watch make the measurement procedure used
-by NHANES seem like the horse and buggy days. There may be hundreds of
+by NHANES seem like the horse and buggy days. With wearable devices,
+there may be hundreds of
 heart rate readings during the day. Which one is interpreted as being
 the resting heart rate? The key issues is how one interprets “resting.”</p>
 </div>
@@ -105,7 +107,7 @@ to try to observe what is actually happening with
 the measurement of resting heart rate.</p>
 <pre><code>## Warning: Expected 3 pieces. Missing pieces filled with `NA` in 12 rows [1, 2, 3,
 ## 6, 11, 13, 15, 17, 25, 28, 29, 30].</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/base_resting_hr_figure-1.png" width="672" /></p>
+<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/base_resting_hr_figure-1.png" width="672" /></p>
 <p>This figure shows my daily resting heart rate back to 2017. I have
 added a smoothed curve to show the trend during this time period.
 Note that resting heart rate seems to be higher in winter and lower in summer.
@@ -117,7 +119,7 @@ Has my health changed? Has my fitness level changed?</p>
 rather than in me.</p>
 <p>The next figure adds vertical green lines to show when I upgraded the
 Watch OS software.</p>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_figure_with_version-1.png" width="672" /></p>
+<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/resting_hr_figure_with_version-1.png" width="672" /></p>
 <p>It’s clear that resting heart rate was suddenly higher after I upgraded
 to Version 7 of WatchOS. I did some searching, but the
 <a href="https://www.apple.com/newsroom/2020/06/watchos-7-adds-significant-personalization-health-and-fitness-features-to-apple-watch/">release notes for Version 7</a>
@@ -146,7 +148,7 @@ in which users try to puzzle out what is happening to their resting heart rate.<
 <p>Here’s yet another graph of my resting heart rate, but in this one I show a
 separate smoothed trend line for the periods before and after I upgraded to
 Version 7.</p>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_two_parts-1.png" width="672" /></p>
+<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/resting_hr_two_parts-1.png" width="672" /></p>
 <p>Just to beat this issue to death, I did a bit more digging into the details
 of the Apple Health Export. For each data row in the export their is a start date
 and an end date (where date in R terms is a <code>datetime</code> value with both date
@@ -156,11 +158,13 @@ changes with Version 7. The next graph shows the time of day for those
 end dates. You can see that after Version 7, the time of day for the
 end date generally occurs before my normal bedtime, i.e., while I’m
 still awake.</p>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_tod-1.png" width="672" /></p>
+<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/resting_hr_tod-1.png" width="672" /></p>
 <p>One might expect additional changes in the future. It seems likely that
-Apple’s determination of when one is asleep may be improved, i.e., changed,
+Apple’s determination of when one is asleep will be improved, i.e., changed,
 over time. That might directly affect the measurement of resting heart
-rate.</p>
+rate. In general terms, for the Apple Watch and for other wearables such
+as Fitbit, to interpret resting heart rate you need to know whether
+“resting” includes sleep time.</p>
 </div>
 <div id="vo2-max" class="section level3">
 <h3>VO2 Max</h3>
