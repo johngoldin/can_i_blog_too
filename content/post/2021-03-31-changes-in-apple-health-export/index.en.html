@@ -28,14 +28,13 @@ editor_options:
     wrap: 72
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
 <li><a href="#resting-heart-rate">Resting Heart Rate</a></li>
 <li><a href="#how-does-the-apple-watch-measure-resting-heart-rate">How does the Apple Watch measure resting heart rate?</a></li>
 <li><a href="#vo2-max">VO2 Max</a></li>
-<li><a href="#what-happened-to-my-million-rows-of-data">What Happened to My Million Rows of Data?</a></li>
 <li><a href="#lack-of-transparency">Lack of Transparency</a></li>
 <li><a href="#appendix-some-of-the-r-code-used-to-make-this-post">Appendix: Some of the R Code Used to Make This Post</a></li>
 </ul>
@@ -107,7 +106,7 @@ to try to observe what is actually happening with
 the measurement of resting heart rate.</p>
 <pre><code>## Warning: Expected 3 pieces. Missing pieces filled with `NA` in 12 rows [1, 2, 3,
 ## 6, 11, 13, 15, 17, 25, 28, 29, 30].</code></pre>
-<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/base_resting_hr_figure-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/base_resting_hr_figure-1.png" width="672" /></p>
 <p>This figure shows my daily resting heart rate back to 2017. I have
 added a smoothed curve to show the trend during this time period.
 Note that resting heart rate seems to be higher in winter and lower in summer.
@@ -119,7 +118,7 @@ Has my health changed? Has my fitness level changed?</p>
 rather than in me.</p>
 <p>The next figure adds vertical green lines to show when I upgraded the
 Watch OS software.</p>
-<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/resting_hr_figure_with_version-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_figure_with_version-1.png" width="672" /></p>
 <p>It’s clear that resting heart rate was suddenly higher after I upgraded
 to Version 7 of WatchOS. I did some searching, but the
 <a href="https://www.apple.com/newsroom/2020/06/watchos-7-adds-significant-personalization-health-and-fitness-features-to-apple-watch/">release notes for Version 7</a>
@@ -148,20 +147,19 @@ in which users try to puzzle out what is happening to their resting heart rate.<
 <p>Here’s yet another graph of my resting heart rate, but in this one I show a
 separate smoothed trend line for the periods before and after I upgraded to
 Version 7.</p>
-<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/resting_hr_two_parts-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_two_parts-1.png" width="672" /></p>
 <p>Just to beat this issue to death, I did a bit more digging into the details
-of the Apple Health Export. For each data row in the export their is a start date
+of the Apple Health Export. For each data row of the export there is a start date
 and an end date (where date in R terms is a <code>datetime</code> value with both date
 and time). For resting heart rate, the start date is usually just after
-midnight, at the start of the new day. The end date varies quite a bit and
+midnight at the start of the new day. The end date varies quite a bit and
 changes with Version 7. The next graph shows the time of day for those
 end dates. You can see that after Version 7, the time of day for the
 end date generally occurs before my normal bedtime, i.e., while I’m
 still awake.</p>
-<p><img src="/post/2021-03-31-changes-in-apple-health-export/index.en_files/figure-html/resting_hr_tod-1.png" width="672" /></p>
-<p>One might expect additional changes in the future. It seems likely that
-Apple’s determination of when one is asleep will be improved, i.e., changed,
-over time. That might directly affect the measurement of resting heart
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_tod-1.png" width="672" /></p>
+<p>No doubt Apple will improve how it identifies when one is asleep.
+That may directly affect the measurement of resting heart
 rate. In general terms, for the Apple Watch and for other wearables such
 as Fitbit, to interpret resting heart rate you need to know whether
 “resting” includes sleep time.</p>
@@ -173,7 +171,53 @@ consumption during heavy exercise. Direct measures involve exercising
 while wearing a face mask that measures oxygen and carbon dioxide concentration
 of the inhaled and exhaled air.</p>
 <p>Obviously that’s not something your Apple Watch can do. Instead, Apple
-attempts to estimate VO2 Max.</p>
+attempts to estimate VO2 Max.The <a href="https://en.wikipedia.org/wiki/VO2_max">Wikipedia</a>
+article on VO2 Max describes a number of different methods for estimating
+VO2 Max. What does Apple do? Who knows. That’s the kind of thing that Apple
+keeps close to the vest. As with resting heart rate, let’s
+look at my values for VO2 Max to see what it reveals.</p>
+<pre class="r"><code># vo2max &lt;- health_df %&gt;% 
+#   filter(type == &quot;VO2Max&quot;, str_detect(sourceName, &quot;Watch&quot;))
+
+vo_versions &lt;- unique(vo2max %&gt;% filter(type == &quot;VO2Max&quot;, !is.na(sourceVersion)) %&gt;% 
+                     select(sourceVersion)) %&gt;% 
+                     separate(sourceVersion, into = c(&quot;major&quot;, &quot;minor&quot;, &quot;subminor&quot;), remove = FALSE) %&gt;% 
+  mutate(subminor = ifelse(is.na(subminor), &quot;0&quot;, subminor), major = as.numeric(major),
+         minor = as.numeric(minor), subminor = as.numeric(subminor)) %&gt;% 
+  arrange(major, minor, subminor)
+vo2max2 &lt;- vo2max %&gt;% 
+  left_join(vo_versions, by = &quot;sourceVersion&quot;) %&gt;% 
+  arrange(sourceVersion, local_start, creationDate)
+vo_boundaries &lt;- vo2max2 %&gt;% 
+  group_by(major, minor, subminor) %&gt;% 
+  summarise(first_date = first(local_start), last_date = last(local_start))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;major&#39;, &#39;minor&#39;. You can override using the `.groups` argument.</code></pre>
+<pre class="r"><code>vo_boundaries &lt;- vo_boundaries %&gt;% 
+  ungroup() %&gt;% 
+  arrange(first_date) %&gt;% 
+  mutate(test = lag(major),
+         test2 = lead(major),
+    level = case_when(
+    (major != lag(major)) | ((major &gt; 0) &amp; is.na(lag(major))) ~ 3,
+    is.na(lag(major)) ~ 0,
+    minor != lag(minor) ~ 2,
+    subminor != lag(subminor) ~ 1,
+    TRUE ~ NA_real_
+  ))
+p_vo2max1 &lt;- ggplot(data = vo2max, aes(x = local_date, y = value)) +
+  ylab(&quot;VO2 Max&quot;) + xlab(NULL) +
+  ggtitle(&quot;Estimated VO2 Max&quot;) +
+  geom_point(size = 0.5) 
+p_vo2max2 &lt;- p_vo2max1 # no smooth
+p_vo2max3 &lt;- p_vo2max2 +
+  geom_vline(data = vo_boundaries %&gt;% filter(level == 3), 
+             aes(xintercept = as_date(first_date)), size = 1, colour = &quot;goldenrod1&quot;) +
+  geom_vline(data = vo_boundaries %&gt;% filter(level == 2), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = &quot;goldenrod3&quot;) +
+  geom_vline(data = hr_boundaries %&gt;% filter(level == 3), 
+             aes(xintercept = as_date(first_date)), size = 1, colour = &quot;seagreen3&quot;) +
+  geom_vline(data = hr_boundaries %&gt;% filter(level == 2), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = &quot;seagreen2&quot;) </code></pre>
 <p><a href="https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/">press release for Series 6 and Watch OS 7</a> introduced low range VO2 Max</p>
 <blockquote>
 <p>Apple Watch already estimates average and higher levels of VO2 max during vigorous outdoor walks, runs, or hikes, which many runners and other athletes monitor to improve performance.
@@ -181,9 +225,12 @@ Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical he
 </blockquote>
 <p><a href="https://9to5strength.com/vo2-max-testing/">Various VO2 Max estimates at home</a>
 <a href="https://www.runnersblueprint.com/vo2-max/" class="uri">https://www.runnersblueprint.com/vo2-max/</a></p>
-</div>
-<div id="what-happened-to-my-million-rows-of-data" class="section level3">
-<h3>What Happened to My Million Rows of Data?</h3>
+<p>An overall theme of this post is that one should expect there will be additional
+future changes in the Apple Health Kit
+as Apple works to improve their health and fitness information. Of course
+we as customers want it to improve. That means that when interpreting long
+term trends in the data one has to allow for the possibility that
+the definition of measures have changed.### What Happened to My Million Rows of Data?</p>
 <p>When I did my <a href="https://johngoldin.com/2020/02/apple-health-export-part-i/">first post</a>
 on the Apple Health Export, I had a total of 4,012,907 rows of
 data. My most recent export has only 3,026,367 so about a

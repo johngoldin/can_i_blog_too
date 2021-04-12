@@ -304,10 +304,10 @@ print(p_version3)
 ```
 
 Just to beat this issue to death, I did a bit more digging into the details
-of the Apple Health Export. For each data row in the export their is a start date
+of the Apple Health Export. For each data row of the export there is a start date
 and an end date (where date in R terms is a `datetime` value with both date
 and time). For resting heart rate, the start date is usually just after 
-midnight, at the start of the new day. The end date varies quite a bit and
+midnight at the start of the new day. The end date varies quite a bit and
 changes with Version 7. The next graph shows the time of day for those
 end dates. You can see that after Version 7, the time of day for the
 end date generally occurs before my normal bedtime, i.e., while I'm
@@ -317,9 +317,8 @@ still awake.
 print(p_tod1)
 ```
 
-One might expect additional changes in the future. It seems likely that
-Apple's determination of when one is asleep will be improved, i.e., changed,
-over time. That might directly affect the measurement of resting heart
+No doubt Apple will improve how it identifies when one is asleep.
+That may directly affect the measurement of resting heart
 rate. In general terms, for the Apple Watch and for other wearables such
 as Fitbit, to interpret resting heart rate you need to know whether
 "resting" includes sleep time.
@@ -332,7 +331,58 @@ while wearing a face mask that measures oxygen and carbon dioxide concentration
 of the inhaled and exhaled air. 
 
 Obviously that's  not something your Apple Watch can do. Instead, Apple
-attempts to estimate VO2 Max.
+attempts to estimate VO2 Max.The [Wikipedia](https://en.wikipedia.org/wiki/VO2_max)
+article on VO2 Max describes a number of different methods for estimating
+VO2 Max. What does Apple do? Who knows. That's the kind of thing that Apple
+keeps close to the vest. As with resting heart rate, let's
+look at my values for VO2 Max to see what it reveals.
+
+
+```{r vo2max}
+# vo2max <- health_df %>% 
+#   filter(type == "VO2Max", str_detect(sourceName, "Watch"))
+
+vo_versions <- unique(vo2max %>% filter(type == "VO2Max", !is.na(sourceVersion)) %>% 
+                     select(sourceVersion)) %>% 
+                     separate(sourceVersion, into = c("major", "minor", "subminor"), remove = FALSE) %>% 
+  mutate(subminor = ifelse(is.na(subminor), "0", subminor), major = as.numeric(major),
+         minor = as.numeric(minor), subminor = as.numeric(subminor)) %>% 
+  arrange(major, minor, subminor)
+vo2max2 <- vo2max %>% 
+  left_join(vo_versions, by = "sourceVersion") %>% 
+  arrange(sourceVersion, local_start, creationDate)
+vo_boundaries <- vo2max2 %>% 
+  group_by(major, minor, subminor) %>% 
+  summarise(first_date = first(local_start), last_date = last(local_start))
+
+vo_boundaries <- vo_boundaries %>% 
+  ungroup() %>% 
+  arrange(first_date) %>% 
+  mutate(test = lag(major),
+         test2 = lead(major),
+    level = case_when(
+    (major != lag(major)) | ((major > 0) & is.na(lag(major))) ~ 3,
+    is.na(lag(major)) ~ 0,
+    minor != lag(minor) ~ 2,
+    subminor != lag(subminor) ~ 1,
+    TRUE ~ NA_real_
+  ))
+p_vo2max1 <- ggplot(data = vo2max, aes(x = local_date, y = value)) +
+  ylab("VO2 Max") + xlab(NULL) +
+  ggtitle("Estimated VO2 Max") +
+  geom_point(size = 0.5) 
+p_vo2max2 <- p_vo2max1 # no smooth
+p_vo2max3 <- p_vo2max2 +
+  geom_vline(data = vo_boundaries %>% filter(level == 3), 
+             aes(xintercept = as_date(first_date)), size = 1, colour = "goldenrod1") +
+  geom_vline(data = vo_boundaries %>% filter(level == 2), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = "goldenrod3") +
+  geom_vline(data = hr_boundaries %>% filter(level == 3), 
+             aes(xintercept = as_date(first_date)), size = 1, colour = "seagreen3") +
+  geom_vline(data = hr_boundaries %>% filter(level == 2), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = "seagreen2") 
+
+```
 
 [press release for Series 6 and Watch OS 7](https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/)  introduced low range VO2 Max
 
@@ -342,7 +392,12 @@ Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical he
 [Various VO2 Max estimates at home](https://9to5strength.com/vo2-max-testing/)
 https://www.runnersblueprint.com/vo2-max/
 
-### What Happened to My Million Rows of Data?
+An overall theme of this post is that one should expect there will be additional
+future changes in the Apple Health Kit
+as Apple works to improve their health and fitness information. Of course
+we as customers want it to improve. That means that when interpreting long
+term trends in the data one has to allow for the possibility that
+the definition of measures have changed.### What Happened to My Million Rows of Data?
 
 When I did my [first  post](https://johngoldin.com/2020/02/apple-health-export-part-i/) 
 on the Apple Health Export, I had a total of 4,012,907 rows of
