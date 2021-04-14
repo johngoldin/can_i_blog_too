@@ -136,7 +136,7 @@ are doing:</p>
 measured when you’ve been inactive or relaxed for several minutes….
 Resting heart rate does not include your heart rate while you’re asleep.</p>
 </blockquote>
-<p>The key is “not while you’re asleep” combined with the fact that Apple didn’t
+<p>The key qualifier is “not while you’re asleep” combined with the fact that Apple didn’t
 start tracking sleep until Version 7. Before Version 7 the calculation of
 resting heart rate couldn’t take
 note of whether or not you were asleep, only whether you were inactive.</p>
@@ -171,11 +171,10 @@ consumption during heavy exercise. Direct measures of VO2 Max involve exercising
 while wearing a face mask that measures oxygen and carbon dioxide concentration
 of the inhaled and exhaled air.
 Obviously that’s not something your Apple Watch can do. Instead, Apple
-attempts to estimate VO2 Max. The <a href="https://en.wikipedia.org/wiki/VO2_max">Wikipedia article on VO2 Max</a>
+estimates VO2 Max. The <a href="https://en.wikipedia.org/wiki/VO2_max">Wikipedia article on VO2 Max</a>
 describes a number of different methods for estimating
 VO2 Max. What does Apple do? Who knows. That’s the kind of thing that Apple
-keeps close to the vest. As with resting heart rate, let’s
-look at my values for VO2 Max to see what it reveals.</p>
+keeps close to the vest.</p>
 <p>Here is the <a href="https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/2867757-vo2max">description of VO2 Max</a>
 provided by the Apple Developer Documentation:</p>
 <blockquote>
@@ -184,6 +183,8 @@ provided by the Apple Developer Documentation:</p>
 <p>The user must wear their Apple Watch for at least one day before the system can generate the first vo2Max sample. Additionally, the system doesn’t generate a vo2Max sample on the user’s first workout. However, it can make estimates based on data collected outside a workout session.</p>
 <p>Apple Watch estimates VO2max based on sub-maximal predictions rather than peakVO2. Users don’t need to achieve peak heart rate to receive an estimate; however, the system dose need to estimate their peak heart rate. Users who take medications that may reduce their peak heart rate can toggle a medication switch in the Health app to enable more accurate VO2max estimates.</p>
 </blockquote>
+<p>As with resting heart rate, let’s
+look at my values for VO2 Max to see what it reveals.</p>
 <pre class="r"><code># vo2max &lt;- health_df %&gt;% 
 #   filter(type == &quot;VO2Max&quot;, str_detect(sourceName, &quot;Watch&quot;))
 
@@ -214,7 +215,7 @@ vo_boundaries &lt;- vo2max2 %&gt;%
   ))
 p_vo2max1 &lt;- ggplot(data = vo2max, aes(x = local_date, y = value)) +
   ylab(&quot;VO2 Max&quot;) + xlab(NULL) +
-  ggtitle(&quot;Estimated VO2 Max&quot;) +
+  ggtitle(&quot;My Estimated VO2 Max and Versions of Watch OS&quot;) +
   geom_point(size = 0.5) 
 p_vo2max2 &lt;- p_vo2max1 # no smooth
 p_vo2max3 &lt;- p_vo2max2 +
@@ -229,16 +230,48 @@ p_vo2max3 &lt;- p_vo2max2 +
              aes(xintercept = as_date(first_date)), size = 1, colour = &quot;seagreen3&quot;) +
   geom_vline(data = hr_boundaries %&gt;% filter(level == 2), 
              aes(xintercept = as_date(first_date)), size = 0.3, colour = &quot;seagreen2&quot;) +
+   geom_vline(data = hr_boundaries %&gt;% filter(level == 1), 
+             aes(xintercept = as_date(first_date)), size = 0.3, colour = &quot;seagreen1&quot;, alpha = 0.6, linetype = &quot;dotted&quot;) +
   geom_richtext(data = hr_boundaries %&gt;% filter(level == 3),
             aes(label = paste0(&quot;**v&quot;, sourceVersion, &quot;**&quot;), x = as_date(first_date), y = Inf), 
-            colour = &quot;seagreen3&quot;, alpha = 0.9, hjust = 0, vjust = 1, nudge_x = 5, size = 3.5)</code></pre>
-<p><a href="https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/">press release for Series 6 and Watch OS 7</a> introduced low range VO2 Max</p>
+            colour = &quot;seagreen3&quot;, alpha = 0.9, hjust = 0, vjust = 1, nudge_x = 5, size = 3.5) +
+  scale_x_date(limits = c(min_date + 0, max_date - 0), 
+               date_labels = &quot;%b %Y&quot;,
+               breaks = half_year_sequence)  
+print(p_vo2max3)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/vo2max-1.png" width="672" /></p>
+<pre class="r"><code># [Various VO2 Max estimates at home](https://9to5strength.com/vo2-max-testing/)
+# https://www.runnersblueprint.com/vo2-max/</code></pre>
+<p>What can I make of these changes over time? It’s evident that the e
+stimated value of VO2 Max is
+dominated by the details of how estimation is done during each version
+of Watch OS. There are dramatic changes in this chart that have little (or nothing)
+to do with my fitness.</p>
+<p>What about the trend within each version of Watch OS? For example, during
+Version 7 my VO2 Max has been on a steady upward march. No, I can’t relate
+that to the personal experience of my fitness. I do a challenging three-mile
+walk in the woods almost every day with an occasioinal longer walk thrown in
+from time to time. It’s hard to imagine what estimation procedure would
+produce these trends. In Version 7 of Watch OS perhaps the procedure starts
+with an estimate based only on height, weight, age, and gender and then
+modifies it based on observation of workouts. Looking at the period during
+Version 6, there was a big drop on March 17, 2020 and then a big increase
+on April 9. When I look at the details of the workouts during that time
+period I don’t see anything that would relate to a change in estimated
+VO2 Max. My concludion is that I should not attribute short-run changes in
+the estimated VO2 Max to actual changes in my cardio fitness.</p>
+<p>The <a href="https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/">press release for Watch OS 7</a> introduced “low range VO2 Max”</p>
 <blockquote>
 <p>Apple Watch already estimates average and higher levels of VO2 max during vigorous outdoor walks, runs, or hikes, which many runners and other athletes monitor to improve performance.
 Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical heart sensor, GPS, and the accelerometer, to estimate lower levels, too. [<a href="https://www.apple.com/newsroom/2020/12/cardio-fitness-notifications-are-available-today-on-apple-watch/" class="uri">https://www.apple.com/newsroom/2020/12/cardio-fitness-notifications-are-available-today-on-apple-watch/</a>]</p>
 </blockquote>
-<p><a href="https://9to5strength.com/vo2-max-testing/">Various VO2 Max estimates at home</a>
-<a href="https://www.runnersblueprint.com/vo2-max/" class="uri">https://www.runnersblueprint.com/vo2-max/</a></p>
+<p>I don’t know whether the low range VO2 Max had any effect on me. It’s likely that
+my normal daily walk was sufficient to estimate VO2 Max so they low range estimation
+procedure was never needed.</p>
+<p>Inluding an estimate of VO2 Max is an interesting concept, but so far it seem that
+both the short run variations the long-term trend are affected by changes
+in the estimation procedure. VO2 Max won’t be useful until Apple settles on
+a stabe methodology. I look forward to seeing that someday.</p>
 <p>An overall theme of this post is that one should expect there will be additional
 future changes in the Apple Health Kit
 as Apple works to improve their health and fitness information. Of course
