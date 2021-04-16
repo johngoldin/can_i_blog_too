@@ -266,7 +266,7 @@ p_new_cases <- ggplot(data = dph_total %>%
 
 p_daily_deaths <- ggplot(data = dph_total %>% 
               # filter(county == "Fairfield") %>% 
-              mutate(wday  = factor(weekdays(date),
+              mutate(wday  = factor(weekdays(date), 
                                   levels = c("Monday", "Tuesday",
                                              "Wednesday", "Thursday", "Friday",
                                              "Saturday","Sunday"))), 
