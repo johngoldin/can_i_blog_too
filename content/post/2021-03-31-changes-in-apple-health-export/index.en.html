@@ -35,7 +35,7 @@ editor_options:
 <li><a href="#resting-heart-rate">Resting Heart Rate</a></li>
 <li><a href="#how-does-the-apple-watch-measure-resting-heart-rate">How does the Apple Watch measure resting heart rate?</a></li>
 <li><a href="#vo2-max">VO2 Max</a></li>
-<li><a href="#lack-of-transparency">Lack of Transparency</a></li>
+<li><a href="#how-do-we-know-what-the-health-measures-actually-measure">How Do We Know What the Health Measures Actually Measure?</a></li>
 <li><a href="#appendix-some-of-the-r-code-used-to-make-this-post">Appendix: Some of the R Code Used to Make This Post</a></li>
 </ul>
 </div>
@@ -43,7 +43,7 @@ editor_options:
 <p>This is a follow-up to an <a href="https://johngoldin.com/2020/02/apple-health-export-part-i/">earlier post</a>
 exploring the Apple Health Export. The earlier post describes how
 to export the Health data from the iPhone and import it into R.</p>
-<p>In this post I will look at issues of the stability of how some
+<p>This post will look at issues of the stability of how some
 summary measures are defined and look for other changes in the export.</p>
 <div id="resting-heart-rate" class="section level3">
 <h3>Resting Heart Rate</h3>
@@ -185,65 +185,9 @@ provided by the Apple Developer Documentation:</p>
 </blockquote>
 <p>As with resting heart rate, let’s
 look at my values for VO2 Max to see what it reveals.</p>
-<pre class="r"><code># vo2max &lt;- health_df %&gt;% 
-#   filter(type == &quot;VO2Max&quot;, str_detect(sourceName, &quot;Watch&quot;))
-
-vo_versions &lt;- unique(vo2max %&gt;% filter(type == &quot;VO2Max&quot;, !is.na(sourceVersion)) %&gt;% 
-                     select(sourceVersion)) %&gt;% 
-                     separate(sourceVersion, into = c(&quot;major&quot;, &quot;minor&quot;, &quot;subminor&quot;), remove = FALSE) %&gt;% 
-  mutate(subminor = ifelse(is.na(subminor), &quot;0&quot;, subminor), major = as.numeric(major),
-         minor = as.numeric(minor), subminor = as.numeric(subminor)) %&gt;% 
-  arrange(major, minor, subminor)
-vo2max2 &lt;- vo2max %&gt;% 
-  left_join(vo_versions, by = &quot;sourceVersion&quot;) %&gt;% 
-  arrange(sourceVersion, local_start, creationDate)
-vo_boundaries &lt;- vo2max2 %&gt;% 
-  group_by(major, minor, subminor) %&gt;% 
-  summarise(first_date = first(local_start), last_date = last(local_start))</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;major&#39;, &#39;minor&#39;. You can override using the `.groups` argument.</code></pre>
-<pre class="r"><code>vo_boundaries &lt;- vo_boundaries %&gt;% 
-  ungroup() %&gt;% 
-  arrange(first_date) %&gt;% 
-  mutate(test = lag(major),
-         test2 = lead(major),
-    level = case_when(
-    (major != lag(major)) | ((major &gt; 0) &amp; is.na(lag(major))) ~ 3,
-    is.na(lag(major)) ~ 0,
-    minor != lag(minor) ~ 2,
-    subminor != lag(subminor) ~ 1,
-    TRUE ~ NA_real_
-  ))
-p_vo2max1 &lt;- ggplot(data = vo2max, aes(x = local_date, y = value)) +
-  ylab(&quot;VO2 Max&quot;) + xlab(NULL) +
-  ggtitle(&quot;My Estimated VO2 Max and Versions of Watch OS&quot;) +
-  geom_point(size = 0.5) 
-p_vo2max2 &lt;- p_vo2max1 # no smooth
-p_vo2max3 &lt;- p_vo2max2 +
-  labs(subtitle = &#39;&lt;i style=&quot;color:#28A87D;&quot;&gt;Vertical lines show major and minor versions of Watch OS&lt;/i&gt;&#39;) +
-  theme(
-    plot.subtitle = ggtext::element_markdown()) +
-  geom_vline(data = vo_boundaries %&gt;% filter(level == 3), 
-             aes(xintercept = as_date(first_date)), size = 1, colour = &quot;goldenrod1&quot;) +
-  geom_vline(data = vo_boundaries %&gt;% filter(level == 2), 
-             aes(xintercept = as_date(first_date)), size = 0.3, colour = &quot;goldenrod3&quot;) +
-  geom_vline(data = hr_boundaries %&gt;% filter(level == 3), 
-             aes(xintercept = as_date(first_date)), size = 1, colour = &quot;seagreen3&quot;) +
-  geom_vline(data = hr_boundaries %&gt;% filter(level == 2), 
-             aes(xintercept = as_date(first_date)), size = 0.3, colour = &quot;seagreen2&quot;) +
-   geom_vline(data = hr_boundaries %&gt;% filter(level == 1), 
-             aes(xintercept = as_date(first_date)), size = 0.3, colour = &quot;seagreen1&quot;, alpha = 0.6, linetype = &quot;dotted&quot;) +
-  geom_richtext(data = hr_boundaries %&gt;% filter(level == 3),
-            aes(label = paste0(&quot;**v&quot;, sourceVersion, &quot;**&quot;), x = as_date(first_date), y = Inf), 
-            colour = &quot;seagreen3&quot;, alpha = 0.9, hjust = 0, vjust = 1, nudge_x = 5, size = 3.5) +
-  scale_x_date(limits = c(min_date + 0, max_date - 0), 
-               date_labels = &quot;%b %Y&quot;,
-               breaks = half_year_sequence)  
-print(p_vo2max3)</code></pre>
 <p><img src="{{< blogdown/postref >}}index.en_files/figure-html/vo2max-1.png" width="672" /></p>
-<pre class="r"><code># [Various VO2 Max estimates at home](https://9to5strength.com/vo2-max-testing/)
-# https://www.runnersblueprint.com/vo2-max/</code></pre>
-<p>What can I make of these changes over time? It’s evident that the e
-stimated value of VO2 Max is
+<p>What can I make of these changes over time? It’s evident that the
+estimated value of VO2 Max is
 dominated by the details of how estimation is done during each version
 of Watch OS. There are dramatic changes in this chart that have little (or nothing)
 to do with my fitness.</p>
@@ -263,12 +207,12 @@ the estimated VO2 Max to actual changes in my cardio fitness.</p>
 <p>The <a href="https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/">press release for Watch OS 7</a> introduced “low range VO2 Max”</p>
 <blockquote>
 <p>Apple Watch already estimates average and higher levels of VO2 max during vigorous outdoor walks, runs, or hikes, which many runners and other athletes monitor to improve performance.
-Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical heart sensor, GPS, and the accelerometer, to estimate lower levels, too. [<a href="https://www.apple.com/newsroom/2020/12/cardio-fitness-notifications-are-available-today-on-apple-watch/" class="uri">https://www.apple.com/newsroom/2020/12/cardio-fitness-notifications-are-available-today-on-apple-watch/</a>]</p>
+Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical heart sensor, GPS, and the accelerometer, to estimate lower levels, too.</p>
 </blockquote>
 <p>I don’t know whether the low range VO2 Max had any effect on me. It’s likely that
 my normal daily walk was sufficient to estimate VO2 Max so they low range estimation
 procedure was never needed.</p>
-<p>Inluding an estimate of VO2 Max is an interesting concept, but so far it seem that
+<p>Including an estimate of VO2 Max is an interesting concept, but so far it seem that
 both the short run variations the long-term trend are affected by changes
 in the estimation procedure. VO2 Max won’t be useful until Apple settles on
 a stabe methodology. I look forward to seeing that someday.</p>
@@ -324,11 +268,15 @@ one can clearly see that the original heart rate data is
 available even for older months that are summarized in the
 Health Export.</p>
 </div>
-<div id="lack-of-transparency" class="section level3">
-<h3>Lack of Transparency</h3>
+<div id="how-do-we-know-what-the-health-measures-actually-measure" class="section level3">
+<h3>How Do We Know What the Health Measures Actually Measure?</h3>
 <p>Apple wants the Watch to be taken seriously as a medical device.
-They may not be willing to describe the operational definition
-of the summary measurements they provide. Here we have looked at
+To take the Health items seriously, one needs to have
+confidence in them. Greater transparency would help to support trust.
+Apple may not be willing to describe the operational definition
+of the summary measurements they provide.
+That makes it harder to determine what is actually being measured.
+Here we have looked at
 resting heart rate and VO2max and alluded to sleep.</p>
 <p>There’s an interesting <a href="https://www.theverge.com/2020/10/7/21504023/apple-watch-ekg-blood-oxygen-fda-clearance">article</a> in The Verge by Nicole Wetsman that
 discusses why Apple got FDA approval for its EKG feature but not for its
@@ -336,8 +284,13 @@ measurement of blood oxygen level.</p>
 <blockquote>
 <p>Blood oxygen monitors, or pulse oximeters, are considered Class II medical devices by the FDA. Generally, any company that wants to sell one in the United States has to submit documentation to the agency confirming that its product works just as well as other versions of the same product already on the market. There’s a workaround, though: if the company says that the product is just for fun, or for general “wellness,” they don’t have to go through that process.</p>
 </blockquote>
-<p>To search for clinical trials involving the Apple Watch, click
-<a href="https://www.clinicaltrials.gov/ct2/results?recrs=ab&amp;cond=&amp;term=Apple+Watch&amp;cntry=&amp;state=&amp;city=&amp;dist=">here</a>.</p>
+<p>It’s convenient for Apple to keep users at arms length and hide the technical details.
+That means we get a verbal description of what a measure is supposed to do, but we
+may not be able to understand the operational definition of what the measure
+actually does. The health measures in many cases are still in an early stage of
+development. They will be improved over time. Improvement means change, in a
+good way. But it also means that one must be very careful about trying to
+interpret long-term trends.</p>
 </div>
 <div id="appendix-some-of-the-r-code-used-to-make-this-post" class="section level3">
 <h3>Appendix: Some of the R Code Used to Make This Post</h3>

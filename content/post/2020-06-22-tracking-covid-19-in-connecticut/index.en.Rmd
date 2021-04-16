@@ -270,7 +270,7 @@ p_daily_deaths <- ggplot(data = dph_total %>%
                                   levels = c("Monday", "Tuesday",
                                              "Wednesday", "Thursday", "Friday",
                                              "Saturday","Sunday"))), 
-            aes(x = date, y = new_deaths)) +
+            aes(x = date, y = new_deaths)) + 
   geom_col(fill = "gray95", colour = "gray90") + 
   # scale_fill_viridis(discrete = TRUE, begin = 0.5, end = 0.7, option = "viridis") + 
   scale_y_continuous(limits = c(0, NA)) +

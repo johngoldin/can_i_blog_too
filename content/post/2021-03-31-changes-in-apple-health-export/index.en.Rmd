@@ -75,7 +75,7 @@ This is a follow-up to an [earlier  post](https://johngoldin.com/2020/02/apple-h
 exploring the Apple Health Export. The earlier post describes how
 to export the Health data from the iPhone and import it into R.
 
-In this post I will look at issues of the stability of how some
+This post will look at issues of the stability of how some
 summary measures are defined and look for other changes in the export.
 
 ### Resting Heart Rate
@@ -349,7 +349,7 @@ provided by the Apple Developer Documentation:
 As with resting heart rate, let's
 look at my values for VO2 Max to see what it reveals.
 
-```{r vo2max}
+```{r vo2max, echo = FALSE, message = FALSE}
 # vo2max <- health_df %>% 
 #   filter(type == "VO2Max", str_detect(sourceName, "Watch"))
 
@@ -408,10 +408,15 @@ print(p_vo2max3)
 # [Various VO2 Max estimates at home](https://9to5strength.com/vo2-max-testing/)
 # https://www.runnersblueprint.com/vo2-max/
 
+# [https://www.apple.com/newsroom/2020/12/cardio-fitness-notifications-are-available-today-on-apple-watch/]
+
+# To search for clinical trials involving the Apple Watch, click
+# [here](https://www.clinicaltrials.gov/ct2/results?recrs=ab&cond=&term=Apple+Watch&cntry=&state=&city=&dist=).
+
 ```
 
-What can I make of these changes over time? It's evident that the e
-stimated value of VO2 Max is
+What can I make of these changes over time? It's evident that the
+estimated value of VO2 Max is
 dominated by the details of how estimation is done during each version
 of Watch OS. There are dramatic changes in this chart that have little (or nothing)
 to do with my fitness.
@@ -433,13 +438,13 @@ the estimated VO2 Max to actual changes in my cardio fitness.
 The [press release for Watch OS 7](https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/)  introduced "low range VO2 Max"
 
 > Apple Watch already estimates average and higher levels of VO2 max during vigorous outdoor walks, runs, or hikes, which many runners and other athletes monitor to improve performance.
-Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical heart sensor, GPS, and the accelerometer, to estimate lower levels, too. [https://www.apple.com/newsroom/2020/12/cardio-fitness-notifications-are-available-today-on-apple-watch/]
+Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical heart sensor, GPS, and the accelerometer, to estimate lower levels, too. 
 
 I don't know whether the low range VO2 Max had any effect on me. It's likely that
 my normal daily walk was sufficient to estimate VO2 Max so they low range estimation
-procedure was never needed.
+procedure was never needed. 
 
-Inluding an estimate of VO2 Max is an interesting concept, but so far it seem that
+Including an estimate of VO2 Max is an interesting concept, but so far it seem that
 both the short run variations the long-term trend are affected by changes
 in the estimation procedure. VO2 Max won't be useful until Apple settles on
 a stabe methodology. I look forward to seeing that someday. 
@@ -501,11 +506,15 @@ one can clearly see that the original heart rate data is
 available even for older months that are summarized in the
 Health Export.
 
-### Lack of Transparency
+### How Do We Know What the Health Measures Actually Measure?
 
-Apple wants the Watch to be taken seriously as a medical device. 
-They may not be willing to describe the operational definition
-of the summary measurements they provide. Here we have looked at
+Apple wants the Watch to be taken seriously as a medical device.
+To take the Health items seriously, one needs to have
+confidence in them. Greater transparency would help to support trust.
+Apple may not be willing to describe the operational definition
+of the summary measurements they provide. 
+That makes it harder to determine what is actually being  measured.
+Here we have looked at
 resting heart rate and VO2max and alluded to sleep.
 
 There's an interesting [article](https://www.theverge.com/2020/10/7/21504023/apple-watch-ekg-blood-oxygen-fda-clearance) in The Verge by Nicole Wetsman that
@@ -514,8 +523,13 @@ measurement of blood oxygen level.
 
 > Blood oxygen monitors, or pulse oximeters, are considered Class II medical devices by the FDA. Generally, any company that wants to sell one in the United States has to submit documentation to the agency confirming that its product works just as well as other versions of the same product already on the market. There’s a workaround, though: if the company says that the product is just for fun, or for general “wellness,” they don’t have to go through that process.
 
-To search for clinical trials involving the Apple Watch, click
-[here](https://www.clinicaltrials.gov/ct2/results?recrs=ab&cond=&term=Apple+Watch&cntry=&state=&city=&dist=).
+It's convenient for Apple to keep users at arms length and hide the technical details.
+That means we get a verbal description of what a measure is supposed to do, but we
+may not be able to understand the operational definition of what the measure
+actually does. The health measures in many cases are still in an early stage of
+development. They will be improved over time. Improvement means change, in a 
+good way. But it also means that one must be very careful about trying to 
+interpret long-term trends.
 
 ### Appendix: Some of the R Code Used to Make This Post
 
