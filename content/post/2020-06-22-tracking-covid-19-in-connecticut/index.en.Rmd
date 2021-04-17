@@ -485,7 +485,7 @@ print(p_rt_map)
 
 <br/> R is estimated from the state data and the gray area around the
 line indicates the statistical uncertainty of the estimate showing an
-80% confidence interval. Note that this map shows only whether
+95% confidence interval. Note that this map shows only whether
 transmission seems to be growing or shrinking. How concerned one should
 be about the epidemic in a particular state also depends on the
 prevalence of cases.
