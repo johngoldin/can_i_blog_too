@@ -73,15 +73,31 @@ Five_Connecticuts <- read_delim(paste0(path_to_ctcorona, "Five_Connecticuts.txt"
 # note that prisons have dominant effect on Somers and Montville
 load(paste0(path_to_ctcorona, "dph_datasets.RData"))
 # load effective R from https://rt.live/
-rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>% 
-  mutate(state = case_when(
-    region == "CT" ~ "Connecticut",
-    region == "AZ" ~ "Arizona"
-  )) %>% 
+# rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>% 
+covid_estim <- read_csv("https://covidestim.s3.us-east-2.amazonaws.com/latest/state/estimates.csv") %>% 
+  filter(state != "Puerto Rico") %>% 
+  mutate(
+    region = case_when(
+      state == "District of Columbia" ~ "DC",
+      TRUE ~ state.abb[match(state,state.name)]
+      ),
+    state2 = case_when(
+      region == "CT" ~ "Connecticut",
+      region == "AZ" ~ "Arizona"
+    )) %>% 
   group_by(region) %>% arrange(date) %>% 
-  mutate(above_one = ifelse(last(mean) > 1, "> 1", "<= 1") %>% factor(levels = c("> 1", "<= 1")),
-         recent_rt = last(mean)) %>% 
+  mutate(above_one = ifelse(last(Rt) > 1, "> 1", "<= 1") %>% factor(levels = c("> 1", "<= 1")),
+         recent_rt = last(Rt)) %>% 
   ungroup() 
+# rt_live <- read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv") %>% 
+#   mutate(state = case_when(
+#     region == "CT" ~ "Connecticut",
+#     region == "AZ" ~ "Arizona"
+#   )) %>% 
+#   group_by(region) %>% arrange(date) %>% 
+#   mutate(above_one = ifelse(last(mean) > 1, "> 1", "<= 1") %>% factor(levels = c("> 1", "<= 1")),
+#          recent_rt = last(mean)) %>% 
+#   ungroup() 
 ```
 
 ## Latest Connecticut Data from the Department of Public Health
@@ -244,6 +260,8 @@ exec_orders <- tibble(
 ) %>%
   left_join(dph_total %>% select(date, rnew_cases, rnew_deaths, cases, deaths)) 
 
+my_date_break = "2 months"
+my_date_minor_break = "1 month"
 # try a version with understated bars
 p_new_cases <- ggplot(data = dph_total %>% 
               # filter(county == "Fairfield") %>% 
@@ -255,7 +273,7 @@ p_new_cases <- ggplot(data = dph_total %>%
   geom_col(fill = "gray95", colour = "gray90") + 
   # scale_fill_viridis(discrete = TRUE, begin = 0.5, end = 0.7, option = "viridis") + 
   scale_y_continuous(labels = scales::comma, limits = c(0, NA)) +
-  scale_x_date(date_breaks = "2 weeks", date_minor_breaks = "1 week", date_labels = "%b %d") +
+  scale_x_date(date_breaks = my_date_break, date_minor_breaks = my_date_minor_break, date_labels = "%b %d") +
   geom_line(aes(y = rnew_cases), size = 1) +
   theme_minimal() + theme(legend.position = "none") +
   xlab(NULL) + ylab("New Cases Per Day") +
@@ -274,7 +292,7 @@ p_daily_deaths <- ggplot(data = dph_total %>%
   geom_col(fill = "gray95", colour = "gray90") + 
   # scale_fill_viridis(discrete = TRUE, begin = 0.5, end = 0.7, option = "viridis") + 
   scale_y_continuous(limits = c(0, NA)) +
-  scale_x_date(date_breaks = "2 weeks", date_minor_breaks = "1 week", date_labels = "%b %d") +
+  scale_x_date(date_breaks = my_date_break, date_minor_breaks = my_date_minor_break, date_labels = "%b %d") +
   geom_line(aes(y = rnew_deaths), size = 1) +
   theme_minimal() + theme(legend.position = "none") +
   xlab(NULL) + ylab("Deaths Per Day") +
@@ -283,16 +301,18 @@ p_daily_deaths <- ggplot(data = dph_total %>%
             hjust = 0.5, vjust = 0, size = 3, colour = "black", nudge_y = 0) +
   ggtitle("Connecticut Covid-19 Daily Deaths (with 7-day rolling average)")
 
-r_data_ct <- rt_live %>% filter(region == "CT")
-r_data_az <- rt_live %>% filter(region == "AZ")
+# r_data_ct <- rt_live %>% filter(region == "CT")
+# r_data_az <- rt_live %>% filter(region == "AZ")
+r_data_ct <- covid_estim %>% filter(region == "CT")
+r_data_az <- covid_estim %>% filter(region == "AZ")
 # colors from colorbrewer:  https://colorbrewer2.org/#type=diverging&scheme=PRGn&n=3
-p_rt_live <- ggplot(data = r_data_ct, aes(x = date, y = mean)) +
-  geom_ribbon(aes(ymin = lower_80, ymax = upper_80), fill = "grey83") +
-  geom_ribbon(data = r_data_az, aes(ymin = lower_80, ymax = upper_80), fill = "grey83") +
+p_rt_live <- ggplot(data = r_data_ct, aes(x = date, y = Rt)) +
+  geom_ribbon(aes(ymin = Rt.lo, ymax = Rt.hi), fill = "grey83") +
+  geom_ribbon(data = r_data_az, aes(ymin = Rt.lo, ymax = Rt.hi), fill = "grey83") +
   geom_line(aes(colour = above_one), size = 1) + theme_minimal() + 
   geom_hline(yintercept = 1, colour = "gray") +
   geom_line(data = r_data_az, aes(colour = above_one), size = 1) + theme_minimal() + 
-  geom_text(data = rt_live %>% filter(region %in% c("CT", "AZ")) %>%
+  geom_text(data = r_data_ct %>% filter(region %in% c("CT", "AZ")) %>%
               group_by(region, state) %>% arrange(region, state, date) %>%
               summarise(date = min(date), recent_rt = last(recent_rt)),
             aes(label = state, x = ymd("2020-03-23"), y = recent_rt), hjust = 1, size = 3, nudge_x = 2) +
@@ -301,19 +321,19 @@ p_rt_live <- ggplot(data = r_data_ct, aes(x = date, y = mean)) +
   scale_color_manual(values = c("<= 1" = "#7fbf7b", "> 1" = "#af8dc3")) +
   scale_y_continuous(limits = c(0.5, 2.5), breaks = c(0.5, 1, 1.5, 2.0)) +
                      #minor_breaks = seq(0.2, 1.4, 0.2)) +
-  scale_x_date(date_breaks = "2 weeks", date_minor_breaks = "1 week", 
+  scale_x_date(date_breaks = my_date_break, date_minor_breaks = my_date_minor_break, 
                date_labels = "%b %d", 
                limits = c(min(dph_total$date), max(dph_total$date))) +
   xlab(NULL) + ylab(expression("R"[t])) +
   # see: http://strata.uga.edu/8370/rtips/subscriptsSuperscripts.html
-  labs(title = expression(paste("Trend in ", R[t], " (as computed by https://rt.live/)")))
+  labs(title = expression(paste("Trend in ", R[t], " (as computed by covidestim · COVID-19 nowcasting)")))
 ```
 
 ```{r hospitalizations, echo = FALSE, out.width = "70%", fig.align = "center"}
 p_hospitalizations <- ggplot(data = dph_total %>% filter(!is.na(hospital)),
                     aes(x = date, y = hospital)) +
   geom_line() + xlab(NULL) + # geom_point() + 
-  scale_x_date(date_breaks = "2 weeks", date_minor_breaks = "1 week", 
+  scale_x_date(date_breaks = my_date_break, date_minor_breaks = my_date_minor_break, 
                date_labels = "%b %d", 
                limits = c(min(dph_total$date), NA)) +
   theme_minimal() + scale_y_continuous(labels = scales::comma) +
@@ -328,24 +348,26 @@ p_hospitalizations <- ggplot(data = dph_total %>% filter(!is.na(hospital)),
 
 ```{r geofacets, echo = FALSE}
 #  <span style="color: #ff0000">January 30, 2011</span> > 1 #af8dc3 <= 1 #7fbf7b
-p_rt_map <- ggplot(data = rt_live %>% select(-state) %>% 
-         rename(state = region), aes(x = date, y = mean)) + 
+p_rt_map <- ggplot(data = covid_estim %>% select(-state) %>% 
+         rename(state = region) %>% select(date, state, Rt, Rt.lo, Rt.hi, above_one) %>%  
+         filter(date >= ymd("2020-03-15")),
+         aes(x = date, y = Rt)) + 
   xlab(NULL) + ylab(NULL) + 
   theme_bw() + 
-  geom_ribbon(aes(ymin = lower_80, ymax = upper_80), fill = "grey80") +  # higher grey number is lighter
+  geom_ribbon(aes(ymin = Rt.lo, ymax = Rt.hi), fill = "grey80") +  # higher grey number is lighter
   geom_hline(yintercept = 1, colour = "grey50") +
   geom_line(aes(colour = above_one), size = 1) + theme(legend.position = "left") +
   scale_color_manual(values = c("<= 1" = "#7fbf7b", "> 1" = "#af8dc3")) +
   scale_y_continuous(limits = c(0.5, 1.8), breaks = c(0.5, 1, 1.5)) +
                      #minor_breaks = seq(0.2, 1.4, 0.2)) +
-  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", 
+  scale_x_date(date_breaks = "4 months", date_minor_breaks = "1 month", 
                date_labels = "%b") + 
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, size = 6)) +
   theme(axis.text.x = element_text(size=5)) +
   # labs(title = paste0("Trends in ", expression("R"[t]), "(as computed by https://rt.live/)")) +
-  labs(title = expression(paste("Trend in ", R[t], " by State (as computed by https://rt.live/)")),
+  labs(title = expression(paste("Trend in ", R[t], " by State (as computed by covidestim · COVID-19 nowcasting)")),
        colour = expression(paste("Recent ", R[t])),
-       caption = "Source: rt.live, geofacet package") +
+       caption = "Source: covidestim · COVID-19 nowcasting, geofacet package") +
   facet_geo(~ state)
 
 ```
@@ -354,16 +376,17 @@ p_rt_map <- ggplot(data = rt_live %>% select(-state) %>%
 
 ```{r cdc_covid_map, echo = FALSE}
 p_states_map <- ggplot(data = cdc_covid %>% 
-                         left_join(rt_live %>% 
-                                     select(state = region, above_one),
-                                   by = "state"), 
-                   aes(x = date, y = renw_cases_per100k)) + 
+                         filter(date >= ymd("2020-03-15")) %>% 
+                       left_join(covid_estim %>% 
+                                   select(date, state = region, above_one),
+                                 by = c("state", "date")), 
+                       aes(x = date, y = renw_cases_per100k)) + 
   xlab(NULL) + ylab(NULL) +  
   theme_bw() + 
   geom_line(size = 1, aes(colour = above_one)) + 
   theme(legend.position = "left") +
   scale_color_manual(values = c("<= 1" = "#7fbf7b", "> 1" = "#af8dc3")) +
-  scale_x_date(date_breaks = "2 months", date_minor_breaks = "1 month", 
+  scale_x_date(date_breaks = "4 months", date_minor_breaks = "1 month", 
                date_labels = "%b") + 
   theme(axis.title.y = element_text(angle=0, vjust = 0.5, size = 6)) +
   theme(axis.text.x = element_text(size=5)) +
@@ -421,11 +444,11 @@ is to estimate the parameter R<sub>t</sub>, the average number of people
 who become infected by an infectious person. When R<sub>t</sub> is
 greater than 1 the number of daily new cases is increasing, If
 R<sub>t</sub> is less than 1, it is decreasing. See the site
-[rt.live](https://rt.live/) for an estimate by state of the effective
+[covidestim · COVID-19 nowcasting](https://covidestim.org) for an estimate by state of the effective
 value for R<sub>t</sub>. The site is described in [this
 article](https://www.vox.com/recode/2020/4/21/21227855/coronavirus-spreading-by-state-instagram-effective-reproduction-rate)
 at Vox.com. I don't claim to have the expertise to evaluate the quality
-of the calculation of R at the [rt.live](https://rt.live/) site, but it 
+of the calculation of R at the [covidestim](https://covidestim.org) site, but it 
 seems to jive with other information about the pattern of the epidemic
 among states.
 
@@ -437,14 +460,14 @@ has lately shown [signs of a growing
 outbreak](https://www.fox10phoenix.com/news/arizona-medical-experts-alarmed-over-surge-in-covid-19-cases).
 The goal in Connecticut and in the entire New York City area is to keep
 R<sub>t</sub> well under 1. As of
-`r format(max(rt_live$date),"%m/%d/%Y")` R<sub>t</sub> is
-`r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "CT")], 2)`.
+`r format(max(covid_estim$date),"%m/%d/%Y")` R<sub>t</sub> is
+`r round(covid_estim$Rt[(covid_estim$date == max(covid_estim$date)) & (covid_estim$region == "CT")], 2)`.
 On the other hand, in Arizona R<sub>t</sub> is about
-`r round(rt_live$mean[(rt_live$date == max(rt_live$date)) & (rt_live$region == "AZ")], 2)`.
+`r round(covid_estim$Rt[(covid_estim$date == max(covid_estim$date)) & (covid_estim$region == "AZ")], 2)`.
 
 ## Comparisons with Other States
 
-### Estimate of R<sub>t</sub> by State (from [rt.live](https://rt.live/))
+### Estimate of R<sub>t</sub> by State (from [covidestim · COVID-19 nowcasting](https://covidestim.org))
 
 The next display shows the trend of R<sub>t</sub> in each state arranged
 according to geographic position in the US. Remember that R<sub>t</sub>
@@ -926,7 +949,7 @@ town_summary <- dph_towns %>%
   # group_rows("group2", 3,3) %>%
   htmltools::HTML() %>%
   shiny::div() %>% 
-  sparkline::spk_add_deps()
+  sparkline::spk_add_deps() 
 # county_summary
 town_summary
 ```
@@ -1038,10 +1061,8 @@ in many parts of the country. <br/>
 -   [New York Times Tracking the
     Coronavirus](https://www.nytimes.com/interactive/2020/world/coronavirus-maps.html)
 
--   [rt.live](https://rt.live) I have made heavy use of this site in
-    Figure \@ref(fig:p-rt-map) so I'll link to it here as well.
-
--  [covidestimd Covid-19 Nowcasting](https://covidestim.org)
+-   For Rt I am [using covidestim · COVID-19 nowcasting](https://covidestim.org). I previously used [rt.live](https://rt.live), but they stopped doing estimates and
+referred me to Covid-19 nowcasting. 
 
 -   [Covid ActNow](https://covidactnow.org/?s=61890) I only learned
     about this project today, but it seems quite interesting.
