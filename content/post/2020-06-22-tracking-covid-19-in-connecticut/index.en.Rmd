@@ -559,7 +559,7 @@ data to say anything firm about this
 ## Nursing Homes
 
 ```{r nursing-homes, echo = FALSE}
-nursing_home_totals <- dph_nursing_cases %>% filter(date == max(date)) %>% 
+nursing_home_totals <- dph_nursing_cases %>% filter(date == max(date)) %>%
   summarise(cases = sum(nh_cases, na.rm = TRUE), deaths = sum(nh_deaths, na.rm = TRUE))
 ```
 
