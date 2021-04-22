@@ -144,7 +144,6 @@ border between England and Scotland when they still had over 400 miles to go.
 [Ramblers routes](http://www.ramblers.org.uk/go-walking.aspx)    
 [Walking Englishman](https://www.walkingenglishman.com/)    
 [London Hiker](http://londonhiker.com/resources/)    
-[Lonely Planet Top 10](https://www.lonelyplanet.com/united-kingdom/travel-tips-and-articles/76616)    
 [Walking Britain](http://www.walkingbritain.co.uk/)    
 [20 Superb UK Walks - The Guardian](https://www.theguardian.com/travel/2016/apr/23/british-walks-uk-family-long-distance-paths-trails)    
 [Lonely Planet Walking in Britain](https://www.amazon.com/Lonely-Planet-Walking-Britain-David/dp/174104202X)    
