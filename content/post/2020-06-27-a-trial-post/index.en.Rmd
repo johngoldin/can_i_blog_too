@@ -4,6 +4,7 @@ author: John Goldin
 date: '2020-06-27'
 description: "spf13-vim is a cross platform distribution of vim plugins and resources" 
 summary: "This is a test post used to explore some features of Hugo and how they relate to my blog posts."
+excerpt: "This is just a test post."
 categories:
   - Flickr
   - GPS
