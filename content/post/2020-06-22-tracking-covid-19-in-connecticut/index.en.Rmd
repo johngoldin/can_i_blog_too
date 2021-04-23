@@ -63,7 +63,7 @@ path_to_ctcorona <- "~/Documents/R_local_repos/ctcorona/data/"
 path_to_ctcorona_r <- "~/Documents/R_local_repos/ctcorona/R/" 
 load(paste0(path_to_ctcorona, "dph_datasets.RData"))
 load(paste0(path_to_ctcorona, "census_population.RData"))
-source(paste0(path_to_ctcorona_r, "combine_dph_towns.R"))
+source(paste0(path_to_ctcorona_r, "combine_dph_towns.R")) 
 
 # from https://www.ctdatahaven.org/sites/ctdatahaven/files/UConnCPR%20Changing%20Demographics-5%20CTs%202004.pdf
 # The Changing Demographics of Connecticut — 1990 to 2000. by Center for Population Research  May. 31, 2004
