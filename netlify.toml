@@ -30,7 +30,7 @@ HUGO_VERSION = "0.82.1"
 HUGO_ENABLEGITINFO = "true"
 
 [[redirects]]
-  from = "/blog"
-  to = "/2020/02"
+  from = "/blog/test1/"
+  to = "/2020/02/notes-from-rstudioconf-2020/"
 
 
