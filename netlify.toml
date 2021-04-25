@@ -38,7 +38,7 @@ HUGO_ENABLEGITINFO = "true"
   to = "/2020/02/notes-from-rstudioconf-2020/"
   
 [[redirects]]
-  from = "/2020/02/"
+  from = "/2020/notes-from-rstudioconf-2020/"
   to = "/2020/02/notes-from-rstudioconf-2020/"
   
 [[redirects]]
