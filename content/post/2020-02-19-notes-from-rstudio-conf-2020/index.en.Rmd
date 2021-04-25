@@ -7,7 +7,7 @@ categories:
   - other-R
 tags:
   - other-R
-type: post
+excerpt: "Some note and impressions from the 2020 RStudio Conference in San Francisco."
 subtitle: ''
 image: ''
 ---
