@@ -3,6 +3,8 @@ title: Guilford Demographics
 author: John Goldin
 date: '2018-09-09'
 slug: guilford-demographics
+aliases:
+    - /2018/09/guilford-demographics/
 categories:
   - census
   - Guilford

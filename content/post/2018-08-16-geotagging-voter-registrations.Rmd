@@ -2,7 +2,9 @@
 title: "Guilford Registered Voters: An R Sampler"
 author: John Goldin
 date: '2018-09-08'
-slug: geotagging_voters
+slug: geotagging-voters
+aliases:
+    - /2018/09/geotagging_voters/
 categories: 
   - R
   - maps
@@ -12,7 +14,7 @@ tags:
   - Guilford
   - maps
   - census
-description: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. To see just the interesting plots without lots of R-related detail, skip this post and read the next one instead. '
+excerpt: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. To see just the interesting plots without lots of R-related detail, skip this post and read the next one instead. '
 keywords: []
 ---
 

@@ -2,6 +2,9 @@
 title: "An Implementation of Narcissism in R"
 author: ~
 date: '2017-02-26'
+slug: 'narcissism'
+aliases:
+    - /2017/02/an-implementation-of-narcissism-in-r/
 categories: 
   - personal
   - Quantified-Self
@@ -77,7 +80,7 @@ weight_data$mid_month &lt;-
     days(14)
 wtm &lt;- group_by(weight_data, mid_month, month) %&gt;% 
     summarise(weight = mean(weight, na.rm = TRUE))
-## `summarise()` regrouping output by &#39;mid_month&#39; (override with `.groups` argument)
+## `summarise()` has grouped output by &#39;mid_month&#39;. You can override using the `.groups` argument.
 # weight by month, but without partial 1996
 wtm2 &lt;- filter(wtm, year(mid_month) &gt; 1996) 
 byday &lt;- ggplot(data = weight_data, 
