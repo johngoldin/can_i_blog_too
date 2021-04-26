@@ -10,6 +10,8 @@ tags:
   - R
 type: post
 draft: yes
+slug: apple-health-export-2
+excerpt: Part II is a dive into the contents of the Apple Health Export with a focus on intra-day measures such as heart rate and energy as opposed to daily measures such as resting heart rate or daily step count.
 ---
 
 This post is Part II of a dive into the contents of the Apple Health Export.
