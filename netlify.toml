@@ -34,13 +34,11 @@ HUGO_ENABLEGITINFO = "true"
   to = "/2020/02/"
 
 [[redirects]]
-  from = "/blog/test2/"
-  to = "/2020/02/notes-from-rstudioconf-2020/"
+  from = "/2020/apple-health-export-part-i/*"
+  to = "/2020/02/apple-health-export-part-i/index.html"
   
 [[redirects]]
-  from = "/2020/notes-from-rstudioconf-2020/"
-  to = "/2020/02/notes-from-rstudioconf-2020/"
+  from = "/2020/notes-from-rstudioconf-2020/*"
+  to = "/2020/02/notes-from-rstudioconf-2020/index.html"
   
-[[redirects]]
-  from = "/2020/02/notes-from-rstudioconf-2020/"
-  to = "/2020/02/notes-from-rstudioconf-2020/"
+

@@ -10,6 +10,8 @@ tags:
 excerpt: "Some note and impressions from the 2020 RStudio Conference in San Francisco."
 subtitle: ''
 image: ''
+aliases:
+    - /2020/notes-from-rstudioconf-2020/
 ---
 
 ```{r setup, include=FALSE}
