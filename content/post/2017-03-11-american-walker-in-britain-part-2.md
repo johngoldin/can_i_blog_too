@@ -1,7 +1,9 @@
 ---
 title: American Walker in Britain Part 2
 date: '2017-03-11'
-slug: "am_walker_2"
+slug: "am-walker-2"
+aliases:
+    - /2017/03/am_walker_2/
 categories:
   - British Walking
 ---

@@ -2,6 +2,8 @@
 title: Portfolio of Projects
 date: '2017-02-17'
 slug: "portfolio"
+aliases:
+    - /2017/02/portfolio/
 categories:
   - personal
 

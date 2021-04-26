@@ -1,7 +1,9 @@
 ---
 title: An American Walking in Britain
 date: '2017-03-07'
-slug: "am_walker_1"
+slug: "am-walker-1"
+aliases:
+    - /2017/03/am_walker_1/
 categories:
   - British Walking
 ---

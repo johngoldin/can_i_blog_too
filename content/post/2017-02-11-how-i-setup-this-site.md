@@ -4,6 +4,8 @@ author: John Goldin
 date: '2017-02-11'
 categories: []
 tags: []
+aliases:
+    - /2017/02/how-i-set-up-this-site/
 Categories:
   - blogdown
   - GitHub
