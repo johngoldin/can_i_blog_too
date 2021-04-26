@@ -1,44 +1,21 @@
 [build]
+command = "hugo"
 publish = "public"
-command = "hugo --gc --minify"
-
-[context.production.environment]
-HUGO_VERSION = "0.82.1"
-HUGO_ENV = "production"
-HUGO_ENABLEGITINFO = "true"
-
-[context.split1]
-command = "hugo --gc --minify --enableGitInfo"
-
-[context.split1.environment]
-HUGO_VERSION = "0.82.1"
-HUGO_ENV = "production"
-
-[context.deploy-preview]
-command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
-
-[context.deploy-preview.environment]
+[build.environment]
 HUGO_VERSION = "0.82.1"
 
+[context]
 [context.branch-deploy]
-command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+command = "hugo -F -b $DEPLOY_PRIME_URL"
+[context.deploy-preview]
+command = "hugo -F -b $DEPLOY_PRIME_URL"
+[context.production]
+[context.production.environment]
+HUGO_ENV = "production"
 
-[context.branch-deploy.environment]
-HUGO_VERSION = "0.82.1"
-
-[context.next.environment]
-HUGO_ENABLEGITINFO = "true"
-
-[[redirects]]
-  from = "/blog/test4/*"
-  to = "/2020/02/"
-
-[[redirects]]
-  from = "/2020/apple-health-export-part-i/*"
-  to = "/2020/02/apple-health-export-part-i/index.html"
-  
-[[redirects]]
-  from = "/2020/notes-from-rstudioconf-2020/*"
-  to = "/2020/02/notes-from-rstudioconf-2020/index.html"
-  
-
+# Specific branch context: all deploys from this specific branch will inherit
+# these settings.
+# https://community.netlify.com/t/deploy-branch-without-default-site-settings/22053/9
+[context.gh-pages] # 'gh-pages' is a branch name
+command = "true"
+publish = "."

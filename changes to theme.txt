@@ -1,8 +1,0 @@
-
-
-added to hyde-hyde theme: (in the social.html in layout partial sidebar)
-
-<section class="social">
-	{{ with .Site.Params.social.flickr }}
-	<a href="{{.}}" rel="me"><i class="fab fa-flickr fa-lg" aria-hidden="true"></i></a>
-	{{ end }}
