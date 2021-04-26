@@ -1,17 +1,25 @@
 ---
 ## Configure page content in wide column
-title: "Why apéro?" # leave blank to exclude
+title: "Why this site?" # leave blank to exclude
 number_featured: 1 # pulling from mainSections in config.toml
 number_categories: 3 # set to zero to exclude
 use_featured: false
 show_intro: true
 intro: |
-  Apéro is a unique kind of casual get-together in French culture, when you gather with friends and get to know each other better over some apéritifs, snacks, and anything in between. A good apéro is one where you'd happily spend a few hours just hanging out.
+  This site is aimed mostly at myself. I enjoy working on projects. The act of publishing
+  something to this web site provides some closure and sense of accomplishment. Having
+  publication as a possibility helps to focus my efforts. Every now and then I settle
+  down and actually finish something.
   
-  I hope this theme helps you create your own virtual apéro. A place where you and your site's visitors enjoy spending time, and one that helps folks get to know you better. 
+  From time to time I also may produce something that is of interest to an outside
+  audience. Many times I have learned something useful after a web search has landed me on some
+  stranger's writing on the web. I hope this site may prove useful to others who stumble across it.
+  
+## test
+  
 show_outro: true
 outro: |
-  <i class="fas fa-glass-cheers pr2"></i>Sincere thanks to [Maëlle Salmon](https://masalmon.eu/) for her help naming this Hugo theme!
+  Thank you to Alison Presmanes Hill and RStudio for creating the [Hugo Apéro theme](https://hugo-apero.netlify.app) which has nudged me to attempt a more expressive and attractive site.
 ---
 
 ** index doesn't contain a body, just front matter above.

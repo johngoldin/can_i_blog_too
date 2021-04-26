@@ -2,7 +2,7 @@ baseURL = "https://johngoldin.com/"
 languageCode = "en"
 theme = "hugo-apero"
 title = "Can I Blog Too"
-author = "Alison Hill"
+author = "John Goldin"
 copyright = "" # set to override the auto generated copyright using org info and now year
 googleAnalytics = "UA-92008736-2"
 gravatarHash = "f7dd8b52bc092b4e50e9324381b02d67"
@@ -28,8 +28,8 @@ enableEmoji = true
     # one of: https://xyproto.github.io/splash/docs/ 
     style = "github"
 
-[permalinks]
-  post = "/:year/:slug/"
+#[permalinks]
+#  post = "/:year/:slug/"
     
 [params]
   orgName = ""
