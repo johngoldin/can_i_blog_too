@@ -21,7 +21,8 @@ enableRobotsTXT = true
 canonifyURLs = true
 
 [permalinks]
-    post = "/:year/:month/:slug/"
+post = "/:year/:slug/"
+#    post = "/:year/:month/:slug/"
     
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page 
@@ -29,7 +30,7 @@ canonifyURLs = true
   mainSections = ["post","posts"]
   logo = "https://www.gravatar.com/avatar/f7dd8b52bc092b4e50e9324381b02d67?s=200"
 #  logo = "img/avatar-icon.png" # Expecting square dimensions
-#  favicon = "img/favicon.ico"
+  favicon = "img/for_site/gargoyle.iconset"
   dateFormat = "January 2, 2006"
   commit = false
   rss = true

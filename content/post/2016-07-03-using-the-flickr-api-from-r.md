@@ -2,6 +2,8 @@
 title: Using the Flickr API from R
 date: '2016-07-03'
 slug: 'flickr_api'
+aliases:
+    - /2016/06/flickr_api/
 categories:
   - R
   - Flickr
