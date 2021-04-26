@@ -4,6 +4,8 @@ author: John Goldin
 date: '2018-07-07'
 # menu: "main"
 slug: "site-notes"
+aliases:
+    - /2018/07/site-notes/
 categories: []
 tags: []
 Categories:

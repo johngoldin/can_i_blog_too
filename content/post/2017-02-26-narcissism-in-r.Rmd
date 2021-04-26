@@ -2,6 +2,9 @@
 title: "An Implementation of Narcissism in R"
 author: ~
 date: '2017-02-26'
+slug: 'narcissism'
+aliases:
+    - /2017/02/an-implementation-of-narcissism-in-r/
 categories: 
   - personal
   - Quantified-Self

@@ -2,7 +2,9 @@
 title: Web Scraping Javascript Content
 author: John Goldin
 date: '2018-07-22'
-slug: scraping_javascript
+slug: scraping-javascript
+aliases:
+    - /2018/07/scraping_javascript/
 categories: 
   - R
 tags: 
