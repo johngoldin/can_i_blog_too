@@ -10,13 +10,15 @@ tags:
   - Quantified-Self
   - Apple-Health-Export
   - R
-type: post
+slug: apple-health-export-1
+aliases:
+    - /2020/02/apple-health-export-part-i/
 subtitle: ''
 image: ''
 draft: no
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
 
 
 <p>This post is Part I of a dive into the contents of the Apple Health Export.
@@ -858,8 +860,9 @@ But I would imagine that for a runner or a swimmer or a cyclist,
 the Workout information would be interesting and useful.</p>
 <p>ClinicalRecord is a bit tricky.
 I have set things up so that my health organization shares my health records with the
-Apple Health app. The count by type is in Table <a href="#tab:count-clin-record-types"><strong>??</strong></a>.</p>
+Apple Health app. The count by type is in Table <a href="#tab:count-clin-record-types">2</a>.</p>
 <table>
+<caption><span id="tab:count-clin-record-types">Table 2: </span>Types of Clinical Items</caption>
 <thead>
 <tr class="header">
 <th align="left">type</th>
@@ -1202,7 +1205,7 @@ on the full dataset, but it feels fast. I also used it to relate rows in
 If data documenting the transition from one time zone to
 another is missing the whole table will be off kilter. If
 there’s something wrong with the <code>arrivals</code> table, it should show up as an
-unexpected result in Table <a href="#tab:check-time-zone">2</a>.</p>
+unexpected result in Table <a href="#tab:check-time-zone">3</a>.</p>
 <pre class="r"><code># shows trip by trip to check whether timezone assignment works as expected:
 # health_df %&gt;% #filter(timezone != &quot;America/New_York&quot;) %&gt;%
 #   mutate(date = as_date(utc_start)) %&gt;%
@@ -1215,10 +1218,9 @@ health_df %&gt;% mutate(date = as_date(utc_start)) %&gt;% group_by(timezone) %&g
   kable(format.args = list(decimal.mark = &quot; &quot;, big.mark = &quot;,&quot;),
         table.attr=&#39;class=&quot;myTable&quot;&#39;,
         caption = &quot;Frequency of Days by Time Zone&quot;)</code></pre>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <table class="myTable">
 <caption>
-<span id="tab:check-time-zone">Table 2: </span>Frequency of Days by Time Zone
+<span id="tab:check-time-zone">Table 3: </span>Frequency of Days by Time Zone
 </caption>
 <thead>
 <tr>
@@ -1440,10 +1442,8 @@ into account makes that more clear.</p>
 <p>In summary, if I did not correct for time zone and daylight savings the general bi-modal pattern would
 still be apparent. But the translation into local time makes the time of day pattern more clear
 and more accurate, especially if one focuses on hours when I would expect to be asleep.</p>
-<pre><code>## Warning in sample.int(n(), round(n() * check_frac(~0.1, replace = replace)), :
-## &#39;.Random.seed[1]&#39; is not a valid integer, so ignored</code></pre>
 <div class="figure"><span id="fig:hist-by-time"></span>
-<img src="/post/2020-02-15-apple-health-export1/index.en_files/figure-html/hist-by-time-1.png" alt="Density Plot by Time of Observation" width="672" />
+<img src="{{< blogdown/postref >}}index.en_files/figure-html/hist-by-time-1.png" alt="Density Plot by Time of Observation" width="672" />
 <p class="caption">
 Figure 1: Density Plot by Time of Observation
 </p>

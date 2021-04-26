@@ -10,7 +10,9 @@ tags:
   - Quantified-Self
   - Apple-Health-Export
   - R
-type: post
+slug: apple-health-export-1
+aliases:
+    - /2020/02/apple-health-export-part-i/
 subtitle: ''
 image: ''
 draft: no
