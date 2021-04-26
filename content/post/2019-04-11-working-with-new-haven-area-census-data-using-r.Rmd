@@ -2,7 +2,7 @@
 title: Working with New Haven Area Census Data Using R
 author: John Goldin
 date: '2019-04-11'
-description: 'Using the tidycensus package to explore census data. This post shows R code to fetch and map census data, but also gives some tips on how to explore the almost overwhelmind variety of variables available via the Census Bureau.'
+excerpt: 'Using the tidycensus package to explore census data. This post shows R code to fetch and map census data, but also gives some tips on how to explore the almost overwhelmind variety of variables available via the Census Bureau.'
 categories:
   - census
   - maps
@@ -13,6 +13,8 @@ tags:
   - maps
   - R
 slug: new-haven-census-and-R
+aliases:
+    - /2019/04/new-haven-census-and-R/
 draft: false
 output:
   html_document:
