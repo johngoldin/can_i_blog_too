@@ -92,10 +92,6 @@ enableEmoji = true
   # Icon pack "fas" includes solid icons, see: https://fontawesome.com/icons?d=gallery&s=solid&m=free
   # Icon pack "far" includes regular icons, see: https://fontawesome.com/icons?d=gallery&s=regular&m=free
    [[params.social]]
-      icon      = "flickr" # icon name without the 'fa-'
-      icon_pack = "fab"
-      url       = "https://www.flickr.com/people/99418994@N00/"
-   [[params.social]]
       icon      = "github" # icon name without the 'fa-'
       icon_pack = "fab"
       url       = "https://github.com/johngoldin/"
@@ -107,6 +103,10 @@ enableEmoji = true
       icon      = "address-card" # icon name without the 'fa-'
       icon_pack = "fas"
       url       = "https://johngoldin.com/"
+   [[params.social]]
+      icon      = "flickr" # icon name without the 'fa-'
+      icon_pack = "fab"
+      url       = "https://www.flickr.com/people/99418994@N00/"
 
 [taxonomies]
   category = "categories"
