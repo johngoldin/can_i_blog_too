@@ -1,78 +1,22 @@
-.DS_Store
-content/.DS_Store
-content/post/.DS_Store
-static/.DS_Store
-static/post/.DS_Store
-*/.DS_Store
-
-content/.DS_Store
-themes/.DS_Store
-static/.DS_Store
-static/post/.DS_Store
-
-temp*.*
-
-# History files
+.Rproj.user
 .Rhistory
-.Rapp.history
-
-# Session Data files
-.RData
-
-# User-specific files
-.Ruserdata
-
-# Example code in package build process
-*-Ex.R
-
-# Output files from R CMD build
-/*.tar.gz
-
-# Output files from R CMD check
-/*.Rcheck/
-
-# RStudio files
-.Rproj.user/
-
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
-
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.Rdata
 .httr-oauth
+.DS_Store
 
 # knitr and R markdown default cache directories
-*_cache/
+/*_cache/
 /cache/
 
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
+**/index.en_cache/**
+**/index_cache/**
 
-# R Environment Variables
-.Renviron
+# check_site suggestion:
+Thumbs.db
 
-# pkgdown site
-docs/
-
-# translation temp files
-po/*~
+# check_site suggested because netlify
 /public/
-xxxxxx/blogdown
-
+/resources/
 
 # my temporary files
 temp.*
-~$*.*
-doc
-Meta
-content/post/.DS_Store
-static/post/.DS_Store
-# following suggested by check_site()
-\\.Rmd$
-\\.Rmarkdown$
-_cache$
-\\.knit\\.md$
-\\.utf8\\.md$
-Thumbs.db
-#   /resources/
