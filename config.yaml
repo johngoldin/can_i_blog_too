@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 baseURL: https://johngoldin.com/
+=======
+baseURL: www.johngoldin.com
+>>>>>>> bc64372262eb5fca36bc56d4796d8fa8dfed85d8
 # baseURL: "https://johngoldin.com/"
 theme: hugo-apero
 languageCode: en
