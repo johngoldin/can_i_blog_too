@@ -15,8 +15,8 @@ link_list:
   url: https://goldin.shinyapps.io/Westwoods/
 - name: My old haunts at Yale
   url: https://oir.yale.edu
-- name: Jai Alai stats
-  url: http://tigerhili.com/jaialaimain.htm
+# - name: Jai Alai stats
+#  url: http://tigerhili.com/jaialaimain.htm
 ---
 
 ** index doesn't contain a body, just front matter above.

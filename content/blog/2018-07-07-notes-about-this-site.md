@@ -11,7 +11,7 @@ tags: []
 Categories:
   - blogdown
   - GitHub
-Description: ''
+excerpt: 'Note on how this site was created, last updated in 2019. Quite out of date.'
 Tags:
   - blogdown
   - GitHub

@@ -9,7 +9,9 @@ aliases:
 Categories:
   - blogdown
   - GitHub
-Description: ''
+excerpt: 'An outdated description of how I set up an earlier version of this site.'
+images: 
+  - img/for_sitefeature_east_rock_monument.png
 Tags:
   - blogdown
   - GitHub

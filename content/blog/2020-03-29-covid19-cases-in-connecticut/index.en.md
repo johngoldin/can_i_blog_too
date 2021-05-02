@@ -6,7 +6,6 @@ categories:
   - COVID19
 tags:
   - COVID19
-type: post
 layout: post
 subtitle: ''
 slug: covid-19-in-Connecticut-1

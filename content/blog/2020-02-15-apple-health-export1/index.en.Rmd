@@ -14,6 +14,7 @@ slug: apple-health-export-1
 aliases:
     - /2020/02/apple-health-export-part-i/
 subtitle: ''
+excerpt: 'A deep dive into the Apple Health Export (data from the Apple Health app). It describes how to create the export and then import it into R. It also provides a very complicated procedure to adjust the time stamps into the correct local time.'
 image: ''
 draft: no
 ---

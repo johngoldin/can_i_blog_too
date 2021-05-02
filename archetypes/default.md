@@ -1,11 +1,19 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 author: "John Goldin"
-type: "post"
-layout: post
 date: {{ .Date }}
-subtitle: ""
-image: ""
-tags: []
+subtitle: ~
+excerpt: ~
+images: ~
+tags: ~
+categories: ~
+series: ~
+layout: single
 draft: yes
 ---
+
+### Post content
+
+Typical location to start editing 
+
+

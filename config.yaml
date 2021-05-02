@@ -1,0 +1,140 @@
+baseURL: /
+# baseURL: "https://johngoldin.com/"
+theme: hugo-apero
+languageCode: en
+title: Can I Blog Too
+author: John Goldin
+copyright: ''
+googleAnalytics: "UA-92008736-2"
+disqusShortname: ''
+metaDataFormat: yaml
+footnoteReturnLinkContents: '&#8617;'
+paginate: 8
+preserveTaxonomyNames: yes
+ignoreFiles:
+  - \.Rmd$
+  - \.Rmarkdown$
+  - _cache$
+  - \.knit\.md$
+  - \.utf8\.md$
+enableEmoji: yes
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      hardwraps: no
+      unsafe: yes
+  highlight:
+    style: github
+  tableOfContents:
+    endLevel: 2
+    ordered: no
+    startLevel: 2
+params:
+  custom_theme: ''
+  # customheadingFontFamily: Fraunces
+  # customtextFontFamily: Commissioner
+  customtextFontFamily: ""
+  customheadingFontFamily: ""
+  # alternatively, leave empty and select basic font options: sans-serif or serif
+  # for more http://tachyons.io/docs/typography/font-family/
+  textFontFamily: "Calisto"
+  headingFontFamily: "Avenir"
+  description:
+  favicon: /img/for_site/gargoyle.iconset
+  logo: /img/for_site/gargoyle_transparent.png
+  mainSections:
+    - blog
+    - project
+#    - talk
+  navallcaps: yes
+  orgLocal: "Guilford, CT  USA"
+  orgName: "John Goldin"
+  sharing_image: /img/papillons.jpg
+  social:
+    - icon: github
+      icon_pack: fab
+      url: https://github.com/apreshill/apero
+    - icon: twitter
+      icon_pack: fab
+      url: https://twitter.com/johngoldin
+    - icon: rss
+      icon_pack: fas
+      url: /blog/index.xml
+    - icon: flickr
+      icon_pack: fab
+      url: https://www.flickr.com/people/99418994@N00/
+  socialInFooter: yes
+  socialInHeader: no
+  theme: plum
+  twitter: johngoldin
+  utterances:
+    issue_term: pathname
+    label: 'comments :crystal_ball:'
+    repo_name: johngoldin/can_i_blog_too
+    theme: boxy-light
+    use_utterances: yes
+taxonomies:
+  category: categories
+  series: series
+  tag: tags
+menu:
+  footer:
+    - name: License
+      title: License
+      url: /license/
+      weight: 1
+    - name: Contact
+      title: Contact form
+      url: /contact/
+      weight: 2
+#    - name: Contributors
+#      title: Contributors
+#      url: /contributors/
+#      weight: 3
+  header:
+    - name: About
+      title: John Goldin
+      url: /about/
+      weight: 1
+    - name: Blog
+      title: Blog
+      url: /blog/
+      weight: 2
+    - name: Projects
+      title: Project Portfolio
+      url: /project/
+      weight: 3
+#    - name: Talks
+#      title: Talks
+#      url: /talk/
+#      weight: 4
+    - name: A collection
+      title: A collection
+      url: /collection/
+      weight: 5
+    # - name: Elements
+    #   title: Element Page
+    #   url: /elements/
+    #   weight: 6
+privacy:
+  disqus:
+    disable: no
+  googleAnalytics:
+    anonymizeIP: yes
+    disable: no
+    respectDoNotTrack: yes
+  instagram:
+    disable: no
+    simple: yes
+  twitter:
+    disable: no
+    enableDNT: yes
+    simple: no
+  vimeo:
+    disable: no
+    enableDNT: yes
+    simple: yes
+  youtube:
+    disable: no
+    privacyEnhanced: yes

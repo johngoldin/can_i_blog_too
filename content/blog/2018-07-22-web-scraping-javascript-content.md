@@ -9,7 +9,7 @@ categories:
   - R
 tags: 
   - R
-description: 'An example of using a "headless browser" to scrape web content produced by javascript. The data is about compensation of university CEOs and was published by the Chronicle of Higher Education.'
+excerpt: 'An example of using a "headless browser" to scrape web content produced by javascript. The data is about compensation of university CEOs and was published by the Chronicle of Higher Education.'
 keywords: []
 ---
 Web scraping with [rvest](https://github.com/hadley/rvest) and [SelectorGadget](https://selectorgadget.com) can be powerful and fun. Recently I have experimented

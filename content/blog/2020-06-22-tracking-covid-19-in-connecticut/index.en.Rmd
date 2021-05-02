@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE,   message=FALSE, #out.width = 
 # subtitle: "Updated `r format(Sys.time(), '%a %d %b %Y')`"
 library(tidyverse, quietly = TRUE)
 library(knitr, quietly = TRUE) 
-library(scales, quietly = TRUE) 
+library(scales, quietly = TRUE)
 library(kableExtra, quietly = TRUE)
 library(sparkline) 
 library(geofacet) # https://hafen.github.io/geofacet/

@@ -4,5 +4,4 @@
 .Ruserdata
 .DS_Store
 exampleSite/public/
-# exampleSite/resources/
-.DS_Store
+exampleSite/resources/

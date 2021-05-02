@@ -10,10 +10,10 @@ categories:
   - GPS
 tags:
   - maps
-type: post
 subtitle: ''
-image: ''
 draft: yes
+image: ''
+# draft: no
 output:
   blogdown::html_page:
     toc: no
@@ -35,6 +35,7 @@ library(scales, quietly = TRUE)
 library(kableExtra, quietly = TRUE)
 ```
 
+A relative link: [here](/img/for_site/UR_a_joke.png)
 
 If you prefer not to use the `fig.width` and `fig.height` options in every plot chunk, edit the YAML (the part at the top of the post) with:
 

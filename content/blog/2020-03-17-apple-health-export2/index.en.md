@@ -8,14 +8,13 @@ categories:
 tags:
   - Quantified-Self
   - R
-type: post
 draft: yes
 slug: apple-health-export-2
 excerpt: Part II is a dive into the contents of the Apple Health Export with a focus on intra-day measures such as heart rate and energy as opposed to daily measures such as resting heart rate or daily step count.
 ---
 
 This post is Part II of a dive into the contents of the Apple Health Export.
-[Part I](https://www.johngoldin.com/post/2020-02-15-apple-health-export1/) covered how to export the data from the Health app and import it into
+[Part I](/blog/apple-health-export-1/) covered how to export the data from the Health app and import it into
 R tables. It also described in detail how to adjust time stamps for daylight
 savings and travel out of the local time zone.
 

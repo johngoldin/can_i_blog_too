@@ -1,35 +1,26 @@
 ---
-title: A Project Portfolio To Grow
-description: "Give your projects a place to live online."
-author: "The R Markdown Team @RStudio"
-show_post_thumbnail: true
-show_author_byline: true
-show_post_date: false
-# for listing page layout
-layout: list-grid # list, list-sidebar, list-grid
-
-# for list-sidebar layout
-sidebar: 
-  title: A Sidebar for Your Projects
-  description: |
-    Projects can be anything!
-    Check out the _index.md file in the /project folder 
-    to edit this content.
-  author: "The R Markdown Team @RStudio"
-  text_link_label: ""
-  text_link_url: ""
-  show_sidebar_adunit: false # show ad container
-
-# set up common front matter for all individual pages inside project/
-cascade:    
+author: John Goldin
+cascade:
   show_author_byline: true
+  show_comments: false
   show_post_date: true
-  show_comments: false # see site config to choose Disqus or Utterances
-  # for single-sidebar layout only
   sidebar:
+    show_sidebar_adunit: false
     text_link_label: View all projects
     text_link_url: /project/
-    show_sidebar_adunit: true # show ad container
+description: "Some projects don't fit naturally into a blog post. I'm experimenting with using either Projects or Collections to accommodate them."
+layout: list-grid
+show_author_byline: true
+show_post_date: true
+show_post_thumbnail: true
+sidebar:
+  author: John Goldin
+  description: "Projects that don't fit naturally into a blog post."
+  show_sidebar_adunit: false
+  text_link_label: ""
+  text_link_url: ""
+  title: Some of My Projects
+title: Personal Projects
 ---
 
 ** No content for the project index. This file provides front matter for the blog including the layout and boolean options. **

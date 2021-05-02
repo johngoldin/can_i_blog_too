@@ -4,6 +4,7 @@ date: '2016-07-03'
 slug: 'flickr_api'
 aliases:
     - /2016/06/flickr_api/
+excerpt: 'Detailed description of how to access the Flickr API via R. I would do it somewhat differently in 2021.'
 categories:
   - R
   - Flickr
