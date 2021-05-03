@@ -21,7 +21,7 @@ links:
   name: wastewater
   url: https://yalecovidwastewater.com/reports
 - icon: bacteria
-  icon_pack: fas
+  icon_pack: fas 
   name: CT Data Collaborative
   url: https://www.ctdata.org/covid19-1
 # fas solid icons from https://fontawesome.com/icons?d=gallery&p=2&s=solid&m=free
