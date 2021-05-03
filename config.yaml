@@ -1,4 +1,5 @@
-baseURL: https://www.johngoldin.com/
+baseURL: /
+# baseURL: https://www.johngoldin.com/
 # baseURL: "https://johngoldin.com/"
 theme: hugo-apero
 languageCode: en
