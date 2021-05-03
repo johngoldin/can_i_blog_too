@@ -11,6 +11,7 @@ show_action_link: true
 action_link: /blog
 action_label: "To my blog &rarr;"
 action_type: text # text, button
+# about grotesques in Stirling: http://www.thenewjournalatyale.com/2009/12/if-these-stone-walls-could-talk/
 # https://www.youtube.com/watch?v=PbQhjw9zRIQ  Yale grotesques,  law school: https://www.youtube.com/watch?v=2RgrlQbZkYE
 ---
 
