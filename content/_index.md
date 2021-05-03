@@ -11,6 +11,7 @@ show_action_link: true
 action_link: /blog
 action_label: "To my blog &rarr;"
 action_type: text # text, button
+# https://www.youtube.com/watch?v=PbQhjw9zRIQ  Yale grotesques,  law school: https://www.youtube.com/watch?v=2RgrlQbZkYE
 ---
 
 ** index doesn't contain a body, just front matter above.

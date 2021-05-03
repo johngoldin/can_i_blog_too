@@ -3,8 +3,6 @@ title: American Walker in Britain Part 3
 author: ~
 date: '2017-03-15'
 slug: "am-walker-3"
-aliases:
-    - /2017/03/am_walker_3/
 categories:
   - British Walking
 tags: []
