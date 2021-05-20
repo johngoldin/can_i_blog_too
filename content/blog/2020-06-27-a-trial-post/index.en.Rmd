@@ -1,0 +1,51 @@
+---
+title: A Trial Post
+author: John Goldin
+date: '2020-06-27'
+description: "spf13-vim is a cross platform distribution of vim plugins and resources" 
+summary: "This is a test post used to explore some features of Hugo and how they relate to my blog posts."
+excerpt: "This is just a test post."
+categories:
+  - Flickr
+  - GPS
+tags:
+  - maps
+type: post
+subtitle: ''
+image: ''
+draft: yes
+output:
+  blogdown::html_page:
+    toc: no
+    fig_width: 5
+    fig_height: 5
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, out.width = "100%",
+                      knitr.table.format = "html")
+# knitr.table.format is for kable. Needed this to get blogdown table to format correctly.
+```
+```{r libraries, message = FALSE, warning = FALSE, echo = FALSE}
+# <!--more-->
+
+library(tidyverse, quietly = TRUE)
+library(knitr, quietly = TRUE)
+library(scales, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+```
+
+
+If you prefer not to use the `fig.width` and `fig.height` options in every plot chunk, edit the YAML (the part at the top of the post) with:
+
+{{< columns >}}
+
+This is column 1.
+
+{{< column >}}
+
+This is column 2.
+
+{{< endcolumn >}}
+
+now we are proceeding after the multicolumn section with a fairly long line to test what happens.

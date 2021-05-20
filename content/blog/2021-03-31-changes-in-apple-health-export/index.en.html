@@ -1,0 +1,311 @@
+---
+title: Changes in Apple Health Export
+author: John Goldin
+date: '2021-03-31'
+slug: changes-in-apple-health-export
+excerpt: Another post on the contents of the Apple Health Export. This post shows how some measures have changed as new version of Watch and iPhone have been released. The examples focus on resting heart rate and VO2 Max."
+categories:
+  - Apple-Health-Export
+  - R
+tags:
+  - Apple-Health-Export
+  - R
+type: post
+layout: post
+subtitle: ''
+image: ''
+draft: yes
+output: 
+  blogdown::html_page:
+    # figure parameters based on recommendation in Hadley's book 
+    toc: yes
+    number_sections: false
+    fig_width: 7
+    out.width: "100%" 
+    fig.align: "center"
+    fig.asp: 0.618  
+editor_options:
+  markdown: 
+    wrap: 72
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#resting-heart-rate">Resting Heart Rate</a></li>
+<li><a href="#how-does-the-apple-watch-measure-resting-heart-rate">How does the Apple Watch measure resting heart rate?</a></li>
+<li><a href="#vo2-max">VO2 Max</a></li>
+<li><a href="#how-do-we-know-what-the-health-measures-actually-measure">How Do We Know What the Health Measures Actually Measure?</a></li>
+<li><a href="#appendix-some-of-the-r-code-used-to-make-this-post">Appendix: Some of the R Code Used to Make This Post</a></li>
+</ul>
+</div>
+
+<p>This is a follow-up to an <a href="https://johngoldin.com/2020/02/apple-health-export-part-i/">earlier post</a>
+exploring the Apple Health Export. The earlier post describes how
+to export the Health data from the iPhone and import it into R.</p>
+<p>This post will look at issues of the stability of how some
+summary measures are defined and look for other changes in the export.</p>
+<div id="resting-heart-rate" class="section level3">
+<h3>Resting Heart Rate</h3>
+<p>According to <a href="https://en.wikipedia.org/wiki/Heart_rate#Resting_heart_rate">Wikipedia</a>:</p>
+<blockquote>
+<p>resting heart rate … is defined as the heart rate when a person is awake,
+in a neutrally temperate environment, and has not been subject to any recent
+exertion or stimulation, such as stress or surprise.</p>
+</blockquote>
+<p>But note the passive voice. In practice I have not found clarity about
+the conceptual definition of resting heart rate. One must
+be aware of the <em>operational definition</em>, that is, how is the measurement
+actually made. Let’s start with the national norms compiled by the CDC.
+They conduct an annual survey called NHANES
+(National Health and Nutrition Examination Survey). NHANES
+includes information on pulse rate as part of their
+measurement of blood pressure. The protocol for collecting data
+for NHANES is specified in exhaustive detail in their
+<a href="https://wwwn.cdc.gov/Nchs/Data/Nhanes/2015-2016/Manuals/2015_Physician_Examination_Procedures_Manual.pdf">physician procedures manual</a>.
+For individuals eight years or older, pulse is taken as
+part of the procedure for measuring blood pressure. First there are elaborate
+instructions on how to measure for the size of blood pressure cuff needed
+and how to place the cuff. The next step is the measurement of pulse:</p>
+<blockquote>
+<p>The pulse is taken after the SP [subject person] has been seated and resting
+quietly for at least 3 minutes. Position the arm with the right palm
+upward. Palpate the radial pulse on the lateral flexor surface of the wrist
+with the pads of the index and middle figure. The pulse is counted for
+30 seconds and the number of beats in a 30-second period is entered in
+the heart rate field.</p>
+</blockquote>
+<p>So the national norms for heart rate are based on putting on a blood
+pressure cuff, sitting quietly for at least
+3 minutes, and then a physician takes your pulse. That procedure leads to
+articles such as
+<a href="https://pubmed.ncbi.nlm.nih.gov/28132682/">Relation of Higher Resting Heart Rate to Risk of Cardiovascular Versus Noncardiovascular Death</a>
+which used NHANES data to examine the association of higher resting heart rate with
+mortality. In other words, the procedure is the operational definition
+of “resting heart rate” in studies based on NHANES.</p>
+<p>New devices
+such as Fitbit or Apple Watch make the measurement procedure used
+by NHANES seem like the horse and buggy days. With wearable devices,
+there may be hundreds of
+heart rate readings during the day. Which one is interpreted as being
+the resting heart rate? The key issues is how one interprets “resting.”</p>
+</div>
+<div id="how-does-the-apple-watch-measure-resting-heart-rate" class="section level3">
+<h3>How does the Apple Watch measure resting heart rate?</h3>
+<p>Here’s what the Apple <a href="https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/2867756-restingheartrate">developer documentation</a>
+says about resting heart rate:</p>
+<blockquote>
+<p>Resting heart rate is commonly correlated with overall cardiovascular health. It is an estimation of the user’s lowest heart rate during periods of rest, and is intended to be used as a medically relevant metric. A resting heart rate sample is different than a sedentary heart rate sample (that is, a sample using the heartRate identifier with a HKHeartRateMotionContext.sedentary motion context). For example, if the user finishes a high-intensity workout, and then sits down to rest, the next heart rate sample may be marked as a sedentary sample, but it is still much higher than the user’s actual resting heart rate. To produce more accurate results, the system estimates the resting heart rate by analyzing sedentary heart rate samples throughout the day.</p>
+</blockquote>
+<blockquote>
+<p>Because the resting heart rate estimates become more accurate as the day progresses, the system may delete earlier samples and replace them with better estimates. Apple Watch replaces only the samples written by the watch for the current or previous day.</p>
+</blockquote>
+<p>That text is fairly long and seems very concrete,
+but it is not so clear what it means in practice. I will dive deep into my own data
+to try to observe what is actually happening with
+the measurement of resting heart rate.</p>
+<pre><code>## Warning: Expected 3 pieces. Missing pieces filled with `NA` in 12 rows [1, 2, 3,
+## 6, 11, 13, 15, 17, 25, 28, 29, 30].</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/base_resting_hr_figure-1.png" width="672" /></p>
+<p>This figure shows my daily resting heart rate back to 2017. I have
+added a smoothed curve to show the trend during this time period.
+Note that resting heart rate seems to be higher in winter and lower in summer.
+That’s interesting and not something I noticed until I did this graph.</p>
+<p>You can also see that my heart rate is noticeably higher starting around
+December of 2020. Should I interpret that as being medically significant?
+Has my health changed? Has my fitness level changed?</p>
+<p>We’ll see that the change is in how Apple constructs “resting heart rate”
+rather than in me.</p>
+<p>The next figure adds vertical green lines to show when I upgraded the
+Watch OS software.</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_figure_with_version-1.png" width="672" /></p>
+<p>It’s clear that resting heart rate was suddenly higher after I upgraded
+to Version 7 of WatchOS. I did some searching, but the
+<a href="https://www.apple.com/newsroom/2020/06/watchos-7-adds-significant-personalization-health-and-fitness-features-to-apple-watch/">release notes for Version 7</a>
+don’t mention this. I did come across a brief article by
+<a href="https://www.howtogeek.com/711238/why-your-resting-heart-rate-just-got-higher-on-apple-watch/">Harry Guinness</a>
+in which he picked up on this change. He noted that Version 7 also introduced Apple
+sleep tracking. What appears to be going on is that before Version 7, resting
+heart rate was close to the lowest heart rate while one is asleep (if, like me,
+you wear the watch at night). He also pointed out that when you go to the
+Resting Heart Rate section of the Health app, at the bottom of the screen
+there is an “about Resting Heart Rate” note that partly explains what they
+are doing:</p>
+<blockquote>
+<p>Your resting heart rate is the average heart beats per minute
+measured when you’ve been inactive or relaxed for several minutes….
+Resting heart rate does not include your heart rate while you’re asleep.</p>
+</blockquote>
+<p>The key qualifier is “not while you’re asleep” combined with the fact that Apple didn’t
+start tracking sleep until Version 7. Before Version 7 the calculation of
+resting heart rate couldn’t take
+note of whether or not you were asleep, only whether you were inactive.</p>
+<p>So Apple isn’t hiding what they are doing, but they didn’t do anything to
+help users interpret changes in their resting heart rate. On the Apple
+discussion board, there’s a <a href="https://discussions.apple.com/thread/251819127">thread</a>
+in which users try to puzzle out what is happening to their resting heart rate.</p>
+<p>Here’s yet another graph of my resting heart rate, but in this one I show a
+separate smoothed trend line for the periods before and after I upgraded to
+Version 7.</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_two_parts-1.png" width="672" /></p>
+<p>Just to beat this issue to death, I did a bit more digging into the details
+of the Apple Health Export. For each data row of the export there is a start date
+and an end date (where date in R terms is a <code>datetime</code> value with both date
+and time). For resting heart rate, the start date is usually just after
+midnight at the start of the new day. The end date varies quite a bit and
+changes with Version 7. The next graph shows the time of day for those
+end dates. You can see that after Version 7, the time of day for the
+end date generally occurs before my normal bedtime, i.e., while I’m
+still awake.</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/resting_hr_tod-1.png" width="672" /></p>
+<p>No doubt Apple will improve how it identifies when one is asleep.
+That may directly affect the measurement of resting heart
+rate. In general terms, for the Apple Watch and for other wearables such
+as Fitbit, to interpret resting heart rate you need to know whether
+“resting” includes sleep time.</p>
+</div>
+<div id="vo2-max" class="section level3">
+<h3>VO2 Max</h3>
+<p>VO2 Max is the rate of oxygen
+consumption during heavy exercise. Direct measures of VO2 Max involve exercising
+while wearing a face mask that measures oxygen and carbon dioxide concentration
+of the inhaled and exhaled air.
+Obviously that’s not something your Apple Watch can do. Instead, Apple
+estimates VO2 Max. The <a href="https://en.wikipedia.org/wiki/VO2_max">Wikipedia article on VO2 Max</a>
+describes a number of different methods for estimating
+VO2 Max. What does Apple do? Who knows. That’s the kind of thing that Apple
+keeps close to the vest.</p>
+<p>Here is the <a href="https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/2867757-vo2max">description of VO2 Max</a>
+provided by the Apple Developer Documentation:</p>
+<blockquote>
+<p>Understand Estimated Test Results</p>
+<p>Apple Watch Series 3 and later estimates the user’s VO2max by measuring the user’s heart rate response to exercise. The system can generate VO2max samples after an outdoor walk, outdoor run, or hiking workout. During the outdoor activity, the user must cover relatively flat ground (a grade of less than 5% incline or decline) with adequate GPS, heart rate signal quality, and sufficient exertion. The user must maintain a heart rate approximately greater than or equal to 130% of their resting heart rate. The system can estimate VO2max ranges from 14-60 ml/kg/min</p>
+<p>The user must wear their Apple Watch for at least one day before the system can generate the first vo2Max sample. Additionally, the system doesn’t generate a vo2Max sample on the user’s first workout. However, it can make estimates based on data collected outside a workout session.</p>
+<p>Apple Watch estimates VO2max based on sub-maximal predictions rather than peakVO2. Users don’t need to achieve peak heart rate to receive an estimate; however, the system dose need to estimate their peak heart rate. Users who take medications that may reduce their peak heart rate can toggle a medication switch in the Health app to enable more accurate VO2max estimates.</p>
+</blockquote>
+<p>As with resting heart rate, let’s
+look at my values for VO2 Max to see what it reveals.</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/vo2max-1.png" width="672" /></p>
+<p>What can I make of these changes over time? It’s evident that the
+estimated value of VO2 Max is
+dominated by the details of how estimation is done during each version
+of Watch OS. There are dramatic changes in this chart that have little (or nothing)
+to do with my fitness.</p>
+<p>What about the trend within each version of Watch OS? For example, during
+Version 7 my VO2 Max has been on a steady upward march. No, I can’t relate
+that to the personal experience of my fitness. I do a challenging three-mile
+walk in the woods almost every day with an occasioinal longer walk thrown in
+from time to time. It’s hard to imagine what estimation procedure would
+produce these trends. In Version 7 of Watch OS perhaps the procedure starts
+with an estimate based only on height, weight, age, and gender and then
+modifies it based on observation of workouts. Looking at the period during
+Version 6, there was a big drop on March 17, 2020 and then a big increase
+on April 9. When I look at the details of the workouts during that time
+period I don’t see anything that would relate to a change in estimated
+VO2 Max. My concludion is that I should not attribute short-run changes in
+the estimated VO2 Max to actual changes in my cardio fitness.</p>
+<p>The <a href="https://www.apple.com/newsroom/2020/09/apple-watch-series-6-delivers-breakthrough-wellness-and-fitness-capabilities/">press release for Watch OS 7</a> introduced “low range VO2 Max”</p>
+<blockquote>
+<p>Apple Watch already estimates average and higher levels of VO2 max during vigorous outdoor walks, runs, or hikes, which many runners and other athletes monitor to improve performance.
+Now, with watchOS 7, Apple Watch uses multiple sensors, including the optical heart sensor, GPS, and the accelerometer, to estimate lower levels, too.</p>
+</blockquote>
+<p>I don’t know whether the low range VO2 Max had any effect on me. It’s likely that
+my normal daily walk was sufficient to estimate VO2 Max so they low range estimation
+procedure was never needed.</p>
+<p>Including an estimate of VO2 Max is an interesting concept, but so far it seem that
+both the short run variations the long-term trend are affected by changes
+in the estimation procedure. VO2 Max won’t be useful until Apple settles on
+a stabe methodology. I look forward to seeing that someday.</p>
+<p>An overall theme of this post is that one should expect there will be additional
+future changes in the Apple Health Kit
+as Apple works to improve their health and fitness information. Of course
+we as customers want it to improve. That means that when interpreting long
+term trends in the data one has to allow for the possibility that
+the definition of measures have changed.### What Happened to My Million Rows of Data?</p>
+<p>When I did my <a href="https://johngoldin.com/2020/02/apple-health-export-part-i/">first post</a>
+on the Apple Health Export, I had a total of 4,012,907 rows of
+data. My most recent export has only 3,026,367 so about a
+million rows smaller even though I have added a whole additional
+year of data. What gives?</p>
+<p>Fortunately I had an archive of the dataset that I used from a year
+earlier. I did a <code>full_join</code> of the two datasets by start time,
+end time, and type. It was very easy to spot the source of the change.
+At some point during the last year Apple changed how the
+export handles workouts. Data outside of workouts is unchanged.
+For workouts older than 90 days, the export now summarizes the
+items that are frequently measured: Active Energy Burned, Basal Energy Burned, Heart Rate, and Distance Walking or Running. The two energy
+items and distance are each
+summed over a five minute period. Heart rate is the average
+over a ten minute period.<br />
+Normally heart rate is reported as a whole number, but in
+the summarized workout data it is now displayed to one decimal point.</p>
+<p>On a typical 65-minute outdoor walk done within the last three months
+the export has 1,515 Active Energy and Basal Energy measures,
+658 Heart Rate readings, and 1,493 Distance Walking Running measures.
+For the same walk done more than three months ago, there are
+only 15 Active and Basal Energy measures, 7 Heart Rate, and
+13 Distance. There are about one-tenth as many measures
+in the older workouts and
+each value is a summary for a period of time. Workouts generate
+a very large number of measurements so summarizing those
+measurements can make a big difference in the size of the exported
+dataset.</p>
+<p>Does this matter? Summarizing some of the workout detail seems reasonable.
+Although one might imagine a hypothetical case where the detail in
+the older workouts would be needed, it doesn’t seem like
+a practical problem. I write crazy blog posts like this so
+in my case I may try to archive a copy of the data every 90 days,
+just in case.</p>
+<p>I wondered whether the details were removed from the Health Kit data
+on my phone or only in the Health Export. When I use the Fitness
+app to look at old workouts I can still see all of the detail of the
+heart rate measurements. It’s clear that a summary of
+workout data is created for the Health Export, but the
+actual data remains on the iPhone. So all of the detail is still
+there, it’s just not included in the export. Using the premium
+version of the <a href="https://apps.apple.com/us/app/heart-analyzer/id1006420410">Heart Analyzer app</a> (which is only $1.99),
+one can clearly see that the original heart rate data is
+available even for older months that are summarized in the
+Health Export.</p>
+</div>
+<div id="how-do-we-know-what-the-health-measures-actually-measure" class="section level3">
+<h3>How Do We Know What the Health Measures Actually Measure?</h3>
+<p>Apple wants the Watch to be taken seriously as a medical device.
+To take the Health items seriously, one needs to have
+confidence in them. Greater transparency would help to support trust.
+Apple may not be willing to describe the operational definition
+of the summary measurements they provide.
+That makes it harder to determine what is actually being measured.
+Here we have looked at
+resting heart rate and VO2max and alluded to sleep.</p>
+<p>There’s an interesting <a href="https://www.theverge.com/2020/10/7/21504023/apple-watch-ekg-blood-oxygen-fda-clearance">article</a> in The Verge by Nicole Wetsman that
+discusses why Apple got FDA approval for its EKG feature but not for its
+measurement of blood oxygen level.</p>
+<blockquote>
+<p>Blood oxygen monitors, or pulse oximeters, are considered Class II medical devices by the FDA. Generally, any company that wants to sell one in the United States has to submit documentation to the agency confirming that its product works just as well as other versions of the same product already on the market. There’s a workaround, though: if the company says that the product is just for fun, or for general “wellness,” they don’t have to go through that process.</p>
+</blockquote>
+<p>It’s convenient for Apple to keep users at arms length and hide the technical details.
+That means we get a verbal description of what a measure is supposed to do, but we
+may not be able to understand the operational definition of what the measure
+actually does. The health measures in many cases are still in an early stage of
+development. They will be improved over time. Improvement means change, in a
+good way. But it also means that one must be very careful about trying to
+interpret long-term trends.</p>
+</div>
+<div id="appendix-some-of-the-r-code-used-to-make-this-post" class="section level3">
+<h3>Appendix: Some of the R Code Used to Make This Post</h3>
+<p>In my <a href="https://johngoldin.com/2020/02/apple-health-export-part-i/">earlier post</a>
+I included a lot of R code for setting
+up the Health Export data. Here’s I’ll describe some of the
+additional code used for this post.</p>
+<p>While working on this post I discovered that there were a fair number of
+duplicate rows in the Apple Health Export. Most of these are related to
+non-Apple sources such as Lose It! or my Omron blood pressure cuff. But
+there were some duplicates for other items as well. So I added a step to
+my import to delete duplicates. One needs to exclude the <code>device</code> column
+before looking for duplicates.</p>
+<p>Generally there is one row of resting heart rate data for each date. But
+sometimes a second rows is created, possibly when the iPhone is restarted
+as part of an update or if there is a time change for daylight savings.</p>
+</div>
