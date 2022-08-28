@@ -1,0 +1,38 @@
+---
+title: "British Walking"
+# quarto render walking.qmd
+# quarto render "collection/Walking in Britain"
+# quarto render "collection/Walking in Britain/*/*.*md"
+image: features-sidebar_IMG_2165.png # this does not automatically put in image
+listing:
+  - id: UK-Walking
+    contents: collection/Walking in Britain
+    type: default
+    fields: [image, title, subtitle, part]  # removed date
+#   fields: [image, date, title, subtitle, categories, author, reading-time]  
+    sort: "part"
+#   categories: cloud
+    categories: false
+    sort-ui: true
+    filter-ui: true
+    image-align: right
+    # image-height: "150px"  # crops rather resizes
+    image-placeholder: "collection/Walking in Britain/features-sidebar_IMG_2165.png"
+    max-items: 18
+    page-size: 8
+# description: "I enjoy walking holidays in the UK. Here are some things I have learned as an American during my travels."
+page-layout: full
+title-block-banner: "images/north-yorkshire-panorama2.jpg"
+# title-block-banner-color: "#00008B"
+title-block-banner-color: "#2159B1" # https://www.cssportal.com/css-color-converter/   block color: #427EDC
+comments: false
+# include-in-header: meta.html  
+toc: false
+---
+
+[I enjoy walking holidays in the UK. Here are some things I have learned as an American during my travels.]{style="color:#00008B"} 
+
+::: {#UK-Walking}
+:::
+
+<!--#  <a href="../talks/index.html"> <button type="button" class="btn btn-primary float-end btn-sm">See all/Ver todas</button></a> -->

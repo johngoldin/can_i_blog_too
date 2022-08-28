@@ -1,0 +1,14 @@
+---
+title: "Projects"
+listing:
+  contents: projects
+  sort: "title"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+This will be the text with the projects page.

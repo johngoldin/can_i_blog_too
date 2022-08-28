@@ -1,0 +1,57 @@
+---
+title: Notes on Converting from Blogdown/Hugo to Quarto
+author: John Goldin
+date: '2022-08-28'
+slug: blogdown-hugo-to-quarto
+subtitle: 'Fun With Quarto'
+excerpt: "My existing blog uses blogdown/hugo/apero. Because hugo does not use pandoc, I'm unable to take advantage of all the features of quarto. As I convert to a quarto website, I'll try to describe the process in this post."
+categories:
+  - R
+tags:
+  - R
+draft: yes
+images:
+  - ~
+  - ~
+execute:
+  freeze: auto  # re-render only when source changes
+  echo: false
+---
+
+I have written a couple of posts that used [Quarto](https://quarto.org/docs/output-formats/hugo.html) rather than Rmd. There has always been a
+
+## Examples
+
+I'm collecting examples of blog sites done in quarto.
+
+[Umair Durrani](https://github.com/durraniu/umair-durrani)
+
+\[Robert Mitchell describes moving to quarto blog(<https://robertmitchellv.com/blog/2022-08-building-with-quarto/building-with-quarto.html>)
+
+Examples from [Quarto gallery](https://quarto.org/docs/gallery/#websites) [Bea Miller](https://github.com/beatrizmilz/blog-en/blob/main/_quarto.yml) example of a series
+
+## Gotchas
+
+I noticed an interesting difference in handling of images. I had a post that had two similar images. In the finder, each showed a size of 2560x1920. For the first image I inserted it into the post using raw html:
+
+`<img src="img/john-weight.png" alt="Plot showing daily weight with periods during use of LoseIt to count calories hightlighted in yellow."/>`
+
+For the second image, I used markdown syntax:
+
+`![](img/john-weight.png){alt="Plot showing daily weight with periods during use of LoseIt to count calories hightlighted in yellow."}`
+
+When I rendered the Rmd version the two images appeared the same in the browser. But when I rendered them using the quarto, the first image (using html img) was way too big. I changed the first image to also used markdown syntax and it looked fine. I image this has something to do with scaling the image and maybe appears on a mac. Or actually I should acknowledge that I don't know what caused this. The moral of the story for me is that with quarto maybe it's safer for me to use markdown syntax rather than raw html.
+
+In the quarto version when I use markdown syntax to insert the image, in the html it ends up as class=img-fluid (which is a Bootstrap css class). In the html created using by blogdown rendering the Rmd file, no class is applied. Maybe there is other setup html in the blogdown version that interacts with the Mac rretina esolution and cuts down the photo. One can see that I'm trying to discuss something that I don't know enough about to fully explain or understand.
+
+## Customizing Your Blog
+
+[Albert Rapp](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html) has a lot of concrete information about setting up a Quarto blog, but also how to do some customizations. He has some very specific suggestion on use the renv package to [preserve the package environment](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html#make-posts-robust-with-renv) for each blog post.
+
+## Hugo "slug" Yaml
+
+In blogdown/hugo I made extensive use of the "slug" item in yaml to simplify the eventual URL for a blog entry. For example, routinely I'd use the year and month rather than year and month and day. Plus I sometimes shortened long folder names. Quarto knows to use slug if the type is Hugo, but it doesn't seem to use slugs if you publish from Quarto directly. This is not a big problem, but it means that I may want to add an alias to each post or maybe start using "redirects" in Netlify.
+
+I already have a bunch of aliases from when I converted to the Apéro theme in Hugo.
+
+This reminds me that it's a big advantage that I don't have a big audience for my blog. It means there is less pressure to nail down every detail. But I will need to think about the small number of places where I have published URL's to make sure they will still work. The most important is the information entry for my talk at RConf2022.

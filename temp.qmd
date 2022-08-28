@@ -1,0 +1,19 @@
+---
+title: "temp"
+editor: visual
+fig-cap-location: top
+---
+
+{{< meta fig-cap-location >}}
+
+```{r}
+#| label: fig-temp
+#| fig-cap: Sample Plot
+#| fig-cap-location: bottom
+
+plot(pressure)
+```
+
+{{< meta fig-cap-location >}}
+
+put some stuff here and more changes here

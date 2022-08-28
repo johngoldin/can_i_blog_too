@@ -1,0 +1,14 @@
+{
+  "hash": "8ebe6fec1547574da64a6d8ad8d4ecf7",
+  "result": {
+    "markdown": "---\ntitle: Notes on Converting from Blogdown/Hugo to Quarto\nauthor: John Goldin\ndate: '2022-08-28'\nslug: blogdown-hugo-to-quarto\nsubtitle: 'Fun With Quarto'\nexcerpt: \"My existing blog uses blogdown/hugo/apero. Because hugo does not use pandoc, I'm unable to take advantage of all the features of quarto. As I convert to a quarto website, I'll try to describe the process in this post.\"\ncategories:\n  - R\ntags:\n  - R\ndraft: yes\nimages:\n  - ~\n  - ~\nexecute:\n  freeze: auto  # re-render only when source changes\n  echo: false\nformat: hugo\n---\n\n\nI have written a couple of posts that used [Quarto](https://quarto.org/docs/output-formats/hugo.html) rather than Rmd.\nThere has always been a \n\n## Examples\n\nI'm collecting examples of blog sites done in quarto.\n\n[Umair Durrani](https://github.com/durraniu/umair-durrani)\n\n[Robert Mitchell describes moving to quarto blog(https://robertmitchellv.com/blog/2022-08-building-with-quarto/building-with-quarto.html)\n\nExamples from [Quarto gallery](https://quarto.org/docs/gallery/#websites)\n[Bea Miller](https://github.com/beatrizmilz/blog-en/blob/main/_quarto.yml) example of a series\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

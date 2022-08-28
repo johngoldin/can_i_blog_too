@@ -1,0 +1,57 @@
+project:
+  type: website
+  # render:
+  #   - index.qmd
+  #   - walking.qmd
+    # - "blog/2017-02-17-portfolio-of-projects.md"
+    # - "collection/Walking in Britain/*/*.*md"
+    # - "!blog/2018-08-16-geotagging-voter-registrations/index.Rmd"
+    # - section2.qmd
+website:
+  title: "Can I Blog Too?"
+  site-url: "https://johngoldin.com/"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Blog
+      - href: projects.qmd
+        text: Projects
+      - href: walking.qmd
+        text: UK Walking
+      - href: about.qmd
+        text: About Me
+    right:
+      - icon: github
+        href: https://github.com/johngoldin
+        aria-label: John Goldin github
+      - icon: twitter
+        href: https://twitter.com/johngoldin
+        aria-label: John Goldin Twitter
+      - text: Flickr
+        href: https://www.flickr.com/people/99418994@N00/
+        aria-label: John Goldin photos on Flickr
+  favicon: favicon.png
+  twitter-card: true
+  open-graph: true
+
+format:
+  html:
+    theme: cosmo
+    comments:
+      utterances:
+        repo: johngoldin/can_i_blog_too
+        # label: 'comments :crystal_ball:'
+        # theme: boxy-light
+        # use_utterances: yes
+    css: styles.css
+    toc: true
+    footnotes-hover: true
+
+execute:
+  freeze: auto
+
+editor: visual
+
+
+
+

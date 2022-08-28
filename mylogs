@@ -1,0 +1,703 @@
+[ 1/28] blog/2018-07-07-notes-about-this-site.md
+[ 2/28] blog/apple-health-export/2021-06-07-apple-watch-visits-the-er/index.qmd
+[ 3/28] blog/apple-health-export/2022-08-another-test-post/index.qmd
+
+
+processing file: index.qmd
+label: setup-libraries (with options) 
+List of 2
+ $ warning: logi FALSE
+ $ message: logi FALSE
+
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+
+ logi FALSE
+
+
+Attaching package: 'kableExtra'
+
+The following object is masked from 'package:dplyr':
+
+    group_rows
+
+Loading required package: xts
+Loading required package: zoo
+
+Attaching package: 'zoo'
+
+The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric
+
+
+Attaching package: 'xts'
+
+The following objects are masked from 'package:dplyr':
+
+    first, last
+
+
+Attaching package: 'PerformanceAnalytics'
+
+The following object is masked from 'package:graphics':
+
+    legend
+
+
+Attaching package: 'janitor'
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test
+
+
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+
+Attaching package: 'memoise'
+
+The following object is masked from 'package:httr':
+
+    timeout
+
+
+Attaching package: 'progressr'
+
+The following object is masked from 'package:httr':
+
+    progress
+
+
+output file: index.knit.md
+
+[ 4/28] blog/apple-health-export/2022-07-18-notes-apple-health-export/index.qmd
+
+
+processing file: index.qmd
+  ordinary text without R code
+
+label: import_apple_health (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+output file: index.knit.md
+
+[ 5/28] blog/apple-health-export/2021-05-26-changes-in-apple-health-export/index.en.qmd
+
+
+processing file: index.en.qmd
+  ordinary text without R code
+
+label: libraries (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+label: setup_ggplot (with options) 
+List of 1
+ $ echo: logi FALSE
+
+label: hr_boundaries (with options) 
+List of 3
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+ $ warning: logi FALSE
+
+`summarise()` has grouped output by 'sourceVersion', 'major', 'minor'. You can
+override using the `.groups` argument.
+label: base_resting_hr_figure (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+
+  |                                                                              |.................................                                     |  48%
+label: resting_hr_figure_with_version (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+label: resting_hr_two_parts (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+label: resting_hr_tod (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+label: vo2max (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+`summarise()` has grouped output by 'major', 'minor'. You can override using
+the `.groups` argument.
+label: scherer_tips1 (with options) 
+List of 1
+ $ eval: logi FALSE
+
+label: de-dup (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+output file: index.en.knit.md
+
+Warning message:
+Expected 3 pieces. Missing pieces filled with `NA` in 20 rows [1, 2, 3, 6, 11, 13, 15, 17, 25, 28, 29, 30, 33, 35, 36, 39, 41, 42, 43, 46]. 
+[ 6/28] blog/apple-health-export/index.qmd
+[ 7/28] blog/apple-health-export/2020-02-apple-health-export1/index.en.qmd
+
+
+processing file: index.en.qmd
+label: setup (with options) 
+List of 1
+ $ include: logi FALSE
+
+label: unnamed-chunk-1 (with options) 
+List of 2
+ $ echo  : logi FALSE
+ $ engine: chr "css"
+
+label: load_libraries (with options) 
+List of 3
+ $ message : logi FALSE
+ $ warnings: logi FALSE
+ $ echo    : logi FALSE
+
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+
+
+Attaching package: 'kableExtra'
+
+The following object is masked from 'package:dplyr':
+
+    group_rows
+
+Loading required package: xts
+Loading required package: zoo
+
+Attaching package: 'zoo'
+
+The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric
+
+
+Attaching package: 'xts'
+
+The following objects are masked from 'package:dplyr':
+
+    first, last
+
+
+Attaching package: 'PerformanceAnalytics'
+
+The following object is masked from 'package:graphics':
+
+    legend
+
+
+Attaching package: 'janitor'
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test
+
+
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+
+Attaching package: 'memoise'
+
+The following object is masked from 'package:httr':
+
+    timeout
+
+
+  |                                                                              |............                                                          |  17%
+label: include_functions (with options) 
+List of 1
+ $ echo: logi FALSE
+
+  ordinary text without R code
+
+label: import_xml (with options) 
+List of 3
+ $ echo    : logi TRUE
+ $ cache   : logi TRUE
+ $ messages: logi FALSE
+
+  ordinary text without R code
+
+  |                                                                              |..................                                                    |  26%
+label: recover_previous_work (with options) 
+List of 1
+ $ echo: logi FALSE
+
+label: freq-type (with options) 
+List of 1
+ $ echo: logi FALSE
+
+label: count-clin-record-types (with options) 
+List of 2
+ $ echo: logi FALSE
+ $ eval: logi FALSE
+
+label: create-manual-table
+  ordinary text without R code
+
+  |                                                                              |.......................................                               |  55%
+label: tripit_stuff (with options) 
+List of 2
+ $ echo: logi FALSE
+ $ eval: logi FALSE
+
+
+  ordinary text without R code
+
+label: get_air_trips
+label: check-time-zone
+label: utc_dt_to_local
+label: adjust_time_stamps (with options) 
+List of 1
+ $ cache: logi TRUE
+
+
+label: interim_save (with options) 
+List of 2
+ $ echo: logi FALSE
+ $ eval: logi FALSE
+
+  |                                                                              |...................................................................   |  96%
+  ordinary text without R code
+
+  |                                                                              |..................................................................... |  98%
+label: hist-by-time (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ fig.cap: chr "Density Plot by Time of Observation"
+
+output file: index.en.knit.md
+
+[ 8/28] blog/apple-health-export/2020-03-17-apple-health-export2/index.en.qmd
+[ 9/28] blog/2022-07-02-trump-vote-and-vaccination/index.qmd
+
+
+processing file: index.qmd
+label: libraries (with options) 
+List of 1
+ $ message: logi FALSE
+
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE
+To enable caching of data, set `options(tigris_use_cache = TRUE)`
+in your R script or .Rprofile.
+
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+
+
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+
+Attaching package: 'kableExtra'
+
+The following object is masked from 'package:dplyr':
+
+    group_rows
+
+
+Attaching package: 'janitor'
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test
+
+  ordinary text without R code
+
+  |                                                                              |........                                                              |  12%
+label: setup_date (with options) 
+List of 2
+ $ message: logi FALSE
+ $ cache  : logi TRUE
+
+label: census_ctdph (with options) 
+List of 1
+ $ cache: logi TRUE
+
+Getting data from the 2016-2020 5-year ACS
+`summarise()` has grouped output by 'town', 'census_age'. You can override
+using the `.groups` argument.
+label: process_vax (with options) 
+List of 2
+ $ message: logi FALSE
+ $ cache  : logi TRUE
+
+label: create_plots (with options) 
+List of 2
+ $ message: logi FALSE
+ $ cache  : logi FALSE
+
+Adding missing grouping variables: `social_vulnerability_index`, `date`
+Joining, by = "date"
+label: fig-vote-repub (with options) 
+List of 2
+ $ message: logi FALSE
+ $ fig.cap: chr "Trump Vote in 2020 and COVID Vaccination Rate"
+
+`geom_smooth()` using formula 'y ~ x'
+label: fig-social-vulnerability (with options) 
+List of 2
+ $ message: logi FALSE
+ $ fig.cap: chr "Considering Social Vulnerability of Town"
+
+`geom_smooth()` using formula 'y ~ x'
+label: fig-age (with options) 
+List of 2
+ $ message: logi FALSE
+ $ fig.cap: chr "Separately by Age of Vaccinated"
+
+`geom_smooth()` using formula 'y ~ x'
+label: census_stuff (with options) 
+List of 1
+ $ message: logi FALSE
+
+Getting data from the 2016-2020 5-year ACS
+
+  |                                                                              |..........................................                            |  61%
+label: race (with options) 
+List of 2
+ $ message: logi FALSE
+ $ eval   : logi FALSE
+
+label: gender-from-census2 (with options) 
+List of 2
+ $ message: logi FALSE
+ $ eval   : logi FALSE
+
+
+output file: index.knit.md
+
+Warning messages:
+1: Removed 1 rows containing missing values (geom_point). 
+2: Removed 1 rows containing missing values (geom_text). 
+3: Removed 1 rows containing non-finite values (stat_smooth). 
+4: Removed 1 rows containing missing values (geom_point). 
+5: Removed 1 rows containing missing values (geom_text). 
+[10/28] blog/2020-02-19-notes-from-rstudio-conf-2020/index.en.qmd
+
+
+processing file: index.en.qmd
+label: setup (with options) 
+List of 1
+ $ include: logi FALSE
+
+label: unnamed-chunk-1 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+output file: index.en.knit.md
+
+[11/28] blog/2018-08-16-geotagging-voter-registrations/index.qmd
+
+
+processing file: index.qmd
+label: setup (with options) 
+List of 2
+ $ echo   : logi FALSE
+ $ message: logi FALSE
+
+Loading required package: ggplot2
+Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
+Please cite ggmap if you use it! See citation("ggmap") for details.
+
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+✔ purrr   0.3.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ lubridate::as.difftime() masks base::as.difftime()
+✖ lubridate::date()        masks base::date()
+✖ dplyr::filter()          masks stats::filter()
+✖ lubridate::intersect()   masks base::intersect()
+✖ dplyr::lag()             masks stats::lag()
+✖ lubridate::setdiff()     masks base::setdiff()
+✖ lubridate::union()       masks base::union()
+label: read_in_data (with options) 
+List of 2
+ $ cache: logi TRUE
+ $ eval : logi FALSE
+
+label: guess_gender
+label: iffy_gender
+List of 1
+ $ message: logi FALSE
+
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+label: sex_counts
+label: fix_age
+label: pop_pyramid
+label: census_pop_pyramid (with options) 
+List of 1
+ $ cache: logi TRUE
+
+
+label: unnamed-chunk-1
+label: compare_regs_population
+label: polling_place
+label: loc_by_party
+label: compare_geocodes (with options) 
+List of 1
+ $ eval: logi TRUE
+
+label: local_detail
+label: another_local_detail
+label: geocode_function (with options) 
+List of 1
+ $ eval: logi FALSE
+
+
+output file: index.knit.md
+
+[12/28] blog/2020-03-29-covid19-cases-in-connecticut/index.en.md
+[13/28] blog/2017-02-11-how-i-setup-this-site.md
+[14/28] blog/2016-06-28-technical-note-shiny-souvenir-map/index.qmd
+[15/28] blog/2022-05-10-comparing-cdc-and-connecticut-vaccination-counts/index.qmd
+
+
+processing file: index.qmd
+label: unnamed-chunk-1 (with options) 
+List of 2
+ $ echo  : logi FALSE
+ $ engine: chr "css"
+
+label: setup (with options) 
+List of 2
+ $ include: logi FALSE
+ $ echo   : logi FALSE
+
+label: libraries (with options) 
+List of 3
+ $ echo   : logi FALSE
+ $ warning: logi FALSE
+ $ message: logi FALSE
+
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+
+Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE
+To enable caching of data, set `options(tigris_use_cache = TRUE)`
+in your R script or .Rprofile.
+
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor
+
+
+Attaching package: 'kableExtra'
+
+The following object is masked from 'package:dplyr':
+
+    group_rows
+
+
+Attaching package: 'janitor'
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test
+
+label: ggplot2_defaults
+Registered S3 method overwritten by 'ggforce':
+  method           from 
+  scale_type.units units
+label: setup_data (with options) 
+List of 3
+ $ echo   : logi FALSE
+ $ warning: logi FALSE
+ $ message: logi FALSE
+
+
+  |                                                                              |...........................                                           |  39%
+label: get_dph_vaccine_counts
+Joining, by = "town"
+`summarise()` has grouped output by 'state', 'county'. You can override using
+the `.groups` argument.
+label: get_cdc_vaccine_counts
+label: combine_cdc_dph
+label: state_summary_table
+ℹ dph_vaccine_by_age_total: fully = 2760106 booster=1606076
+ℹ dph_vaccine_by_county: fully = 2679543 
+ℹ dph_vaccine_by_age_full_total: fully = 2678612 booster=1571983
+ℹ dph_vaccine_by_town: fully = 2297667 booster=1571983
+label: ct-total-table
+label: include-video (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+  |                                                                              |......................................................                |  77%
+label: include-tweet (with options) 
+List of 1
+ $ echo: logi FALSE
+
+label: plot_vaccine_counts
+label: county_plot2 (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+output file: index.knit.md
+
+Warning message:
+Removed 1 rows containing missing values (geom_point). 
+[16/28] blog/2022-05-10-comparing-cdc-and-connecticut-vaccination-counts/aphl_questions.md
+[17/28] blog/2018-07-18-i-m-back.qmd
+[18/28] blog/2022-08-07-weight-again/index.qmd
+[19/28] blog/2017-02-17-portfolio-of-projects.qmd
+[20/28] blog/2017-02-26-narcissism-in-r/index.qmd
+
+
+processing file: index.qmd
+  ordinary text without R code
+
+label: root (with options) 
+List of 1
+ $ echo: logi FALSE
+
+List of 2
+ $ message: logi FALSE
+ $ warning: logi FALSE
+
+label: getdata
+label: byday (with options) 
+List of 4
+ $ fig.width: num 10
+ $ echo     : logi FALSE
+ $ message  : logi FALSE
+ $ warning  : logi FALSE
+
+`geom_smooth()` using formula 'y ~ x'
+`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+label: byyear (with options) 
+List of 3
+ $ fig.width: num 10
+ $ message  : logi FALSE
+ $ warning  : logi FALSE
+
+`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+label: seasonal (with options) 
+List of 2
+ $ message: logi FALSE
+ $ warning: logi FALSE
+
+`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+label: fix_smooting (with options) 
+List of 1
+ $ echo: logi FALSE
+
+
+output file: index.knit.md
+
+Warning messages:
+1: Removed 2 rows containing non-finite values (stat_smooth). 
+2: Removed 3 rows containing non-finite values (stat_smooth). 
+3: Removed 1554 rows containing missing values (geom_point). 
+4: Removed 2 rows containing non-finite values (stat_smooth). 
+5: Removed 2 rows containing missing values (geom_point). 
+[21/28] blog/2022-08-blogdown-hugo-to-quarto/index.qmd
+[22/28] blog/2020-06-22-tracking-covid-19-in-connecticut/index.en.qmd
+(ERROR) URIError: URI malformed

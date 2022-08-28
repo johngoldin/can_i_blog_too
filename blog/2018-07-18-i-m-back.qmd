@@ -1,0 +1,28 @@
+---
+title: I'm Back
+date: '2018-07-18'
+slug: i-m-back
+aliases:
+    - /2018/07/i-m-back/
+categories: 
+  - Personal
+  - Meta
+tags: []
+excerpt: "An announcement to myself that I was back to maintaining this site."
+keywords: 
+  - Personal
+---
+
+I more or less disappeared from this site for more than a year. I'm back. I dusted off the site and figured out how to move my site to [Netlify](https://www.netlify.com).
+
+### Netlify and Blogdown
+
+Switching to Netlify to host this blog was a bit tricky. It's always harder to do something when you don't know what you're doing. I was a bit shaky on the relationship between Netlify and Github. When I was serving the site via `johngoldin.github.io` I was using blogdown to create my site in a local `public` folder and then using git to upload the contents of the `public` folder to the johngoldin project on Github. With Netlify, I mirror my local blogdown repo with the Github repo. But I do not need the contents of my local `public` folder. In fact, I can add `public` to .gitignore. I point Netlify at my Github blogdown repo and it knows to use Hugo to process the site and build the `public` folder that it will serve on the web. Very soon after I push my blogdown changes to Github, the final html site appears at Netlify.
+
+There is an advantage and a disadvantage to this workflow. Before I would build my site locally. Then I had to switch to the project that contained the `public` folder and push that to Github. With Netlify, after I push my local blogdown project to Github my site is automatically rebuilt on Netlify. That saves a step. The disadvantage is that pushing my blogdown project always updates my live blog site. I need to check the site locally to see whether I am satisfied before doing a push to Github. If I weren't paying for Netlify they would give me the ability to have a test site on Netlify where I could explicitly decide when I was ready to publish to the live site. Given that I have a readership of about one, that degree of control isn't necessary. Also, there is a option in Hugo (or blogdown?) to mark a post as "draft." The post appears on my local viewer, but is not part of the Hugo build on Netlify.
+
+I also went ahead and rented [www.johngoldin.com](http://www.johngoldin.com) and told Netlify to use it. So far the principal advantage I get from using Netlify is the ability to redirect to a different place to serve my site. I suppose that renting johngoldin.com accomplishes something similar. OK, let's face it; I don't really have a good handle on why Netlify is an advantage for someone like me. But Yihui [recommends it](https://yihui.name/en/2017/06/netlify-instead-of-github-pages/).
+
+### What now?
+
+I have been doing a lot of bits and pieces of code at home. I plan to write up some of that here. Given that I have been writing an occasional personal journal for most of life, the idea of writing a blog that nobody reads doesn't seem strange to me. And maybe I will include some useful bit that someone will actually discover via a Google search. A lot of the tips that I have gotten on R (and sometimes on travel) have come from that kind of writing.

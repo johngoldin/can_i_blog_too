@@ -1,0 +1,70 @@
+---
+title: Intra-Day Measures
+author: John Goldin
+date: '2022-08-13'
+slug: 2022-08-another-test-post
+categories:
+  - Apple-Health-Export
+tags: []
+subtitle: 'Multiple Measures Per Hour'
+excerpt: 'These measures are taken frequently during the day, sometimes multiple times a minute during workoiuts.'
+draft: yes
+images:
+  - ~
+  - ~
+weight: 6
+# layout: single
+execute:
+  freeze: auto  # re-render only when source changes
+  echo: false
+format: hugo
+---
+
+In this post we'll look at some low level measures in the Apple Health Export.
+
+```{r}
+#| label: setup-libraries
+#| warning: false
+
+library(tidyverse, quietly = TRUE)
+library(lubridate)
+library(gt)
+```
+```{r}
+#| label: basic-data2
+#| warning: false
+#| freeze: auto
+
+path_code <- "~/Dropbox/Programming/R_Stuff/john_vitals/R/"
+source(paste0(path_code, "basic_setup.R"))
+recent_year <- health_df |> 
+  filter(local_date > (max(local_date, na.rm = TRUE) - years(1))) 
+
+```
+```{r}
+#| label: basic-counts
+daily1 <- recent_year |> 
+    count(type) |> 
+    arrange(desc(n)) |> first(15) |> 
+  mutate(type_label = str_replace_all(type, "([:lower:])([:upper:])", "\\1 \\2"),
+         per_day = n / 365)
+
+daily_tbl <- daily1 |> select(type = type_label, per_day) |> gt() 
+  
+daily_tbl |> tab_header(
+    title = "Frequency of Apple Health Measurements",
+    subtitle = "The 15 Most Frequent Measurements"
+  ) |> 
+  tab_source_note("Source: From my Apple Health Export in the ast year.") |> 
+  cols_label(
+    type = "Measurement Type",
+    per_day = "Values per Day"
+  ) |> 
+  fmt_number(
+    columns = per_day,
+    use_sep = TRUE,
+    decimals = 0
+  )
+
+```
+

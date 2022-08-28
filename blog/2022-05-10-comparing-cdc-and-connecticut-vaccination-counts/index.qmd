@@ -1,0 +1,852 @@
+---
+title: Comparing CDC and Connecticut Vaccination Counts
+author: John Goldin
+date: '2021-12-30'
+slug: comparing-cdc-and-connecticut-vaccination-counts
+categories:
+  - COVID19
+tags:
+  - COVID19
+subtitle: 'How CDC and Connecticut Vaccination Counts Difer'
+excerpt: 'A comparison of vaccination counts in Connecticut according to the CDC and the CT Department of Public Health.'
+images: "feature_cdc_data_pathway.png"
+image-alt: 'Diagram shows the flow of information about vaccinations'
+# output: 
+#   blogdown::html_page:
+#     # figure parameters based on recommendation in Hadley's book 
+#     toc: yes
+#     highlight: tango
+#     number_sections: false
+#     fig_width: 7
+#     out.width: "100%" 
+#     fig.align: "center"
+#     fig.asp: 0.618  
+# editor_options:
+#   markdown: 
+#     wrap: 72
+---
+
+```{css, echo=FALSE}
+    body .main-container {
+      max-width: 2280px !important;
+      width: 1280px !important;
+    }
+    body {
+      max-width: 2280px !important;
+    }
+```
+
+## Summary
+
+CDC tends to report more COVID vaccinations than do state departments of public health in part because vaccinations by federal entities (such as DOD or the VA) are not included in the state reporting. On the other hand, CDC seems to have problem distinguishing whether a particular vaccination is a first dose or follow-up dose. For example, Connecticut Department of Public Health reports a high percentage of shots are booster doses than does the CDC. Attempts by the CDC to increase the privacy of the vaccination records may undermine the quality of the reporting while providing only a small increase in privacy.
+
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE,   message=FALSE, #out.width = "100%",
+                      knitr.table.format = "html") 
+# knitr.table.format is for kable. Needed this to get blogdown table to format correctly. 
+```
+
+```{r libraries, echo = FALSE, warning= FALSE, message = FALSE}
+library(tidyverse, quietly = TRUE)
+library(tidycensus, quietly = TRUE)
+library(lubridate, quietly = TRUE)
+library(sf, quietly = TRUE)
+library(tigris, quietly = TRUE)
+# library(viridisLite, quietly = TRUE)
+library(knitr, quietly = TRUE)
+library(scales, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+library(gt)
+library(glue)
+library(janitor, quietly = TRUE)
+library(ggnewscale, quietly = TRUE) # see [https://ggplot2-book.org/scales-guides.html#splitting-legends] ggnewscale::new_scale_colour()
+library(broom, quietly = TRUE)
+library(RSocrata, quietly = TRUE)
+library(RcppRoll)
+options(tigris_use_cache = TRUE)
+options(tigris_class = "sf")
+```
+
+```{r ggplot2_defaults}
+library(scico)       ## scico color palettes(http://www.fabiocrameri.ch/colourmaps.php) in R 
+library(ggtext)      ## add improved text rendering to ggplot2
+library(ggforce)     ## add missing functionality to ggplot2
+library(ggdist)      ## add uncertainity visualizations to ggplot2
+library(patchwork)   ## combine outputs from ggplot2
+theme_set(theme_minimal(base_size = 12, base_family = "Open Sans")) #originally 12
+## modify plot elements globally (for all following plots)
+theme_update(
+  axis.ticks = element_line(color = "grey92"),
+  axis.ticks.length = unit(.5, "lines"),
+  panel.grid.minor = element_blank(),
+  legend.title = element_text(size = 12),
+  legend.text = element_text(color = "grey30"), 
+  plot.title = element_text(size = 14, face = "bold"),  # originally 18
+  plot.subtitle = element_text(size = 10, color = "grey30"), # originally 12
+  plot.caption = element_text(size = 9, margin = margin(t = 15))
+)
+
+```
+
+```{r setup_data, echo = FALSE, warning=FALSE, message = FALSE}
+covid_project <- "can_i_get_a_clean_project"
+path_to_post <- paste0("~/Documents/R_local_repos/",covid_project, "/content/blog/2020-03-29-covid19-cases-in-connecticut/")
+path_to_post_june <- paste0("~/Documents/R_local_repos/", covid_project, "/content/blog/2020-06-22-tracking-covid-19-in-connecticut/index.en_files/")
+path_to_static_june <- paste0("~/Documents/R_local_repos/", covid_project, "/static/blog/2020-06-22-tracking-covid-19-in-connecticut/") # maybe no longer used
+path_to_covid_project <- paste0("~/Documents/R_local_repos/", covid_project, "/content/project/covid/index_files/")
+path_to_ctcorona <- "~/Documents/R_local_repos/ctcorona/data/"
+# load(paste0(path_to_ctcorona, "dph_datasets.RData"))
+# load(paste0(path_to_ctcorona, "vote2020.RData"))
+load(paste0(path_to_ctcorona, "census_population.RData")) # created in setup_geometries.R
+source('~/Documents/R_local_repos/ctcorona/R/setup_ct_table.R')
+
+```
+
+```{r get_dph_vaccine_counts}
+# statewide by age with booster count: https://data.ct.gov/Health-and-Human-Services/COVID-19-Vaccinations-by-Age-Group/vjim-iz5e
+# # so far this is the only dph dataset with boosters [no, now i get booster data from dph]
+# 2022-04-22 changed column names: Additional Dose to Additional Dose 1
+dph_vaccine_age_total_detail <- read_delim("https://data.ct.gov/api/views/vjim-iz5e/rows.tsv",
+    delim = "\t", escape_double = FALSE,
+    col_types = cols(`Additional Dose 1 Received Count` = col_double(),
+        `Additional Dose 1 Received Percent` = col_double(),
+        Date = col_date(format = "%m/%d/%Y")),
+    trim_ws = TRUE) |>
+  rename(dph_age_group = `Age group`, population = Population,
+         dph_initiated_vaccine = `At least one dose`,
+         dph_fully_vaccinated = `Fully Vaccinated`,
+         dph_booster = `Additional Dose 1 Received Count`, dph_date = Date) |>
+    mutate(dph_initiated_only = dph_initiated_vaccine - dph_fully_vaccinated) |>
+  mutate(across(c(population, dph_initiated_vaccine, dph_fully_vaccinated, dph_booster, dph_initiated_only),
+                ~ ifelse(is.na(.x), 0, .x))) |>
+  filter(dph_date == max(dph_date, na.rm = TRUE))
+
+dph_vaccine_by_age_total <- dph_vaccine_age_total_detail |>
+  group_by(dph_date) |>
+  summarise(dph_fully_vaccinated = sum(dph_fully_vaccinated),
+            dph_initiated_vaccine = sum(dph_initiated_vaccine),
+            dph_initiated_only = sum(dph_initiated_only),
+            dph_booster = sum(dph_booster, na.rm = TRUE),
+            dph_population = sum(population, na.rm = TRUE),
+            .groups = "drop")
+
+# CT DPH Vaccinations by County: https://data.ct.gov/Health-and-Human-Services/COVID-19-Vaccinations-by-County/5g42-tpzq
+# as of Feb 12, additional_dose_received not yet in dataset.
+# no booster info!!!
+dph_vaccine_by_county <- read.socrata(
+  str_c("https://data.ct.gov/resource/5g42-tpzq.json",
+        "?$where=date>'2021-12-13T00:00:00.000'"),
+  app_token = 
+    Sys.getenv("CTDATA_APP1_TOKEN") ) |>  
+  as_tibble() |>
+  rename(county = county_of_residence) |> 
+  mutate(initiated_vaccination = as.numeric(initiated_vaccination),
+         initiated_vaccination_percent = as.numeric(initiated_vaccination_percent),
+         dph_population = as.numeric(population),
+         fully_vaccinated = as.numeric(fully_vaccinated),
+         fully_vaccinated_percent = as.numeric(fully_vaccinated_percent),
+         date = as_date(date)) |> 
+  filter(date == max(date, na.rm = TRUE))
+
+# does not include all age range groups (ie under 5) so cannot sum to get total pop
+# gngw-upkw includes age and town
+dph_vaccine_by_age_full <- read.socrata(
+  str_c("https://data.ct.gov/resource/gngw-ukpw.json",
+        "?$where=dateupdated>'2021-12-13T00:00:00.000'"),
+    app_token = 
+      Sys.getenv("CTDATA_APP1_TOKEN") ) |>  
+  as_tibble() |>
+  mutate(initiated_vaccination = as.numeric(initiated_vaccination),
+         initiated_vaccination_percent = as.numeric(initiated_vaccination_percent),
+         population = as.numeric(population),
+         fully_vaccinated = as.numeric(fully_vaccinated),
+         fully_vaccinated_percent = as.numeric(fully_vaccinated_percent),
+         additional_dose_received = as.numeric(additional_dose_1_received),
+         additional_dose_received_percent = as.numeric(additional_dose_1_received_percent),
+         dateupdated = as_date(dateupdated),
+         social_vulnerability_index = at_least_one_census_tract,
+         at_least_one_census_tract = at_least_one_census_tract == "Yes") |> 
+  filter(dateupdated == max(dateupdated, na.rm = TRUE))
+dph_vaccine_by_age_full_total <- dph_vaccine_by_age_full |> 
+  group_by(dateupdated) |> 
+  summarise(fully_vaccinated = sum(fully_vaccinated, na.rm = TRUE),
+            initiated_vaccination = sum(initiated_vaccination, na.rm = TRUE),
+            additional_dose_received = sum(additional_dose_received, na.rm = TRUE))
+# dph_vaccine_by_town <- dph_vaccine_by_age_full |>
+#   group_by(town, date = dateupdated) |>
+#   summarise(fully_vaccinated = sum(fully_vaccinated),
+#             initiated_vaccination = sum(initiated_vaccination),
+#             additional_dose_received = sum(additional_dose_received, na.rm = TRUE),
+#             social_vulnerability_index = last(social_vulnerability_index),
+#             .groups = "drop")
+
+dph_towns <- read.socrata(
+  str_c("https://data.ct.gov/resource/28fr-iqnx.json",
+        "?$where=lastupdatedate>'2021-12-13T00:00:00.000'"),
+  app_token = Sys.getenv("CTDATA_APP1_TOKEN")) |>
+  as_tibble() |>
+  rename(cases = towntotalcases, deaths = towntotaldeaths,
+         tests = numberoftests, tests_positive = numberofpositives,
+         confirmedcases = townconfirmedcases, confirmeddeaths = townconfirmeddeaths,
+         probablecases = townprobablecases, probabledeaths = townprobabledeaths) |>
+  mutate(date = as_date(lastupdatedate),
+         cases = as.numeric(cases), deaths = as.numeric(deaths),
+         confirmedcases = as.numeric(confirmedcases),
+         confirmeddeaths = as.numeric(confirmeddeaths),
+         probablecases = as.numeric(probablecases),
+         probabledeaths = as.numeric(probabledeaths),
+         towncaserate = as.numeric(towncaserate),
+         tests = as.numeric(tests),
+         ratetested100k = as.numeric(ratetested100k),
+         tests_positive = as.numeric(tests_positive),
+         numberofnegatives = as.numeric(numberofnegatives),
+         numberofindeterminates = as.numeric(numberofindeterminates)) |>
+  rename(per_100k = towncaserate) |>
+  select(-lastupdatedate,  -town_no) |>
+  group_by(town) |>
+  setup_ct_tables() |>
+  left_join(town_info |> select(town, county, category, total_pop)) |>
+  group_by(town) |>
+  mutate(rnew_cases_per100k = rnew_cases / (total_pop / 100000),
+         rnew_deaths_per100k = rnew_deaths / (total_pop / 100000))
+dph_towns <- dph_towns |> ungroup()
+dph_towns$category <- factor(dph_towns$category,
+                             c("Urban Core", "Urban Periphery",
+                               "Wealthy", "Suburban", "Rural"))
+# dph_towns$county <- factor(dph_towns$county,
+#                             levels = c("Litchfield", "Hartford", "Tolland", "Windham", "Fairfield", "New Haven", "Middlesex", "New London"),
+#                             labels = c("Litchfield County", "Hartford County", "Tolland County", "Windham County", "Fairfield County", "New Haven County", "Middlesex County", "New London County"))
+county_town <- dph_towns |> count(county, town) |> select(-n)
+
+
+# this section is a candidate for deletion because it is a repeat
+# # https://data.ct.gov/api/views/5g42-tpzq/rows.csv?accessType=DOWNLOAD
+# # spreadsheet data that includes booster info
+# dph_vaccine_by_age_full <- read.socrata(
+#   str_c("https://data.ct.gov/resource/gngw-ukpw.json",
+#         "?$where=dateupdated>'2021-12-13T00:00:00.000'"),
+#   app_token = 
+#     Sys.getenv("CTDATA_APP1_TOKEN") ) |>  
+#   as_tibble() |>
+#   mutate(initiated_vaccination = as.numeric(initiated_vaccination),
+#          initiated_vaccination_percent = as.numeric(initiated_vaccination_percent),
+#          dph_population = as.numeric(population),
+#          fully_vaccinated = as.numeric(fully_vaccinated),
+#          fully_vaccinated_percent = as.numeric(fully_vaccinated_percent),
+#          dateupdated = as_date(dateupdated),
+#          social_vulnerability_index = at_least_one_census_tract,
+#          at_least_one_census_tract = at_least_one_census_tract == "Yes")
+
+dph_vaccine_by_town <- dph_vaccine_by_age_full |>
+  group_by(town, date = dateupdated) |>
+  summarise(fully_vaccinated = sum(fully_vaccinated),
+            initiated_vaccination = sum(initiated_vaccination),
+            additional_dose_received = sum(additional_dose_received, na.rm = TRUE),
+            social_vulnerability_index = last(social_vulnerability_index),
+            .groups = "drop") |>
+  left_join(dph_towns |> filter(date == max(date)) |>
+    select(town, dph_total_pop = total_pop), by = "town") |>
+  left_join(total2020, by = "town") |>
+  left_join(county_town, by = "town")
+
+# Some time in early 2022 dph_vaccine_by_town stopped including non-CT residents
+dph_ct_vax <- dph_vaccine_by_town |> 
+  group_by(town) |>  # need this in case date not same for all towns
+  filter(date == max(date), town != "xResident out of state") |> 
+  ungroup() |> 
+  mutate(county = if_else(is.na(county), town, county), state = "CT") |> 
+  group_by(state, county, date) |> 
+  summarise(fully_vaccinated = sum(fully_vaccinated, na.rm = TRUE),
+            initiated_vaccination = sum(initiated_vaccination, na.rm = TRUE),
+            additional_dose_received = sum(additional_dose_received, na.rm = TRUE),
+            dph_total_pop = sum(dph_total_pop, na.rm = TRUE),
+            pop2020 = sum(pop2020, na.rm = TRUE),
+            fully_vaccinated_percent = fully_vaccinated / pop2020,
+            initiated_vaccination_percent = initiated_vaccination / pop2020,
+            additional_dose_received_percent = additional_dose_received / pop2020
+           ) |> 
+  mutate(first_dose_only = initiated_vaccination - fully_vaccinated,
+         pop2020 = ifelse(pop2020 == 0, NA_real_, pop2020))
+
+ct_with_non_resident <- dph_ct_vax 
+dph_ct_vax <- dph_ct_vax |> 
+  filter(county != "Resident out of state")
+ct_total_with_non_resident <- ct_with_non_resident |> ungroup() |> 
+  summarise(across(c(fully_vaccinated, initiated_vaccination, additional_dose_received,
+                     first_dose_only, dph_total_pop, pop2020), sum, na.rm = TRUE)) |> 
+  mutate(fully_vaccinated_percent = fully_vaccinated / pop2020,
+            initiated_vaccination_percent = initiated_vaccination / pop2020,
+            additional_dose_received_percent = additional_dose_received / pop2020)
+            
+ct_pop2020 <- sum(dph_ct_vax$pop2020, na.rm = TRUE)
+
+dph_ct_vax_table <- 
+  bind_rows(dph_ct_vax, 
+            tibble(county = "Total",
+                   fully_vaccinated = sum(dph_ct_vax$fully_vaccinated),
+                   initiated_vaccination = sum(dph_ct_vax$initiated_vaccination),
+                   additional_dose_received = sum(dph_ct_vax$additional_dose_received),
+                   first_dose_only = sum(dph_ct_vax$first_dose_only),
+                   pop2020 = sum(dph_ct_vax$pop2020, na.rm = TRUE),
+                   dph_total_pop = sum(dph_ct_vax$dph_total_pop, na.rm = TRUE)) |> 
+              mutate(fully_vaccinated_percent = fully_vaccinated / pop2020,
+                     initiated_vaccination_percent = initiated_vaccination / pop2020,
+                     additional_dose_received_percent = additional_dose_received / pop2020)
+  )
+```
+
+```{r get_cdc_vaccine_counts}
+cdc_vax <- read.socrata(
+  validateUrl(str_c("https://data.cdc.gov/resource/8xkx-amqh.json",
+                    "?$where=date='2022-01-15T00:00:00.000'&$limit=5000"),
+              app_token = 
+                Sys.getenv("CTDATA_APP1_TOKEN"))) |>
+  as_tibble() |>
+  mutate(date = as.Date(date),
+         across(c(series_complete_yes, series_complete_pop_pct, booster_doses,
+                  administered_dose1_recip, administered_dose1_pop_pct),
+                as.numeric)) |>
+  rename(cdc_fully_pct = series_complete_pop_pct,
+         cdc_fully_vaccinated = series_complete_yes,
+         cdc_booster = booster_doses,
+         cdc_initiated_vaccination = administered_dose1_recip,
+         cdc_initiated_pct = administered_dose1_pop_pct) |>
+  relocate(date, cdc_fully_vaccinated, cdc_fully_pct,
+           cdc_initiated_vaccination, cdc_initiated_pct, cdc_booster) 
+
+# https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh
+# note the approximate date limit that may need to be adjusted 
+# Using date  and state limit in socrata query to speed things up.
+cdc_ct_vax <- read.socrata(
+  validateUrl(str_c("https://data.cdc.gov/resource/8xkx-amqh.json",
+                    "?$where=date>'2021-12-13T00:00:00.000'&$limit=1000&recip_state=CT"),
+              app_token = 
+                Sys.getenv("CTDATA_APP1_TOKEN"))) |>
+  as_tibble() |>
+  rename(state = recip_state, county = recip_county) |>
+  mutate(date = as.Date(date),
+         state = ifelse(state == "NYC", "NY", state),
+         county = ifelse(county == "Unknown County",
+                         "Address pending validation", county) |>
+           str_replace(" County", ""),
+         across(c(series_complete_yes, series_complete_pop_pct, booster_doses,
+                  administered_dose1_recip, administered_dose1_pop_pct),
+                as.numeric)) |>
+  rename(cdc_fully_pct = series_complete_pop_pct,
+         cdc_fully_vaccinated = series_complete_yes,
+         cdc_booster = booster_doses,
+         cdc_initiated_vaccination = administered_dose1_recip,
+         cdc_initiated_pct = administered_dose1_pop_pct) |>
+  relocate(date, state, county, cdc_fully_vaccinated, cdc_fully_pct,
+           cdc_initiated_vaccination, cdc_initiated_pct, cdc_booster) |>
+  filter(date == max(date, na.rm = TRUE)) # latest data only
+
+cdc_ct_vax_total <- cdc_ct_vax |> 
+  group_by(date) |> 
+  summarise(cdc_fully_vaccinated = sum(cdc_fully_vaccinated, na.rm = TRUE),
+            cdc_initiated_vaccination = sum(cdc_initiated_vaccination, na.rm = TRUE),
+            cdc_booster = sum(cdc_booster, na.rm = TRUE))
+
+# as of Feb 12, dph_vaccine_by_county does not have booster doses, but
+# ct_vax does because town by town data does.
+
+```
+
+```{r combine_cdc_dph}
+both_sources_detail <- cdc_ct_vax |> ungroup() |> 
+              mutate(cdc_pop = case_when(
+                       cdc_fully_pct <= 0 ~ NA_real_,
+                       TRUE ~ cdc_fully_vaccinated / (cdc_fully_pct / 100))) |> 
+              select(cdc_date = date, state, county, cdc_fully_vaccinated,
+                     cdc_booster,
+                     cdc_initiated_vaccination) |>  # removed series_complete_65plus
+  left_join(dph_ct_vax |> ungroup() |> 
+              select(pop2020,
+                     dph_county_fully = fully_vaccinated,
+                     dph_county_initiated = initiated_vaccination,
+                     dph_first_dose_only = first_dose_only,
+                     dph_additional_dose_received = additional_dose_received,
+                     dph_county_date = date,
+                     county), by = "county") |>
+  mutate(dph_init_only = dph_county_initiated - dph_county_fully,
+         cdc_init_only = cdc_initiated_vaccination - cdc_fully_vaccinated,
+         dph_two_only = dph_county_fully - dph_additional_dose_received,
+         cdc_two_only = cdc_fully_vaccinated - cdc_booster)
+both_sources_state_total <- both_sources_detail |> 
+  filter(county != "Resident out of state") |> # probably don't need this
+  ungroup() |> 
+  summarise(across(c(cdc_fully_vaccinated:cdc_init_only) & 
+                     # dph_init_only, cdc_init_only, !cdc_date) &
+                     where(~((class(.) != "Date") & is.numeric(.))),
+                     sum, na.rm = TRUE)) |> 
+  mutate(state = "CT", county = "Total CT", date = both_sources_detail$dph_county_date[[1]],
+         cdc_date = max(both_sources_detail$cdc_date, na.rm = TRUE))
+
+cdc_asof <- format(max(both_sources_detail$cdc_date, na.rm = TRUE), "%d-%b-%Y")
+dph_asof <- format(dph_vaccine_by_county$date[1], "%d-%b-%Y")
+both_sources0 <- both_sources_detail |> bind_rows(both_sources_state_total) |> 
+  mutate(county = factor(county,
+                         levels = c("Litchfield", "Hartford", "Tolland", "Windham", 
+                           "Fairfield", "New Haven", "Middlesex", "New London", 
+                           "Address pending validation", "Total CT",
+                           "Resident out of state"),
+                         labels = c("Litchfield", "Hartford", "Tolland", "Windham", 
+                           "Fairfield", "New Haven", "Middlesex", "New London", 
+                           "Address pending", "Total",
+                           "Non-CT resident")),
+         cdc_second_dose = cdc_fully_vaccinated - cdc_booster,
+         dph_second_dose = dph_county_fully - dph_additional_dose_received,
+         second_vax_dif = (cdc_second_dose - dph_second_dose) / cdc_second_dose,
+         init_vax_dif = (cdc_init_only - dph_init_only) / cdc_init_only,
+         booster_vax_dif = (cdc_booster - dph_additional_dose_received) / cdc_booster,
+         any_vax_dif = (cdc_initiated_vaccination - dph_county_initiated) / cdc_initiated_vaccination) |> 
+  arrange(as.numeric(county))  |> 
+  relocate(county, cdc_init_only, dph_init_only, init_vax_dif, 
+           cdc_second_dose, dph_second_dose, second_vax_dif,
+           cdc_booster, dph_additional_dose_received, booster_vax_dif)
+# let's add calculations
+both_sources <- both_sources0 |> 
+  mutate(cdc_fully_pct = cdc_fully_vaccinated / pop2020,
+           dph_fully_pct = dph_county_fully / pop2020,
+         cdc_booster_pct = cdc_booster / pop2020,
+         cdc_second_pct = cdc_second_dose / pop2020,
+         dph_second_pct = dph_second_dose / pop2020,
+         dph_booster_pct = dph_additional_dose_received / pop2020)
+
+for_table <- both_sources |> ungroup() |> 
+  select(county, cdc_init_only, dph_init_only, init_vax_dif,
+         cdc_second_dose, dph_second_dose, second_vax_dif,
+         cdc_booster, dph_additional_dose_received, booster_vax_dif
+         # cdc_fully_pct, dph_fully_pct, 
+         # cdc_booster_pct,
+         # dph_booster_pct
+  ) |> 
+  gt() |> 
+  tab_header(title = "Comparison of CDC and CT DPH Vaccination Counts") |> 
+  tab_spanner(label = "initial dose only",
+              columns = c(cdc_init_only, dph_init_only,
+              init_vax_dif)) |> 
+  tab_spanner(label = "second dose",
+              columns = c(cdc_second_dose, dph_second_dose,
+              second_vax_dif)) |> 
+  tab_spanner(label = "booster dose",
+              columns = c(cdc_booster, dph_additional_dose_received,
+                          booster_vax_dif)) |> 
+  # tab_spanner(label = "vaccination rates",
+  #             columns = c(cdc_fully_pct, dph_fully_pct,
+  #                         cdc_booster_pct, dph_booster_pct)) |>
+  cols_label(cdc_second_dose = "CDC second\ndose",
+             dph_second_dose = "CT second\ndose",
+             booster_vax_dif = "CDC / CT DPH\ndif",
+             second_vax_dif = "CDC / CT DPH\ndif",
+             init_vax_dif = " CDC / CT DPH\ndif",
+             cdc_init_only = "CDC initial\ndose only",
+             dph_init_only = "CT initial\ndose only",
+             # cdc_fully_pct = "CDC 'fully'\nvaccinated", 
+             # dph_fully_pct = "CT 'fully'\nvaccinated",
+             # cdc_booster_pct = "CDC booster", 
+             # dph_booster_pct = "CT booster",
+             cdc_booster = "CDC booster",
+             dph_additional_dose_received = "CT DPH booster") |> 
+  fmt_number(columns = c(cdc_second_dose, dph_second_dose, cdc_init_only,
+                         dph_init_only, cdc_booster, dph_additional_dose_received),
+             decimals = 0,
+             use_seps = TRUE) |> 
+  fmt_percent(columns = c(init_vax_dif, second_vax_dif, booster_vax_dif),
+              decimals = 0, force_sign = TRUE) |> 
+  # fmt_percent(columns = c(cdc_fully_pct, dph_fully_pct,
+  #                         cdc_booster_pct, dph_booster_pct),
+  #             decimals = 0) |> 
+  tab_source_note(glue("CDC data as of {cdc_asof}, CT DPH data as of {dph_asof}")) |> 
+  tab_source_note("An initial J&J dose is counted in the `second dose` column rather than in the `initial dose` column.") |> 
+  tab_source_note(paste0("Total population for Connecticut as of 2020 census was ", scales::comma(ct_pop2020), ".")) |> 
+  #Apply new style to all column headers
+  tab_style(
+    locations = cells_column_labels(columns = everything()),
+    style     = list(
+      #Give a thick border below
+      cell_borders(sides = "bottom", weight = px(3)),
+      cell_text(weight = "normal") #Make text bold or normal
+    )
+  ) |> 
+  #Apply different style to the title
+  tab_style(
+    locations = cells_title(groups = "title"),
+    style     = list(
+      cell_text(weight = "bold", size = 24)
+    )
+  ) 
+# for_table <- for_table |> tab_options(table.width = "2000px")  makes attempted line too wide
+# tried changing table with with https://stackoverflow.com/questions/38367392/override-rmarkdown-theme-in-order-to-change-html-page-width/38373846#38373846
+```
+
+```{r state_summary_table}
+ct_total <- both_sources |> filter(county == "Total") |> 
+  # ungroup() |> select(-state, -county, -dph_county_date, -cdc_date,
+  ungroup() |> select(
+    cdc_init_only, dph_init_only,
+    cdc_second_dose, dph_second_dose,
+    cdc_booster, dph_additional_dose_received,
+    init_vax_dif, second_vax_dif, booster_vax_dif) |>
+  pivot_longer(cols = everything(), 
+               names_to = "type") |> 
+  mutate(var = case_when(
+    str_detect(type, "init_") ~ "Initial dose only",
+    str_detect(type, "second_") ~ "Two doses",
+    str_detect(type, "booster") | (type == "dph_additional_dose_received") ~ "With booster"
+    ),
+    col_name = case_when(
+      str_detect(type, "_dif") ~ "Difference",
+      str_detect(type, "cdc") ~ "CDC",
+      str_detect(type, "dph") ~ "CT DPH"
+    )) |> 
+  select(col_name, value, var) |> 
+  pivot_wider(id_cols = var, names_from = col_name, values_from = value)
+ct_total <- 
+  bind_rows(ct_total,
+            tibble(var = "Total",
+                     CDC = sum(ct_total$CDC),
+                     `CT DPH` = sum(ct_total$`CT DPH`),
+                     Difference = (CDC - `CT DPH`) / CDC))
+ct_total_table <- ct_total |> 
+    gt() |> 
+  tab_header(title = "Comparison of CDC and CT DPH Vaccination Counts for Connecticut") |> 
+  cols_label(var = "",
+             CDC = "Reported by CDC",
+             `CT DPH` = "Reported by CT",
+             Difference = "% CDC vs CT DPH") |> 
+  fmt_number(columns = c(CDC, `CT DPH`),
+             decimals = 0,
+             use_seps = TRUE) |> 
+  fmt_percent(columns = Difference,
+              decimals = 0, force_sign = TRUE) |> 
+  tab_source_note(glue("CDC data as of {cdc_asof}, CT DPH data as of {dph_asof}")) |> 
+  tab_source_note("An initial J&J dose is counted in the 'two doses' column rather than in the 'initial dose' column.") |> 
+  tab_source_note(paste0("Total population for Connecticut as of 2020 census was ", scales::comma(ct_pop2020), ".")) |> 
+  #Apply new style to all column headers
+  tab_style(
+    locations = cells_column_labels(columns = everything()),
+    style     = list(
+      #Give a thick border below
+      cell_borders(sides = "bottom", weight = px(3)),
+      cell_text(weight = "normal") #Make text bold or normal
+    )
+  ) |> 
+  #Apply different style to the title
+  tab_style(
+    locations = cells_title(groups = "title"),
+    style     = list(
+      cell_text(weight = "bold", size = 24)
+    )
+  ) 
+
+usethis::ui_info("dph_vaccine_by_age_total: fully = {usethis::ui_value(sum(dph_vaccine_by_age_total$dph_fully_vaccinated, na.rm = TRUE) )} booster={usethis::ui_value(sum(dph_vaccine_by_age_total$dph_booster, na.rm = TRUE))}")
+usethis::ui_info("dph_vaccine_by_county: fully = {usethis::ui_value(sum(dph_vaccine_by_county$fully_vaccinated, na.rm = TRUE) )} ")
+usethis::ui_info("dph_vaccine_by_age_full_total: fully = {usethis::ui_value(sum(dph_vaccine_by_age_full_total$fully_vaccinated, na.rm = TRUE) )} booster={usethis::ui_value(sum(dph_vaccine_by_age_full_total$additional_dose_received, na.rm = TRUE))}")
+usethis::ui_info("dph_vaccine_by_town: fully = {usethis::ui_value(sum(dph_vaccine_by_town$fully_vaccinated, na.rm = TRUE) )} booster={usethis::ui_value(sum(dph_vaccine_by_town$additional_dose_received, na.rm = TRUE))}")
+
+
+
+
+```
+
+This post will explore why CDC and CT Department of Public Health (CT DPH) are reporting different COVID-19 vaccination counts for Connecticut. The goal is to understand how the data makes its way into the CDC and Connecticut summaries.
+
+Below is a direct comparison of vaccination data for Connecticut reported by the CDC and the tallies from the Connecticut [Department of Public Health](https://data.ct.gov/stories/s/CoVP-COVID-Vaccine-Distribution-Data/bhcd-4mnv/) county by county as of `r  cdc_asof`. The column on the right shows how many more vaccinations are reported by the CDC than by CT DPH. Note that CDC reports `r ct_total$Difference[nrow(ct_total)] |> scales::percent()` more individuals with some vaccination, including `r ct_total$Difference[ct_total$var == "Initial dose only"] |> scales::percent()` more who have received only the initial dose.
+
+```{r ct-total-table}
+ct_total_table
+```
+
+"Fully vaccinated" has referred to individuals with two doses of Pfizer or Moderna or one dose of J&J. In this post we will refer to those people as "two doses" even if they have had only one dose of J&J.
+
+## Why does CDC report more individuals as first dose only?
+
+State-wide and county by county the pattern is that CDC reports more people vaccinated with at least one dose and more people who have received only the first dose. This pattern has been observed in other states. There are a number of attempts to go into the details of CDC versus state counts for particular states. See this [analysis of county level counts in Wisconsin](https://law.marquette.edu/facultyblog/2021/12/county-level-cdc-and-dhs-vaccination-statistics-for-wisconsin-vary-in-important-ways/) and also comments by Washington State on [differences between their counts and CDC](https://www.coronavirus.wa.gov/news/vaccine-data-reconciliation-between-state-and-federal-sources-will-take-time).
+
+Early in December 2021, Kaiser Health News [questioned](https://khn.org/news/article/cdc-senior-covid-vaccination-rates-appear-inflated/) why some senior vaccination rates seemed so high and also noted increases in the number of individuals reporting only a first dose.
+
+Later in December the CDC added a significant footnote to their vaccine tracking page that gives a discussion of [why it may be hard for them to track different doses of COVID vaccines](https://www.cdc.gov/coronavirus/2019-ncov/vaccines/reporting-vaccinations.html) at the national level. That's especially true for boosters because there is a long interval after the second dose and a booster is more likely to have been given by a different provider or in a different location. The de-identified data that CDC analysts work with does not include the identifier that may be in use at the state level.
+
+> To protect the privacy of vaccine recipients, CDC receives data without any personally identifiable information (de-identified data) about vaccine doses. Each jurisdiction or provider uses a unique person identifier to link records within their own systems. However, CDC cannot use the unique person identifier to identify individual people by name.
+
+> There are challenges in linking doses when someone is vaccinated in different jurisdictions or from different providers. Even with the high-quality data CDC receives from jurisdictions and federal entities, there are limits to how CDC can analyze those data. If a person received doses in more than one jurisdiction or from different providers within the same jurisdiction, they could receive different unique person identifiers for different doses. CDC may not be able to link multiple unique person identifiers for different jurisdictions or providers to a single person.
+
+> For example, most people receive their first and second dose of a 2-dose vaccine from the same provider because those doses are given within just a few weeks of each other. As they receive their booster dose months later, it's possible they will go to a new location for that dose. The person may have moved or the provider who gave them their initial doses may no longer offer vaccination. This often happens for people who went to mass vaccination clinics that have since closed. In such a scenario, the person's booster dose may appear to be their first dose when reported. This is just one example of how CDC's data may over-estimate first doses and under-estimate booster doses
+
+In December 2021 there were a number of articles that discussed issues with the quality of the CDC vaccination tabulations (for example, [Matt Yglesias](https://www.slowboring.com/p/the-cdcs-vaccine-data-is-all-wrong?s=w) or [Kaiser Health News](https://khn.org/news/article/huge-gaps-in-vaccine-data-make-it-next-to-impossible-to-know-who-got-the-shots/)).
+
+## Where does vaccination data come from?
+
+To try to understand possible weakness in how CDC distinguishes among first dose, second dose, and boosters, it's necessary to examine the details of how the data gets to the CDC. This will underscore some limits in the reports at the state level as well.
+
+Both the CDC and CT DPH have made a real effort to be transparent about their reports. There's quite a bit of information available on the Web describing how they are tabulating vaccinations.
+
+Connecticut DPH is reporting vaccination tabulations based on [CT WiZ](https://portal.ct.gov/DPH/Immunizations/ALL-ABOUT-CT-WiZ), the Connecticut immunization information system. CDC gets data from CT DPH, but they also get data from other state immunization information systems which may include some Connecticut residents plus they also get vaccinations done by federal entities that are not reported to CT WiZ.
+
+There are several issues.
+
+The major reason that the Connecticut DPH counts are lower overall than CDC is that DPH does not have data on all vaccinations by "federal sources" such as the VA or DOD.
+
+> Doses administered by some Federal entities (including Department of Defense, Department of Correction, Department of Veteran's Affairs, Indian Health Service) are not yet reported to CT WiZ.
+
+How comprehensive is the information for Connecticut? All vaccine providers who participate in the COVID-19 vaccination program [are required to report vaccinations to CT WiZ within 24 hours](https://portal.ct.gov/-/media/Coronavirus/20201207-DPH-Order-regarding-reporting-COVID-19-vaccinations.pdf). For example, I received my first two doses from a clinic operated by Yale New Haven Hospital. My booster dose came from Walgreens. When I looked up my vaccination record in CT WiZ I was pleased to see that all three doses were recorded (as were my flu shots for 2020 and 2021). I receive my primary care through a system that uses the Yale New Haven Hospital electronic health record, but in that system my third and fourth doses of COVID vaccination are *not* recorded. (I'll have to communicated that to them separately.) When I got my second booster from Walgreens, the record was available through CT WiZ within a couple of days.
+
+## The CDC Plan to Track Immunizations
+
+Internet searching of the CDC web site turns up a lot of information about how CDC tracks COVID vaccinations, but almost all of it refers to planning done during late 2020 in preparation for the roll out of vaccines. CDC has a [web page](https://www.cdc.gov/vaccines/covid-19/reporting/overview/IT-systems.html) with an overview of the planned IT systems for tracking vaccinations and an elaborate chart that describe the plan for data flows.
+
+*Keep in mind that this chart and other planning documents represent a goal and cannot be taken as a description of what is actually happening.*
+
+[![Flow of info about vaccinations across systems](images/cdc_data_pathway.png "Flow of records of COVID vaccinations")](https://www.cdc.gov/vaccines/covid-19/reporting/downloads/vaccine-administration-data-agreement.pdf)
+
+A December 2020 article in USA Today lays out the [flow of information on immunizations](https://www.usatoday.com/in-depth/news/2020/12/16/covid-19-vaccine-data-supply-chain-software-immunization-registry-tiberius/3879655001/) and describes the same flow described in the chart above.
+
+Let's go through this information flow displayed in the figure above from top to bottom.
+
+### IIS -- Immunization Information Systems
+
+[Immunization information systems](https://www.cdc.gov/vaccines/programs/iis/about.html) are designed to track immunizations of individuals. There are 64 of them, one for each state and territory plus some quirks such as New York City being separate from New York State. These systems were primarily aimed at childhood immunizations but always covered other immunizations as well, which is why I can see many of my non-COVID vaccinations in CT WiZ. National promotion of a an IIS architecture seems to have [started around 2013](https://www.cdc.gov/vaccines/programs/iis/functional-standards/func-stds-2013-2018.html). I assume this may have something to do with the Affordable Care Act either directly or indirectly. The ACA covered some adult vaccines as part of preventive services. [Earlier efforts](https://www.cdc.gov/vaccines/programs/iis/core-data-elements/historical.html) to design the elements for such systems go back earlier to the 1990's.
+
+### IZ Gateway
+
+The CDC vaccine information architecture depends on 64 Immunization Information Systems (IIS), which are mostly state based. The concept of immunization gateway was [developed before COVID](https://www.healthcareitnews.com/news/how-hhs-innovating-data-aggregation-and-visualization-boost-pop-health) as a way to foster communication among the separate IIS's.
+
+The plan describes a lot of detail about the legal process. It discusses the need for separate [explicit legal agreements](https://www.cdc.gov/vaccines/covid-19/reporting/iz-gateway/gateway-qa.html) for how data goes from federal providers (such as DOD) to the state (via its IIS).
+
+> In the Connect component of the IZ Gateway, will participating IISs receive data (push) from VAMS and other non-traditional vaccination providers (e.g., DOD) who administered vaccinations within the IIS's jurisdiction?
+>
+> Yes, in the Connect component of IZ Gateway, participating IISs will receive data from VAMS for patients in their jurisdictions. Participating IISs will also receive data for patients in their jurisdictions from non-traditional vaccination providers that are onboarded to IZ Gateway Connect and not already connected to IISs.
+>
+> How does provider-initiated multijurisdictional data exchange work?
+>
+> The Provider-Initiated Multijurisdictional Data Exchange component of IZ Gateway allows providers to initiate a query for immunization information from multiple jurisdictions.
+
+The theory is that the [IZ Gateway](https://www.cdc.gov/vaccines/covid-19/reporting/iz-gateway/information-sheet.html "Immunization Gateway information sheet") is a central hub through which data can move back and forth among the various state-based IIS's. The IZ Gateway is owned by CDC and hosted by the [Association of Public Health Laboratories](https://www.aphl.org) (APHL). There is a [flyer](https://www.hhs.gov/sites/default/files/immunization-flyer.pdf) on the HHS site that seems to describe the idea of the gateway pre-COVID.
+
+> HHS' Immunization Gateway, meanwhile, which was launched in 2013 to boost consumer access to immunization records and enable more informed patient decisions, has helped improve population health by breaking down silos and filling in critical missing pieces. \[from a pre-COVID [press report](https://www.healthcareitnews.com/news/how-hhs-innovating-data-aggregation-and-visualization-boost-pop-health "from Healthcare IT News")\]
+
+What is actually happening with the gateway?
+
+The diagram shows a lot of two-way arrows. In this post I am interested in aggregate statistics reported by Connecticut and the CDC. But the IZ Gateway is primarily oriented toward supporting immunization care of individuals. It is a switchboard to direct queries about the immunization record of an individual among multiple state IIS's and providers in order to support effective care of that individual. Providing for statistical information is not its principal focus.
+
+For participating states[^1], all of the immunization data assembled by the state IIS can flow through the IZ Gateway. Data for aggregates does not flow so freely back down to the state. It seems that data for Connecticut residents who get their vaccinations out of state does not automatically flow into CT WiZ (the Connecticut IIS). One must also keep in mind that individuals may list a local residence when they are vaccinated. For states that have signed the relevant memorandum of understanding, they can retrieve all of the immunizations for that individual from the IZ Gateway. In that way, Connecticut may be able to check whether a particular person has gotten vaccinations in another state. I'm not sure whether that actually happens. It appears that states IIS's do not get statistics about out of state vaccinations of their residents[^2].
+
+[^1]: New Hampshire was the last state to establish an IIS, [in 2021](https://www.dartmouth-hitchcock.org/stories/article/new-hampshire-launches-immunization-registry-0).
+
+[^2]: Some states make bilateral arrangements with particular neighboring states. For example, Wisconsin gets data from Minnesota and from Michigan.
+
+The planning diagram has lots of multi-way arrows, but the arrows may represent individual health records rather than aggregate statistical data. That limits the comprehensiveness of the reporting done by state agencies such as the CT Department of Public Health.
+
+There is an organization called the [American Immunization Registry Association](https://www.immregistries.org) (AIRA) which has been involved in working out the legal memoranda of understanding that enable the data exchange. There is a [training webinar from the summer of 2020](https://www.youtube.com/watch?v=JMmvkEtvWw4 "training video on IZ Gateway") that goes into some of the detail of those arrangements.
+
+The IZ Gateway is operated by the Association of Public Health Laboratories (APHL). The diagram below is a summary of their overview of the gateway.
+
+[![COVID-19 Data Flow the IZ Gateway Administered by APHL](https://www.aphl.org/PublishingImages/INFO-2020-AIMS-COVID-19-Data-Flow-Infographic.jpg){.ms-rtePosition-2 alt="COVID-19 Data Flow on AIMS Platform" style="margin:10px 15px;" width="495" height="387"}](https://www.aphl.org/programs/informatics/Pages/aims_platform.aspx)
+
+Some of the CDC information on the IZ Gateway doesn't seem to jive with actual practice. For example, their [Q&A on the IZ Gateway](https://www.cdc.gov/vaccines/programs/iis/iz-gateway/questions-answers.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fvaccines%2Fcovid-19%2Freporting%2Fiz-gateway%2Fgateway-qa.html) says
+
+> In the Share component, the IZ Gateway will recognize when a patient is vaccinated outside of the jurisdiction in which he or she resides and will automatically push the patient's record to the relevant IIS. By opting into IZ Gateway Share, a jurisdiction is automatically choosing to share data, when relevant, with all participating IISs.
+
+Based on scanning various state web sites I haven't seen signs that this is what actually happens. It's hard to say exactly. Identifying "the jurisdiction in which he or she resides" may not be so simple for snowbirds or college students.
+
+The states that I have examined all have mentioned that the state IIS (and therefore the state summary stats) do not contain information about vaccinations administered by federal entities. That's not what the Q&A on the CDC site seems to say:[^3]
+
+[^3]: Although the Q&A page says it was last reviewed in August 2021, I suspect that the information is from the summer of 2020 during high hopes and high aspirations while planning for the eventual vaccine. I'm basing a lot of my evaluation of this Q&A based on how things seem to actually work from the point of view of CT WiZ.
+
+> ##### **In the Connect component of the IZ Gateway, will participating IISs receive data (push) from VAMS and other non-traditional vaccination providers (e.g., DoD) who administered vaccinations within the IIS's jurisdiction?**
+>
+> Yes, in the Connect component of IZ Gateway, participating IISs will receive data from VAMS for patients in their jurisdictions. Participating IISs will also receive data for patients in their jurisdictions from non-traditional vaccination providers that are onboarded to IZ Gateway Connect and not already connected to IISs.
+
+Vaccinations by federal agencies are recorded via VAMS. That data is supposed to go into through the IZ Gateway but does not seem to be passed on to the state IIS's. State dashboards frequently mention that vaccinations by federal entities are not included in their state reporting. I don't know why vaccinations by federal entities are not fed into state IIS's the same way as vaccinations by large pharmacy chains.
+
+While the IZ Gateway was conceived before COVID, the pandemic increased the urgency. An article "[How the US plans to track Covid-19 vaccine doses](https://qz.com/1941989/how-the-us-plans-to-track-pfizers-covid-19-vaccine-doses/)" describes some of the atmosphere in December 2020 just as vaccines were about to be rolled out. It may just take time for the IZ Gateway to reach its original conception.
+
+The legal underpinning for exchanging data among states and with the CDC depends on a complicated set of state-by-state legal agreements. The best source I have on the IZ Gateway is a [webinar](https://www.youtube.com/watch?v=JMmvkEtvWw4) from 2020. The IZ Gateway seems not to be a national immunization database. Rather, it is a messaging system that routes communications among vaccine providers and state IIS's. It is oriented toward supporting medical treatment of individuals (e.g., has an individual completed a vaccination series) rather than providing aggregate public health information about community immunization rates. For example, providing the federal vaccination data to the states seems like a basic service that the IZ Gateway should provide, but it doesn't seem to be happening. My impression is that a state might be able to query the immunization for an particular individual who was immunized through a VA facility, but it is not getting a bulk load of all the immunizations provided by VA and other federal facilities in the jurisdiction of the state IIS.
+
+##### How does this affect Connecticut DPH reporting?
+
+The two big problems for Connecticut state reporting are that they do not have complete information about vaccinations performed by federal entities (notably the VA and DOD) and they do not learn about shots given to Connecticut residents while in other states. The Gateway does not seem to be helping with those issues. Also, within Connecticut, college students may be counted in the denominator of the town where live while at college but may be in the numerator according to the town they listed as residence when we they got a shot.
+
+### CDC IZ Clearinghouse
+
+The Clearinghouse is described in the [CDC summary](https://www.cdc.gov/vaccines/covid-19/reporting/overview/IT-systems.html)
+
+> The COVID-19 Data Clearinghouse is a cloud-hosted data repository that receives, deduplicates, and deidentifies COVID-19 vaccination data that are then used to populate the IZ Data Lake with deidentified data for analytics.
+
+The key phrase is "deduplicates and deidentifies COVID-19 vaccination data." The issue is whether that deduplication process is accurate and effective. Compared with the state IIS data the CDC is reporting too many people who are getting their first shot, presumably because they have not identified in their clearinghouse that the same person had gotten a shot previously. As an outsider it is impossible to fully evaluate this situation.
+
+There is a longer description of the IZ Clearinghouse in a [January 2021 report from the Congressional Research Service](https://crsreports.congress.gov/product/pdf/IN/IN11584):
+
+> Limitations with cross-jurisdictional immunization data sharing have affected prior public health emergency responses. To address this, some personally identifiable information (PII) on recipients is to be collected, encrypted, and secured in CDC's IZ Data Clearinghouse to enable data sharing between jurisdictions and federal agencies through the IZ Gateway. (CDC typically collects de-identified data. PII held by CDC and other federal agencies is generally subject to the Privacy Act of 1974 \[5 U.S.C. §552a\]). Submitted data are encrypted with "privacy-preserving record linkage (PPRL)," where PII is redacted and replaced with unique tokens that allow for records sharing without PII.
+>
+> State and territorial public health officials have expressed concern that "many states have laws prohibiting or limiting data sharing with other entities, including the federal government." As communicated to CRS by CDC, all 64 jurisdictions have signed data-sharing agreements with CDC that respond to jurisdictions' unique concerns; CDC is still in the process of rolling out PPRL, and it has not been implemented in jurisdictions at this time.
+
+There is an [HHS privacy impact assessment](https://www.hhs.gov/sites/default/files/cdc-ncird-immunization-datalake-and-data-storefront-izdl.pdf) that describes issues with the identifiable data in the Clearinghouse and the legal authorization for that information.
+
+### CDC IZ Data Lake
+
+The component that I have the least information about is the [CDC IZ Data Lake](https://www.cdc.gov/vaccines/covid-19/reporting/overview/IT-systems.html).
+
+> The IZ Data Lake is a cloud-hosted data repository to receive, store, manage, and analyze deidentified COVID-19 vaccination data. CDC, jurisdictions, federal agencies, and pharmacy partners uses the IZ Data Lake to store and process administration, coverage, logistics, inventory, ordering, distribution, and provider data. VAMS, IISs, pharmacies, VTrckS, and Vaccines.gov will provide data for the IZ Data Lake. The IZ Data Lake also aggregates and analyzes data and provides data summaries and analytics via these reporting hubs
+
+### Issues with CDC COVID Vaccination Statistics
+
+The vaccination statistics are tabulated from the CDC Data Lake. The quality of those statistics is constrained by how well the process of deidentification and deduplication is applied to the source data before is is transferred from the Clearinghouse to the Data Lake. The CDC's note quoted at the top of this post indicates that there are problems with this step.
+
+Another issue for the CDC is whether they are getting complete information from an IIS in each state. I have focused on Connecticut, and I'm confident that Connecticut is not a problem for the CDC. Based on some superficial reading, I gather that there are some states that do not feed complete information into the IZ Gateway and therefore the CDC would have a less complete view of vaccinations in those states.
+
+## Is There a Trade Off Between Privacy Protection and Accurate Vaccination Statistics
+
+A key issue is the attempt to ensure privacy of individual vaccination data by deidentifying the data before it goes into the CDC Data Lake. This step seems to have degraded the statistics. But does it do much to improve privacy protection? Note that CDC is never publishing individual level data. The deidentification step protects the data only from people who have access to the CDC Data Lake. Probably that's not a large group of CDC staff. Meanwhile there are also some CDC staff who have access to the CDC IZ Clearinghouse. And there is widespread access to the state-based data through the individual Immunization Information Systems. It seems likely that deidentification does not significantly reduce the number of individual with access to the data who might violate their confidentiality obligations.
+
+Meanwhile, whether or not data is individually identifiable is not what really keeps the data private. For practical reasons, immunization systems and other health delivery systems have to deal with individually identifiable data in order to support medical treatment of individuals. What privacy actually depends on is ethical and increasingly legal rules determining what information may not be revealed.
+
+So it is the *confidentiality* of the data that provides the real protection of privacy, not *anonymity*. That's why [Health Insurance Portability and Accountability Act of 1996 (HIPAA)](https://www.cdc.gov/phlp/publications/topic/hipaa.html) has become such a feature of modern life. HIPPA makes confidentiality a legal requirement. In the context of the overall privacy of immunization records, the CDC's deidentification step seems to function in a way similar to what [Bruce Schneier](https://en.wikipedia.org/wiki/Bruce_Schneier) has called [security theater](https://en.wikipedia.org/wiki/Security_theater). In this case it might be called privacy theater. It represents a visible action related to privacy that doesn't actually do much to increase privacy. One of a small number CDC staff with access to the data violating legal and CDC regulations to reveal an individual's vaccination record is not a high probability threat, especially in comparison with all the other ways that information might be revealed. We should remember how effective confidentiality rules can be. For example, the IRS accumulates vast trove of individually identified financial data. We have been watching for years as various people attempt to get Donald Trump's tax records from the IRS. The confidentiality rules have held up under very great pressure.
+
+There is an [HHS Privacy Assessment](https://www.hhs.gov/sites/default/files/cdc-ncird-immunization-datalake-and-data-storefront-izdl.pdf) that describes in detailed legal restrictions on the data that goes from state IIS's into the central system. This includes information that identifies individuals such as name, date of birth, and contact information. Note that the privacy assessment refers to the "Data Lake."
+
+Note that the authority ([09-90-2001](https://www.federalregister.gov/documents/2020/07/20/2020-15564/privacy-act-of-1974-system-of-records "SORN from Federal Register")) cited in the HHS Privacy Assessment was written in the summer of 2020 specifically to respond to the COVID epidemic.
+
+A [New York Times article](https://www.nytimes.com/2020/12/08/us/politics/cdc-vaccine-data-privacy.html) from December 2020 describes concerns and suspicion about why the federal government was asking for individual identifying information for the IZ Gateway. It's possible that deidentification is responding to those political concerns. The CDC is saying, "don't worry, we don't have the data for a vaccine ID card." But they do have the data. It's just in the IZ Clearinghouse rather than in the Data Lake.
+
+## Issues That Affect Both CDC and State Vaccination Rates
+
+An issue for vaccination rates by geographic area is that the residence reported at the time of vaccination may not be the same residence reported to the Census tabulations which drives the denominator of the rate calculation. College students, "snowbird" retirees who spend part of the year in different states, or migrant workers may not be counted consistently in the numerator and the denominator. When someone gets a vaccination they are most likely to give their location at the time of the vaccination as their residence. That may not be the same place the individual is counted in the 2020 census.
+
+For example, the town of Mansfield is the home of the University of Connecticut. It has the lowest reported vaccination rate of any town in Connecticut. In the Census, students who live on campus are counted as residents of Mansfield and are in the denominator of the rate calculation. At the time they were vaccinated many of those students may have reported their home address as the address where they live with their families when school is not in session. Younger populations are less likely to be vaccinated, but a large part of what produces the reported low vaccination rate in Mansfield is that "home address" in the vaccination data often does not match where the student was counted by the Census Bureau.
+
+## Comparison with Polling Data
+
+There are many opinion polls that ask about COVID vaccination. Unfortunately polling questions often do not distinguish among first dose, second dose, and booster dose. Pew has published a [report](https://www.pewresearch.org/fact-tank/2021/09/20/polls-on-covid-19-vaccination-closely-align-with-cdc-data/) that compares many public opinion polls with CDC reports. The report focus on the percentage of adults who have received at least one dose so it does not evaluate question of whether subsequent doses are being accurately reported. In general it shows that polls closely track CDC data so that's reassuring. The report only goes up through June 2021 which means it stopped before booster shots became an option. The report provides some reassurance that the CDC data and polling data agree. Right now the main concern with the CDC vaccine stats is related to whether they are accurately tracking booster doses. It will be interesting to see whether this holds up as multiple booster shots become more common.
+
+![COVID vaccination polling compared with CDC data](https://www.pewresearch.org/wp-content/uploads/2021/09/FT_21.09.13_benchmarkingPollsVaccination.png?h=640){alt="COVID vaccinatioin polling compared with CDC data"}
+
+## General Issues with Tracking COVID Data
+
+There have been significant issues surrounding data quality throughout the COVID pandemic. In 2020 the [COVID Tracking Project](https://covidtracking.com) emerged from multiple efforts to try to obtain comparable statistics about the path of the epidemic in the United States. It was a volunteer effort and suspended operation in March 2021 at a point when they felt the data could be obtained from [federal sources](https://covidtracking.com/analysis-updates/federal-covid-data-101-how-to-find-data).
+
+In January 2022 Bob Wachter did an interesting interview with Eric Topol that reviewed the state of pandemic at that moment. Near the end of the interview, there's an interesting section where BW asks about why the US seems to need to rely on data from other countries. Here is a transcript of that portion of the interview (which starts at 48:03 on the YouTube video):
+
+The Omicron Whirlwind: A Conversation with Eric Topol about the Current and Future State of the Pandemic January 13, 2022 Bob Wachter interviewing Eric Topol Bob Wachter is Chair, UCSF Department of Medicine. Eric Topol is a cardiologist and founder and director of the Scripps Research Institute
+
+> BW: That's a good pivot to something you were beginning to talk about but I sort of moved it along, but let's get back to it. Up until two years ago, you'd see a paper in a journal and it was from UK or from Israel or from South Africa, you'd say, 'Oh, that's not America. I'm waiting for the study.' Whereas for the last two years, it seems like almost all of the insights, or many of them, come from studies from other countries. They have better data systems, they are investing more in clinical research. What's going on and what do we need to do to be leaders in this area? Because it really feels like we're followers.
+>
+> ET: We are followers. And we have pathetic data systems. I mean, pathetic. And the one thing that really strikes me, Bob, is that we of course support the current administration and the fact that the mantra sticking to the science. But there has been all these announcements from day one of taking on administration through today, there has not been one mention of improving our data system. Not a mention. And this is just preposterous. Yes, we are forced to rely on other country's data, but when these advisory committees for FDA and CDC convene, they basically are unwilling to accept that data even though there's not data here in this country, because, like for example, right now we want to know whether these Omicron boosters, how well they're working to prevent hospitalizations and deaths. And when do they wane? When does their protection wane? Those people who are getting hospitalized who had a third shot, what's going on there? We were promised by the CDC in May that they would track every breakthrough hospitalization and death. Never happened. And so we don't have critical data. We have 150,000-plus people in the hospital. And I have begged at the HHS level that we have granular data on each of those people. Their vaccination status, which vaccine, when they got it, their age, their co-existing conditions, and all the basal stuff, right? And they say, "Well, we're gonna look into it." Even though it can be mandated by HHS authority. So we have just a dreadful situation here where we don't have real-time capture of data. The only data that gets posted on the CDC is a month old, and it's de minimus about things like hospitalizations or deaths, and this is unacceptable. If you're gonna go in a pandemic and try to deliver and guidance, you have to have data. That's how you develop trust. That's how you have the best navigation system. And we don't have it. But the most important thing to me, Bob, is there's no seeming will to get one. And that is distressing and it has to change.
+>
+> BW: Why do you think that is?
+>
+> ET: Well, the main thing to me is that we have a Secretary of HHS, who came from California, the attorney general, he hasn't shown up for the pandemic. Have you seen him? Have you seen him make a statement?
+>
+> BW: I saw him talking about how the CDC director doesn't have a degree in marketing the other day. That was interesting.
+>
+> ET: I see, I see, Yeah we have a serious problem. HHS, there's been a lot of infighting between the agencies. And the HHS secretary should be bringing that together. And so we have a serious problem is we have a no-show HHS secretary. We have an HHS that could mandate this data capture, but they're afraid, in my view, of political backlash. That's why they're not doing it. And you just can't. Yeah, we're a big country, but yo know what, a big country without data is in a horrible situation. So we have to rely on other countries. And fortunately we have amazing data that comes out of places like the UK and Israel and Denmark and South Africa. So many that has been terrific for us. But it's amazing we have a different population here, we're much less vaccinated, much less boosted, we have lots of co-existing conditions that are not as prevalent in some of these other countries, and yet we don't have data. I don't know. I mean, I just don't think that the administration has delivered to sticking to the science because part of the science is having the data.
+>
+> BW: Yeah, that makes sense.
+
+```{r include-video, echo = FALSE}
+
+# HTML for APHL diagram: <img class="ms-rtePosition-2" alt="COVID-19 Data Flow on AIMS Platform" src="/PublishingImages/INFO-2020-AIMS-COVID-19-Data-Flow-Infographic.jpg" style="margin&#58;10px 15px;width&#58;330px;height&#58;258px;"/>
+blogdown::shortcode("youtube", "lCAvFHd3B38?start=2883")
+```
+
+John Burn-Murdoch sites an example where better monitoring in the UK provides information relevant to interpreting COVID trends in the US because of a [random sample survey of prevalence of COVID](https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/bulletins/coronaviruscovid19infectionsurveypilot/latest) in the UK.
+
+> Once again, we should really be immensely grateful to the team at [\@ONS](https://twitter.com/ONS), whose random sample survey providing regular and representative estimates of prevalence is truly world-leading, and the absolute gold standard in pandemic surveillance."
+
+```{r include-tweet, echo = FALSE}
+blogdown::shortcode("tweet","1483062311971704833")
+```
+
+Would better data tracking have made a difference in fighting the pandemic in the US? Perhaps not. But individuals and local governments have been struggling to figure out best practices while the facts are uncertain and knowledge is still being developed.
+
+## Questions
+
+After diving deep into various reports and web sites I still have questions about now vaccinations are being tabulated.
+
+1.  Why don't vaccinations by federal entities (e.g., VA or DOD) go into the state Immunization Information Systems? It constitutes a major hole in the state public health department reporting.
+2.  Is CDC making a sustained effort to tie together vaccinations administered to a single individual? Deidentification by itself doesn't cause a problem for the stats. But deidentification makes it harder to explore and correct weakness in the data caused by uncertainty about whether a shot is a new immunization or a subsequent dose give to the same individual.
+3.  Is there more that could be done for state Immunization Information Systems to add more information about shots that were administered in other states?
+4.  How is the CDC reporting system going to cope with a likely situation where what we want to track is whether an individuals COVID immunizations are "complete and up to date" as the definition of "complete and up to date" develops over time? We seem to be close to a point where what we want to know is whether an individual has had a booster within the last four months (or some other term). This puts even more pressure on the need to follow immunization history of individuals even if they have gotten vaccinations in multiple states.
+
+## County Level Data for Connecticut
+
+For the sake of completeness, below are comparisons of county-level data from the CDC to DPH, first with a table and then displayed via a bar chart.
+
+```{r print-table}
+# for_table |> cols_width(
+#   c(booster_vax_dif, second_vax_dif, init_vax_dif) ~ pct(50)
+# )
+for_table
+```
+
+Below is a visual summary of the same vaccination counts reported in the table. The brown bars show vaccinations reported by CDC and the green bars show Connecticut Department of Health. The figure includes a data point to show the total population of each county according to the 2020 Census.
+
+```{r plot_vaccine_counts}
+both_sources_simple <- both_sources |> 
+  filter(county != "Non-CT resident", county != "Total") |> 
+  ungroup() |> 
+  select(county, dph_second_dose, cdc_second_dose, 
+         cdc_init_only,dph_init_only, cdc_booster, dph_additional_dose_received) |> 
+  pivot_longer(cols = dph_second_dose:dph_additional_dose_received) |> 
+  mutate(source = ifelse(str_detect(name, "dph"), "CT DPH", "CDC") |> 
+           factor(levels = c("CDC", "CT DPH")),
+         status = ifelse(str_detect(name, "second"), "Second", 
+                         ifelse(str_detect(name, "init"), 
+                                "Initial", "Booster")) |> 
+           factor(levels = c("Initial", "Second", "Booster")),
+         county = factor(county),
+         grouping = paste0(source,"-", status) |> 
+           factor(levels = c("CDC-Initial", "CDC-Second", "CDC-Booster", "CT DPH-Initial", "CT DPH-Second", "CT DPH-Booster")))
+# stacked bar wiith dodge: https://stackoverflow.com/questions/46597278/how-to-plot-a-stacked-and-grouped-bar-chart-in-ggplot/46597859#46597859
+
+# to see palete:  RColorBrewer::display.brewer.pal(name="BrBG", n = 11)
+one_col1 <- brewer_pal(palette= "BrBG")(11)[2]
+two_col1 <- brewer_pal(palette= "BrBG")(11)[3]
+three_col1 <- brewer_pal(palette= "BrBG")(11)[4]
+
+one_col2 <- brewer_pal(palette= "BrBG")(11)[10]
+two_col2 <- brewer_pal(palette= "BrBG")(11)[9] 
+three_col2 <- brewer_pal(palette= "BrBG")(11)[8]
+my_pal <- palette(c(one_col1, one_col2, two_col1, two_col2, three_col1, three_col2))
+bigsep <-0.2
+barsep<- 0.05 
+barwidth <- (1 - bigsep - barsep) / 2 
+if ((barwidth > 0.5) | (barwidth <= 0)) stop("barwidth is out of range.") # has to be <= 0.5 (two bars per integer value of county)
+p_vax_bars = ggplot(data = both_sources_simple |> filter(source == "CDC"), 
+                    aes(x = as.numeric(county), y = value, fill = grouping)) +
+  geom_bar(data = both_sources_simple |> filter(source == "CDC"), 
+           aes(x = as.numeric(county) - (barwidth + barsep) / 2),
+           stat="identity", position = "stack", width = barwidth) +
+  geom_bar(data = both_sources_simple |> filter(source == "CT DPH"),
+           aes(x = as.numeric(county) + (barwidth + barsep) / 2, y = value), # barwidth + barsep
+           stat = "identity", position = "stack", width = barwidth) + 
+  geom_point(data = both_sources |> 
+               filter(county != "Non-CT resident", county != "Total") |> 
+               mutate(county = factor(county),
+                      pop2020 = ifelse(pop2020 == 0, NA_real_, pop2020),
+                      grouping = NA_character_)  |> 
+               ungroup(),
+             aes(x = as.numeric(county), y = pop2020, fill = NULL),
+             show.legend = FALSE) + 
+  coord_flip() + xlab(NULL) + ylab("Number Vaccinated") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_x_reverse(breaks = seq(1, 9), labels = levels(both_sources_simple$county)) +
+  scale_fill_manual(values = c(
+    "CDC-Initial" = three_col1, "CDC-Second" = two_col1, "CDC-Booster" = one_col1,
+    "CT DPH-Initial" = three_col2, "CT DPH-Second" = two_col2, "CT DPH-Booster" = one_col2),
+     name = NULL)
+
+  # p_vax_bars + geom_point(data = both_sources |> 
+  #              filter(county != "Non-CT resident", county != "Total") |> 
+  #              mutate(county = factor(county),
+  #                     pop2020 = ifelse(pop2020 == 0, NA_real_, pop2020),
+  #                     grouping = NA_character_)  |> 
+  #              ungroup(),
+  #            aes(x = as.numeric(county), y = pop2020, fill = NULL),
+  #            show.legend = FALSE, size = 2.5, colour = "darkgray")
+```
+
+```{r county_plot2, echo = FALSE}
+print(p_vax_bars)
+```

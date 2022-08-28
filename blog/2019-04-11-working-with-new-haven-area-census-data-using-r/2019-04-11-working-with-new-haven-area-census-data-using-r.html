@@ -1,0 +1,1710 @@
+---
+title: Working with New Haven Area Census Data Using R
+author: John Goldin
+date: '2019-04-11'
+excerpt: 'Using the tidycensus package to explore census data. This post shows R code to fetch and map census data, but also gives some tips on how to explore the almost overwhelmind variety of variables available via the Census Bureau.'
+categories:
+  - census
+  - maps
+  - R
+tags:
+  - census
+  - Guilford
+  - maps
+  - R
+slug: new-haven-census-and-R
+aliases:
+    - /2019/04/new-haven-census-and-R/
+draft: false
+output:
+  html_document:
+    code_folding: hide
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>This post will work through a basic setup to look at
+census data for the New Haven area. It will rely on the
+<a href="https://walkerke.github.io/tidycensus/articles/basic-usage.html">tidycensus</a>
+and <a href="https://github.com/walkerke/tigris">tigris</a>
+packages by <a href="http://personal.tcu.edu/kylewalker">Kyle Walker</a>. The emphasis
+will be on the R code for getting and using Census data rather than
+on the data itself.</p>
+<p>I should emphasize that I am in no way an expert on the Census. On the
+contrary I would rate myself as a novice. The point of this post
+is to record my exploration of how to apply the Census to my
+area of the state. I hope to provide some of the information
+I wish I had when I first started working with Census data.</p>
+<div id="american-community-survey" class="section level4">
+<h4>American Community Survey</h4>
+<p>The <code>tidycensus</code> package is designed to retrieve data via the
+Census Bureau API’s either from the decennial census or
+from the <a href="https://en.wikipedia.org/wiki/American_Community_Survey">American Community Survey</a> (ACS). For this exercise I
+will focus on the ACS.</p>
+<p>The ACS started in 2005 and has replaced
+the “long form” of the census survey. Between 1970 and 2000,
+the U.S. Census Bureau used two questionnaires.
+Most households received a short-form questionnaire asking a minimum number of questions.
+A sample of households received a long-form questionnaire that included
+additional questions about the household.
+In 2005 the American Community Survey was created to replace the long form census.
+The 2010 Census had just one questionnaire consisting of ten questions. (<a href="https://www.census.gov/history/www/through_the_decades/questionnaires/">Census Bureau</a>)</p>
+<p>By law one is required to respond to Census Bureau surveys, but in practice
+the Bureau <a href="https://slate.com/news-and-politics/2010/03/can-you-get-in-trouble-for-not-filling-out-your-census-form.html">does not levy fines for non-response to the ACS</a>.</p>
+<p>Each year about 3% of households are included in the sample for the American
+Community Survey. It covers a wide range of topics. There’s <a href="https://www.census.gov/acs/www/about/why-we-ask-each-question/">a page that describes
+the many topics</a> on the survey and why they are included.
+It also leads to links where you can see the actual questions as they appear on the ACS.
+There’s lots of data about race and citizenship and household demographics and money.
+But there are also quite a few items on other aspects of life. It seems like it has
+everything, including the kitchen sink (covered by table B25051 Kitchen Facilities
+for All Housing Units).</p>
+<p>As a side note, learning about the American Community Survey has given me a
+much stronger understanding of the recent <a href="https://www.tbf.org/blog/2018/march/understanding-the-census-citizenship-question-debate">controversy</a>
+(and <a href="https://www.npr.org/2019/02/15/692656180/supreme-court-to-decide-if-2020-census-includes-citizenship-question">legal wrangling</a>)
+about adding a citizenship question to the decennial census. I now appreciate
+that the Census Bureau has worked to made the decennial census bare bones and
+simple to respond to.
+There are a lot of things one might want to know about the US population,
+and the American
+Community Survey is their vehicle for getting that depth of information. It is
+already has questions about citizenship and also lots of
+detail about national origin. The ACS is designed so that the decennial census
+does not need to ask about citizenship.
+The ACS is sufficient and a better vehicle for getting
+a full picture of citizenship and immigration.</p>
+</div>
+<div id="what-variables-are-in-the-acs" class="section level4">
+<h4>What Variables are in the ACS?</h4>
+<p>For someone like myself who is unfamiliar with the ACS it can be downright
+bewildering to sift through what’s available. Using the <code>load_variables</code> function in tidycensus
+(or by going to the Census Bureau web site) one can download the
+variable numbers that describe each count that is available from the
+ACS results.
+There are over 25,000 rows in the table that lists all these variable
+numbers.
+It took me a while to get used to what a “variable” is in this sense.
+Remember, via the API you are not seeing raw results (i.e., one row per
+person’s response). The ACS API gives you various tabulations and cross-tabulations.
+Each variable is one of those tabulations, that is, one number in a table.
+In fact, variables are organized in terms of topics and tables. There is
+an ID for each table, (such as B17010) and then separate variables for
+each cell in that table (and for many of the cross-tabulations as well).
+A tool that helped me to get used to the meaning of variables is the
+<a href="https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml">American Factfinder</a>,
+an online tool at the Census Bureau web site.
+The Factfinder has been superseded by a new data exploration
+platform at <a href="https://data.census.gov/">census.data.com</a>.
+Unfortunately, as far as I can tell, the American Factfinder doesn’t display the
+table numbers used by the API.
+(It feels like I should be able to get that; perhaps I just don’t know how.)
+The new data.census.gov does show the overall table number, but not the
+variable names for individual cells.</p>
+<p>When I click on Table Notes on a Factfinder table, I get a popup
+window with a link to
+<a href="https://www.census.gov/programs-surveys/acs/technical-documentation/code-lists.html">technical documentation</a>.
+(The same link is also available at data.census.gov.)
+On the left side of that page there is a guide to other items related to
+technical documentation. Of particular value is the link to
+<a href="https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html">Table Shells</a>.
+On that page one can find
+<a href="https://www2.census.gov/programs-surveys/acs/summary_file/2017/documentation/user_tools/ACS2017_Table_Shells.xlsx?#">Table Shells for All Detailed Tables</a>
+as a single 1.3MB excel spreadsheet</p>
+<p>As an example, here is the table shell for Table C17010 (which is a collapsed
+version of the even more detailed Table B17010)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
+<p>POVERTY STATUS IN THE PAST 12 MONTHS OF FAMILIES BY FAMILY TYPE BY PRESENCE OF RELATED CHILDREN UNDER 18 YEARS</p>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="16%" />
+<col width="78%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Line#</th>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>C17010_001</td>
+<td>Total:</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>C17010_002</td>
+<td>Income in the past 12 months below poverty level:</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>C17010_003</td>
+<td>  Married-couple family:</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>C17010_004</td>
+<td>      With related children of the householder under 18 years</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>C17010_005</td>
+<td>  Other family:</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>C17010_006</td>
+<td>    Male householder, no wife present</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>C17010_007</td>
+<td>      With related children of the householder under 18 years</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>C17010_008</td>
+<td>    Female householder, no husband present</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>C17010_009</td>
+<td>      With related children of the householder under 18 years</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>C17010_010</td>
+<td>Income in the past 12 months at or above poverty level:</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>C17010_011</td>
+<td>  Married-couple family:</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>C17010_012</td>
+<td>      With related children of the householder under 18 years</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>C17010_013</td>
+<td>  Other family:</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>C17010_014</td>
+<td>    Male householder, no wife present</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>C17010_015</td>
+<td>      With related children of the householder under 18 years</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>C17010_016</td>
+<td>    Female householder, no husband present</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>C17010_017</td>
+<td>      With related children of the householder under 18 years</td>
+</tr>
+</tbody>
+</table>
+<p>As you work with <code>tidycensus</code> using these variable names will be confusing. Many
+ACS table are much more elaborate than this one and the array of variable names
+can be overwhelming. C17010 has 17 lines in the table, but B17010 (the more
+expanded version) has 41 lines. And there are nine variations of this table by
+race, indicated by a letter appended to the table name:</p>
+<ul>
+<li>C17010A White alone<br />
+</li>
+<li>C17010B Black or African American alone<br />
+</li>
+<li>C17010C American Indian or Alaskan Native alone</li>
+<li>C17010D Asian alone</li>
+<li>C17010E Native Hawaiian or Other Pacific Islander alone</li>
+<li>C17010F Some other race alone</li>
+<li>C17010G Two or more races</li>
+<li>C17010H White alone and not Hispanic or Latino</li>
+<li>C17010I Hispanic or Latino</li>
+</ul>
+<p>That adds up to 17 x 10 = 170 variables for all of the variations of C17010. And
+for B17010 and its variations there are a total of 410 variables. You can
+see how you can get lost amidst all of these variables.</p>
+<p>After writing this section, I realized that C17010 is only available in the one-year
+version of ACS, and is not available in the five-year version which combines data for
+2013 through 2017. I’m leaving the description of C17010 because it is more compact,
+but in the code below I want to work with the 5-year data (to get better estimates for
+small geographic units) so I’ll have to stick with B17010. Of course one can always
+get the same numbers in C17010 by adding the right variables from B17010. I should have
+paid attention to the “notes” column which has 1 and a 5 when the table is available for
+both ACS versions and a 1 when it is available only for the single year version.</p>
+<p>Note that when you are working with the ACS table shells, you should pay attention to what universe is
+specified for each table. Some example: families, households, total population, housing units.
+There are many more specific universes: population 15 years and over in the United States,
+civilian non-institutionalized population, and so on. The “universe” is the set of things
+that are being sampled to produce the results in the table.</p>
+</div>
+<div id="get-acs-data-via-tidycensus" class="section level4">
+<h4>Get ACS Data Via <code>tidycensus</code></h4>
+<p>Once you have zeroed in on which ACS variables you want to look at, the next step
+is to use <code>tidycensus</code> to retrieve the data via the Census Bureau API. I am
+going to retrieve data on families below the poverty line for the towns in the
+New Haven area, my own part of Connecticut.</p>
+<p>We will use <code>get_acs()</code> to retrieve the data.</p>
+<p>This post was created with <a href="https://rmarkdown.rstudio.com">RMarkdown</a>
+and all of the code to fetch the ACS data and
+to make the plots is included here and is visible.</p>
+<p><strong>A preliminary detail.</strong> To access US Census items via the Census Bureau API, you will need an API key.
+You can obtain a key via <a href="http://api.census.gov/data/key_signup.html">this link</a>. After they email you your key, you use the <code>census_api_key</code> function to save
+it for use by <code>tiycensus</code> and <a href="https://walkerke.github.io/tigris-webinar/#15">tigris</a> functions. It will look like `census_api_key(“YOUR KEY GOES HERE”). The
+key is stored in your R environment.</p>
+<pre class="r"><code># setup R libraries used in this post
+library(tidyverse, quietly = TRUE)
+library(tidycensus, quietly = TRUE)
+library(sf, quietly = TRUE)
+library(tigris, quietly = TRUE)
+library(viridis, quietly = TRUE)
+library(knitr, quietly = TRUE)
+library(scales, quietly = TRUE)
+library(kableExtra, quietly = TRUE)
+options(tigris_use_cache = TRUE)
+options(tigris_class = &quot;sf&quot;)</code></pre>
+<p>You can manually create a list of variables to pass to <code>get_acs()</code>, but it
+may be easier to work with the long data frame of variable names that one can
+fetch via <code>load_variables()</code>. Some additional parsing of the returned data can
+make working with variables much easier. In the code block here we will pull out the table identifiers
+and also separate out the table variants for breakdowns by race.</p>
+<pre class="r"><code>vars &lt;- load_variables(2017, &quot;acs5&quot;, cache = TRUE) %&gt;% 
+  mutate(table_id = str_sub(name, 1, 6), 
+         # Race generally is in parentheses after the concept name.
+         # But for a few cases, something else is in parentheses first. So I
+         # am going to blank out that stuff and then assume whatever I find inside
+         # of parentheses is race.
+         concept = str_replace_all(concept,
+           c(&quot;\\(IN 2017 INFLATION-ADJUSTED DOLLARS\\)&quot; = &quot;&quot;,
+             &quot;\\(EXCLUDING HOUSEHOLDERS, SPOUSES, AND UNMARRIED PARTNERS\\)&quot; = &quot;&quot;,
+             &quot;\\(SSI\\)&quot; = &quot;&quot;,
+             &quot;\\(INCLUDING LIVING ALONE\\)&quot; = &quot;&quot;,
+             &quot;\\(IN MINUTES\\)&quot; = &quot;&quot;,
+             &quot;\\(DOLLARS\\)&quot; = &quot;&quot;,
+             &quot;\\(CT, ME, MA, MI, MN, NH, NJ, NY, PA, RI, VT, WI\\)&quot; = &quot;--CT, ME, MA, MI, MN, NH, NJ, NY, PA, RI, VT, WI--&quot;,
+             &quot;\\(CAR, TRUCK, OR VAN\\)&quot; = &quot;--CAR, TRUCK, OR VAN--&quot;,
+             &quot;\\(\\)&quot; = &quot;&quot;
+         )),
+         race = str_extract(concept, &quot;\\(.+\\)&quot;),
+         race = str_replace(race, &quot;\\(&quot;, &quot;&quot;),
+         race = str_replace(race, &quot;\\)&quot;, &quot;&quot;))
+         # I should have been able to do this in one line, but it doesn&#39;t seem to work:
+         # race = str_extract(concept, &quot;\\((.*?)\\)&quot;))
+B17010_variables &lt;- vars %&gt;% 
+  filter(table_id == &quot;B17010&quot;, is.na(race)) %&gt;% 
+  pluck(&quot;name&quot;)
+poverty_acs &lt;- get_acs(geography = &quot;county subdivision&quot;,  # for CT, that means towns
+              state = &quot;CT&quot;,
+              county = &quot;New Haven&quot;,
+              geometry = &quot;FALSE&quot;, # no map at this time
+              year = 2017,
+              survey = &quot;acs5&quot;,
+              variables = B17010_variables[2],
+              summary_var = B17010_variables[1]) %&gt;% 
+  filter(estimate &gt; 0) %&gt;% 
+  mutate(TOWN = str_replace(NAME, &quot; town, New Haven County, Connecticut&quot;, &quot;&quot;),
+         pct_poverty = estimate / summary_est, 
+         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe)) </code></pre>
+<p>Via the parameters of the function,
+we told the <code>get_acs</code> function that we want data by town (geography = “county subdivision”),
+that we wanted the five-year ACS data ending in year 2017 (the latest available as of April, 2019),
+that we want variable B17010_002 (the estimate of the total number of families below the poverty line).
+We have also asked that B17010_001 be added as a summary variable, in this case the estimate of the total
+number of families in the geographic unit. The percentage of the number of families
+below the poverty line can thus be calculated as <code>estimate</code> divided by <code>summary_est</code>.
+The <code>tidycensus</code> package also supplies some functions for estimating the margin
+of error when you combine or summarize estimates. See the <code>tidycensus</code> help for <code>moe_sum</code> and <code>moe_prop</code>
+for notes on how to estimate margin of error when doing arithmetic operatons
+on ACS estimates such as addition or using a ratio to calculate a percentage.</p>
+<pre class="r"><code>pick_towns &lt;- c(&quot;Woodbridge&quot;, &quot;West Haven&quot;, &quot;New Haven&quot;, &quot;East Haven&quot;,
+                &quot;Bethany&quot;, &quot;Orange&quot;, &quot;Milford&quot;, &quot;Branford&quot;, &quot;Guilford&quot;,
+                &quot;North Haven&quot;, &quot;Madison&quot;, &quot;Hamden&quot;, &quot;North Branford&quot;,
+                &quot;Wallingford&quot;)
+branford &lt;- poverty_acs %&gt;% filter(TOWN == &quot;Branford&quot;) # for example
+poverty_acs &lt;- poverty_acs %&gt;% 
+  filter(TOWN %in% pick_towns) %&gt;% 
+  arrange(desc(pct_poverty))
+nh_pct_poverty &lt;- percent(poverty_acs$estimate[[1]] / sum(poverty_acs$estimate), accuracy = 1)
+nh_pct_families &lt;- percent(poverty_acs$summary_est[[1]] / sum(poverty_acs$summary_est), accuracy = 1)
+poverty_formatted &lt;- poverty_acs %&gt;% 
+  arrange(desc(pct_poverty)) %&gt;% 
+  filter(TOWN %in% pick_towns) %&gt;% 
+  mutate(pct_poverty = percent(pct_poverty, accuracy = 1), 
+         pct_moe = paste0(&quot;±&quot;, percent(pct_moe, accuracy = .1)),
+         moe = paste0(&quot;±&quot;, moe),
+         summary_moe = paste0(&quot;±&quot;, summary_moe)) %&gt;%
+  select(GEOID, Town = TOWN, `Below Poverty` = estimate, MOE = moe, `Total # of Families` = summary_est, `MOE of Families` = summary_moe, `% Poverty` = pct_poverty, `MOE of %` = pct_moe)
+kable(poverty_formatted, format = &quot;markdown&quot;, format.args = list(big.mark = &quot;,&quot;),
+      caption = &quot;Families Below Poverty Line (from Table B17010)&quot;) %&gt;% 
+  kableExtra::kable_styling() %&gt;% 
+  kableExtra::footnote(general = &quot;Source: US Census American Community Survey 2013-2017 (variable B17010_002)\ntidycensus R package&quot;)</code></pre>
+<table>
+<caption>(#tab:sample_results)Families Below Poverty Line (from Table B17010)</caption>
+<colgroup>
+<col width="11%" />
+<col width="15%" />
+<col width="14%" />
+<col width="5%" />
+<col width="20%" />
+<col width="16%" />
+<col width="10%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">GEOID</th>
+<th align="left">Town</th>
+<th align="right">Below Poverty</th>
+<th align="left">MOE</th>
+<th align="right">Total # of Families</th>
+<th align="left">MOE of Families</th>
+<th align="left">% Poverty</th>
+<th align="left">MOE of %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0900952070</td>
+<td align="left">New Haven</td>
+<td align="right">5,038</td>
+<td align="left">±468</td>
+<td align="right">24,699</td>
+<td align="left">±584</td>
+<td align="left">20%</td>
+<td align="left">±1.8%</td>
+</tr>
+<tr class="even">
+<td align="left">0900982870</td>
+<td align="left">West Haven</td>
+<td align="right">1,055</td>
+<td align="left">±267</td>
+<td align="right">11,563</td>
+<td align="left">±460</td>
+<td align="left">9%</td>
+<td align="left">±2.3%</td>
+</tr>
+<tr class="odd">
+<td align="left">0900922910</td>
+<td align="left">East Haven</td>
+<td align="right">438</td>
+<td align="left">±194</td>
+<td align="right">6,802</td>
+<td align="left">±296</td>
+<td align="left">6%</td>
+<td align="left">±2.8%</td>
+</tr>
+<tr class="even">
+<td align="left">0900935650</td>
+<td align="left">Hamden</td>
+<td align="right">534</td>
+<td align="left">±187</td>
+<td align="right">13,974</td>
+<td align="left">±410</td>
+<td align="left">4%</td>
+<td align="left">±1.3%</td>
+</tr>
+<tr class="odd">
+<td align="left">0900947535</td>
+<td align="left">Milford</td>
+<td align="right">507</td>
+<td align="left">±163</td>
+<td align="right">13,841</td>
+<td align="left">±340</td>
+<td align="left">4%</td>
+<td align="left">±1.2%</td>
+</tr>
+<tr class="even">
+<td align="left">0900978740</td>
+<td align="left">Wallingford</td>
+<td align="right">421</td>
+<td align="left">±148</td>
+<td align="right">11,879</td>
+<td align="left">±350</td>
+<td align="left">4%</td>
+<td align="left">±1.2%</td>
+</tr>
+<tr class="odd">
+<td align="left">0900907310</td>
+<td align="left">Branford</td>
+<td align="right">227</td>
+<td align="left">±115</td>
+<td align="right">7,325</td>
+<td align="left">±307</td>
+<td align="left">3%</td>
+<td align="left">±1.6%</td>
+</tr>
+<tr class="even">
+<td align="left">0900904580</td>
+<td align="left">Bethany</td>
+<td align="right">45</td>
+<td align="left">±42</td>
+<td align="right">1,611</td>
+<td align="left">±107</td>
+<td align="left">3%</td>
+<td align="left">±2.6%</td>
+</tr>
+<tr class="odd">
+<td align="left">0900957600</td>
+<td align="left">Orange</td>
+<td align="right">97</td>
+<td align="left">±65</td>
+<td align="right">3,836</td>
+<td align="left">±117</td>
+<td align="left">3%</td>
+<td align="left">±1.7%</td>
+</tr>
+<tr class="even">
+<td align="left">0900954870</td>
+<td align="left">North Haven</td>
+<td align="right">137</td>
+<td align="left">±61</td>
+<td align="right">6,261</td>
+<td align="left">±216</td>
+<td align="left">2%</td>
+<td align="left">±1.0%</td>
+</tr>
+<tr class="odd">
+<td align="left">0900934950</td>
+<td align="left">Guilford</td>
+<td align="right">122</td>
+<td align="left">±62</td>
+<td align="right">6,343</td>
+<td align="left">±193</td>
+<td align="left">2%</td>
+<td align="left">±1.0%</td>
+</tr>
+<tr class="even">
+<td align="left">0900987700</td>
+<td align="left">Woodbridge</td>
+<td align="right">38</td>
+<td align="left">±32</td>
+<td align="right">2,249</td>
+<td align="left">±156</td>
+<td align="left">2%</td>
+<td align="left">±1.4%</td>
+</tr>
+<tr class="odd">
+<td align="left">0900944560</td>
+<td align="left">Madison</td>
+<td align="right">76</td>
+<td align="left">±48</td>
+<td align="right">5,066</td>
+<td align="left">±158</td>
+<td align="left">2%</td>
+<td align="left">±0.9%</td>
+</tr>
+<tr class="even">
+<td align="left">0900953890</td>
+<td align="left">North Branford</td>
+<td align="right">55</td>
+<td align="left">±53</td>
+<td align="right">4,075</td>
+<td align="left">±208</td>
+<td align="left">1%</td>
+<td align="left">±1.3%</td>
+</tr>
+</tbody>
+</table>
+<p>The table displays the basic data returned by the call to <code>get_acs</code>.
+Note that there is a margin of error (MOE) for
+each count. ACS is based on a sample and is subject to sampling error. Plus or minus the
+MOE is the 90% confidence interval for the estimate. As one looks at small geographic
+units, MOE can be a big issue. For example, in this data there are an estimated
+7,325 families in Branford, plus or minus
+307. That’s a range of about 7%. But for Branford
+the estimate for the number of families below the poverty line is both small and
+unreliable: 227 with an MOE of 115. If
+I had used the one-year ACS rather than the five-year, the MOE would be even worse. In fact,
+the API will not even return the one-year results for most towns. If I run the <code>get_acs</code> code
+but with <em>ACS1</em> rather than <em>ACS5</em> I only get data returned for New Haven and Waterbury, the
+two largest towns in the county.
+The MOE for total number of families in New Haven goes from ±584 for ACS5 to ±1,358 for ACS1.
+And for the number of families below the poverty line, the MOE goes from ±468 to ±925.
+The one-year ACS has rules for <a href="https://www.census.gov/programs-surveys/acs/technical-documentation/data-suppression.html">what data will not be reported</a> because the sample
+is too small. The ACS5 will give you the results, but that doesn’t mean you should
+be oblivious to whether a large MOE indicates a comparison you want to make is not valid.</p>
+<p>The table confirms that poverty is concentrated in the city. While 21% of families of the 14 towns are
+in New Haven, 57% of families below the poverty line are in New Haven.
+And some other tracts with elevated levels of poverty are in East Haven and West Haven
+adjacent to the city.</p>
+</div>
+<div id="basic-map" class="section level4">
+<h4>Basic Map</h4>
+<p>At this point we have a simple example of using the Census API to get data
+from the ACS. Next we are going to do some basic mapping and then
+show how to use those technique to map data from the ACS.</p>
+<p>To begin we will create a basic map for Connecticut towns surrounding the City of New Haven.
+The Census Bureau provides extensive resources for geographic information and maps
+via its <a href="https://www.census.gov/geo/maps-data/data/tiger.html">TIGER</a>
+(Topologically Integrated Geographic Encoding and Referencing) products.
+The <a href="https://github.com/walkerke/tigris">tigris</a> package provides a simple
+way to get basic maps (represented as <a href="https://en.wikipedia.org/wiki/Shapefile">shapefiles</a>)
+that are most relevant to census tabulations.
+There are many types of geographic units available. In our case we will
+focus on county, towns (in the case of New England,
+county subdivisions in TIGER terminology), and
+census tracts. Towns are especially relevant in Connecticut (and in New England
+in general). The rest of the country relies on census tracts within counties.</p>
+<p>To create the maps I will use the <a href="https://edzer.github.io/UseR2017/">relatively new</a> <a href="https://cran.r-project.org/web/packages/sf/index.html">sf</a> (simple features) package.
+The <code>sf</code> package
+is designed to be <a href="https://www.tidyverse.org">tidyverse</a> compatible.
+One can use the usual <code>dplyr</code> verbs to
+manipulate <code>sf</code> objects and use the <code>geom_sf</code> function to add maps to ggplot2.
+Before <code>sf</code> was created, I had to rely on the <code>sp</code> package, which was much
+less convenient. (There are links to six vignettes describing <code>sf</code> at the
+CRAN <a href="https://cran.r-project.org/web/packages/sf/index.html">sf package page</a>.)</p>
+<p>There are 28 towns, boroughs, or cities in New Haven County. The county
+goes as far north as Waterbury. I decided to focus on the 14 towns that I think of
+as being the City of New Haven and its suburbs:</p>
+<pre><code>Milford, Orange, Woodbridge, Bethany,   
+Hamden, West Haven, Wallingford, North Haven,    
+East Haven, Branford, North Branford, Guilford,  
+Madison, and New Haven.   </code></pre>
+<p>It turns out this list is very similar to the <a href="https://scrcog.org">South Central Regional Council
+of Governments</a>.
+The one difference is that SCRCOG also includes Meriden,
+which I excluded as being too far north and therefore outside of the immediate
+New Haven orbit.</p>
+<p>The code in the next section uses <code>tigris</code> to retrieve shapefiles for
+the census tracts and towns (county subdivisions) in New Haven County.
+There may be some direct way via <code>tigris</code> to relate towns to census tracts.
+I had to do it indirectly. I use the <code>st_centroid</code> function to find the
+center of each census tract and then use the <code>sf_join</code> function with the
+<code>st_intersects</code> join to join towns to tracts to show which goes
+with which. Each geographic object in TIGER has a GEOID identifier.
+The <code>tract_town</code> object has a column for TOWN.GEOID and another for
+TRACT.GEOID. I turn that into a regular data frame that I can join
+to other <code>sf</code> objects so that I can associate towns with tracts via
+tract GEOID.</p>
+<pre class="r"><code>pick_towns &lt;- c(&quot;Woodbridge&quot;, &quot;West Haven&quot;, &quot;New Haven&quot;, &quot;East Haven&quot;,
+                &quot;Bethany&quot;, &quot;Orange&quot;, &quot;Milford&quot;, &quot;Branford&quot;, &quot;Guilford&quot;,
+                &quot;North Haven&quot;, &quot;Madison&quot;, &quot;Hamden&quot;, &quot;North Branford&quot;,
+                &quot;Wallingford&quot;)
+# I&#39;m saving these to make it easier to re-use same code for a different area.
+pick_county = &quot;New Haven&quot;
+pick_state = &quot;CT&quot;
+
+# set cb = TRUE to keep boundaries tied to the coastline
+town_geometry &lt;- county_subdivisions(state = pick_state, county = pick_county, cb = TRUE)
+tract_geometry &lt;- tracts(state = pick_state, county = pick_county, cb = TRUE)
+# let&#39;s find which tract is in which town
+tract_centroid = st_centroid(tract_geometry)
+# tract town has the geometry of town, not tract
+tract_town &lt;-st_join(town_geometry, tract_centroid, 
+                     join = st_intersects,
+                     suffix = c(&quot;.TOWN&quot;, &quot;.TRACT&quot;)) 
+tract_town_df &lt;- tract_town %&gt;%
+  as_tibble() %&gt;%
+  select(TOWN = NAME.TOWN, GEOID = GEOID.TRACT) %&gt;%
+  mutate(near_nh = (TOWN %in% pick_towns))
+
+area_tracts &lt;- tract_geometry %&gt;% 
+  left_join(tract_town_df, by = &quot;GEOID&quot;) %&gt;% 
+  filter(TOWN %in% pick_towns)
+area_towns &lt;- town_geometry %&gt;% filter(NAME %in% pick_towns)
+area_town_centroid &lt;- st_centroid(area_towns) # use to place town labels</code></pre>
+</div>
+<div id="create-a-map-of-new-haven-area" class="section level4">
+<h4>Create a Map of New Haven Area</h4>
+<p>Next we will use <code>ggplot2</code> and the <code>geom_sf</code> geom to create a map
+from the <code>sf</code> objects that contain the shapefiles for tracts and towns around New Haven.</p>
+<pre class="r"><code>ggplot() + 
+  geom_sf(data = area_tracts, 
+  fill = &quot;gray&quot;, colour = &quot;darkgray&quot;, show.legend = FALSE) +
+  geom_sf(data = area_towns, colour = &quot;yellow&quot;, fill = NA) + 
+  geom_sf_text(data = area_town_centroid, aes(label = NAME), color = &quot;yellow&quot;) +
+  coord_sf(datum = NA, label_axes = &quot;----&quot;) +
+  xlab(&quot;&quot;) + ylab(&quot;&quot;) + theme_minimal() +
+  labs(title = &quot;New Haven Area Towns&quot;, 
+       subtitle = &quot;with census tract boundaries&quot;,
+       caption = &quot;Source: US Census, tidycensus package&quot;)  </code></pre>
+<p><img src="/blog/untitled folder/2019-04-11-working-with-new-haven-area-census-data-using-r_files/figure-html/base_plot-1.png" width="100%" /></p>
+</div>
+<div id="we-have-a-map-lets-display-some-census-data" class="section level3">
+<h3>We Have a Map; Let’s Display Some Census Data</h3>
+<p>I am going to retrieve the poverty data at the level of census tract and display the result.
+Keep in mind that the margin of error for a particular tract will be quite large. Comparing
+similar census tracts may be misleading, although it still should be clear that the
+poor areas in the cities are much different than the suburbs. Let’s try it and see what
+happens and afterward we will explore the issue of margin of error a bit more.</p>
+<p>I have redone the <code>get_acs</code> query we did by town, only this time the geography unit
+will be tracts rather than county subdivisions.</p>
+<pre class="r"><code>poverty_tracts &lt;- get_acs(geography = &quot;tract&quot;,  
+              state = &quot;CT&quot;,
+              county = &quot;New Haven&quot;,
+              geometry = &quot;TRUE&quot;, # yes, get tract shapefiles
+              year = 2017,
+              survey = &quot;acs5&quot;,
+              variables = B17010_variables[2],
+              summary_var = B17010_variables[1]) %&gt;% 
+  filter(estimate &gt; 0) %&gt;% 
+  mutate(pct_poverty = estimate / summary_est, 
+         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe))  %&gt;% 
+  left_join(tract_town_df, by = &quot;GEOID&quot;) %&gt;% 
+  filter(TOWN %in% pick_towns)</code></pre>
+<pre class="r"><code># poverty_tracts is similar to poverty_acs, but includes geometry and limits to area towns
+ggplot() + 
+  geom_sf(data = poverty_tracts, 
+  aes(fill = pct_poverty), colour = &quot;lightgray&quot;) +
+  scale_fill_viridis_c(option = &quot;plasma&quot;, direction = -1, name = &quot;Pct Poverty&quot;, begin = 0.1) +
+  geom_sf(data = area_towns, colour = &quot;darkgray&quot;, fill = NA) + 
+  geom_sf_text(data = area_town_centroid, aes(label = NAME), color = &quot;darkgray&quot;) +
+  coord_sf(datum = NA, label_axes = &quot;----&quot;) +
+  xlab(&quot;&quot;) + ylab(&quot;&quot;) + theme_minimal() +
+  labs(title = &quot;Percentage of Families Below the Poverty Line&quot;, 
+       subtitle = &quot;by census tract (margin of error by tract may be large)&quot;,
+       caption = &quot;Source: US Census American Community Survey 2013-2017 (variable B17010_002)\ntidycensus R package&quot;)  </code></pre>
+<p><img src="/blog/untitled folder/2019-04-11-working-with-new-haven-area-census-data-using-r_files/figure-html/poverty_plot-1.png" width="110%" /></p>
+<p>In the map that shows poverty by census tract, there are six tracts that are
+missing from the data. They show up as white areas on the map. Presumably data
+has been suppressed. One of the missing tracts is where I used to live in New
+Haven. Families below the poverty line may have been hard to find there. I
+don’t know how the suppression policies work for the five-year ACS so I don’t
+know why these tracts are missing.</p>
+<pre class="r"><code># INCOME IN THE PAST 12 MONTHS B07411_0.5
+income_tracts &lt;- get_acs(geography = &quot;tract&quot;,  
+              state = &quot;CT&quot;,
+              county = &quot;New Haven&quot;,
+              geometry = &quot;TRUE&quot;, 
+              year = 2017,
+              survey = &quot;acs5&quot;,
+              variables = &quot;B19013_001&quot;) %&gt;% 
+  filter(estimate &gt; 0) %&gt;% 
+  left_join(tract_town_df, by = &quot;GEOID&quot;) %&gt;% 
+  filter(TOWN %in% pick_towns)
+
+ggplot() + 
+  geom_sf(data = income_tracts, 
+  aes(fill = estimate), colour = &quot;gray&quot;) +
+  scale_fill_viridis_c(option = &quot;plasma&quot;, direction = -1, name = &quot;Income&quot;, begin = 0.1,
+                       trans = &quot;log&quot;, breaks = c(20000, 30000, 50000, 100000, 150000)) +
+  geom_sf(data = area_towns, colour = &quot;white&quot;, fill = NA, size = 0.5) + 
+  geom_sf_text(data = area_town_centroid, aes(label = NAME), color = &quot;darkgray&quot;) +
+  coord_sf(datum = NA, label_axes = &quot;----&quot;) +
+  xlab(&quot;&quot;) + ylab(&quot;&quot;) + theme_minimal() +
+  labs(title = &quot;Median Household Income (Log Scale)&quot;, 
+       subtitle = &quot;by census tract (margin of error by tract may be large)&quot;,
+       caption = &quot;Source: US Census American Community Survey 2013-2017 (variable B19013_001)\ntidycensus R package&quot;)  </code></pre>
+<p><img src="/blog/untitled folder/2019-04-11-working-with-new-haven-area-census-data-using-r_files/figure-html/income_plot-1.png" width="100%" /></p>
+<p>Because the ACS is based on a sample, one cannot ignore the margin of error. The
+next plot has shows the median income for each census tract within each town drawn
+with a line that represents minus and plus the margin error. In effect this shows
+a 90% confidence interval. Where the lines overlap you should not draw the conclusion that
+one census tract is higher than another. On the other hand, one see cases where
+it is clear there is a difference. Track 1571 in Orange is unambiguously lower than
+the other tracts in Orange.</p>
+<pre class="r"><code>area_towns_order &lt;- c(&quot;Bethany&quot;, &quot;Woodbridge&quot;, &quot;Wallingford&quot;, &quot;North Branford&quot;,
+                      &quot;Orange&quot;, &quot;Hamden&quot;, &quot;North Haven&quot;, &quot;Guilford&quot;,
+                      &quot;West Haven&quot;, &quot;New Haven&quot;, &quot;Branford&quot;, &quot;Madison&quot;,
+                      &quot;Milford&quot;, &quot;East Haven&quot;)
+income_tracts &lt;- income_tracts %&gt;% 
+  mutate(tract_name = str_sub(NAME, 8, (str_locate(NAME, &quot;,&quot;)[, 1] - 1)),
+         TOWN = factor(TOWN, levels = area_towns_order)) 
+ggplot(data = income_tracts, aes(x = estimate/1000, y = fct_reorder(tract_name, estimate))) +
+  geom_point() +
+  geom_errorbarh(mapping = aes(xmin = (estimate - moe)/1000, xmax = (estimate + moe)/1000), height = 0) +
+  facet_wrap(~ TOWN, scales = &quot;free_y&quot;) +
+  ylab(NULL) +
+  labs(title = &quot;90% Confidence Interval for Median Household Income&quot;,
+       subtitle = &quot;(Income is Displayed on a Log Scale)&quot;,
+       caption = &quot;Source: US Census American Community Survey 2013-2017 (variable B19013_001)\ntidycensus R package&quot;) +
+  scale_x_log10(name = &quot;Income (000&#39;s)&quot;, breaks = c(20, 30, 50, 100, 150)) +
+  theme(axis.text.x  = element_text(size=6), axis.text.y  = element_text(size=5))</code></pre>
+<p><img src="/blog/untitled folder/2019-04-11-working-with-new-haven-area-census-data-using-r_files/figure-html/show_moe-1.png" width="100%" /></p>
+</div>
+<div id="now-for-something-completely-different" class="section level3">
+<h3>Now for Something Completely Different</h3>
+<p>The next ACS query will focus on mode of transportation to work. This is an example
+of the breadth of the survey. In addition to the material shown here, there’s also
+a lot on the time it takes to get to work.</p>
+<pre class="r"><code>vars2 &lt;- vars %&gt;% filter(table_id == &quot;B08006&quot;) %&gt;% 
+  separate(label, into = paste0(&quot;t&quot;, seq(1, 8)), remove = FALSE, sep = &quot;!!&quot;) %&gt;% 
+  select(-t1)
+# to supplement picking out variables manually, in this step we will parse the
+# label and use that info to help select variables.
+vars2 &lt;- vars2 %&gt;% filter(is.na(t4)) %&gt;% 
+  mutate(commute_mode = case_when(
+    is.na(t3) ~ &quot;All workers&quot;,
+    str_detect(t3, &quot;^Car&quot;) ~ &quot;Vehicle&quot;,
+    str_detect(t3, &quot;Public&quot;) ~ &quot;Public Transport&quot;,
+    str_detect(t3, &quot;Bicycle&quot;) ~ &quot;Bicycle&quot;,
+    str_detect(t3, &quot;Walked&quot;) ~ &quot;Walked&quot;,
+    str_detect(t3, &quot;Taxi&quot;) ~ &quot;Taxi, motorcycle&quot;,
+    str_detect(t3, &quot;^Worked&quot;) ~ &quot;At home&quot;,
+    TRUE ~ &quot;Other&quot;)
+  )
+for_summary &lt;- vars2 %&gt;% filter(commute_mode == &quot;All workers&quot;) %&gt;% pluck(&quot;name&quot;)
+vars2 &lt;- vars2 %&gt;% filter(commute_mode != &quot;Other&quot;, commute_mode != &quot;All workers&quot;)
+# At this point, variables are in vars2$name
+
+# SEX OF WORKERS BY MEANS OF TRANSPORTATION TO WORK B08006
+commuters &lt;- get_acs(geography = &quot;county subdivision&quot;,  # for CT, that means towns
+              state = &quot;CT&quot;,
+              county = &quot;New Haven&quot;,
+              geometry = &quot;FALSE&quot;, 
+              year = 2017,
+              survey = &quot;acs5&quot;,
+              variables = vars2$name,
+              summary_var = for_summary) %&gt;% 
+  filter(estimate &gt; 0) %&gt;% 
+  left_join(town_geometry %&gt;% select(-NAME), by = &quot;GEOID&quot;) %&gt;% 
+  mutate(TOWN = str_replace(NAME, &quot; town, New Haven County, Connecticut&quot;, &quot;&quot;),
+         pct = estimate / summary_est,
+         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe)) %&gt;% 
+  filter(TOWN %in% pick_towns) %&gt;% 
+  left_join(vars2 %&gt;% select(variable = name, commute_mode), by = &quot;variable&quot;)
+
+commuters_table &lt;- commuters %&gt;% 
+  select(commute_mode, pct, TOWN) %&gt;% 
+  spread(key = commute_mode, value = pct) %&gt;%
+  arrange(Vehicle)  %&gt;% 
+  mutate_if(is.numeric, percent)</code></pre>
+<div id="transportation-to-work" class="section level4">
+<h4>Transportation to Work</h4>
+<p>The ACS reports the mode of transportation to work. For workers, the table below
+shows the percentage who rely primarily on each form of transportation (plus
+a column for workers who work at home). The table is sorted by the percentage who
+travel by car.</p>
+<pre class="r"><code>kable(commuters_table, caption = &quot;Mode of Transportation to Work&quot;) %&gt;% 
+  kableExtra::kable_styling() %&gt;% 
+  kableExtra::footnote(general = &quot;Source: US Census American Community Survey 2013-2017 (variable B08006)\ntidycensus R package&quot;)</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>
+(#tab:commuter_table)Mode of Transportation to Work
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+TOWN
+</th>
+<th style="text-align:left;">
+At home
+</th>
+<th style="text-align:left;">
+Bicycle
+</th>
+<th style="text-align:left;">
+Public Transport
+</th>
+<th style="text-align:left;">
+Taxi, motorcycle
+</th>
+<th style="text-align:left;">
+Vehicle
+</th>
+<th style="text-align:left;">
+Walked
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+New Haven
+</td>
+<td style="text-align:left;">
+4.1825%
+</td>
+<td style="text-align:left;">
+3.056%
+</td>
+<td style="text-align:left;">
+12.359%
+</td>
+<td style="text-align:left;">
+0.9942%
+</td>
+<td style="text-align:left;">
+66.837%
+</td>
+<td style="text-align:left;">
+12.571%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Madison
+</td>
+<td style="text-align:left;">
+9.8785%
+</td>
+<td style="text-align:left;">
+0.710%
+</td>
+<td style="text-align:left;">
+3.646%
+</td>
+<td style="text-align:left;">
+0.9626%
+</td>
+<td style="text-align:left;">
+84.274%
+</td>
+<td style="text-align:left;">
+0.529%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+West Haven
+</td>
+<td style="text-align:left;">
+3.3653%
+</td>
+<td style="text-align:left;">
+0.096%
+</td>
+<td style="text-align:left;">
+6.226%
+</td>
+<td style="text-align:left;">
+0.2248%
+</td>
+<td style="text-align:left;">
+86.318%
+</td>
+<td style="text-align:left;">
+3.771%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Guilford
+</td>
+<td style="text-align:left;">
+7.8807%
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+2.318%
+</td>
+<td style="text-align:left;">
+0.3674%
+</td>
+<td style="text-align:left;">
+87.746%
+</td>
+<td style="text-align:left;">
+1.688%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hamden
+</td>
+<td style="text-align:left;">
+3.0827%
+</td>
+<td style="text-align:left;">
+0.627%
+</td>
+<td style="text-align:left;">
+4.210%
+</td>
+<td style="text-align:left;">
+0.4294%
+</td>
+<td style="text-align:left;">
+88.160%
+</td>
+<td style="text-align:left;">
+3.490%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Milford
+</td>
+<td style="text-align:left;">
+4.7260%
+</td>
+<td style="text-align:left;">
+0.021%
+</td>
+<td style="text-align:left;">
+4.973%
+</td>
+<td style="text-align:left;">
+0.5392%
+</td>
+<td style="text-align:left;">
+88.381%
+</td>
+<td style="text-align:left;">
+1.360%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Woodbridge
+</td>
+<td style="text-align:left;">
+7.7015%
+</td>
+<td style="text-align:left;">
+0.454%
+</td>
+<td style="text-align:left;">
+2.774%
+</td>
+<td style="text-align:left;">
+0.2153%
+</td>
+<td style="text-align:left;">
+88.424%
+</td>
+<td style="text-align:left;">
+0.431%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Orange
+</td>
+<td style="text-align:left;">
+5.9053%
+</td>
+<td style="text-align:left;">
+0.217%
+</td>
+<td style="text-align:left;">
+3.046%
+</td>
+<td style="text-align:left;">
+0.4909%
+</td>
+<td style="text-align:left;">
+89.691%
+</td>
+<td style="text-align:left;">
+0.650%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bethany
+</td>
+<td style="text-align:left;">
+6.7881%
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+1.179%
+</td>
+<td style="text-align:left;">
+0.7145%
+</td>
+<td style="text-align:left;">
+90.640%
+</td>
+<td style="text-align:left;">
+0.679%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+East Haven
+</td>
+<td style="text-align:left;">
+3.7225%
+</td>
+<td style="text-align:left;">
+0.085%
+</td>
+<td style="text-align:left;">
+2.663%
+</td>
+<td style="text-align:left;">
+0.5368%
+</td>
+<td style="text-align:left;">
+90.669%
+</td>
+<td style="text-align:left;">
+2.324%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Branford
+</td>
+<td style="text-align:left;">
+4.1840%
+</td>
+<td style="text-align:left;">
+0.145%
+</td>
+<td style="text-align:left;">
+2.072%
+</td>
+<td style="text-align:left;">
+0.7127%
+</td>
+<td style="text-align:left;">
+90.774%
+</td>
+<td style="text-align:left;">
+2.112%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wallingford
+</td>
+<td style="text-align:left;">
+4.8982%
+</td>
+<td style="text-align:left;">
+0.004%
+</td>
+<td style="text-align:left;">
+0.735%
+</td>
+<td style="text-align:left;">
+0.5204%
+</td>
+<td style="text-align:left;">
+91.856%
+</td>
+<td style="text-align:left;">
+1.987%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+North Haven
+</td>
+<td style="text-align:left;">
+4.1027%
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+2.306%
+</td>
+<td style="text-align:left;">
+1.2165%
+</td>
+<td style="text-align:left;">
+92.089%
+</td>
+<td style="text-align:left;">
+0.286%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+North Branford
+</td>
+<td style="text-align:left;">
+2.6022%
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+0.320%
+</td>
+<td style="text-align:left;">
+0.3205%
+</td>
+<td style="text-align:left;">
+96.193%
+</td>
+<td style="text-align:left;">
+0.564%
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Source: US Census American Community Survey 2013-2017 (variable B08006)<br>tidycensus R package
+</td>
+</tr>
+</tfoot>
+</table>
+<pre class="r"><code>white_not_hispanic &lt;- &quot;B01001H_001&quot;
+white_alone &lt;- &quot;B02008_001&quot;
+black &lt;- &quot;B02009_001&quot;
+asian &lt;- &quot;B02011_001&quot;
+hispanic &lt;- &quot;B01001I_001&quot;
+not_us &lt;- &quot;B05001_006&quot;
+
+# let&#39;s get the variables into a data frame where they will be easier to work with
+rcodes &lt;- tribble(
+  ~code, ~variable,
+&quot;white_not_hispanic&quot; , &quot;B01001H_001&quot;,
+&quot;white_alone&quot; , &quot;B02008_001&quot;,
+&quot;black&quot; , &quot;B02009_001&quot;,
+&quot;asian&quot; , &quot;B02011_001&quot;,
+&quot;hispanic&quot; , &quot;B01001I_001&quot;,
+&quot;not_us&quot; , &quot;B05001_006&quot;)
+
+race_town2 &lt;- get_acs(geography = &quot;county subdivision&quot;,  # for CT, that means towns
+              state = &quot;CT&quot;,
+              county = &quot;New Haven&quot;,
+              geometry = &quot;FALSE&quot;, 
+              year = 2017,
+              survey = &quot;acs5&quot;,
+              variables = c(white_not_hispanic, white_alone, black, hispanic, asian, not_us),
+              summary_var = &quot;B01001_001&quot;)   %&gt;% 
+  left_join(rcodes, by = &quot;variable&quot;) %&gt;% 
+  mutate(race = factor(code, 
+                       levels = c(&quot;white_alone&quot;, &quot;white_not_hispanic&quot;, &quot;hispanic&quot;, &quot;black&quot;, &quot;asian&quot;, &quot;not_us&quot;), 
+                       labels = c(&quot;White alone&quot;, &quot;White not Hispanic&quot;, &quot;Hispanic&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Not US citizen&quot;)),
+         pct = estimate / summary_est,
+         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe))
+race_town &lt;- town_geometry %&gt;% left_join(race_town2 %&gt;% select(-NAME), by = &quot;GEOID&quot;) %&gt;% 
+  filter(NAME %in% pick_towns)
+
+race_table &lt;- as_tibble(race_town %&gt;% 
+                          select(Town = NAME, code, summary_est, pct, pct_moe, race))
+
+race_table &lt;- race_table %&gt;% 
+  mutate(pct = percent(pct, accuracy = 1.0)) %&gt;% 
+  select(Town, race, Percent = pct) %&gt;% 
+  spread(key = race, value = Percent) %&gt;% 
+  arrange(`White not Hispanic`) </code></pre>
+</div>
+</div>
+<div id="race-by-town" class="section level3">
+<h3>Race by Town</h3>
+<p>The following table shows race by town. The ACS has a lot of detail on race, more
+than is presented in this table. The Census Bureau (and other agencies) now use
+what is referred to as the “two question” format for asking about race. The first
+question is whether or not the individual is Hispanic and then a second question
+asks about race/ethnicity. On the second question, the individual can
+select multiple categories.
+In many tables the non-Hispanic categories are presented
+as “alone”, meaning the individual chose only that category. But because Hispanic
+is a second question, “White alone” (or other alone categories) can also self-identify as
+Hispanic. In the table below, “White not Hispanic” means the person selected “White”
+(or some other race category) and did not select Hispanic. “White alone” means the person
+selected only “White” among the race categories regardless of the response to the Hispanic
+question. Notice that for New Haven, “White not Hispanic” is 30% of the population
+while “White alone” is 46%. A substantial number of Hispanics also said White.</p>
+<p>The citizenship category is completely separate from race and simply indicates
+whether a respondent was not a US citizen.</p>
+<p>Note that the categories as I have defined them here can add up to more than
+the total population. This is a tricky area of the ACS. There are some other
+tables that get into the issue of how the multiple categories are used.</p>
+<pre class="r"><code>race_table %&gt;% kable(caption = &quot;Percent Race by Town (Categories are not mutually exclusive)&quot;) %&gt;% 
+  kableExtra::kable_styling() %&gt;% 
+  kableExtra::footnote(general = &quot;Source: US Census American Community Survey 2013-2017\nvariables B01001H_001, B02008_001, B02009_001, B02011_001, B01001I_001, B05001_006\ntidycensus R package&quot;)</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>
+(#tab:race_table)Percent Race by Town (Categories are not mutually exclusive)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Town
+</th>
+<th style="text-align:left;">
+White alone
+</th>
+<th style="text-align:left;">
+White not Hispanic
+</th>
+<th style="text-align:left;">
+Hispanic
+</th>
+<th style="text-align:left;">
+Black
+</th>
+<th style="text-align:left;">
+Asian
+</th>
+<th style="text-align:left;">
+Not US citizen
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+New Haven
+</td>
+<td style="text-align:left;">
+46%
+</td>
+<td style="text-align:left;">
+30%
+</td>
+<td style="text-align:left;">
+30%
+</td>
+<td style="text-align:left;">
+35%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+12%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+West Haven
+</td>
+<td style="text-align:left;">
+67%
+</td>
+<td style="text-align:left;">
+51%
+</td>
+<td style="text-align:left;">
+21%
+</td>
+<td style="text-align:left;">
+24%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+9%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hamden
+</td>
+<td style="text-align:left;">
+65%
+</td>
+<td style="text-align:left;">
+58%
+</td>
+<td style="text-align:left;">
+11%
+</td>
+<td style="text-align:left;">
+25%
+</td>
+<td style="text-align:left;">
+6%
+</td>
+<td style="text-align:left;">
+7%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+East Haven
+</td>
+<td style="text-align:left;">
+86%
+</td>
+<td style="text-align:left;">
+77%
+</td>
+<td style="text-align:left;">
+15%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Woodbridge
+</td>
+<td style="text-align:left;">
+82%
+</td>
+<td style="text-align:left;">
+77%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+<td style="text-align:left;">
+16%
+</td>
+<td style="text-align:left;">
+6%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+North Haven
+</td>
+<td style="text-align:left;">
+88%
+</td>
+<td style="text-align:left;">
+83%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+8%
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Milford
+</td>
+<td style="text-align:left;">
+90%
+</td>
+<td style="text-align:left;">
+84%
+</td>
+<td style="text-align:left;">
+7%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+6%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wallingford
+</td>
+<td style="text-align:left;">
+92%
+</td>
+<td style="text-align:left;">
+85%
+</td>
+<td style="text-align:left;">
+8%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bethany
+</td>
+<td style="text-align:left;">
+94%
+</td>
+<td style="text-align:left;">
+86%
+</td>
+<td style="text-align:left;">
+6%
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:left;">
+6%
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Orange
+</td>
+<td style="text-align:left;">
+91%
+</td>
+<td style="text-align:left;">
+87%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+<td style="text-align:left;">
+8%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Branford
+</td>
+<td style="text-align:left;">
+93%
+</td>
+<td style="text-align:left;">
+88%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+North Branford
+</td>
+<td style="text-align:left;">
+94%
+</td>
+<td style="text-align:left;">
+89%
+</td>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+<td style="text-align:left;">
+1%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Guilford
+</td>
+<td style="text-align:left;">
+96%
+</td>
+<td style="text-align:left;">
+91%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+2%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Madison
+</td>
+<td style="text-align:left;">
+96%
+</td>
+<td style="text-align:left;">
+93%
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:left;">
+3%
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Source: US Census American Community Survey 2013-2017<br>variables B01001H_001, B02008_001, B02009_001, B02011_001, B01001I_001, B05001_006<br>tidycensus R package
+</td>
+</tr>
+</tfoot>
+</table>
+<p>Next we will see multiple plots that plot each of these categories on the map
+of towns around New Haven. We can see that the Black population is primarily in
+New Haven, West Haven, and Hamden. I was surprised to see that there is a notable
+Asian population in Woodbridge. As we saw in the table, most of the outer suburban
+towns are very, very white.</p>
+<pre class="r"><code>ggplot() + 
+  geom_sf(data = race_town, 
+  aes(fill = pct), colour = &quot;lightgray&quot;) +
+  # using the begin parameter of viridis prevents the extremem values from looking almost black
+  scale_fill_viridis_c(option = &quot;plasma&quot;, direction = -1, name = &quot;Pct&quot;, begin = 0.2) +
+  geom_sf(data = area_towns, colour = &quot;darkgray&quot;, fill = NA, size = 0.05) + 
+  geom_sf_text(data = area_town_centroid, aes(label = NAME), color = &quot;darkgray&quot;, size = 2) +
+  coord_sf(datum = NA, label_axes = &quot;----&quot;) +
+  xlab(&quot;&quot;) + ylab(&quot;&quot;) + theme_minimal() +
+  facet_wrap(~ race) +
+  labs(title = &quot;Percentage of Population for a Set of Sub-Groups&quot;, 
+       # subtitle = &quot;by census tract (margin of error by tract may be large)&quot;,
+       caption = &quot;Source: US Census American Community Survey 2013-2017 (variables B01001H_001, B02008_001, B02009_001, B02011_001, B01001I_001, B05001_006)\ntidycensus R package&quot;)  </code></pre>
+<p><img src="/blog/untitled folder/2019-04-11-working-with-new-haven-area-census-data-using-r_files/figure-html/race_by_town-1.png" width="100%" /></p>
+<p>As an experiment, I redid the race plot to show detail by census tract not just
+by town. Of course the overall impression is similar to the town level plots. As
+I have said before, as one gets down to the level of individual tracts the
+fact that we are dealing with a sample with a margin of error is an
+important reason not to over-interpret small vaiations.</p>
+<pre class="r"><code>race_tracts &lt;- get_acs(geography = &quot;tract&quot;,  
+              state = &quot;CT&quot;,
+              county = &quot;New Haven&quot;,
+              geometry = &quot;TRUE&quot;, 
+              year = 2017,
+              survey = &quot;acs5&quot;,
+              variables = c(white_not_hispanic, white_alone, black, hispanic, asian, not_us),
+              summary_var = &quot;B01001_001&quot;) %&gt;% 
+  filter(estimate &gt; 0) %&gt;% 
+  left_join(tract_town_df, by = &quot;GEOID&quot;) %&gt;% 
+  filter(TOWN %in% pick_towns) %&gt;% 
+  mutate(pct = estimate / summary_est,
+         pct_moe = moe_prop(estimate, summary_est, moe, summary_moe)) %&gt;% 
+  left_join(rcodes, by = &quot;variable&quot;) %&gt;% 
+  mutate(race = factor(code, 
+                       levels = c(&quot;white_alone&quot;, &quot;white_not_hispanic&quot;, &quot;hispanic&quot;, &quot;black&quot;, &quot;asian&quot;, &quot;not_us&quot;), 
+                       labels = c(&quot;White alone&quot;, &quot;White not Hispanic&quot;, &quot;Hispanic&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Not US citizen&quot;)))
+
+
+
+ggplot() + 
+  geom_sf(data = race_tracts, 
+  aes(fill = pct), colour = NA) +
+  # using the begin parameter of viridis prevents the extremem values from looking almost black
+  scale_fill_viridis_c(option = &quot;plasma&quot;, direction = -1, name = &quot;Pct&quot;, begin = 0.2) +
+  geom_sf(data = area_towns, colour = &quot;darkgray&quot;, fill = NA, size = 0.05) + 
+  geom_sf_text(data = area_town_centroid, aes(label = NAME), color = &quot;darkgray&quot;, size = 2) +
+  coord_sf(datum = NA, label_axes = &quot;----&quot;) +
+  xlab(&quot;&quot;) + ylab(&quot;&quot;) + theme_minimal() +
+  facet_wrap(~ race) +
+  labs(title = &quot;Percentage of Population for a Set of Sub-Groups&quot;, 
+       subtitle = &quot;by census tract (margin of error by tract may be large)&quot;,
+       caption = &quot;Source: US Census American Community Survey 2013-2017\n(variables B01001H_001, B02008_001, B02009_001, B02011_001, B01001I_001, B05001_006)\ntidycensus R package&quot;)  </code></pre>
+<p><img src="/blog/untitled folder/2019-04-11-working-with-new-haven-area-census-data-using-r_files/figure-html/race_by_tract-1.png" width="100%" /></p>
+<p>As a final step I focused only on the City of New Haven. By focusing on one
+town only, we can see more detail by census tract. Within the city, some
+tracts are very white and others are very non-white. The east side of the city
+tends to be more Hispanic (including the Fair Haven area) and the west
+side tends to be more Black (the Hill). The census tract where I lived for over
+25 years near East Rock is almost as white as the outer suburbs.
+Two tracts to the west is the
+blackest tract in New Haven (which I assume is Newhallville).</p>
+<p>As before,
+it is important to remember that at the level of individual census tracts the
+ACS sample results may not be exactly precise. Small differences between
+tracts may be within the margin of error.</p>
+<pre class="r"><code># I explored possibilit of adding roads, but didn&#39;t like it.
+# nh_roads &lt;- roads(&quot;CT&quot;, &quot;New Haven&quot;) %&gt;%
+# filter(RTTYP %in% c(&quot;I&quot;, &quot;S&quot;, &quot;U&quot;))
+# nh_roads &lt;- st_intersection(nh_roads, area_towns %&gt;% filter(NAME == &quot;New Haven&quot;))
+nh_focus &lt;- race_tracts %&gt;% filter(TOWN == &quot;New Haven&quot;)
+
+ggplot() + 
+  geom_sf(data = nh_focus, 
+  aes(fill = pct), colour = NA) +
+  # using the begin parameter of viridis prevents the extremem values from looking almost black
+  scale_fill_viridis_c(option = &quot;plasma&quot;, direction = -1, name = &quot;Pct&quot;, begin = 0.2) +
+  geom_sf(data = area_towns %&gt;% filter(NAME == &quot;New Haven&quot;), 
+          colour = &quot;darkgray&quot;, fill = NA, size = 0.05) + 
+  geom_sf_text(data = area_town_centroid %&gt;% filter(NAME == &quot;New Haven&quot;), 
+               aes(label = NAME), color = &quot;darkgray&quot;, size = 4) +
+  coord_sf(datum = NA, label_axes = &quot;----&quot;) +
+  xlab(&quot;&quot;) + ylab(&quot;&quot;) + theme_minimal() +
+  facet_wrap(~ race) +
+  labs(title = &quot;Focus on New Haven: Percentage of Population for a Set of Sub-Groups&quot;, 
+       subtitle = &quot;by census tract (margin of error by tract may be large)&quot;,
+       caption = &quot;Source: US Census American Community Survey 2013-2017\n(variables B01001H_001, B02008_001, B02009_001, B02011_001, B01001I_001, B05001_006)\ntidycensus R package&quot;)  </code></pre>
+<p><img src="/blog/untitled folder/2019-04-11-working-with-new-haven-area-census-data-using-r_files/figure-html/focus_on_newhaven-1.png" width="100%" /></p>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>The point of all this was to try out the R-based techniques for both extracting and
+displaying ACS data. My primary aim wasn’t to tell a story about life around
+New Haven. But the plots do emphasize that where people live is highly
+correlated with important variables such as income and race.</p>
+<p>That comes as
+no surprise, but perhaps it was even more true than I assumed. I live
+with these patterns everyday and take them for granted. The plots
+make the existence of these patterns more salient.</p>
+</div>
+<div id="sources" class="section level3">
+<h3>Sources</h3>
+<p>In the text I have tried to give some tips on how to find one’s way among the
+abundance of topics and variables in the ACS. Of course there is much, much
+more info at <a href="https://www.census.gov">census.gov</a>.</p>
+<p>All of this relies on the <a href="https://walkerke.github.io/tidycensus/articles/basic-usage.html">tidycensus</a>
+and <a href="https://github.com/walkerke/tigris">tigris</a>
+packages by <a href="http://personal.tcu.edu/kylewalker">Kyle Walker</a>.
+Several years ago I did a wee bit of work on making maps with census data without
+<code>tidycensus</code> or the <code>sf</code> package. It was much more difficult! The tools that
+Kyle has provided make it all much easier. I took his census course at
+<a href="https://www.datacamp.com/instructors/kylewalker">DataCamp</a> and found it to be very helpful.</p>
+<p>In addition to <code>tidycensus</code> there is also a
+<a href="https://cran.r-project.org/web/packages/censusapi/vignettes/getting-started.html">censusapi package</a>
+that provides access to Census Bureau API’s other than the ACS or the decennial census.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I created this table in RMarkdown by pasting a table copied from Excel into <a href="https://thisdavej.com/copy-table-in-excel-and-paste-as-a-markdown-table/">this page</a> which converted it automatically into markdown table format. Very handy! I had to add a HTML spaces to get it to indent properly.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

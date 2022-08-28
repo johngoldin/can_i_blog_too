@@ -1,0 +1,30 @@
+---
+# quarto render projects.qmd
+listing:
+  - id: projects
+    contents: project
+    type: default
+    fields: [image, date, title, subtitle, part]  
+    sort: "title"
+#   categories: cloud
+    categories: false
+    sort-ui: false
+    filter-ui: false
+    image-align: right
+    image-height: "200"
+    image-placeholder: "feature_sleeping_student.png"
+    max-items: 18
+    page-size: 8
+description: "Projects that are not blog-like."
+page-layout: full
+title-block-banner: true
+comments: false
+# include-in-header: meta.html  
+toc: false
+---
+
+Project list will appear here. Attempt 10:13 AM Sunday.
+
+::: {#projects}
+
+:::

@@ -1,0 +1,48 @@
+---
+title: Notes from RStudio::Conf 2020
+date: '2020-02-19'
+slug: rconf2020-notes
+categories:
+  - other-R
+tags:
+  - other-R
+excerpt: "Some note and impressions from the 2020 RStudio Conference in San Francisco."
+subtitle: ''
+image: "me_at_the_hex_wall.png"
+aliases:
+    - /2020/02/notes-from-rstudioconf-2020/
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, out.width = "100%",
+                      knitr.table.format = "html")
+# knitr.table.format is for kable. Needed this to get blogdown table to format correctly.
+```
+
+## Links To a Few of the Sessions
+
+I enjoyed attending the RStudio Conference in San Francisco January 29th and 30th. I also attended the Tidyverse developer day on the Friday after the conference and did my first Pull Request (PR). Soon I will be able to type `?forcats::fct_reorder` and see my own super-simple example added to the help for that function.
+
+The videos from the conference are now [online](https://resources.rstudio.com/rstudio-conf-2020). It's impressive how much video content RStudio has online at their [resources site](https://resources.rstudio.com) including video from all the past conferences. There's a lot of useful stuff there.
+
+My favorite talk of the conference was the [keynote by J. J. Allaire](https://resources.rstudio.com/rstudio-conf-2020/rstudio-open-source-software-for-data-science-j-j-allaire), the co-founder of RStudio. It was relevant for the world way beyond R and RStudio. Starting at about minute 25 he gets into issues about the motivation and incentives of for-profit corporations. He gets deeply into the issues. One does not expect to see a slide with the title "Dodge v. Ford Motors (1919)" at a computer conference. The subject that is addressing is relevant way beyond the computer industry. RStudio is a fascinating company and J.J.'s talk made it clear how much of the personality of the company comes directly from its founder.
+
+The other Wednesday morning keynote was also excelent. Fernanda Viegas and Martin Wattenberg of Google delivered a very polished and interesting talk on [Data, Visualization, and Designing with AI](https://resources.rstudio.com/rstudio-conf-2020/data-visualization-and-designing-ai-fernanda-viegas-and-martin-wattenberg). It got into the topic of issue of what "fair" and "biased" mean in the context of machine learning based decision algorithms.
+
+Some other talks I enjoyed:
+
+A talk on the [rayshader package](https://resources.rstudio.com/rstudio-conf-2020/3d-ggplots-with-rayshader-dr-tyler-morgan-wall) had a lot of graphical "Wow!".
+
+I enjoyed William Chase on [The Glamour of Graphics](https://resources.rstudio.com/rstudio-conf-2020/the-glamour-of-graphics-william-chase).
+
+There were several heavy duty sessions on sports analytics including [this one](https://resources.rstudio.com/rstudio-conf-2020/putting-the-fun-in-functional-data-a-tidy-pipeline-to-identify-routes-in-nfl-tracking-data-dani-chu) on NFL route tracking. And see [this one](https://resources.rstudio.com/rstudio-conf-2020/r-tidyverse-in-sports-namita-nandakumar) as well.
+
+I always find talks by Jenny Bryan to be very rewarding. She's my go-to source for miscellaneous practical tips on a number of R subjects I care about, such as her [Happy Git book](https://happygitwithr.com) and [What They Forgot to Teach You About R](https://rstats.wtf). The title of her talk was [Object of type 'closure' is not subsettable](https://resources.rstudio.com/rstudio-conf-2020/object-of-type-closure-is-not-subsettable-jenny-bryan), a message that every R coder encounters eventually. The talk addressed how to debug R code.
+
+Because many sessions were presented in four parallel tracks, I want to go back and watch some of the sessions I missed such as [Making a tidy dress](https://resources.rstudio.com/rstudio-conf-2020/lightning-talk-dr-amelia-mcnamara) by Dr. Amelia McNamara.
+
+Of course there were lots of sessions and not all of them were great. But there was a lot of good content.
+
+```{r, echo = FALSE}
+blogdown::shortcode("figure", src = "me_at_the_hex_wall.png", alt = "A nice figure")
+```

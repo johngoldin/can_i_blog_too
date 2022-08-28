@@ -1,0 +1,92 @@
+---
+title: "More Weight and Narcissism"
+# quarto render blog/2022-08-07-weight-again
+date: '2022-08-07'
+slug: "weight-again"
+categories:
+  - Quantified-Self
+tags:
+  - Quantified-Self
+subtitle: 'Calorie counting seems to work, at least for me.'
+description: 'An update of a post from 2017 in which I displayed the 25+ year record my daily weight each day. I started counting calories in 2019 using LoseIt! and it seems to have worked.'
+image: "feature john weight.png"
+image-alt: "A chart showing weight over time"
+editor: visual
+---
+
+## An Implementation of Narcissism in R
+
+That was the title of [my post in 2017](https://www.johngoldin.com/blog/2017-02-narcissism/) in which I laid out the data accumulated by recording my weight almost daily for 25+ years. I did one update to that post, but it's five years later and I have additional data to report that's a bit more interesting. What's new is that I've been using [LoseIt!](https://www.loseit.com) to count calories and lose weight.
+
+In 2019 I visited the ER after a night of digestive upset. I've gone into that elsewhere. When the doctor sent me home he advised to follow a liquid diet until I did a follow-up blood test. I didn't know what a doctor means by a "liquid diet" and I still don't. In any case I stuck to broth-type soup for a day or two (and got a normal level on the follow-up blood test). I was surprised how easily I shed some weight and without much fuss. For a couple of days I was very careful about what I ate and avoided fatty food. And I lost some more weight. I decided to dig out the [LoseIt!](https://www.loseit.com) app on my phone and record what I ate. At first I was looking at milligrams of fat, but I paid attention to calories also. I decided I was happy to lose a bit of weight so I started using LoseIt! to limit my calories. I had LoseIt! give me a target calorie count aimed at losing a pound a week. In practice I lost closer to a half a pound a week. And I kept it up fairly faithfully.
+
+It wasn't a huge strain. I got a kitchen scale and started being more careful about portion sizes and snacks. I had some non-dairy ice cream almost every night, but instead of a bowl, I dished ice cream into a mug placed on the kitchen scale. Just taking the time to record a snack in the app probably slowed me down a bit and made me a tad less likely to have yet another snack. I started out a bit over 170 pounds and got down to around 145, so about 25 pounds lost over six months or so. Below is a chart that lays out the full history of my weight back to 1996. The area shaded in yellow shows when I was counting calories with LoseIt!.
+
+The fact that I happen to have a 25+ year history of recording my weight indicates I may have the temperament for counting calories. I'm a natural record keeper.
+
+![](img/john-weight.png){alt="Plot showing daily weight with periods during use of LoseIt to count calories hightlighted in yellow."}
+
+I briefly tried allowing LoseIt! to take into account the active calories recorded by my Apple Watch, but that didn't seem to work for me so I stopped doing that. My target calories were set to be about 500 a day lower than what LoseIt! said I needed to maintain my weight.
+
+After more than a year of counting calories, I decided I could relax and stop using LoseIt! Last winter I felt that I was putting on weight so I got out LoseIt! and resumed counting calories to claw back five pounds.
+
+Given that the most interesting part of this series is the period when I started using LoseIt!, here is a version of the chart which focuses on the period starting in 2018.
+
+![](img/john-weight-recent.png){alt="Detail of daily weight since 2018 to show more clearly the decrease while using LoseIt to count calories"}
+
+For the time being I'm I'm going to continue using LoseIt! and see how it goes. Keeping it up can get a bit tedious, but I like the results.
+
+#### Some Comments on Using LoseIt!
+
+Do I ever cheat? Yes! If my weight is down below the trend line I'm probably more likely to slip in a snack (such as a piece of dark chocolate or a pretzel) without recording it. At the very end of the day I'm less likely to record things exactly.
+
+We don't eat out much and that makes it a lot easier to use LoseIt! I've never done well with the app while I've been traveling (which I did back in 2019).
+
+Based on what I've read, I always assumed dieting to lose weight is very difficult. I still feel that way. My life style and diet perhaps make LoseIt! a better fit for me than for many other people. I certainly don't feel like I have much will power. I haven't used a calorie target that would cause me to feel actual hunger. It mostly causes me to be less likely to eat for reasons other than hunger. For example, without calorie counting sometimes I would get one more thing to eat at lunch because I wanted to continue sitting at the kitchen table reading a book rather than get on with whatever I felt I was supposed to be doing after lunch. Calorie counting makes me more conscious of that sort of incidental eating.
+
+#### Did I Need To Lose Weight For Health Reasons?
+
+At 170 pounds my Body Mass Index (BMI) was 25.1. At 145 pounds it's 21.4. My BMI was not a significant health issue, although 25.1 put me just over the line for the category of "overweight" according to the [CDC guidelines](https://www.cdc.gov/obesity/basics/adult-defining.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fobesity%2Fadult%2Findex.html). Subjectively I felt better after I shed a few pounds. I've considered the possibility that it lowered my blood pressure. At first I thought that was the case, but now I'm more skeptical. I've become more aware of the seasonal pattern in my blood pressure. I started using LoseIt! in February. Normally my blood pressure is higher in December and January and lowest in the summer so it the decrease in blood pressure I saw may have been a result of that usual seasonal pattern. I hope to look more systematically at various metrics from the Apple Health Export, and blood pressure and weight will both be part of that.
+
+Shedding the weight might also be helpful in terms of physical fitness. In June I ran a five-mile road race for the first time in seven years. Training for that without 20 or 25 extra pounds is probably good for my joints. The same is true for our daily three-mile walk.
+
+One thing I don't feel is virtuous. While losing weight I didn't do anything that felt very hard. A half pound a week implies a fairly modest change in diet. And note that I resumed counting calories because without some sort of external force, I wasn't confident my weight would stay down.
+
+#### Some Technical Notes
+
+I mark my weight on a wall calendar each morning. I follow a consistent protocol. Shortly after I get up I step on the scale while I'm wearing my pajamas. I setup a [shortcut](https://support.apple.com/guide/shortcuts/welcome/ios) on my Apple Watch so that I can ask Siri to log my weight. I speak the value of my weight and it is entered into the Health app.
+
+Out of curiosity I sometimes weigh myself at other times during the day, but I never record those weights as part of the data series. The first scale I used starting in 1996 was an analog scale and I recorded the weight to the nearest half a pound. In 2004 I switched to a digital scale that registered to the nearest two-tenths. You can see a change in the pattern of weights in 2004. Between 2015 and 2022 I used a scale that registered to the nearest two-tenths of a pound. But there were values that never appeared. They show as blank horizontal bands in the long-term plot. I never go to the bottom of what was causing this, but I suspect that the chip in the scale records in kilograms and rounds to the nearest tenth. And then the scale converts from kilograms to pounds and rounds that to the nearest two-tenths. My guess is that the double rounding causes some values to never appear. I just started using a new scale in 2022 that reports to the nearest tenth of a pound.
+
+When I get a new scale I use both for a while to try to estimate the difference in the scales. My newest scale ([Etekcity EB9380H](https://www.nytimes.com/wirecutter/reviews/the-best-bathroom-scales/)) seems to weigh about two or three tenths of a pound heavier than my previous scale.
+
+I feel like I need to make an effort to learn a bit about how to analyze time series data. In particular I want to dig into seasonality and short-term trends compared with day to day measurement variation. I'm aware there's a framework for working with this kind of data, but I'm simply not familiar with it.
+
+I haven't put a lot of time and thought into the smoothed trend line displayed in the charts above. I simply used the defaults for [geom_smooth](https://ggplot2.tidyverse.org/reference/geom_smooth.html), but I applied that to mean monthly weight, not to the weights for individual days.
+
+#### A Snippet of Code
+
+Here's the ggplot2 code I used to make the plot. I'm putting this here mostly because it helps me sometimes to remind myself how I did things.
+
+``` r
+p_weight1 <- ggplot(data = weight_data, aes(x = date, y = weight)) +
+  annotate("text",label = "LoseIt!", x = begin_loseit1 + (end_loseit1 - begin_loseit1) / 2,
+         y = Inf, vjust = 1, hjust = 0.5) +
+  annotate("text", label = c("Retirement", "Age 65"),
+           x = c(ymd("2011-09-01"), ymd("2015-01-27")),
+           y = 155, angle = 270, vjust = 0, colour = "gray") +
+  geom_vline(xintercept = c(ymd("2011-09-01"), ymd("2015-01-27")),
+             colour = "darkgray", size = 1, alpha = 0.5, linetype = "dashed" )
+p_weight1 <- p_weight1 +    # highlight time when doing LoseIt!
+  annotate("rect", xmin = begin_loseit1, xmax = end_loseit1,
+           ymin=-Inf, ymax=Inf,
+           color="yellow", alpha=0.2, fill = "yellow") +
+  annotate("rect", xmin = begin_loseit2, xmax = end_loseit2,
+           ymin=-Inf, ymax=Inf,
+           color="yellow", alpha=0.2, fill = "yellow")
+p_weight1 <- p_weight1 + geom_point(size = 0.3) +
+  geom_smooth(data = wtm, aes(x = mid_month), span = 0.07)
+p_weight1 <- p_weight1 + labs(caption = "[john_vitals/John weight.R]") + xlab(NULL)
+p_weight1 <- p_weight1 + theme_minimal() + theme(panel.grid.minor.x = element_line( size=0.1, color="lightgray" ) ) +
+  ggtitle("My Daily Weight")
+```

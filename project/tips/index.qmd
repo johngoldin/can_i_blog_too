@@ -1,0 +1,188 @@
+---
+title: "R Tips and Techniques"
+date: 2021-05-09
+subtitle: Odds and Ends of Things I Have Found
+slug: "r-tips-and-techniques"
+# layout: wide-body
+# show_title_as_headline: true
+# links:
+# - icon: github
+#   icon_pack: fab
+#   name: HappyGit
+#   url: https://happygitwithr.com
+# - icon: r-project
+#   icon_pack: fab
+#   name: R for Data Science
+#   url: https://r4ds.had.co.nz
+# - icon: markdown
+#   icon_pack: fab
+#   name: R Markdown
+#   url: https://bookdown.org/yihui/rmarkdown/
+# - icon: blog
+#   icon_pack: fas
+#   name: blogdown
+#   url: https://bookdown.org/yihui/blogdown/
+# - icon: chart-line
+#   icon_pack: fas
+#   name: ggplot2
+#   url: https://ggplot2.tidyverse.org/reference/index.html
+# - icon: chart-line
+#   icon_pack: fas
+#   name: R Graphics Cookbook
+#   url: https://r-graphics.org/recipe-annotate-text
+# excerpt: |
+#   A collection of tips and techniques that I want save as notes for my future self.
+#   This is intended for my personal use. If anybody else finds it useful,
+#   great. I find myself returning to some of the same topics over and
+#   over again. Sometimes what I forget how to do is quite basic.
+# output: 
+#   blogdown::html_page:
+#     # figure parameters based on recommendation in Hadley's book
+#     toc: yes
+#     number_sections: false
+#     fig_width: 7
+#     out.width: "100%"
+#     fig.align: "center"
+#     fig.asp: 0.618  
+# editor_options:
+#   markdown: 
+#     wrap: 72
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+---
+
+I have been saving R-related snippets in Evernote. What I will do here is pick out some of the ones that I use most often to try to organize them in a more curated fashion.
+
+### Mapping
+
+#### Leaflet
+
+[scale on leaflet map](http://leafletjs.com/reference.html#control-scale)\
+<http://www.r-bloggers.com/interactive-mapping-with-leaflet-in-r/>\
+leaflet map sample: <http://leaflet-extras.github.io/leaflet-providers/preview/>
+
+### Tables
+
+[How to Make Beautiful Tables](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/)
+
+### Census
+
+[dot densisty maps](https://tarakc02.github.io/dot-density/)
+
+### Network Analysis & Twitter
+
+[Introduction to Network Analysis with R](https://www.jessesadler.com/post/network-analysis-with-r/)\
+[good tutorial to networks](http://psych-networks.com/misinterpreting-networks-an-abbreviated-tutorial-on-visualizations/) and <https://www.frontiersin.org/articles/10.3389/fpsyg.2018.01742/full>)\
+[network of faculty hiring](http://advances.sciencemag.org/content/1/1/e1400005)
+
+### Github Techniques
+
+[GitHub merge](http://allendowney.github.io/amgit/conflict)\
+[pull request helpers](https://usethis.r-lib.org/articles/articles/pr-functions.html)
+
+[How to chabnge package name](https://www.njtierney.com/post/2017/10/27/change-pkg-name/)
+
+### ggplot2
+
+[ggridges](https://cran.r-project.org/web/packages/ggridges/vignettes/gallery.html)\
+![](img/ggridges_example.png) [geofacet](https://hafen.github.io/geofacet/)
+
+#### really great collection of tips and tricks: <https://github.com/z3tt/outlierconf2021>    tutorial: <https://z3tt.github.io/OutlierConf2021/>    ![](img/ggplot_wizardry.png)    ![](img/fancy_example.png) Figuring out what ggplot2 palettes.
+
+```{r hue_pal}
+scales::hue_pal()(2)
+scales::show_col(scales::hue_pal()(2))
+scales::show_col(scales::hue_pal(direction = -1)(2)) |> print()
+```
+
+scio palettes: <https://github.com/thomasp85/scico> ![](img/scico_palette_show.png)
+
+#### sankey plots
+
+Sankey plots.  <https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html>\
+in plotly: <https://plot.ly/r/sankey-diagram/>\
+and see <https://matthewdharris.com/2017/11/11/a-brief-diversion-into-static-alluvial-sankey-diagrams-in-r/>\
+And <https://david.frigge.nz/posts/2019-10-rugby-world-cup/>
+
+### Markdown, HTML, and Hugo Shortcodes
+
+[link to Hugo shortcodes](https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes)
+
+To insert a figure:
+
+``` html
+<figure> 
+  <img  src="/img/canopy_bed.png" alt="Canopy Bed" width="304" height="228">
+  <figcaption>Isn't this better than camping?</figcaption>
+</figure> 
+```
+
+     img style="float: right;" src="/img/taxi.png"> 
+    <figure.right  > 
+      <img  src="/img/taxi.png" alt="taxi phone number" ">
+      <figcaption>Isn't this better than camping?</figcaption>
+    </figure>
+
+Figure which contains a link in the caption:
+
+    <figure> 
+      <img  src="https://www.ldwa.org.uk/ldp/images/TF/517-1-L.png" alt="Canopy Bed">
+      <figcaption>Elevation along the <a href="https://www.ldwa.org.uk/ldp/members/show_path.php?menu_type=S&path_name=West+Highland+Way">West Highland Way (Long Distance Walkers Association)</a> </figcaption>
+    </figure> 
+
+Floating figure via html:
+
+    <!-- Margin parameters: top right bottom left -->
+    <figure style="float: left;margin:5px 10px 8px 5px">
+      <img  src="/img/canopy_bed.png" alt="Canopy Bed" width="304" height="228">
+      <figcaption>More comfortable than camping?</figcaption>
+    </figure> ```
+
+    #### Rmarkdown tips from Indrajeet Patil @patilindrajeets 
+
+    see [these tweets](https://indrajeetpatil.github.io/RmarkdownTips/).
+
+    #### A relative reference
+
+    In an .md document:    
+    [Choosing a path]({{< relref "2017-03-11-american-walker-in-britain-part-2.md#choosing-a-path" >}})    
+    In an RMarkdown document, it's different if pandoc is turning the document into html rather than Hugo.
+
+#### \[Back to UK Walking Topics\]({{< relref "2017-03-07-an-american-walking-in-britain.md#topics" >}})
+
+-   \[Choosing a path\]({{< relref "2017-03-11-american-walker-in-britain-part-2.md#choosing-a-path" >}})
+
+<!-- -->
+
+    [Hugo figure shortcode](https://gohugo.io/content-management/shortcodes/#figure)
+
+and {{%/\* figure src="/img/taxi.png#floatright" caption="Need a taxi Hadrians Wall Path?" \*/%}} img style="float: right;" src="/img/taxi.png"\> \<figure.right \> \<img src="/img/taxi.png" alt="taxi phone number" "\>
+
+<figcaption>Isn't this better than camping?</figcaption>
+
+</figure>
+
+{{{< tweet 1390602863651573760 >}}}
+
+markdown code for figure: (html parameters within curly braces) ![(Text, italic in ())](/img/hugo_pool/page_inspector.jpg){width="100%"}
+
+{{%/\* figure src="/img/taxi.png#floatright" caption="Need a taxi Hadrians Wall Path?" \*/%}}
+
+Have to use shortcode function to embed shortcode from RMarkdown: blogdown::shortcode("figure", src = "/img/taxi.png#floatright", caption = "Called using shortcode function") \`\`\`
+
+`r blogdown::shortcode("figure", src = "/img/taxi.png#floatright", caption = "Called using shortcode function")`
+
+[workflow for blogdown and netlify](https://www.garrickadenbuie.com/blog/blogdown-netlify-new-post-workflow/)\
+[a spoonful of hugo](https://alison.rbind.io/post/2020-12-12-how-much-hugo/)
+
+#### Markdown for footnote that contains a link
+
+\[\^1\] -- put this where the footnote appears\
+\[\^1\]: The footnote is contained in this line of text and can include more markdown formatting.
+
+### Regular Expressions
+
+Some [tips](https://www.jumpingrivers.com/blog/regular-expressions-every-r-programmer-should-know/) from the Jumping Rivers blog

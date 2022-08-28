@@ -1,0 +1,52 @@
+---
+title: "My Blog"
+listing:
+  - id: posts
+    # contents: blog/*/*.*md
+    contents: blog
+    type: default
+    fields: [image, date, title, subtitle,description, title, categories]  
+    sort: "date dsc"
+    categories: cloud
+    sort-ui: true
+    filter-ui: true
+    page-size: 6
+#   - id: projects
+#     contents: project/*.qmd
+#     type: default
+#     fields: [image, date, title, subtitle, categories, author, reading-time]  
+#     sort: "date desc"
+#     categories: cloud
+#     sort-ui: true
+#     filter-ui: true
+#     page-size: 3  
+#   - id: UK-Walking
+#     contents: collection/Walking in Britain
+#     type: default
+#     fields: [image, title, subtitle, part]  # removed date
+# #   fields: [image, date, title, subtitle, categories, author, reading-time]  
+#     sort: "part"
+# #   categories: cloud
+#     categories: false
+#     sort-ui: true
+#     filter-ui: true
+#     image-align: right
+#     image-height: "200"
+#     image-placeholder: "collection/Walking in Britain/features-sidebar_IMG_2165.png"
+#     max-items: 18
+#     page-size: 1
+page-layout: full
+feed: true
+title-block-banner: images/law_school_long1.png
+image-height: "400px"
+comments: false
+include-in-header: meta.html  
+toc: false
+
+---
+
+::: {#posts}
+
+:::
+
+
