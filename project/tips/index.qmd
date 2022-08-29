@@ -145,16 +145,6 @@ Floating figure via html:
 
     see [these tweets](https://indrajeetpatil.github.io/RmarkdownTips/).
 
-    #### A relative reference
-
-    In an .md document:    
-    [Choosing a path]({{< relref "2017-03-11-american-walker-in-britain-part-2.md#choosing-a-path" >}})    
-    In an RMarkdown document, it's different if pandoc is turning the document into html rather than Hugo.
-
-#### \[Back to UK Walking Topics\]({{< relref "2017-03-07-an-american-walking-in-britain.md#topics" >}})
-
--   \[Choosing a path\]({{< relref "2017-03-11-american-walker-in-britain-part-2.md#choosing-a-path" >}})
-
 <!-- -->
 
     [Hugo figure shortcode](https://gohugo.io/content-management/shortcodes/#figure)

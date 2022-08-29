@@ -7,18 +7,16 @@ about:
 
 This site is aimed mostly at myself. I enjoy working on projects. The act of publishing something to this web site helps to focus my efforts. It is satisfying and motivating to see an actual product appear on this site. That makes playing around with a project more fun.
 
-From time to time I also may produce something that is of interest to an outside audience. Many times I have learned something useful after a web search has landed me on some stranger’s writing on the web. I hope this site may prove useful to others who stumble across it.
-  
+From time to time I also may produce something that is of interest to an outside audience. Many times I have learned something useful after a web search has landed me on some stranger's writing on the web. I hope this site may prove useful to others who stumble across it.
+
 ### About Me
-  
-I am semi-retired. Until 2011 I was the Director of Institutional Research at Yale University. The “semi” part is that I still have a small involvement with my old office.
+
+I am semi-retired. Until 2011 I was the Director of Institutional Research at Yale University. The "semi" part is that I still have a small involvement with my old office.
 
 #### Me and Computers
 
-I’ve enjoyed computers and computing ever since my first computer course at Michigan State during my sophomore year (1972). My first personal computer was a TRS-80 that I purchased in 1979. I enjoy learning new programming languages and techniques. I have done some work in FORTRAN, APL, COBOL, PL/I, Basic, Pascal, Forth, Java, C, C++, plus lots of languages related to data systems such as 4D, SAS, Focus, BrioQuery, and many others. I started using R in 2006 and it satisfied my itch for a programming language that provided an interactive connection with the data and the power of visualizations. Since then I have pretty much stuck with R.
+I've enjoyed computers and computing ever since my first computer course at Michigan State during my sophomore year (1972). My first personal computer was a TRS-80 that I purchased in 1979. I enjoy learning new programming languages and techniques. I have done some work in FORTRAN, APL, COBOL, PL/I, Basic, Pascal, Forth, Java, C, C++, plus lots of languages related to data systems such as 4D, SAS, Focus, BrioQuery, and many others. I started using R in 2006 and it satisfied my itch for a programming language that provided an interactive connection with the data and the power of visualizations. Since then I have pretty much stuck with R.
 
-I enjoy having a project to work on that combines some R coding and some simple data analysis. For the last year that has been Connecticut Covid stats or digging deep into the millions of rows of data exported from my iPhone and Apple Watch. I’m glad the internet was invented before I retired.
-  
+I enjoy having a project to work on that combines some R coding and some simple data analysis. For the last year that has been Connecticut Covid stats or digging deep into the millions of rows of data exported from my iPhone and Apple Watch. I'm glad the internet was invented before I retired.
+
 [![](https://api.netlify.com/api/v1/badges/07fa5294-5311-483f-92c5-74abfd6c3f59/deploy-status)](https://app.netlify.com/sites/can-i-get-a-clean-project/deploys)
-  
-
