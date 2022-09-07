@@ -8,7 +8,8 @@ categories:
   - R
 tags: 
   - R
-image: feature-Stirling-Library.png
+image: feature-Sterling-Library.png
+image-alt: 'the nave at Sterling Library'
 abstract: 'An example of using a "headless browser" to scrape web content produced by javascript. The data is about compensation of university CEOs and was published by the Chronicle of Higher Education.'
 keywords: []
 ---
@@ -146,3 +147,7 @@ There's nothing after `Disallow:`. The robots.txt standard is aimed primarily at
 There's a semi-official site that describes [robots.txt](http://www.robotstxt.org/robotstxt.html). I don't know much more about how to interpret robots.txt, but it's one more thing you can check if you are concerned about whether your web scraping is legit.
 
 That wraps it up. Web sraping can be fun and useful. But keep an eye on whether scraping a particular site is legit and legal.
+
+#### A Note from 2022
+
+I just noticed on RBloggers a [post](https://appsilon.com/webscraping-dynamic-websites-with-r/) describing how to use RSelenium to scrape dynamic web pages. I'm adding this note here in case I come back to this topic.

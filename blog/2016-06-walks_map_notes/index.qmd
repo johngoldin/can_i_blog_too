@@ -7,6 +7,7 @@ aliases:
     - /2016/06/walks_map_notes/
 excerpt: 'Note on the creation of a [map](https://goldin.shinyapps.io/Walks/) created using Shiny which shows GPS traces and photos of my walking holidays.'
 image: featured-souvenir-map.png
+image-alt: 'a screenshot of the souvenir map described in this post'
 categories:
   - Leaflet
   - GPS

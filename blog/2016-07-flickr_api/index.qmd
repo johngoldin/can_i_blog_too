@@ -6,6 +6,7 @@ aliases:
     - /2016/06/flickr_api/
 excerpt: 'Detailed description of how to access the Flickr API via R. I would do it somewhat differently in 2021.'
 image: featured-example.png
+image-alt: 'a screenshot showing an example of an image attaching to a spot on the map'
 categories:
   - R
   - Flickr

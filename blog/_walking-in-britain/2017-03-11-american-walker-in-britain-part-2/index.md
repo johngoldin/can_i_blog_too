@@ -154,5 +154,5 @@ border between England and Scotland when they still had over 400 miles to go.
 [20 Superb UK Walks - The Guardian](https://www.theguardian.com/travel/2016/apr/23/british-walks-uk-family-long-distance-paths-trails)   
 [ITV Top 100 Walks in Britain](https://getoutside.ordnancesurvey.co.uk/itvs-britains-100-favourite-walks/)
 
-#### [Back to UK Walking Topics]({{< relref "2017-03-07-an-american-walking-in-britain.md#topics" >}})
+
 

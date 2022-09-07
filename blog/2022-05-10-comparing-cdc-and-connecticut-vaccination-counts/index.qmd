@@ -11,6 +11,9 @@ subtitle: 'How CDC and Connecticut Vaccination Counts Difer'
 excerpt: 'A comparison of vaccination counts in Connecticut according to the CDC and the CT Department of Public Health.'
 images: "feature_cdc_data_pathway.png"
 image-alt: 'Diagram shows the flow of information about vaccinations'
+execute: 
+  cache: true
+  
 # output: 
 #   blogdown::html_page:
 #     # figure parameters based on recommendation in Hadley's book 
@@ -103,6 +106,7 @@ source('~/Documents/R_local_repos/ctcorona/R/setup_ct_table.R')
 ```
 
 ```{r get_dph_vaccine_counts}
+
 # statewide by age with booster count: https://data.ct.gov/Health-and-Human-Services/COVID-19-Vaccinations-by-Age-Group/vjim-iz5e
 # # so far this is the only dph dataset with boosters [no, now i get booster data from dph]
 # 2022-04-22 changed column names: Additional Dose to Additional Dose 1

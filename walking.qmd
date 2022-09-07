@@ -6,7 +6,7 @@ title: "British Walking"
 image: features-sidebar_IMG_2165.png # this does not automatically put in image
 listing:
   - id: UK-Walking
-    contents: collection/Walking in Britain
+    contents: collection/walking-in-britain
     type: default
     fields: [image, title, subtitle, part]  # removed date
 #   fields: [image, date, title, subtitle, categories, author, reading-time]  
@@ -30,7 +30,7 @@ comments: false
 toc: false
 ---
 
-[I enjoy walking holidays in the UK. Here are some things I have learned as an American during my travels.]{style="color:#00008B"} 
+[I enjoy walking holidays in the UK. Here are some things I have learned as an American during my travels.]{style="color:#00008B"}
 
 ::: {#UK-Walking}
 :::

@@ -12,7 +12,7 @@ excerpt: Tips on how to find your way using guide books, maps, and your phone.
 # show_post_date: true
 # show_post_thumbnail: true
 image: feature-swcp-map.png
-# image-height: "100"
+image-alt: 'the statue of a hand holding a map which marks the beginning of the South West Coast Path'
 part: Part 4
 ---
 
@@ -34,53 +34,21 @@ The Ordnance Survey also offers the OS Landranger series, which is useful for wa
 
 To find your way using a paper map you need to locate where you are on the map. One attractive feature of a map on your phone is that the GPS can show you where you are on the map.
 
-The Ordnance Survey offers access to their maps on Android or iPhone via their OS Maps app. My most recent holiday in the UK was in 2019 before this app was released so I used other electronic aids, primarily [AllTrails](https://www.alltrails.com) on my iPhone and a Garmin GPS (or SatNav in Britspeak) loaded with Open Street Map for the UK obtained via an outfit called [Talkytoaster](https://shop.talkytoaster.me.uk/product/tt-150k-look-n-feel-map-for-self-install-automatic-delivery-british-isles-only-dem). For my next trip I expect to rely on the Ordnance Survey OS Maps app. Access is by subscription, but you can get a one-month premium access for £3.99, which is a good deal. By comparison, a single Landranger paper maps costs £8.99.
+The Ordnance Survey offers access to their maps on Android or iPhone via their OS Maps app. My most recent holiday in the UK was in 2019 before this app was released so I used other electronic aids, primarily [AllTrails](https://www.alltrails.com) on my iPhone and a Garmin GPS (or SatNav in Brit speak) loaded with Open Street Map for the UK obtained via an outfit called [Talkytoaster](https://shop.talkytoaster.me.uk/product/tt-150k-look-n-feel-map-for-self-install-automatic-delivery-british-isles-only-dem). For my next trip I expect to rely on the Ordnance Survey OS Maps app. Access is by subscription, but you can get a one-month premium access for £3.99, which is a good deal. By comparison, a single Landranger paper maps costs £8.99.
 
 The app mimics the appearance of the paper Ordnance Survey maps. If you are looking at a wider area, the format follows the Landranger series (where the paper maps show a scale of 1:50K). As you zoom in, the format changes to the Explorer maps (designed for a scale of 1:25K).
 
 Here are two screenshots of OS Maps displaying the area where the Two Moors Way passes through the town of Ivybridge and enters Dartmoor. The first version shows the Landranger style and the second zooms into a smaller area and shows Explorer style. It's a bit disconcerting when the style changes suddenly as one zooms in using the app, but it's not bothersome.
 
-```{r}
-#| label: os-map-examples
-#| 
-knitr::include_graphics("img/Landranger Ivybridge.jpg")
-```
+::: {layout="[[1,1], [1]]"}
+![Sample **Landranger** map for Ivybridge](img/Landranger%20Ivybridge.jpg){attr="Ordnance Survey Crown Copyright" fig-alt="Sample Landranger map for Ivybridge" fig-align="left" width="250"}
 
-<figure>
+![Sample **Explorer** map for Ivybridge](img/Explorer%20Ivybridge.jpg){alt="Sample Landranger map for Ivybridge" attr="Ordnance Survey Crown Copyright" fig-align="left" width="250"}
 
-<figcaption style="font-size:1.2em">
-
-OS Maps Examples at Different Zoom Levels
-
-</figcaption>
-
-<figure>
-
-<figcaption style="font-size:1.2em">
-
-Landranger 1:50K
-
-</figcaption>
-
-![Sample Landranger map for Ivybridge](img/Landranger%20Ivybridge.jpg){alt="Sample Landranger map for Ivybridge" attr="Ordnance Survey Crown Copyright" fig-align="left" width="250"}
-
-<figcaption style="font-size:1.2em">
-
-Explorer 1:25K
-
-</figcaption>
-
-![Sample Explorer map for Ivybridge](img/Explorer%20Ivybridge.jpg){alt="Sample Landranger map for Ivybridge" attr="Ordnance Survey Crown Copyright" fig-align="left" width="250"}
-
-</figure>
-
-<figcaption style="color:gray;font-size:0.8em;">
-
-<a href="https://shop.ordnancesurvey.co.uk/apps/os-maps/">Ordnance Survey Crown Copyright</a>
-
-</figcaption>
-
-</figure>
+::: text-center
+*Ordnance Survey Crown Copyright*
+:::
+:::
 
 Unfortunately the details of the legends are different on the two separate map formats. For example, on Landranger a long distance trail such as the Two Moors Way is marked with red diamonds while on Explorer it appears as green diamonds. On Landranger contour lines are in red while on Explorer they are more of a brown color. It's not too bad. Your brain will sort it out almost automatically. The important thing is that when you zoom in you get more detail. For example, when you zoom in to Landranger format you see individual field boundaries (stone walls, fences, or hedgerows shown as thin black lines) which can be extremely useful when you are following a path through a farming area. It's useful to see if you are on the wrong side of a field boundary because otherwise you may find yourself headed into a dead end with no outlet.
 
@@ -104,7 +72,7 @@ To show how various mapping tools compare, let's focus on an area near the weste
 
 [Trailblazer](https://trailblazer-guides.com/book/coast-to-coast-path) offers a series of popular guide books, including one for the Coast to Coast.
 
-{{< insert_photo src="img/c2cr%20trailblazerr%20sample.jpg" alt="Trailblazer Sample" right="yes" width=500 caption="Typical Route Map in a Trailblazer Guide" >}}
+![Typical Route Map in a Trailblazer Guide](img/c2c%20trailblazer%20sample.jpg){fig-alt="Trailblazer Sample"}
 
 The Trailblazer maps combine route notes with a simple, chatty map. While not as detailed as an Ordnance Survey map, it has enough information to get you where you need to go. I've used them for the several trips. They are effective.
 
@@ -118,13 +86,13 @@ Trailblazer offers free delivery world wide. If you buy one online from place su
 
 Sounds interesting! Like most Americans, I had never heard of the Forest of Bowland or Pendle. **AONB** stands for [Area of Outstanding Natural Beauty](https://en.wikipedia.org/wiki/Area_of_Outstanding_Natural_Beauty). Compared with national parks, AONBs are a next level form of conservation for some rural areas,
 
-I've used a couple of Cicerone guides (or the Cleveland Way and the Two Moor's Way). They have detailed route notes accompanied by excerpts from Ordnance Survey maps. In some cases they include map booklet which contains a more complete map of the area. As with the Trailblazer guides, they also have notes on flora and fauna, services, and points of interest.
+I've used a couple of Cicerone guides (for the Cleveland Way and the Two Moor's Way). They provide detailed route notes accompanied by excerpts from Ordnance Survey maps. In some cases they include a map booklet which contains a more complete map of the area. As with the Trailblazer guides, they also have notes on flora and fauna, services, and points of interest.
 
 ### Navigation the Old-Fashioned Way: Compass and Paper Map
 
 The Ordnance Survey web site has an [introduction to compass and maps](https://getoutside.ordnancesurvey.co.uk/guides/beginners-guides-map-reading/). There's an [advanced](https://getoutside.ordnancesurvey.co.uk/guides/map-reading-skills-advanced-guides/) page as well. There are many other resources on the web, but one advantage of the OS site is it is oriented toward the specifics of the UK, Ordnance Survey maps, and the UK grid system used by OS maps and other map suppliers in the UK.
 
-I [basic compass](https://www.rei.com/learn/expert-advice/compass.html) is a good thing to have, just in case. It doesn't need to be very expensive or very complicated.
+A [basic compass](https://www.rei.com/learn/expert-advice/compass.html) is a good thing to have, just in case. It doesn't need to be very expensive or very complicated.
 
 ### Using Your Phone as a Compass
 
@@ -144,15 +112,15 @@ In case of emergency, you may need to tell someone where you are. If you have a 
 
 But there may be a catch. It turns out the earth is not a perfect sphere and as a result there are multiple systems for mapping latitude and longitude to its imperfect shape. Google Maps and GPS use a coordinate system called [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System). The catch is the UK Ordnance Survey maps uses a UK-centric system [OSGB36](https://en.wikipedia.org/wiki/Ordnance_Survey_National_Grid). In case you want to nerd out on why there's more than one way to map latitude and longitude to the earth's surface, check this [Wikipedia article](https://en.wikipedia.org/wiki/Geodetic_datum).
 
-GPS and Google Maps and other world-wide maps use WGS84. The UK uses OSGB36 (or something similar). The practical issue is that the same latitude and longitude coordinates expressed in WGS84 can be about 500 meters away from the same coordinates expressed in OSGB36.
+GPS and Google Maps and other world-wide maps use WGS84. The UK uses OSGB36 (or something similar). The practical issue is that the same latitude and longitude coordinates expressed in WGS84 can be almost 100 meters away from the same coordinates expressed in OSGB36. (See this [Wikipedia article](https://en.wikipedia.org/wiki/Ordnance_Survey_National_Grid#Datum_shift_between_OSGB_36_and_WGS_84) for more detail on these effects.)
 
 The upshot is that if you report your location to emergency service via latitude and longitude from Google maps, they might interpret that as being from the UK system.
 
-I first encountered this issue when I downloaded way points from a guide book that uses the UK system (OSGB36) and imported them into Open Street Maps on my Garmin GPS which uses WGS84. I quickly saw that something was off. One might be looking for a bridge or a trail intersection that might be 500 or so meters off from what you expected. It's something to keep in mind. If you have a handheld satnav (such as from Garmin) there usually is a setting that let's you choose what coordinate system you want to use.
+I first encountered this issue when I downloaded way points from a guide book that uses the UK system (OSGB36) and imported them into Open Street Maps on my Garmin GPS which uses WGS84. I quickly saw that something was off. One might be looking for a bridge or a trail intersection that might be a bit off from what you expected. It's something to keep in mind. If you have a handheld satnav (such as from Garmin) there usually is a setting that let's you choose what coordinate system you want to use.
 
 #### OS Locate
 
-In the UK people often communicate location in terms of the grid reference system that is specific to the UK rather than using latitude and longitude There's an app called [OS Locate](https://shop.ordnancesurvey.co.uk/apps/os-locate/) for iPhone and Android that will report your location in UK grid reference terms or in latitude and longitude based on OSGB36. It also can be used as a compass. It's a good thing t have on your phone, just in case.
+In the UK people often communicate location in terms of the grid reference system that is specific to the UK rather than using latitude and longitude There's an app called [OS Locate](https://shop.ordnancesurvey.co.uk/apps/os-locate/) for iPhone and Android that will report your location in UK grid reference terms or in latitude and longitude based on OSGB36. It also can be used as a compass. It's a good thing to have on your phone, just in case.
 
 #### The UK Grid System
 
@@ -174,15 +142,21 @@ There are a number of situations that have tended to increase my chances of erro
 
 ### A GPS Trace to Keep on Track
 
-{{< figure src="img/os_maps_sample-1.jpeg#floatleft" caption="OS Maps sample" >}} {{< figure src="img/sample_off_route1.jpeg" caption="GPS off-route Open Street Map" >}}
+::: {layout="[1,1]"}
+![GPS off-route Open Street Map](img/sample_off_route1.png)
 
-![](img/os_maps_sample-1.jpeg)One nice feature of using a SatNav (GPS) device or a smart phone is that you may be able to quickly look at the device to see whether you have wandered off route.
+![](img/os_maps_sample-1.jpeg)
+:::
+
+![A pause to get my bearings...](img/IMG_0873.png){.column-margin fig-alt="grass pastureland" width="250"}
+
+One nice feature of using a SatNav (GPS) device or a smart phone is that you may be able to quickly look at the device to see whether you have wandered off route. The two maps here show a situation where I got slightly off track on the Pennine Way. There was no clear path on the ground, just lots of sheep trail meandering about. On the map on the left, the solid orange line shows the GPS trace recording my walk. I saw on the map that I was aiming toward a forest area. As I later got into that area I realized that a large section had been clear-cut so looking for a wooded area was not helpful. Once I looked closely at my GPS I realized I was heading too far east and needed to turn north to regain the main trail. The photo shows the spot where I took off my rucksack and paused to figure out where I was and which way I needed to head.
 
 I enjoy saving GPS traces as a [souvenir of my walks](https://goldin.shinyapps.io/Walks/). When I zoom into the detail I can sometimes see places here I went wrong.
 
 ## Ordnance Survey Trig Points
 
-{{< insert_photo src="img/On Roseberry Topping.jpeg" alt="Trig Point" right="yes" caption="Trig Point on Roseberry Topping" >}}
+![Trig Point on Roseberry Topping](img/On%20Roseberry%20Topping.jpeg){.column-margin fig-alt="Me standing beside the trig point on top of Roseberry Topping" width="249"}
 
 The Ordnance Survey is not just maps. It actually has a visible presence on the ground. On many high points one finds a concrete pillar that marks one of the known [survey points](https://en.wikipedia.org/wiki/Retriangulation_of_Great_Britain) that anchor the maps created by the Ordnance Survey. Because the trig pillars are located at a high spot with a good view, one generally feels a sense of accomplishment having reached one.
 

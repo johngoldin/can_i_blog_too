@@ -9,7 +9,6 @@ categories:
   - R
 tags:
   - R
-draft: yes
 images:
   - ~
   - ~
@@ -18,7 +17,17 @@ execute:
   echo: false
 ---
 
-I have written a couple of posts that used [Quarto](https://quarto.org/docs/output-formats/hugo.html) rather than Rmd. There has always been a
+During the course of this blog since the first post in 2016, I have written multiple entries each time I have made a major change in how the blog was created. In [2018](/blog/2018-07-i-m-back.qmd) I connected Netlify to the Github Pages version of the blog and acquired the name johngoldin.com via Netlify. In [2021](/blog/2021-05-a-new-look-may-2021/) I converted to the Hugo theme apéro which allowed for a considerable reorganization of the blog and a better appearance that involved much more use of images. I should thank [Alison Hill](https://www.apreshill.com) for creating apéro and nudging to inject a bit more life into my blog. And then along came [Quarto](https://quarto.org/docs/websites/).
+
+I have written a couple of posts that used [Quarto](https://quarto.org/docs/output-formats/hugo.html) rather than Rmd. Quarto has been easy to pickup and blogdown/Hugo always had a lot of disadvantages. During my Hugo/blogdown period I was always confused about whether to use .md, .Rmd, or .Rmarkdown. I was always frustrated by the RMarkdown features that were out of reach because I needed to be compatible with Hugo. One of the big things I missed was code-folding. Anyway, after RConf 2022 I felt an irresistible pull to convert my blog to Quarto.
+
+I started on August 16th, and as I write this it is September 5th and I feel close to being able to switch johngoldin.com to point to the Quarto version. I think it's basically in good shape. I'm still checking on Hugo shortcodes (usually figures) that haven't converted. I have made an effort to organize things so that the old URLs may still work, but one last step will be to fill in some more aliases in the YAML and maybe add some redirects to my Netlify setup.
+
+The examples in the [Quarto Gallery](https://quarto.org/docs/gallery/) have been a great help. In general the Quarto documentation has been a big help. As usual when I started out it took at lot of reading and re-reading the documentation and examples to understand a few core things. The crucial step for me was to understand [Document Listings](https://quarto.org/docs/websites/website-listings.html). Once I got that straightened out, I was on my way. I had a surprising amount of difficulty figuring out how to set the image that accompanies the post reference on the listing page. I didn't realize right away that depends on the "image" item in the YAML at the start of each post.
+
+Because I don't have much in the way of actual readership, it's easy for me to make huge changes in the blog without fear of disturbing anyone.
+
+The sections that follow are really just notes I acumulated while I figured out how to do the conversion.
 
 ## Examples
 
@@ -28,7 +37,7 @@ I'm collecting examples of blog sites done in quarto.
 
 \[Robert Mitchell describes moving to quarto blog(<https://robertmitchellv.com/blog/2022-08-building-with-quarto/building-with-quarto.html>)
 
-Examples from [Quarto gallery](https://quarto.org/docs/gallery/#websites) [Bea Miller](https://github.com/beatrizmilz/blog-en/blob/main/_quarto.yml) example of a series
+Examples from [Quarto gallery](https://quarto.org/docs/gallery/#websites) [Bea Miller](https://github.com/beatrizmilz/blog-en/blob/main/_quarto.yml) example of a series.
 
 ## Gotchas
 
@@ -55,3 +64,9 @@ In blogdown/hugo I made extensive use of the "slug" item in yaml to simplify the
 I already have a bunch of aliases from when I converted to the Apéro theme in Hugo.
 
 This reminds me that it's a big advantage that I don't have a big audience for my blog. It means there is less pressure to nail down every detail. But I will need to think about the small number of places where I have published URL's to make sure they will still work. The most important is the information entry for my talk at RConf2022.
+
+Another YAML item: In Hugo/blogdown, I can have the draft item and set it to false. In Quarto it seems that if the "draft" item is present, the post will not be included regardless of whether it is set to true or false.
+
+## Putting Images in the Margin
+
+I took the trouble of re-working my items on [Walking in Britain](/collection/walking-in-britain/) to use the class `.column-margin`. I think it makes the text flow much better. I quite ignorant of CSS and related HTML so working on some of the details of the formatting has pushed me to get a little bit better understanding of how things like CSS classes work.

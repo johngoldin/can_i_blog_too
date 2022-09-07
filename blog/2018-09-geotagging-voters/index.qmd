@@ -4,6 +4,11 @@ author: John Goldin
 date: '2018-09-08'
 slug: geotagging-voters
 image: feature-cards-booze.png
+image-alt: 'a grotesque that decorates the Yale Law School. He leads a dissolute life with booze and cards.' 
+format:
+  html:
+    code-fold: show
+    code-summary: "Show the code"
 aliases:
     - /2018/09/geotagging_voters/
     - /blog/geotagging-voters/
@@ -29,7 +34,7 @@ library(ggrepel)
 data_folder <- "~/Dropbox/Programming/R_Stuff/ct_voters/"
 ```
 
-**Attention conservation notice:** Unless you are interested in R-related detail, skip this post and read the [next post](/blog/guilford-demographics/) instead.
+**Attention conservation notice:** Unless you are interested in R-related detail, skip this post and read the [next post](/blog/2018-09-guilford-demographics/) instead.
 
 ### The Data Source
 
@@ -46,9 +51,9 @@ I recovered from my shock and decided to play with this data as a vehicle to bec
 
 ### An R Coding Sampler
 
-This won't be a coherent description of registered voters in Guilford. Instead it is a collection of various bits of loosely related R code. I grabbed onto the Guilford voter statistics because it was a way to connect to my new home. But the primary purpose was to exercise my R muscles rather than to learn about Guilford voters. I spent way more time on this than I expected. Each bit would lead me to try one more thing. <img src="/img/sampler_retouched2.jpg" style="float: right;" height="266" width="233"/> Because I enjoy mapping, I wandered off into some time-consuming experimentation with geotagging.
+This won't be a coherent description of registered voters in Guilford. Instead it is a collection of various bits of loosely related R code. I grabbed onto the Guilford voter statistics because it was a way to connect to my new home. But the primary purpose was to exercise my R muscles rather than to learn about Guilford voters. I spent way more time on this than I expected. Each bit would lead me to try one more thing. ![](/img/sampler_retouched2.jpg){alt="image of a cross-stitch sampler" style="float: right;" width="233"} Because I enjoy mapping, I wandered off into some time-consuming experimentation with geotagging.
 
-As I spent an unreasonable time fooling around with this data, I cam to regard this activity as being like a cross-stitch sampler that I inherited from my mother. The point of samplers of this sort was just to practice the craft. (I note that this one was done in 1971, the year I graduated from college.) This blog post has something in common with my mother's sampler. Like hers, it was done for the simple pleasure of doing it (even though that involved interludes of frustration and tedium) and as an exercise to practice my skill. The result may be about as useful as a cross-stitch sampler, but "useful" isn't the point.
+As I spent an unreasonable time fooling around with this data, I came to regard this activity as being like a cross-stitch sampler that I inherited from my mother. The point of samplers of this sort was just to practice the craft. (I note that this one was done in 1971, the year I graduated from college.) This blog post has something in common with my mother's sampler. Like hers, it was done for the simple pleasure of doing it (even though that involved interludes of frustration and tedium) and as an exercise to practice my skill. The result may be about as useful as a cross-stitch sampler, but "useful" isn't the point.
 
 One reason this has taken an unreasonable amount of time is that I started out with a mistake. When I first went to the voter registration web site, I used the interface on the page to select voters in the Town of Guilford. I then copied the list of about 20,000 names and pasted them into a text file. That was the dataset I started with. But as I progressed, I noticed some odd things about this data. It had a a noticeable number of cases where I knew people were no longer registered to vote, including names at my house who I knew no longer lived there and people who I knew were deceased or who were implausibly old. As a last step, I compared the registration data to census population data by age and in many cases saw substantially more voter registrations than population.
 

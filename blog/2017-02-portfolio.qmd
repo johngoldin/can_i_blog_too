@@ -27,15 +27,17 @@ I had an opportunity to chat with Julia at the RStudio Conference in Orlando. Sh
 
 ### [Souvenirs of My Walks](https://goldin.shinyapps.io/Walks/)
 
-<img style="float: right;" src="/img/for_site/Lake-District.png", width="158", height="200">I have always loved to walk. When I retired in 2011 I went on a walking binge. At the same time, I discovered that a GPS trace could be a fun souvenir of my walks. An [article](http://mhermans.net/hiking-gpx-r-leaflet.html) I found via [R Bloggers](https://www.r-bloggers.com/) led me to try to keep track of my walks more systematically. After doing some research on how to access the Flickr API from R, I was able to display my photos from Flickr on the GPS trace in a Leaflet map. The result is a Shiny app [here](https://goldin.shinyapps.io/Walks/). I don't thnk this is of great interest to a stranger, but for me it is a fascinating picture of my walks. I love to zoom in and see the detail of the map combined with the GPS trace and the photos. Like a good souvenir, it triggers lots of memories. If I lingered on a bench additional squiggles appear on the GPS trace showing where I stopped for a spell. I can also see my wrong turns. The code for the sourvenir walks site is available at a [GitHub repository](https://github.com/johngoldin/Visualizing-Hiking). There are also some \[technical notes\]({{< relref "2016-06-28-technical-note-shiny-souvenir-map.md" >}}) and some details on \[Flickr from R\]({{< relref "2016-07-03-using-the-flickr-api-from-r.md" >}}).
+![Walking in the Lake Distrixt](/img/Lake-District.png){.column-margin fig-alt="A photo of me in the Lake District" width="250"}
 
-### [Census Data](/blog/new-haven-census-and-r/)
+I have always loved to walk. When I retired in 2011 I went on a walking binge. At the same time, I discovered that a GPS trace could be a fun souvenir of my walks. An [article](http://mhermans.net/hiking-gpx-r-leaflet.html) I found via [R Bloggers](https://www.r-bloggers.com/) led me to try to keep track of my walks more systematically. After doing some research on how to access the Flickr API from R, I was able to display my photos from Flickr on the GPS trace in a Leaflet map. The result is a Shiny app [here](https://goldin.shinyapps.io/Walks/). I don't thnk this is of great interest to a stranger, but for me it is a fascinating picture of my walks. I love to zoom in and see the detail of the map combined with the GPS trace and the photos. Like a good souvenir, it triggers lots of memories. If I lingered on a bench additional squiggles appear on the GPS trace showing where I stopped for a spell. I can also see my wrong turns. The code for the sourvenir walks site is available at a [GitHub repository](https://github.com/johngoldin/Visualizing-Hiking). There are also some [technical notes](/blog/2016-06-walks_map_notes/) and some details on [Flickr from R](/blog/2016-07-flickr_api/).
+
+### [Census Data](/blog/2019-04-new-haven-census-and-r/)
 
 I used the New Haven area as an example to try to figure out some basic ways to use the American Community Survey (ACS) to look at data for the towns around New Haven. This turned into a nice example using the tidycensus package to fetch data and do some plots in ggplot2.
 
 I did some earlier work with the [acs package](http://cran.r-project.org/web/packages/acs/index.html) [here](http://rpubs.com/JohnGoldin/196744) which is published on RPubs. It now feels very out of date.
 
-### \[An Implementation of Narcissism in R\]({{< relref "2017-02-26-narcissism-in-r.html" >}})
+### [An Implementation of Narcissism in R](/blog/2017-02-narcissism/)
 
 Sometimes I just want to play around plotting some data. What data could be more interesting than data about me? It so happens I have a data series of my daily weight spanning more than 20 years. That's not weird, is it. So I did some charts.
 

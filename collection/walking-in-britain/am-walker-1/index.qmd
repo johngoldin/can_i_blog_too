@@ -19,7 +19,7 @@ date: '2017-03-07'
     # toc: true
 image: feature_IMG_1789.png
 # image-height: "75"
-image-alt: 'alt text from part 1'
+image-alt: 'A section of the South West Coast Path hugging a hill-side above the sea.'
 part: Part 1
 
 format:
@@ -28,8 +28,6 @@ format:
     css: styles.css
     toc: true
 ---
-
-Experiment 10:14 sunday,
 
 Since retiring in 2011, I have been on a binge of walking in the UK. Here I will offer some tips based on lessons I have learned. I doubt this will be of much use to someone raised in the UK. Much of what I say here would be obvious or second nature. But lots of things weren't obvious to me as an American who is unfamiliar with the British countryside.
 
@@ -47,25 +45,19 @@ Here's a British tweet that describes how this looks from the British point of v
 
 More than once while chatting with a local walker on the top of some barren fell\[\^1\] I have been asked why I have come all the way to England to do my walking. Surely there is plenty of opportunity back in the US. What about the Appalachian Trail? Good question. On a number of multi-mile trudges across boggy moorland I have had plenty of opportunity to think about it. \[\^1\]: A "fell" is a term primarily used in northern England or Scotland for a hill top. Often appears in place names such as Cross Fell. See also [fell running](https://en.wikipedia.org/wiki/Fell_running).
 
-The UK has a great infrastructure for walking, both short and long distances. One frequently sees the ubiquitous "public footpath" finger posts marking some local public [right of way](https://en.wikipedia.org/wiki/Right_of_way). These footpaths originated as actual transportation routes. There must have been quite a bit of that in colonial New England as well. I don't know the legal and cultural circumstances that caused those right of ways to be preserved in the UK. In modern times, the powerful [Ramblers Association](http://www.ramblers.org.uk/) functions somewhat like the National Rifle Association, except for walking rather than guns. The Ramblers lobby for [legislation favorable to walkers](https://en.wikipedia.org/wiki/Countryside_and_Rights_of_Way_Act_2000) and [actively police](https://www.ramblers.org.uk/get-involved/campaign-with-us/paths.aspxy-2026.aspx) existing rights of way.
+![Finger Post Points the Way](/img/finger_pointer.png){.column-margin alt="Finger Post Points the Way" fig-alt="A finger post sign pointing to trails in multiple directioins"}
 
-{{< insert_photo src="/img/finger_pointer.png" alt="Finger Post" right="yes" caption="Finger Post Points the Way" >}}
+The UK has a great infrastructure for walking, both short and long distances. One frequently sees the ubiquitous "public footpath" finger posts marking some local public [right of way](https://en.wikipedia.org/wiki/Right_of_way). These footpaths originated as actual transportation routes. There must have been quite a bit of that in colonial New England as well. I don't know the legal and cultural circumstances that caused those right of ways to be preserved in the UK. In modern times, the powerful [Ramblers Association](http://www.ramblers.org.uk/) functions somewhat like the National Rifle Association, except for walking rather than guns. The Ramblers lobby for [legislation favorable to walkers](https://en.wikipedia.org/wiki/Countryside_and_Rights_of_Way_Act_2000) and [actively police](https://www.ramblers.org.uk/get-involved/campaign-with-us/paths.aspxy-2026.aspx) existing rights of way.
 
 In the US hiking routes are associated with wilderness or less desirable land that is away from populated areas. In the UK, because many paths grew out of transportation routes, they often go from village to village. One consequence of that is that in the US one has long distance routes such as the Appalachian Trail or the Pacific Crest Trail that emphasize being in the wild and require camping. If wilderness is what you are after, long-settled England is not the place to find it. One might refer to the wild coast of Cornwall on the South West Coast Path, but one is never very far away from a farm or a village. One can feel far from the madding crowd in national parks such as Dartmoor or Exmoor. It does feel a bit wild and isolated. But wilderness is not the word that describes it.
 
-For an urbanized senior citizen such as myself, the creature comforts available in the UK are a big attraction. Even on the long distance routes one can walk from village to village and stay in a cozy B&B, pub, or small hotel at the end of the day. One starts the day with a full English breakfast and follows a full day of walking with a hot shower, a solid evening meal in the local pub, and finally a comfortable bed (we hope). The type of walking I do in the UK is fundamentally different from the Appalachian Trail. Plus there are no bears or mountain lions or rattlesnakes to trouble my calm reflections during the walk.
+![More comfortable than camping?](/img/canopy_bed.png){.column-margin alt="More comfortable than camping?" fig-alt="Hotel room with large canopy bed"}
 
-{{< insert_photo src="/img/canopy_bed.png" alt="Canopy Bed" left="yes" width="304" caption="More comfortable than camping?" >}}
+For an urbanized senior citizen such as myself, the creature comforts available in the UK are a big attraction. Even on the long distance routes one can walk from village to village and stay in a cozy B&B, pub, or small hotel at the end of the day. One starts the day with a full English breakfast and follows a full day of walking with a hot shower, a solid evening meal in the local pub, and finally a comfortable bed (we hope). The type of walking I do in the UK is fundamentally different from the Appalachian Trail. Plus there are no bears or mountain lions or rattlesnakes to trouble my calm reflections during the walk.
 
 Another plus is public transportation, even away from cities and towns. If one wants to do a simple walk, it is often possible to take bus out somewhere and walk back to your hotel. Here in Connecticut where I live, there is a very nice set of trails (the [Blue Blazed Trails](https://www.ctwoodlands.org/blue-blazed-hiking-trails)), but almost none of them are near bus routes or motels or places to get food. Invariably one has to drive to a trail head. That's true for many foot paths in the UK as well, but there are also many that are available via public transportation. A couple of times I have decided to cut the day short and catch a bus for the rest of the trip. Sometimes there are even simple ferries to get you across an estuary. And even in rural areas there often is some sort of taxi service available.
 
-<figure style="float: right;">
-
-<figcaption>Need a lift?</figcaption>
-
-</figure>
-
-<img src="/img/Port_Isaac_Shuttle.png"/>
+![Need a lift?](/img/Port_Isaac_Shuttle.png){.column-margin fig-alt="A sign saying \"Take the Port Isaac shuttle service\" with phone number" fig-align="center"}
 
 There are other aspects of the UK that probably make a difference. There is less suburban sprawl and less dependence on cars. In my part of the world one does not expect to find a motel or hotel anywhere except in a city or near a highway exit. In the UK B&B's and small-scale hotels seem more plentiful. I don't claim to understand all the political, cultural, and legal factors that create those differences in the environment. But the result is good for walkers.
 
@@ -116,7 +108,7 @@ What experience are these notes based on? By the standards of someone who has li
 
 ### Topics
 
--   \[Choosing a path\]({{< relref "/collection/Walking in Britain/american-walking-in-britain-part-2" >}})
+-   [Choosing a path](/collection/walking-in-britain/am-walker-2/index.html)
 -   Planning an itinerary
 -   Arranging for accommodations
 -   Luggage transport
@@ -124,7 +116,7 @@ What experience are these notes based on? By the standards of someone who has li
 -   Money
 -   What to bring
 -   Packing
--   \[Navigation\]({{< relref "/collection/Walking in Britain/american-walking-in-britain-part4" >}})
+-   [Navigation](/collection/walking-in-britain/am-walker-4/index.html)
 -   Rain (and how to cope)
 -   Training, Fitness, and Foot Care
 -   Safety

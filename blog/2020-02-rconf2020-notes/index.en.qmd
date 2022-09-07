@@ -9,6 +9,7 @@ tags:
 excerpt: "Some note and impressions from the 2020 RStudio Conference in San Francisco."
 subtitle: ''
 image: "me_at_the_hex_wall.png"
+image-alt: "me in front of the wall of hex stickers at the conference"
 aliases:
     - /2020/02/notes-from-rstudioconf-2020/
 ---
