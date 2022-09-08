@@ -10,7 +10,7 @@ categories:
 tags:
   - personal
   - Quantified-Self
-excerpt: 'Describes using R to track my weight for more than 20 years. More of an example than an implementation of narcissism.'
+description: 'Describes using R to track my weight for more than 20 years. More of an example of marcissism than an implementation.'
 image: "feature_UR_a_joke_small.png"
 image-alt: 'a gothic grotesque decorating a hall in Sterling Library showing a student with a book which says U R a joke'
 keywords: []

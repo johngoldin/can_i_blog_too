@@ -1,34 +1,22 @@
 ---
 title: Exploring the Apple Health Export
 # quarto render blog/apple-health-export/index.qmd
+date: '2022-07-01'
 categories:
 - Apple-Health-Export
-layout: single-series
+layout: list-sidebar
 series: Exploring the Apple Health Export
 show_author_byline: false
 show_post_date: true
-sidebar:
-show_sidebar_adunit: false
-text_contents_label: On this page
-text_link_label: ""
-text_link_url: ""
-text_series_label: In this series
 tags:
 - Apple-Health-Export
-subtitle: |
-  A series of posts exploring what's in the Apple Health Export
-layout: list-sidebar
+description: |
+  A series of posts exploring what's in the Apple Health Export. Blog
+  posts about the Health Export will be listed here.
 show_author_byline: false
 show_post_date: true
 show_post_thumbnail: true
-
 listing: default
 ---
 
-This series of posts digs into the contents of the
-Apple Health Export, a snapshot of the data
-collected and displayed via the Health app on
-the Apple iPhone. The Health Export of the data from
-my iPhone and Apple Watch includes more than 
-three million rows and is larger than any other 
-dataset I have worked with. What is in all that data?
+This series of posts digs into the contents of the Apple Health Export, a snapshot of the data collected and displayed via the Health app on the Apple iPhone. The Health Export of the data from my iPhone and Apple Watch includes more than three million rows and is larger than any other dataset I have worked with. What is in all that data?

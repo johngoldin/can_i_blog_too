@@ -7,7 +7,7 @@ categories:
 slug: am-walker-3
 aliases:
   - /2017/03/am_walker_3/
-excerpt: Tips on how to plan a multi-day itinerary with some advice on how to arrange
+description: Tips on how to plan a multi-day itinerary with some advice on how to arrange
   for accommodations.
 image: feature-Clovelly.png
 # image-height: "250"

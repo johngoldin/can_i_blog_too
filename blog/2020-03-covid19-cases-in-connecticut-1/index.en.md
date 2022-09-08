@@ -11,7 +11,7 @@ subtitle: ''
 slug: covid-19-in-Connecticut-1
 aliases:
     - /2020/03/covid-19-cases-in-connecticut/
-excerpt: "Summary of Connecticut Covid-19 based on Department of Public Health Data. In June there is a second blog post with more detail. Both posts have been updated each weekday during 2020 and most of 2021."
+description: "Summary of Connecticut Covid-19 based on Department of Public Health Data. In June there is a second blog post with more detail. Both posts have been updated each weekday during 2020 and most of 2021."
 ---
 
 A [later post](/project/) provides a better view of the 2020-2022 data on Covid-19 in Connecticut.

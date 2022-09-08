@@ -5,7 +5,7 @@ date: '2017-03-11'
 categories:
   - British Walking
 slug: am-walker-2
-excerpt: Brief descriptions of some of the UK National Trails and some tips on how
+description: Brief descriptions of some of the UK National Trails and some tips on how
   to choose an itinerary
 weight: 2
 ---

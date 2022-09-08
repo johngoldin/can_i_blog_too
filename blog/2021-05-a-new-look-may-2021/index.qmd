@@ -7,7 +7,7 @@ categories:
   - personal
 tags: []
 subtitle: Converting This Site To the Hugo Apéro Theme
-excerpt: |
+description: |
   It's a new look! I have converted the site to Hugo Apéro theme. It
    includes some fun images, including some grotesques from the Sterling
     Library and Law School buildings at Yale. Except it's an old "new look" because I am converting the blog to quarto.

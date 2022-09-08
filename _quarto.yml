@@ -14,6 +14,8 @@ website:
     left:
       - href: index.qmd
         text: Blog
+      - href: blog/apple-health-export/index.qmd
+        text: Apple Health
       - href: projects.qmd
         text: Projects
       - href: walking.qmd

@@ -4,14 +4,13 @@ author: John Goldin
 date: '2022-08-28'
 slug: blogdown-hugo-to-quarto
 subtitle: 'Fun With Quarto'
-excerpt: "My existing blog uses blogdown/hugo/apero. Because hugo does not use pandoc, I'm unable to take advantage of all the features of quarto. As I convert to a quarto website, I'll try to describe the process in this post."
+description: "My existing blog uses blogdown/hugo/apero. Because Hugo does not use pandoc, I'm unable to take advantage of all the features of quarto. As I convert to a quarto website, I'll try to describe the process in this post."
 categories:
   - R
 tags:
   - R
-images:
-  - ~
-  - ~
+image: /img/UR_a_joke_small.png
+image-alt: 'A grotesque in Stirling Library showing a student looking at a book that says U R a joke'
 execute:
   freeze: auto  # re-render only when source changes
   echo: false

@@ -8,7 +8,7 @@ tags:
   - COVID19
 subtitle: "Summary of Daily Connecticut Report"
 slug: covid-19-in-Connecticut-2
-excerpt: "Summary of Connecticut Covid-19 based on Department of Public Health Data with some comparisons to national data. This has been updated each weekday during 2020 and most of 2021. There are also notes on sources of data for Covid-19 in Connecticut."
+description: "Summary of Connecticut Covid-19 based on Department of Public Health Data with some comparisons to national data. This has been updated each weekday during 2020 and most of 2021. There are also notes on sources of data for Covid-19 in Connecticut."
 output: 
   blogdown::html_page:
     # figure parameters based on recommendation in Hadley's book 

@@ -21,7 +21,7 @@ tags:
   - Guilford
   - maps
   - census
-excerpt: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. To see just the interesting plots without lots of R-related detail, skip this post and read the next one instead. '
+description: 'Exploraton of geotagging and gender identification based on voter registration dataset for Guilford. Explores geotagging, identifing gender from first name, US Census, and general data clean-up. To see just the interesting plots without lots of R-related detail, skip this post and read the next one instead. '
 ---
 
 ```{r setup, echo = FALSE, message=FALSE}

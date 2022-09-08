@@ -5,7 +5,7 @@ date: '2017-03-15'
 categories:
   - British Walking
 slug: am-walker-3
-excerpt: Things to keep in mind while planning a route, including accommodations.
+description: Things to keep in mind while planning a route, including accommodations.
 weight: 3
 ---
 

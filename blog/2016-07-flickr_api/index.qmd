@@ -4,7 +4,7 @@ date: '2016-07-03'
 slug: 'flickr_api'
 aliases:
     - /2016/06/flickr_api/
-excerpt: 'Detailed description of how to access the Flickr API via R. I would do it somewhat differently in 2021.'
+description: 'Detailed description of how to access the Flickr API via R. I would do it somewhat differently in 2021.'
 image: featured-example.png
 image-alt: 'a screenshot showing an example of an image attaching to a spot on the map'
 categories:
@@ -18,7 +18,7 @@ tags:
 
 There used to be an [Rflickr package](https://github.com/duncantl/Rflickr/blob/master/inst/doc/Rflickr.xml), but it no longer seems to work. It was last updated in 2011. I had a lot of trouble googling information on how to access Flickr from R. [This example](http://timelyportfolio.github.io/rCharts_Rflickr/iso_httr.html) really got me started. It is doing very different things that what I wanted to do, so it may be more useful than what I am laying out here, depending on your goal.
 
-\<img style="float: right;" src="/img/Hadrians-Wall-screenshot.png", height="301", width="252"\>To see where all this is leading, go to my Shiny app which displays [souvenirs of my walks](https://goldin.shinyapps.io/Walks/). Click on a camera icon and you will see a thumbnail photo from Flickr in a popup. Click on the popup, and you will be taken to the full-sized photo in Flickr. To the right is a screenshot of the app showing a popup photo of Hadrian's Wall. The GPS traces are in orange and red (for two different days).
+<img style="float: right;" src="/img/Hadrians-Wall-screenshot.png", height="301", width="252"\>To see where all this is leading, go to my Shiny app which displays [souvenirs of my walks](https://goldin.shinyapps.io/Walks/). Click on a camera icon and you will see a thumbnail photo from Flickr in a popup. Click on the popup, and you will be taken to the full-sized photo in Flickr. To the right is a screenshot of the app showing a popup photo of Hadrian's Wall. The GPS traces are in orange and red (for two different days).
 
 Before you can get flickr data into R via their web API, you will need to [sign up for a key](https://www.flickr.com/services/api/misc.api_keys.html). You will get a `user_id` and an `api_key`.
 

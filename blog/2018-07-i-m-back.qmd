@@ -8,7 +8,7 @@ categories:
   - Personal
   - Meta
 tags: []
-excerpt: "An announcement to myself that I was back to maintaining this site."
+description: "An announcement to myself that I was back to maintaining this site."
 keywords: 
   - Personal
 ---

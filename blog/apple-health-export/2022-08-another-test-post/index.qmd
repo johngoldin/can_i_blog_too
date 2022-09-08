@@ -7,7 +7,7 @@ categories:
   - Apple-Health-Export
 tags: []
 subtitle: 'Multiple Measures Per Hour'
-excerpt: 'These measures are taken frequently during the day, sometimes multiple times a minute during workoiuts.'
+description: 'These measures are taken frequently during the day, sometimes multiple times a minute during workoiuts.'
 draft: yes
 images:
   - ~
