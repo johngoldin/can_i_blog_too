@@ -19,4 +19,4 @@ I've enjoyed computers and computing ever since my first computer course at Mich
 
 I enjoy having a project to work on that combines some R coding and some simple data analysis. For the last year that has been Connecticut Covid stats or digging deep into the millions of rows of data exported from my iPhone and Apple Watch. I'm glad the internet was invented before I retired.
 
-[![](https://api.netlify.com/api/v1/badges/07fa5294-5311-483f-92c5-74abfd6c3f59/deploy-status)](https://app.netlify.com/sites/can-i-get-a-clean-project/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8d763f2c-dd20-47ed-aeb1-a271eb0c6838/deploy-status)](https://app.netlify.com/sites/goldin-quarto-blog/deploys)

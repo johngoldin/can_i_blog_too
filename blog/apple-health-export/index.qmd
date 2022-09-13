@@ -4,6 +4,7 @@ title: Exploring the Apple Health Export
 date: '2022-07-01'
 categories:
 - Apple-Health-Export
+image: "/images/feature-watch-heart-chart.jpeg"
 layout: list-sidebar
 series: Exploring the Apple Health Export
 show_author_byline: false
@@ -13,8 +14,6 @@ tags:
 description: |
   A series of posts exploring what's in the Apple Health Export. Blog
   posts about the Health Export will be listed here.
-show_author_byline: false
-show_post_date: true
 show_post_thumbnail: true
 listing: default
 ---

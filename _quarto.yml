@@ -10,6 +10,7 @@ project:
 website:
   title: "Can I Blog Too?"
   site-url: "https://johngoldin.com/"
+  google-analytics: "UA-92008736-2"
   navbar:
     left:
       - href: index.qmd
