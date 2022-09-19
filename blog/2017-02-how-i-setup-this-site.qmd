@@ -9,7 +9,7 @@ Categories:
   - blogdown
   - GitHub
 description: 'An outdated description of how I set up an earlier version of this site.'
-image: img/for_site/feature_east_rock_monument.png
+image: /img/for_site/feature_east_rock_monument.png
 image-alt: 'Monument on the top of East Rock'
 Tags:
   - blogdown

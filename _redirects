@@ -1,0 +1,38 @@
+# Redirects from what the browser requests to what we serve
+
+/blog/walking-in-britain/   /collection/walking-in-britain/
+/blog/2017-03-07-an-american-walking-in-britain/  /collection/walking-in-britain/am-walker-1/
+/blog/2017-03-11-american-walker-in-britain-part-2/  /collection/walking-in-britain/am-walker-2/
+/blog/2017-03-15-american-walker-in-britain-part-3/  /collection/walking-in-britain/am-walker-3/
+/blog/2017-03-am-walker-1/  /collection/walking-in-britain/am-walker-1/
+/blog/2017-03-am-walker-2/  /collection/walking-in-britain/am-walker-2/
+/blog/2017-03-am-walker-3/  /collection/walking-in-britain/am-walker-3/
+
+# blog/apple-health-export/
+# blog/2022-07-notes-apple-health-export/
+# blog/2021-05-changes-in-apple-health-export/
+# blog/2020-02-apple-health-export-1/
+# blog/2022-08-weight-again/
+# blog/2022-05-comparing-cdc-and-connecticut-vaccination-counts/
+# blog/2021-05-a-new-look-may-2021/
+# blog/2020-03-covid-19-in-connecticut-1/
+# blog/2020-06-covid-19-in-connecticut-2/
+# blog/2020-02-rconf2020-notes/
+# blog/2019-04-new-haven-census-and-r/
+# blog/2018-09-guilford-demographics/
+# blog/2018-09-geotagging-voters/
+# blog/2018-07-scraping-javascript/
+# blog/2018-07-i-m-back/
+# blog/2018-07-site-notes/
+# blog/2017-03-am-walker-3/
+# blog/walking-in-britain/
+# blog/2017-03-am-walker-2/
+# blog/2017-03-am-walker-1/
+# collection/
+# collection/walking-in-britain/am-walker-1/
+# collection/walking-in-britain/am-walker-2/
+# collection/walking-in-britain/am-walker-3/
+# collection/walking-in-britain/am-walker-4/
+# blog/2017-02-narcissism/
+# blog/2017-02-portfolio/
+# blog/2017-02-how-i-set-up-this-site/

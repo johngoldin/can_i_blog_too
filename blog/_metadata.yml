@@ -1,13 +1,13 @@
 # options apply to all posts in this folder
 
 # freeze computational output
-freeze: auto
+freeze: auto # re-render only when source changes
 
 # example from https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html
 # # Options specified here will apply to all posts in this folder
 #
 # # freeze computational output
-# freeze: true
+# freeze: true # never re-render during project
 #
 # # Enable banner style title blocks
 # title-block-banner: false

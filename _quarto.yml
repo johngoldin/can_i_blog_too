@@ -1,5 +1,7 @@
 project:
   type: website
+  resources:
+    - "_redirects"
   # render:
   #   - index.qmd
   #   - walking.qmd
@@ -36,10 +38,10 @@ website:
   favicon: favicon.png
   twitter-card: true
   open-graph: true
-
+# possible themes: litera, lumen, spacelab
 format:
   html:
-    theme: cosmo
+    theme: spacelab
     comments:
       utterances:
         repo: johngoldin/can_i_blog_too
@@ -49,6 +51,7 @@ format:
     css: styles.css
     toc: true
     footnotes-hover: true
+    license: "CC BY-SA"
 
 execute:
   freeze: auto

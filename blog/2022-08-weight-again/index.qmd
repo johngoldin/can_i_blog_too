@@ -36,7 +36,7 @@ Given that the most interesting part of this series is the period when I started
 
 For the time being I'm I'm going to continue using LoseIt! and see how it goes. Keeping it up can get a bit tedious, but I like the results.
 
-#### Some Comments on Using LoseIt!
+### Some Comments on Using LoseIt!
 
 Do I ever cheat? Yes! If my weight is down below the trend line I'm probably more likely to slip in a snack (such as a piece of dark chocolate or a pretzel) without recording it. At the very end of the day I'm less likely to record things exactly.
 
@@ -44,7 +44,7 @@ We don't eat out much and that makes it a lot easier to use LoseIt! I've never d
 
 Based on what I've read, I always assumed dieting to lose weight is very difficult. I still feel that way. My life style and diet perhaps make LoseIt! a better fit for me than for many other people. I certainly don't feel like I have much will power. I haven't used a calorie target that would cause me to feel actual hunger. It mostly causes me to be less likely to eat for reasons other than hunger. For example, without calorie counting sometimes I would get one more thing to eat at lunch because I wanted to continue sitting at the kitchen table reading a book rather than get on with whatever I felt I was supposed to be doing after lunch. Calorie counting makes me more conscious of that sort of incidental eating.
 
-#### Did I Need To Lose Weight For Health Reasons?
+### Did I Need To Lose Weight For Health Reasons?
 
 At 170 pounds my Body Mass Index (BMI) was 25.1. At 145 pounds it's 21.4. My BMI was not a significant health issue, although 25.1 put me just over the line for the category of "overweight" according to the [CDC guidelines](https://www.cdc.gov/obesity/basics/adult-defining.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fobesity%2Fadult%2Findex.html). Subjectively I felt better after I shed a few pounds. I've considered the possibility that it lowered my blood pressure. At first I thought that was the case, but now I'm more skeptical. I've become more aware of the seasonal pattern in my blood pressure. I started using LoseIt! in February. Normally my blood pressure is higher in December and January and lowest in the summer so it the decrease in blood pressure I saw may have been a result of that usual seasonal pattern. I hope to look more systematically at various metrics from the Apple Health Export, and blood pressure and weight will both be part of that.
 
@@ -52,11 +52,17 @@ Shedding the weight might also be helpful in terms of physical fitness. In June 
 
 One thing I don't feel is virtuous. While losing weight I didn't do anything that felt very hard. A half pound a week implies a fairly modest change in diet. And note that I resumed counting calories because without some sort of external force, I wasn't confident my weight would stay down.
 
-#### Some Technical Notes
+### A Postscript: Some Other Discussions on Weight and Obesity
+
+Matt Yglesias and Laura McGann discuss obesity (and Matt's obesity specifically) on their podcast [Why aren't medical breakthroughs in obesity a bigger deal? - Grid](https://www.grid.news/story/science/2022/09/14/why-arent-medical-breakthroughs-in-obesity-a-bigger-deal/). And I imagine their podcast will generate some rebuttals from various angles.
+
+### Some Technical Notes
 
 I mark my weight on a wall calendar each morning. I follow a consistent protocol. Shortly after I get up I step on the scale while I'm wearing my pajamas. I setup a [shortcut](https://support.apple.com/guide/shortcuts/welcome/ios) on my Apple Watch so that I can ask Siri to log my weight. I speak the value of my weight and it is entered into the Health app.
 
-Out of curiosity I sometimes weigh myself at other times during the day, but I never record those weights as part of the data series. The first scale I used starting in 1996 was an analog scale and I recorded the weight to the nearest half a pound. In 2004 I switched to a digital scale that registered to the nearest two-tenths. You can see a change in the pattern of weights in 2004. Between 2015 and 2022 I used a scale that registered to the nearest two-tenths of a pound. But there were values that never appeared. They show as blank horizontal bands in the long-term plot. I never go to the bottom of what was causing this, but I suspect that the chip in the scale records in kilograms and rounds to the nearest tenth. And then the scale converts from kilograms to pounds and rounds that to the nearest two-tenths. My guess is that the double rounding causes some values to never appear. I just started using a new scale in 2022 that reports to the nearest tenth of a pound.
+Out of curiosity I sometimes weigh myself at other times during the day, but I never record those weights as part of the data series.
+
+The first scale I used starting in 1996 was an analog scale and I recorded the weight to the nearest half a pound. In 2004 I switched to a digital scale that registered to the nearest two-tenths. You can see a change in the pattern of weights in 2004. Between 2015 and 2022 I used a scale that registered to the nearest two-tenths of a pound. But there were values that never appeared. They show as blank horizontal bands in the long-term plot. I never go to the bottom of what was causing this, but I suspect that the chip in the scale records in kilograms and rounds to the nearest tenth. And then the scale converts from kilograms to pounds and rounds that to the nearest two-tenths. My guess is that the double rounding causes some values to never appear. I just started using a new scale in 2022 that reports to the nearest tenth of a pound.
 
 When I get a new scale I use both for a while to try to estimate the difference in the scales. My newest scale ([Etekcity EB9380H](https://www.nytimes.com/wirecutter/reviews/the-best-bathroom-scales/)) seems to weigh about two or three tenths of a pound heavier than my previous scale.
 
@@ -64,7 +70,7 @@ I feel like I need to make an effort to learn a bit about how to analyze time se
 
 I haven't put a lot of time and thought into the smoothed trend line displayed in the charts above. I simply used the defaults for [geom_smooth](https://ggplot2.tidyverse.org/reference/geom_smooth.html), but I applied that to mean monthly weight, not to the weights for individual days.
 
-#### A Snippet of Code
+### A Snippet of Code
 
 Here's the ggplot2 code I used to make the plot. I'm putting this here mostly because it helps me sometimes to remind myself how I did things.
 

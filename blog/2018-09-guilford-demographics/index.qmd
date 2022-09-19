@@ -26,7 +26,7 @@ Most of these plots will display population pyramids. Population pyramids were i
 
 The first plot is a basic population breakdown for Guilford for two years from the 2000 and 2010 Census.
 
-![Guilford population 2000 and 2010](/post/2018-09-09-guilford-demographics_files/guilford_two_year.png)
+![Guilford population 2000 and 2010](img/guilford_two_year.png)
 
 Adults in the 20 to 34 age category are relatively scarce in Guilford. Comparing 2000 and 2010, one can see that the population of Guilford is getting older. In both years age 50-54 is the largest group. But one can see the distribution moving older. The 55-64 categories have gotten much bigger between 2000 and 2010 and the 30-39 categories have gotten smaller. One expects to see a continuation of this pattern when the 2020 census data becomes available.[^1]
 
@@ -46,7 +46,7 @@ The population structure in Guilford is much different than the nation-wide patt
 
 The second plot by percentage makes it easier to compare the demographic structure of the towns. One can see that Guilford is similar to Madison and to Woodbridge (and to a lesser extent North Haven) in terms of the thin band in the 20 to 40 age range. I assume this is related to housing costs for young families. Note the post-secondary student age bulges for New Haven, Hamden, and West Haven because of their college populations (Yale, Quinnipiac, and University of New Haven). Branford and Est Haven do not have colleges, but still look quite different from Guilford and Madison and Woodbridge.
 
-![population pyramid area towns](/post/2018-09-09-guilford-demographics_files/town_pyramids_pop.png) ![population pyramid area towns by percent](/post/2018-09-09-guilford-demographics_files/town_pyramids_pct.png)
+![population pyramid area towns](img/town_pyramids_pop.png) ![population pyramid area towns by percent](img/town_pyramids_pct.png)
 
 ### Age and Gender Demographics of Guilford Registered Voters
 
@@ -54,7 +54,7 @@ The initial trigger for all this was a data set of registered voters in Connecti
 
 Below is the population pyramid for registered voters alone. There are differences by party. For Democrats 65-69 is the largest age category. For Republicans and Unaffiliated it's 55-59. Women outnumber men throughout pyramid for the Democratic Party. For the Republicans, men consistently outnumber women except for 85 and older. Republicans look thin in the under 50 categories.
 
-![Guilford population pyramid by party](/post/2018-09-09-guilford-demographics_files/party_pyramid.png)
+![Guilford population pyramid by party](img/party_pyramid.png)
 
 ### Where Are the Voters?
 
@@ -62,7 +62,7 @@ Finally, I got a latitude and longitude for each address in the voter registrati
 
 The plot shows each party separately. With a dot plot such as this sometimes one can have too much data. Things get lost in a swarm of dots. To thin things out a bit I am showing only a 50% sample. To my eye I don't see much sign that voters are concentrated by party in different parts of Guilford. The summary of the party distribution by polling place is overlaid on the plot. The text labels are same on each plot. The location of the text corresponds roughly to the location of the polling place, with some adjustment to keep the summaries readable.
 
-![map of Guilford voters party](/post/2018-09-09-guilford-demographics_files/voters_by_party.png)
+![map of Guilford voters party](img/voters_by_party.png)
 
 ### Conclusion
 

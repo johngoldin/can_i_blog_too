@@ -28,7 +28,9 @@ The videos from the conference are now [online](https://resources.rstudio.com/rs
 
 My favorite talk of the conference was the [keynote by J. J. Allaire](https://resources.rstudio.com/rstudio-conf-2020/rstudio-open-source-software-for-data-science-j-j-allaire), the co-founder of RStudio. It was relevant for the world way beyond R and RStudio. Starting at about minute 25 he gets into issues about the motivation and incentives of for-profit corporations. He gets deeply into the issues. One does not expect to see a slide with the title "Dodge v. Ford Motors (1919)" at a computer conference. The subject that is addressing is relevant way beyond the computer industry. RStudio is a fascinating company and J.J.'s talk made it clear how much of the personality of the company comes directly from its founder.
 
-The other Wednesday morning keynote was also excelent. Fernanda Viegas and Martin Wattenberg of Google delivered a very polished and interesting talk on [Data, Visualization, and Designing with AI](https://resources.rstudio.com/rstudio-conf-2020/data-visualization-and-designing-ai-fernanda-viegas-and-martin-wattenberg). It got into the topic of issue of what "fair" and "biased" mean in the context of machine learning based decision algorithms.
+![Me at the hex wall](me_at_the_hex_wall.png){.column-margin fig-alt="me in front of the wall of package hex stickers"}
+
+The other Wednesday morning keynote was also excellent. Fernanda Viegas and Martin Wattenberg of Google delivered a very polished and interesting talk on [Data, Visualization, and Designing with AI](https://resources.rstudio.com/rstudio-conf-2020/data-visualization-and-designing-ai-fernanda-viegas-and-martin-wattenberg). It got into the topic of issue of what "fair" and "biased" mean in the context of machine learning based decision algorithms.
 
 Some other talks I enjoyed:
 
@@ -43,7 +45,3 @@ I always find talks by Jenny Bryan to be very rewarding. She's my go-to source f
 Because many sessions were presented in four parallel tracks, I want to go back and watch some of the sessions I missed such as [Making a tidy dress](https://resources.rstudio.com/rstudio-conf-2020/lightning-talk-dr-amelia-mcnamara) by Dr. Amelia McNamara.
 
 Of course there were lots of sessions and not all of them were great. But there was a lot of good content.
-
-```{r, echo = FALSE}
-blogdown::shortcode("figure", src = "me_at_the_hex_wall.png", alt = "A nice figure")
-```

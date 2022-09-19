@@ -6,17 +6,17 @@ slug: "am-walker-1"
 aliases:
     - /2017/03/am_walker_1/
 description: 'Tips on country walking in Britain from the point of view of an American.'
-# categories:
-#   - British Walking
+categories:
+  - British Walking
 # publishDate: '2017-03-07'
 date: '2017-03-07'
 # layout: single-series
 # format: 
 #   html:
 #     page-layout: full
-    # theme: cosmo
-    # css: styles.css
-    # toc: true
+# theme: cosmo
+# css: styles.css
+# toc: true
 image: feature_IMG_1789.png
 # image-height: "75"
 image-alt: 'A section of the South West Coast Path hugging a hill-side above the sea.'
@@ -24,8 +24,6 @@ part: Part 1
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
     toc: true
 ---
 
@@ -41,9 +39,30 @@ She has a lot to say on the topic of [hiking versus walking](https://separatedby
 
 For example, in the UK one has the hard-core [Long Distance Walkers Association](https://www.ldwa.org.uk/). Their idea of a good time starts with about 50 miles in a day. Or a more human-scaled example would be [The Walking Englishman](https://www.walkingenglishman.com/) web site, a great source of information. In these notes and tips I will try to use English terminology (based on my imperfect knowledge) and so will refer to "walking" rather than "hiking."
 
-Here's a British tweet that describes how this looks from the British point of view:Why Walking in Britain
+Here's a British tweet that describes how this looks from the British point of view:
 
-More than once while chatting with a local walker on the top of some barren fell\[\^1\] I have been asked why I have come all the way to England to do my walking. Surely there is plenty of opportunity back in the US. What about the Appalachian Trail? Good question. On a number of multi-mile trudges across boggy moorland I have had plenty of opportunity to think about it. \[\^1\]: A "fell" is a term primarily used in northern England or Scotland for a hill top. Often appears in place names such as Cross Fell. See also [fell running](https://en.wikipedia.org/wiki/Fell_running).
+<blockquote class="twitter-tweet">
+
+<p lang="en" dir="ltr">
+
+I'm always absolutely floored when I realise that the 'hike' North Americans are talking about was, in fact, a walk.
+
+</p>
+
+--- Nell Frizzell (@NellFrizzell) <a href="https://twitter.com/NellFrizzell/status/1390602863651573760?ref_src=twsrc%5Etfw">May 7, 2021</a>
+
+</blockquote>
+
+```{=html}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+<!--# tweet is 1390602863651573760 -->
+
+More than once while chatting with a local walker on the top of some barren fell[^1] I have been asked why I have come all the way to England to do my walking. Surely there is plenty of opportunity back in the US. What about the Appalachian Trail? Good question. On a number of multi-mile trudges across boggy moorland I have had plenty of opportunity to think about it. [^2]: A "fell" is a term primarily used in northern England or Scotland for a hill top. Often appears in place names such as Cross Fell. See also [fell running](https://en.wikipedia.org/wiki/Fell_running).
+
+[^1]: More language issues: they say "holiday" where we say "vacation."
+
+[^2]: More language issues: they say "holiday" where we say "vacation."
 
 ![Finger Post Points the Way](/img/finger_pointer.png){.column-margin alt="Finger Post Points the Way" fig-alt="A finger post sign pointing to trails in multiple directioins"}
 
@@ -77,9 +96,9 @@ The first trip I took on my own to England was planned as a car trip around Nort
 
 ### Tour Companies
 
-There are many companies that arrange walking holidays[^1]. More than 20 years ago, I used [Walkers' Britain](https://www.walkersbritain.co.uk/United-Kingdom) (formerly Sherpa Expeditions) for a self-guided tour on the West Highland Way. More recently I've used [Encounter Walking](https://encounterwalkingholidays.com) to do the [Two Moors Way](https://encounterwalkingholidays.com/two-moors-way-dartmoor-route-walk-map) in Devon. Encounter specializes in the Wales and the South West area of England. A "self-guided" tour means that the tour company will organize a route and accommodations, provide you with a map and directions, and can also arrange to transport your luggage. Guided tours mean that you walk with a group. I have done two group tours using REI, one in the US and one in Greece, but my walks in the UK have either been self-guided or else I've made all the arrangements myself. I can't claim to have any expertise about guided tours in the UK. Relying on a tour company to organize your walking holiday is a good way to get started. It's a definite possibility, and well worth your consideration. Just search "walking" and "tours" and "britain" or "England" or "Scotland" and you will find a lot of options.
+There are many companies that arrange walking holidays[^3]. More than 20 years ago, I used [Walkers' Britain](https://www.walkersbritain.co.uk/United-Kingdom) (formerly Sherpa Expeditions) for a self-guided tour on the West Highland Way. More recently I've used [Encounter Walking](https://encounterwalkingholidays.com) to do the [Two Moors Way](https://encounterwalkingholidays.com/two-moors-way-dartmoor-route-walk-map) in Devon. Encounter specializes in the Wales and the South West area of England. A "self-guided" tour means that the tour company will organize a route and accommodations, provide you with a map and directions, and can also arrange to transport your luggage. Guided tours mean that you walk with a group. I have done two group tours using REI, one in the US and one in Greece, but my walks in the UK have either been self-guided or else I've made all the arrangements myself. I can't claim to have any expertise about guided tours in the UK. Relying on a tour company to organize your walking holiday is a good way to get started. It's a definite possibility, and well worth your consideration. Just search "walking" and "tours" and "britain" or "England" or "Scotland" and you will find a lot of options.
 
-[^1]: More language issues: they say "holiday" where we say "vacation."
+[^3]: More language issues: they say "holiday" where we say "vacation."
 
 There are also walking holidays that are organized out of a particular inn. You stay there for a period of time and each day your hosts arrange transportation to and from a walk for that day. This is not something I have any experience with.
 

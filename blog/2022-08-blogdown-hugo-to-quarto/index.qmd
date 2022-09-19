@@ -1,6 +1,5 @@
 ---
 title: Notes on Converting from Blogdown/Hugo to Quarto
-author: John Goldin
 date: '2022-08-28'
 slug: blogdown-hugo-to-quarto
 subtitle: 'Fun With Quarto'
@@ -9,10 +8,10 @@ categories:
   - R
 tags:
   - R
-image: /img/UR_a_joke_small.png
+image: /img/UR_a_joke.png
 image-alt: 'A grotesque in Stirling Library showing a student looking at a book that says U R a joke'
 execute:
-  freeze: auto  # re-render only when source changes
+  freeze: true  # re-render only when source changes
   echo: false
 ---
 
@@ -56,7 +55,7 @@ In the quarto version when I use markdown syntax to insert the image, in the htm
 
 ## Customizing Your Blog
 
-[Albert Rapp](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html) has a lot of concrete information about setting up a Quarto blog, but also how to do some custumizations. He has some very specific suggestion on use the renv package to [preserve the package environment](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html#make-posts-robust-with-renv) for each blog post.
+[Albert Rapp](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html) has a lot of concrete information about setting up a Quarto blog, but also how to do some customization. He has some very specific suggestion on use the renv package to [preserve the package environment](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html#make-posts-robust-with-renv) for each blog post.
 
 ## Hugo "slug" Yaml
 
@@ -87,3 +86,7 @@ My overall impression of Quarto is very positive. It's surprising because so muc
 -   It's early days yet in the life of Quarto and I'm confident there will be a lot of helpful and useful extensions and templates. It's good enough for me as it is, but it's also going to get even better.
 
 -   I am able to use the full power of Quarto for my web site documents but also use the same techniques for other standalone documents. I don't have the confusion of multiple formats that complicated using RMarkdown.
+
+## What's the State of My Blog Now?
+
+For two years I was updating Connecticut COVID stats every weekday. At the end of June the Department of Public Health changed the format of some tables. I haven't kept up with those changes so my COVID updates have not been in good shape. Plus other things have been going on that make the format less useful. Home testing makes the case counts difficult to interpret. On my regular tabulations I wasn't even tracking vaccinations. And vaccinations have become more problematic to track. For about a year everyone was using the concept of "fully vaccinated" for the first two Moderna or Pfizer shots. Yesterday I received my third booster. Increasingly we will need to talk in terms of who is "up to date" on their COVID vaccinations rather than simply count how many shots they have received. The end result is that right now I'm not doing anything regularly on tracking Connecticut COVID.

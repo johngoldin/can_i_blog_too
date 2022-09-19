@@ -93,7 +93,7 @@ In general I don't feel like there's much potential for adverse consequences for
 
 I acknowledge that privacy of health and fitness tracking is a serious issue. But you shouldn't look to me for a lot of wisdom on that aspect of tracking. I've already made a choice and immersed myself in tracking. It works for me, but my situation would not apply to everybody.
 
-One practical issue is that if you extract the Apple Health Export you should pay attention to where the exported folder ends up. Once you have extracted the data from the Apple Health app, it becomes your responsibility rather than Apple's to limit whether anyone else has access it.
+One practical issue is that if you extract the Apple Health Export you should pay attention to where the exported folder ends up. Apple emphasizes end-to-end encryption of the health data. Once you have extracted the data from the Apple Health app you are no longer protected by Apple encryption, and it becomes your responsibility rather than Apple's to limit whether anyone else has access to it.
 
 ## Atrial Fibrillation and the Apple Watch
 

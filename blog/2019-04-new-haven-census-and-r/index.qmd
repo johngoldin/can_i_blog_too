@@ -54,7 +54,7 @@ As an example, here is the table shell for Table C17010 (which is a collapsed ve
 POVERTY STATUS IN THE PAST 12 MONTHS OF FAMILIES BY FAMILY TYPE BY PRESENCE OF RELATED CHILDREN UNDER 18 YEARS
 
 | Line# | Variable   | Description                                                   |
-|---------------|---------------|-------------------------------------------|
+|-------|------------|---------------------------------------------------------------|
 | 1     | C17010_001 | Total:                                                        |
 | 2     | C17010_002 | Income in the past 12 months below poverty level:             |
 | 3     | C17010_003 |   Married-couple family:                                      |
