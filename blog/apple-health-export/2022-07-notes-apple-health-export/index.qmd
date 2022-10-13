@@ -20,10 +20,11 @@ description: Background information related to the Apple Health Export, the topi
 part: 4
 ---
 
-The [video for the talk](https://www.rstudio.com/conference/2022/talks/introduction-to-apple-health-export/) at RStudio::Conf2022 is available at the RStudio website, and I've also inserted a playable version on this page. 
-There was a problem with the microphone at the start of the talk so the first couple of minutes are missing, but I'm probably the only one who will notice.
+The [video for the talk](https://www.rstudio.com/conference/2022/talks/introduction-to-apple-health-export/) at RStudio::Conf2022 is available at the RStudio website, and I've also inserted a playable version on this page. There was a problem with the microphone at the start of the talk so the first couple of minutes are missing, but I'm probably the only one who will notice.
 
-<p><a href="https://www.rstudio.com/conference/2022/talks/introduction-to-apple-health-export/?wvideo=1tgmwow0u9"><img src="https://embed-ssl.wistia.com/deliveries/6ba405cd0c47a78dee338f3cc6042b6fabf1cfef.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=4287c7e0" width="400" height="225" style="width: 400px; height: 225px;"></a></p><p><a href="https://www.rstudio.com/conference/2022/talks/introduction-to-apple-health-export/?wvideo=1tgmwow0u9">rstudio::conf 2022 Talks - An Introduction to the Apple Health Exports - RStudio</a></p>
+<p><a href="https://www.rstudio.com/conference/2022/talks/introduction-to-apple-health-export/?wvideo=1tgmwow0u9"><img src="https://embed-ssl.wistia.com/deliveries/6ba405cd0c47a78dee338f3cc6042b6fabf1cfef.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=4287c7e0" width="400" height="225" style="width: 400px; height: 225px;"/></a></p>
+
+<p><a href="https://www.rstudio.com/conference/2022/talks/introduction-to-apple-health-export/?wvideo=1tgmwow0u9">rstudio::conf 2022 Talks - An Introduction to the Apple Health Exports - RStudio</a></p>
 
 During the last several years I have been accumulating various notes while I explore the Apple Health Export. This post will be a series of disconnected comments. I'll be adding to it during the weeks before and after my talk at RConf2022.
 
@@ -33,17 +34,13 @@ Here are the [slides](RConf2022_health_export_slides.html) for my talk, done as 
 
 To learn how to get the Apple Health Export and load it into R, see my [first post](https://www.johngoldin.com/blog/2020-02-apple-health-export-1/) in this series. Or see this more succinct and to the point [version from a well-known R blogger](https://rud.is/b/2021/02/14/extracting-heart-rate-data-from-apple-health-xml-export-files-using-r-a-k-a-the-least-romantic-valentines-day-r-post/).
 
-This is post is not a coherent essay about the Apple Health Export. It's just a series of unrelated thoughts that have some connection to the topic
-of my conference talk.
+This is post is not a coherent essay about the Apple Health Export. It's just a series of unrelated thoughts that have some connection to the topic of my conference talk.
 
 ### Some Observations Following the RConf Talk
 
-Although my talk may give the impression that I spend my time hanging out in emergency rooms, I'm basically a healthy guy. I had a short episode of Afib in 2020, but it has repeated since then so for now it's not a concern.
+[When I first wrote this post I left out the key word *not* from what was meant to be a reassuring paragraph, reversing the intended meaning. I'm healthy!]{.aside} Although my talk may give the impression that I spend my time hanging out in emergency rooms, I'm basically a healthy guy. I had a very short episode of Afib in 2020, but it has *not* repeated since then so for now it's not a concern. 
 
-The talk basically came off the way I hoped it would. I was nervous
-about watching the actual video. Now I enjoy watching it primarily because
-it shows I'm having a good time. Watching myself have a good
-time makes me feel good.
+The talk basically came off the way I hoped it would. I was nervous about watching the actual video. Now I enjoy watching it primarily because it shows I'm having a good time. Watching myself have a good time makes me feel good.
 
 #### Speaker Training
 
