@@ -1,0 +1,62 @@
+---
+title: "iOS 16 Breaks Apple Health Export"
+editor: visual
+author: John Goldin
+date: '2022-10-20'
+image: "/images/feature-watch-heart-chart.jpeg"
+part: 5
+slug: ios-16-problem
+categories:
+  - Apple-Health-Export
+tags:
+  - Apple-Health-Export
+description: |
+  Version 16 of iOS breaks the Apple Health Export. The export no longer
+  produces a valid XML file. That's the case at least through
+  version 16.0.3. This post describes a work-around provided by
+  user etresoft on the Apple Support forum that repairs the
+  exported XML file so that it can be imported.
+layout: single
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    fig-cap-location: top
+execute: 
+  echo: false
+---
+
+After I upgraded to iOS 16 on my iPhone, I discovered I was no longer able to import the Apple Health Export.
+
+Using the [code](https://www.johngoldin.com/blog/apple-health-export/2020-02-apple-health-export1/index.en.html) that's the basis for all my Apple export posts, I got the following error:
+
+    read_xml.character("~/Downloads/apple_health_export/export.xml") :  
+    ATTLIST: no name for Attribute [68]
+
+I posted this on the Apple support forum (at [this thread](https://discussions.apple.com/thread/254202523?page=1)) and got an amazingly fast response from user `etresoft`. Within days that individual had confirmed the problem, diagnosed what was wrong with the XML, and then quickly followed up with very specific instructions on how to repair the XML in `export.xml`. It's an amazing example of community support, and I really appreciate it.
+
+The [etresoft fix](https://discussions.apple.com/thread/254202523?answerId=254202523021#254202523021) is viewable at the support thread referred to above, but I'm going to reproduce it here so that anybody who tries to follow my posts will be able to find it easily.
+
+There are three steps to the fix.
+
+First, you need to download the patch file that `etresoft` created. It's a text file and it's available [here](patch.txt). Save this txt file so that is in the same folder as `export.xml` and has the name `patch.txt`.
+
+Second, in RStudio run terminal. Do a `cd` so that you are pointing to the directory that contains `export.xml`. In terminal, run
+
+    patch < patch.txt
+
+This should give you the following result:
+
+    patching file export.xml
+    Hunk #6 succeeded at 206 with fuzz 2.
+
+Third, there's another part of the fix which etresoft has put in a [follow-on post](https://discussions.apple.com/thread/254202523?answerId=257895667022#257895667022). You need to do one last step in terminal:
+
+    sed 's/startDate/endDate/2' export.xml > export-fixed.xml
+
+Here I'm just giving you the bare minimum you need to run the fix. For a description of what is going on with this fix, see `etresoft`'s posts.
+
+I've now used this fix a couple of times without problem, most recently with version 16.0.3 of iOS. I'm not optimistic that Apple is going to fix this problem any time soon. I've attempted to file a bug report with Apple.
+
+Let me offer a big Thank You to etresoft. Given how much work I've put into using the Apple Health Export I would have been very disappointed if had to wait indefinitely for Apple to get around to a fix.
