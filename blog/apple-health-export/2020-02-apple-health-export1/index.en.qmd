@@ -55,6 +55,12 @@ The R code below shows how to decompress `export.zip` and follow some basic step
 
 The R code uncompresses the zip file and replaces the `apple_health_export` folder. (Because of the size of this folder, I try to avoid having multiple copies and also avoid having it saved to my disk backup.) The big file inside that folder is `export.xml`. Following the examples cited above, I use the XML package to covert the major elements of the XML file into tidy data frames.
 
+::: callout-warning
+## As of iOS 16.0 (at least through 16.0.3), the export file is not readable.
+
+See a [later post](https://www.johngoldin.com/blog/apple-health-export/2022-10-iOS16-breaks-export/) for some explanation of the problem and a tip that may help you to fix the export file so you can load it into R.
+:::
+
 ```{r load_libraries, message = FALSE, warnings = FALSE, echo = FALSE}
 library(tidyverse, quietly = TRUE)
 #library(jsonlite, quietly = TRUE)

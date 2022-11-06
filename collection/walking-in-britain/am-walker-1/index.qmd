@@ -58,11 +58,9 @@ I'm always absolutely floored when I realise that the 'hike' North Americans are
 ```
 <!--# tweet is 1390602863651573760 -->
 
-More than once while chatting with a local walker on the top of some barren fell[^1] I have been asked why I have come all the way to England to do my walking. Surely there is plenty of opportunity back in the US. What about the Appalachian Trail? Good question. On a number of multi-mile trudges across boggy moorland I have had plenty of opportunity to think about it. [^2]: A "fell" is a term primarily used in northern England or Scotland for a hill top. Often appears in place names such as Cross Fell. See also [fell running](https://en.wikipedia.org/wiki/Fell_running).
+More than once while chatting with a local walker on the top of some barren fell^[A "fell" is a term primarily used in northern England or Scotland for a hill top. Often appears in place names such as Cross Fell. See also [fell running](https://en.wikipedia.org/wiki/Fell_running).] I have been asked why I have come all the way to England to do my walking. Surely there is plenty of opportunity back in the US. What about the Appalachian Trail? Good question. On a number of multi-mile trudges across boggy moorland I have had plenty of opportunity to think about it. 
 
-[^1]: More language issues: they say "holiday" where we say "vacation."
 
-[^2]: More language issues: they say "holiday" where we say "vacation."
 
 ![Finger Post Points the Way](/img/finger_pointer.png){.column-margin alt="Finger Post Points the Way" fig-alt="A finger post sign pointing to trails in multiple directioins"}
 
