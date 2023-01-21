@@ -4,6 +4,7 @@ listing:
   - id: posts
     # contents: blog/*/*.*md
     contents: blog
+    feed: true
     type: default
     fields: [image, date, title, subtitle,description, title, categories]  
     sort: "date dsc"
@@ -36,7 +37,6 @@ listing:
 #     max-items: 18
 #     page-size: 1
 page-layout: full
-feed: true
 title-block-banner: images/law_school_long1.png
 image-height: "400px"
 comments: false

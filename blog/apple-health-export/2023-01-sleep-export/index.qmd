@@ -1,0 +1,28 @@
+---
+title: "Sleep Data in the Health Export"
+editor: visual
+author: John Goldin
+date: '2023-01-27'
+draft: true
+modified: '2023-01-27'
+image: "/images/feature-watch-heart-chart.jpeg"
+part: 6
+slug: sleep-export
+categories:
+  - Apple-Health-Export
+tags:
+  - Apple-Health-Export
+description: |
+  Where to find and process sleep data in the Health Export.
+layout: single
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    fig-cap-location: top
+execute: 
+  echo: false
+---
+
+The blog text will come here.

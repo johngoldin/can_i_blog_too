@@ -34,7 +34,9 @@ website:
         aria-label: John Goldin Twitter
       - icon: mastodon
         href: https://mastodon.social/@johngoldin
-        aria-label: John Goldin mastodon
+        aria-label: <a rel="me" href="https://mastodon.social/@johngoldin">Mastodon</a>
+      - icon: rss
+        href: index.xml
       - text: Flickr
         href: https://www.flickr.com/people/99418994@N00/
         aria-label: John Goldin photos on Flickr
