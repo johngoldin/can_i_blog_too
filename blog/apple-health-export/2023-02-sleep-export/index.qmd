@@ -1,0 +1,256 @@
+---
+title: "Sleep Data in the Apple Health Export"
+editor: visual
+author: John Goldin
+date: '2023-02-11'
+modified: '2023-02-11'
+image: "nightmare-plot.png"
+part: 6
+slug: sleep-export
+categories:
+  - Apple-Health-Export Quantified-Self
+tags:
+  - Apple-Health-Export Quantified-Self
+description: |
+  Where to find sleep data in the Apple Health Export and some examples of how to display the data.
+layout: single
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    fig-cap-location: top
+execute: 
+  echo: false
+---
+
+## Where is My Sleep Data?
+
+In September 2022 Apple released WatchOS 9 which included tracking sleep stages: REM, Core, Deep, Awake. Previously it just tracked whether you were asleep. I wanted to check on this data in the Health Export. This coincided with the period during which the Export [stopped working](https://www.johngoldin.com/blog/apple-health-export/2022-10-ios16-breaks-export/), but once I was able to import it into R again, I was surprised that I didn't see the sleep stages. The Export is a gigantic JSON file. My JSON skills are non-existent, and I generally have no success trying to look at the exported XML file directly.
+
+I was puzzled at not seeing the sleep data because my experience has been that the Export includes everything described in the [HealthKit documentation](https://developer.apple.com/documentation/healthkit)[^1].
+
+[^1]: One exception seems to be the field [appleMoveTime](https://developer.apple.com/documentation/healthkit/hkactivitysummary/3197591-applemovetime) which the documentation defines as "The amount of time the user spent performing activities that involve full-body movements during the specified day." I see exercise time and stand time in the Health Export, but I don't see move time. I wonder whether it has been changed over time. In the Apple description of move ring it says: "Close your Move ring by hitting your personal goal of active calories burned." That implies it's just the count of calories. It's not a count of minutes as is the case for the exercise ring. Perhaps earlier there was a move time that was used for the ring in the same way as exercise time. I don't know, but that's not the way it works today. So one would use Active Calories Burned today rather than Move Time.
+
+It turns out that the detailed sleep data is in fact included the Export, and I just discovered why I was losing track of it. A friend asked me about a way he could export some detailed data so I took a look at the [Health Auto Export app](https://apps.apple.com/us/app/health-auto-export-json-csv/id1115567069)[^2]. It's not helpful for the kind of complete export that I'm interested in, but it did give me the opportunity to get all the detail for a single day. And there was the sleep data! I went back to my setup code and realized my problem.
+
+[^2]: I browsed the app store to look for some other exporters. [Health Export CSV](https://apps.apple.com/us/app/health-export-csv/id1477944755) is \$2.99 and has good ratings. From the screenshots I didn't get a clear sense of how one selects what to export. The [Health Kit Parser](https://apps.apple.com/us/app/healthkit-parser/id1624649996?mt=12) for \$12.99 is a MacOS app. Based on the screenshots it looks straightforward to select what to choose select what to extract based on date and the data types. You first have to export the data from you the Heath app on the iPhone and then transfer it to MacOS, which is easy to do with AirDrop.
+
+Here are the wonky details: When I import the Export, I use `XML:::xmlAttrsToDataFrame` to covert it into a data frame, and the very next thing I did was use `as.numeric` to convert the Value column into a numeric. That's where I lost track of the sleep data. In the Export, the `Value` data is almost always in the form of a number. (That's true for almost 99% of the rows.) But for the sleep data, and a small number of other items, `Value` contains an alpha code rather then a numeric value. Sleep rows look like this:
+
+```{r libraries, echo=FALSE}
+packages <-  c("tidyverse", "knitr", "lubridate", "kableExtra", "janitor", "hms", "kableExtra", "patchwork")
+my_lib <- function(x) {
+  suppressPackageStartupMessages(library(x, character.only = TRUE))
+}
+invisible(lapply(packages, my_lib))
+tabyl2 <- function(...) tabyl(..., show_missing_levels = FALSE)
+example_data <-  "example_data/"
+health_export_functions <- "~/Dropbox/Programming/R_Stuff/john_vitals/R/"
+
+```
+
+```{r create-general-sleep-data, cache = FALSE, echo = FALSE, eval = FALSE}
+# use this chunk to save the data I'll need.
+path_saved_export <- "~/Dropbox/Programming/R_Stuff/john_vitals/Apple-Health-Data/"
+path_to_healthexport1 <- "~/Documents/R_local_repos/applehealth1/R/"
+if (!exists("health_df")) load(paste0(path_saved_export,"save_processed_export.RData"))
+data_for_sleep <- health_df |> 
+  filter(local_date > ymd("2022-09-17"),
+         sourceName == "Watch", !is.na(night_date),
+         (str_detect(cat_type, "^Sleep") |
+            type %in% c("HeartRate", "RespiratoryRate", "OxygenSaturation", "HeartRateVariabilitySDNN")))
+save(data_for_sleep, file = paste0(path_saved_export, "data_for_sleep.RData"))
+```
+
+```{r load-data-for-sleep, cache = TRUE}
+path_saved_export <- "~/Dropbox/Programming/R_Stuff/john_vitals/Apple-Health-Data/"
+load(paste0(path_saved_export, "data_for_sleep.RData"))
+```
+
+```{r create_test_data_sleep_and_heart, eval = FALSE, echo = FALSE}
+path_saved_export <- "~/Dropbox/Programming/R_Stuff/john_vitals/Apple-Health-Data/"
+path_to_healthexport1 <- "~/Documents/R_local_repos/applehealth1/R/"
+if (!exists("health_df")) load(paste0(path_saved_export,"save_processed_export.RData"))
+selected_date <- ymd("2022-10-21")
+the_day <- health_df |> 
+  filter(local_date %in% c(selected_date, selected_date + 1))
+the_night <- the_day |> 
+  filter((local_date == selected_date) & (start_time > hms::as_hms("21:30:00")) |
+           (local_date == (selected_date + 1) & (start_time < hms::as_hms("08:00:00"))))
+# use Watch data only
+the_night <- the_night |> 
+  filter(str_detect(sourceName, "Watch"))
+for_hr <- the_night |> filter(type == "HeartRate")
+for_sleep <- the_night |> filter(str_detect(cat_type, "^Sleep"))
+resp_rate <- the_night |> filter(type == "RespiratoryRate")
+blood_oxy <- the_night |> filter(type == "OxygenSaturation")
+save(the_night, for_hr, for_sleep, resp_rate, blood_oxy,
+     file = paste0(path_saved_export, "night", selected_date, ".RData"))
+```
+
+```{r create_sleep_example, eval=FALSE, echo = FALSE}
+# I put this code here so I could remember how I created my example sleep data
+path_saved_export <- "~/Dropbox/Programming/R_Stuff/john_vitals/Apple-Health-Data/"
+path_to_healthexport1 <- "~/Documents/R_local_repos/applehealth1/R/"
+# if (!exists("health_df")) load(paste0(path_saved_export,"save_processed_export.RData"))
+# 
+# sleep_example <- health_df |> 
+#   filter(str_detect(type, "Sleep"), 
+#          (local_start >= as_datetime("2023-01-10 22:00:00")) |
+#             (local_start <= as_datetime("2023-01-11 09:00:00")),
+#          sourceName == "Watch") |> 
+#   select(local_start, local_end, type, value, sourceName)
+
+#  health_with_device is created as a side effect of running import_health_export.R
+sleep_example <- health_with_device |> 
+  filter(startDate >= "2023-01-10 22:00:00", 
+         startDate <= "2023-01-11 09:00:00") |> 
+  mutate(type = type2, value = value2) |> 
+  filter(str_detect(type, "Sleep"), str_detect(sourceName, "Watch")) |> 
+  select(type, startDate, endDate, value) |> 
+  arrange(startDate, endDate) |> 
+  mutate(startDate = str_replace(startDate, " -0\\d00", ""),
+         endDate = str_replace(endDate, " -0\\d00", ""))
+save(file = paste0(example_data, "sleep_example.RData", sleep_example)
+```
+
+```{r load_sleep_example, cache = TRUE, echo = FALSE}
+load(paste0(example_data, "sleep_example.RData"))
+```
+
+```{r knit-example, echo = FALSE }
+#| label: tbl-display_sleep_example
+#| tbl-cap: Sleep Data in the Health Export
+knitr::kable(sleep_example |> select(-type)) |> 
+  kableExtra::kable_styling(full_width = TRUE)|> 
+  kableExtra::scroll_box(width = NULL, height = "250px", box_css = "padding=1px") 
+
+```
+
+Each of these rows has a `type` of `HKCategoryTypeIdentifierSleepAnalysis`. The simplest way for me to handle this alphanumeric data in the `value` field is to move it to the `type` field because that fits with the way I'm analyzing other items. That way I can continue to assume that `Value` is numeric and analyze it that way.
+
+To move the alpha values to `type` replace `HKCategoryValueSleepAnalysisAsleepREM` with `HKCategoryTypeIdentifierSleepAnalysisREM`, for example. Later in the input setup I strip out `HKCategoryTypeIdentifier` so that leaves me with `SleepAnalysisREM` in the type field. Other sleep related types are `SleepAnalysisAwake`, `SleepAnalysisCore`, and `SleepAnalysisDeep`.
+
+Here's a fragment from my code that imports the Health Export that shows how I repair the alpha items in the value data:
+
+```{r}
+#| label: sample-code
+#| eval: false
+#| echo: true
+
+# if non-numeric value, move the info to type
+mutate(
+  type = case_when(
+    is.na(value) ~ type,
+    !str_detect(value, "^HK") ~ type,
+    TRUE ~ str_replace(value, "HKCategoryValue", "HKCategoryTypeIdentifier")
+  ),
+  value = ifelse(is.na(str_extract(value, "^HKCategory")),
+                 as.numeric(value), NA_real_)),
+  type = str_replace(type, "HKCategoryTypeIdentifier", "")
+```
+
+### Other Items With Alpha Rather Than Numeric Data in the Value Field
+
+In addition to the sleep data, I find alpha data in the `value` field in a few other cases:
+
+      EnvironmentalAudioExposureEventMomentaryLimit (only 14 rows)
+      AppleStandHourStood (28,187 rows)
+      AppleStandHourIdle (17,365)
+
+I haven't tried to examine the StandHour in detail. In the [Apple HealthKit documentation](https://developer.apple.com/documentation/healthkit/hkcategoryvalueapplestandhour) it provides the following explanation:
+
+>     case stood      
+>     The user stood up and moved for at least one continuous minute during the sample.     
+>     case idle      
+>     The user didn't stand up and move for at least one continuous minute during the sample.
+
+When I look at the line by line data for a single day I see at the beginning of every hour (when I am wearing the watch) a line for `AppleStandHour` with a value either of `Stood` or `Idle`, even when I'm asleep. Perhaps this is an easy way to see how much I'm wearing the Watch.
+
+Two types seem like they should be recorded in a way similar to `AppleStandHour`: `AppleExerciseTime` and `AppleStandTime`, but they both have a numeric value. Recent data for `AppleExerciseTime` have a row for each minute that the Watch judges was exercise and has 1 in the value field. `AppleStandTime` has a row every five minutes during which there was any standing and has a value from 1 to 5 to indicate the minutes of time standing.
+
+## Sleep Stages
+
+Now that I've located the sleep data in the Health Export, I can use it to do some basic plots.
+
+Here are my sleep stages during a single night with the heart rate included.
+
+```{r}
+#| label: sleep-plot-code
+#| echo: false
+#| message: false
+#| code-fold: true
+#| code-overflow: scroll
+#| code-summary: Code which creates plot
+#| file: "~/Dropbox/Programming/R_Stuff/john_vitals/R/plot_sleep_hr.R"
+source(paste0(health_export_functions, "plot_sleep_hr.R"), echo = TRUE, local = TRUE)
+```
+
+```{r}
+#| label: fig-sample-plot
+#| fig-cap: A Sample Night
+#| echo: false
+#| message: false
+#| fig-height: 2
+path_saved_export <- "~/Dropbox/Programming/R_Stuff/john_vitals/Apple-Health-Data/"
+path_to_healthexport1 <- "~/Documents/R_local_repos/applehealth1/R/"
+load(paste0(path_saved_export,"data_for_sleep.RData"))
+
+plot_sleep_hr("2023-01-10", points = "hr", 
+              show_title = TRUE, show_xlab = TRUE, hdf = data_for_sleep) |> 
+  print()
+```
+
+This is a fairly typical night with a narrow range of heart rate values. It's uncommon to see a Deep Sleep stage late in the night.
+
+Next let's look at a night in which there is more going on.
+
+```{r}
+#| label: fig-nightmare-plot
+#| fig-cap: A Nightmare
+#| echo: false
+#| message: false
+#| fig-height: 3
+plot_sleep_hr("2023-01-31", points = "hr", 
+              show_title = TRUE, show_xlab = TRUE, hdf = data_for_sleep) |> 
+  print()
+```
+
+On this night I had a nightmare that I actually remembered and noted down the next morning. I was being held captive by some sort of warlord. I knew that I was about to have my throat cut. Someone laid a hand on me...and I woke up. I felt my pulse racing (in the 90's according to the plot). I deliberately stayed awake because sometimes when I go back to sleep right away after a dream the same dream continues. I didn't care to continue this one! It's interesting to clearly see the effect of the dream on my heart rate and how quickly the heart rate returned to a more normal level.
+
+I did a bit of exploration of what other data I might include in a sleep plot. Here's a version of the same plot which also includes data on respiration rate and heart rate variability. Only the heart rate seems interesting in this case. The elevated heart rate was quite brief. It shows only a brief period of REM sleep before I woke up after the nightmare.
+
+Is a heart rate of 90 high or low in this context? During the dream I felt fear, but I wouldn't say I was terrified. I didn't feel what I would probably feel if the situation were real. I was disturbed, but it did not feel like a natural situation. If I were really terrified I think my heart rate would go even higher. As nightmares go, this was fairly mild.
+
+```{r}
+#| label: fig-nightmare-plot-multi
+#| fig-cap: Showing Multiple Measurements During the Night
+#| echo: false
+#| message: false
+#| fig-height: 5
+full_sleep_plot("2023-01-31", hdf = data_for_sleep) |> 
+  print()
+```
+
+I created @fig-nightmare-plot-multi by using the [patchwork package](https://patchwork.data-imaginist.com/#patchwork-) to combine multiple ggplots. It works well and gives me a lot of control over the appearance of the overall plot. The resulting function only displays a single night.
+
+Another way to go is to use facet_wrap. I created a basic plot similar to the first one above. I created a function that would select a subset of nights and display them in a single plot using facet_wrap.
+
+As an example, @fig-facet_wrap-example shows a recent week in January, 2023:
+
+```{r}
+#| label: fig-facet_wrap-example
+#| fig-cap: Showing Multiple Nights Using facet_wrap()
+#| echo: true
+#| code-fold: true
+#| fig-height: 7
+
+sleep_facet_plot(data_for_sleep |> filter(week(night_date) == 3)) |> 
+  print()
+
+```
+
+## Conclusion?
+
+I've found the sleep data in the Apple Health Export. Now what? For the time being I don't plant to try to do anything with this data. As you can see from @fig-facet_wrap-example, I don't have any trouble getting enough sleep. Perhaps if I read some more about sleep stages in the future I might like to go back to my own data. For example, in the Apple documentation I read that "deep sleep" tends to happen early in the night. My data seems to agree, although I haven't looked at it systematically. Perhaps it would be interesting to see what's different about nights where there's a large "deep sleep" block in the second half of the night. But for now I've satisfied the itch to at least be able to locate the sleep data in the Health Export.

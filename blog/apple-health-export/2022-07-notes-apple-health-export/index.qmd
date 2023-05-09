@@ -16,7 +16,7 @@ categories:
 tags:
   - Apple-Health-Export
 subtitle: Some items to supplement the talk at RStudio::Conf2022.
-description: Background information related to the Apple Health Export, the topic for my talk at rstudio:conf 2022.
+description: Background information related to the Apple Health Export, the topic for my talk at rstudio:conf 2022, and video of the talk.
 part: 4
 ---
 
@@ -32,7 +32,7 @@ The schedule for the 2022 RStudio conference is [here](https://www.rstudio.com/c
 
 Here are the [slides](RConf2022_health_export_slides.html) for my talk, done as a Quarto presentation.
 
-To learn how to get the Apple Health Export and load it into R, see my [first post](https://www.johngoldin.com/blog/2020-02-apple-health-export-1/) in this series. Or see this more succinct and to the point [version from a well-known R blogger](https://rud.is/b/2021/02/14/extracting-heart-rate-data-from-apple-health-xml-export-files-using-r-a-k-a-the-least-romantic-valentines-day-r-post/).
+To learn how to get the Apple Health Export and load it into R, see my [first post](https://www.johngoldin.com/blog/apple-health-export/2020-02-apple-health-export1/index.en.html) in this series. Or see this more succinct and to the point [version from a well-known R blogger](https://rud.is/b/2021/02/14/extracting-heart-rate-data-from-apple-health-xml-export-files-using-r-a-k-a-the-least-romantic-valentines-day-r-post/).
 
 This is post is not a coherent essay about the Apple Health Export. It's just a series of unrelated thoughts that have some connection to the topic of my conference talk.
 

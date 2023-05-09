@@ -12,7 +12,7 @@ categories:
 tags:
   - Apple-Health-Export
 description: |
-  Version 16.2 fixes a problem introduced with versioin 16.0 of the Apple Health Export. The export of version 16.0 and 16.1 did not
+  Version 16.2 fixes a problem introduced with version 16.0 of the Apple Health Export. The export of version 16.0 and 16.1 did not
   produce a valid XML file. This post describes a work-around provided by
   user etresoft on the Apple Support forum that repairs the
   exported XML file so that it can be imported. This is no longer needed as of version 16.2.

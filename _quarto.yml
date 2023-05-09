@@ -12,7 +12,11 @@ project:
 website:
   title: "Can I Blog Too?"
   site-url: "https://johngoldin.com/"
-  google-analytics: "UA-92008736-2"
+#  google-analytics: "UA-92008736-2"
+  google-analytics:
+    tracking-id: "G-3YW2GGXVXP"
+    # setup at https://analytics.google.com/analytics/web/#/a92008736p353328788/admin/streams/table/4618471525
+    # tracking-id: "UA-92008736-2"  is this the old id? stopped march 2023. new property id is 353328788
   navbar:
     left:
       - href: index.qmd
