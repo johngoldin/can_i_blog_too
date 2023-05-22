@@ -17,6 +17,7 @@ website:
     tracking-id: "G-3YW2GGXVXP"
     # setup at https://analytics.google.com/analytics/web/#/a92008736p353328788/admin/streams/table/4618471525
     # tracking-id: "UA-92008736-2"  is this the old id? stopped march 2023. new property id is 353328788
+  cookie-consent: true
   navbar:
     left:
       - href: index.qmd
@@ -45,7 +46,10 @@ website:
         href: https://www.flickr.com/people/99418994@N00/
         aria-label: John Goldin photos on Flickr
   favicon: favicon.png
-  twitter-card: true
+  twitter-card:
+    image: thumbnail_blog.png
+    card-style: summary_large_image
+    creator: "@johngoldin"
   open-graph: true
 # possible themes: litera, lumen, spacelab
 format:

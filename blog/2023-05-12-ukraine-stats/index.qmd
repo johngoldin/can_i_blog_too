@@ -1,0 +1,178 @@
+---
+title: "Ukraine MOD Statistics on Russian Losses"
+editor: visual
+author: John Goldin
+date: '2023-05-12'
+
+image: "UA-MOD-casualty-image.jpeg"
+image-alt: "An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site"
+image-height: "100px"
+slug: ukraine-mod-stats
+categories:
+  - Ukraine
+tags:
+  - Ukraine
+description: |
+  Scraped stats from Ukraine Ministry of Defense on Russian losses.
+layout: single
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    fig-cap-location: top
+execute: 
+  echo: false
+---
+
+Each day the [Ministry of Defence of Ukraine](https://www.mil.gov.ua/en/news) publishes a summary of Russian combat losses since the beginning of the Russian invasion. Daily reports presented in a fairly constant format go back to April of 2022.
+
+This blog post will describing downloading that info from the web and provide a simple plot to track the losses. I'm sure many others have done something similar.
+
+```{r}
+packages <-  c("tidyverse", "knitr", "lubridate", "kableExtra", "janitor", "hms", "kableExtra", "patchwork")
+my_lib <- function(x) {
+  suppressPackageStartupMessages(library(x, character.only = TRUE))
+}
+invisible(lapply(packages, my_lib))
+tabyl2 <- function(...) tabyl(..., show_missing_levels = FALSE)
+ukraine_functions <- "~/Documents/R_local_repos/ukrainestats/"
+```
+
+```{r}
+#| label: load-data-for-ukraine-stats
+#| cache: false
+#| echo: false
+path_saved_data <- "~/Documents/R_local_repos/ukrainestats/"
+load(paste0(path_saved_data, "ukr_mod_df.RData"))
+up_through <- max(ukr_mod_df$date, na.rm = TRUE)
+source(paste0(path_saved_data, "R/ukraine_functions.R"))
+mod_image <- fetch_ukr_mod_text(today(), fetch_image_url = TRUE)
+# download.file(mod_image, destfile = "UA-MOD-casualty-image.jpg", method = "libcurl")
+curl::curl_download(mod_image, destfile = "UA-MOD-casualty-image.jpg", quiet = TRUE)
+# my stackoverflow post: https://stackoverflow.com/questions/71271210/r-markdown-cannot-open-url-when-using-download-file/76302352#76302352
+```
+
+The Ministry of Defence of Ukraine has been reporting a summary of Russian losses each day, including a graphic version like this:
+
+![Russian losses reported by Ukraine Ministry of Defence](UA-MOD-casualty-image.jpg){width="376"}
+
+This is the Ukraine side of the story. It always refers to "liquidated personnel," but there's some ambiguity about what that means.
+
+> The Ukrainians use the word "liquidated" to refer to the Russian losses. However, that word choice leaves the actual figure of killed and wounded up to interpretation. With "liquidated" Kyiv could mean "killed" or "killed and wounded." -- Stavros Atlamazoglou at the website [19fortyfive.com](https://www.19fortyfive.com/2023/03/220000-dead-or-wounded-putins-ukraine-war-destroyed-the-russian-military/)
+
+Presumably the personnel losses are an estimate. There are lots of factors that could affect
+how close these counts come to reality. Western intelligence sources sometimes report their
+own estimates of Russian losses. Those do not necessarily match these counts.
+
+```{r}
+#| label: ukraine-code
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-overflow: scroll
+#| code-line-numbers: true
+#| code-summary: R code which scrapes data from Ministry of Defense of Ukraine
+#| file: ~/Documents/R_local_repos/ukrainestats/R/ukraine_functions.R
+```
+
+```{r}
+#| label: milestones
+#| echo: false
+# create table of dates to show time sequence of the war. The
+# milestones dataframe is used to annotate the plots.
+milestones <- tibble(
+  date = c("2022-04-19","2022-05-08", "2022-05-13", "2022-05-20", 
+           "2022-10-01", "2022-07-03", "2022-08-29", "2022-09-06", 
+           "2022-11-11", "2022-09-21", "2022-04-04", "2023-03-22",
+           "2023-02-13") |> ymd(),
+  event = c("Russ attack in east","Siverskyi R fail", "UK counter Kharkiv", "Mariupol Fell",
+            "Lyman taken", "UK start Kherson offensive", "Lysychansk fell", "Kharkiv offensive", 
+            "UK enter Kharkiv", "Russia partial mobilization", "UK cleared west", "2nd Zelinsky visit to Bakhmut",
+            "Vuhledar offensive"),
+  short_event = c("Attack","Siverskyi", "Kharkiv", "Mariupol", 
+                  "Lymann", "Kherson", "Lysychansk", "Kharkiv", 
+                  "Kharkiv", "mobilized", "cleared west", "Bakhmut",
+                  "Vuhledar")
+) |> arrange(date)
+milestones$key_symbol <- letters[1:nrow(milestones)]
+milestones <- milestones |> relocate(key_symbol)
+milestones$category = "Personnel"
+```
+
+```{r}
+#| label: simple-plots
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-overflow: scroll
+#| code-line-numbers: true
+#| code-summary: R code which creates the summary plot
+
+# for_plot <- ukr_mod3 |> 
+#   pivot_longer(cols = c(Personnel, Tanks, APV, Artillery, MLRS,
+#                         Helicopters, Aircraft), 
+#                names_to = "category", values_to = "count") |> 
+#   mutate(category = factor(category, levels = c("Personnel", "Tanks", "APV",
+#                                                 "Artillery", "MLRS", 
+#                                                 "Helicopters", "Aircraft")))
+# 
+# p <- ggplot(data = for_plot, aes(x = date, y = count)) + 
+#   geom_smooth(colour = "darkgrey") +
+#   geom_point() + 
+#   facet_wrap(~ category, ncol = 1, scales = "free_y")
+
+#############################################################################
+#
+# Calculate average daily Russian losses by week. -> ukr_mod_weekly
+#
+#############################################################################
+
+ukr_mod_weekly <- ukr_mod_df  |> arrange(date) |> 
+  # isoweek of January 1 is 52, not 1
+  mutate(wk = if_else((isoweek(date) > 25) & (month(date) == 1),  year(date) - 1, year(date)) * 100 + isoweek(date)) |> 
+  group_by(wk) |> 
+  slice_tail(n = 1) |>  # as recommended by GPT
+  ungroup() |> 
+  mutate(gap = as.numeric(date - lag(date, default = ukr_mod_df$date[1] - 1)),
+         Personnel = (personnel - lag(personnel)) / gap,
+         Tanks = (tanks - lag(tanks)) / gap,
+         APV = (apv - lag(apv)) / gap,
+         Artillery = (artillery - lag(artillery)) / gap,
+         MLRS = (mlrs - lag(mlrs)) / gap,
+         Helicopters = (helicopters - lag(helicopters)) / gap,
+         Aircraft = (aircraft - lag(aircraft)) / gap)
+
+for_plot_wk <- ukr_mod_weekly |> 
+  pivot_longer(cols = c(Personnel, Tanks, APV, Artillery, MLRS,
+                        Helicopters, Aircraft), 
+               names_to = "category", values_to = "count")|> 
+  mutate(category = factor(category, levels = c("Personnel", "Tanks", "APV",
+                                                "Artillery", "MLRS", 
+                                                "Helicopters", "Aircraft")))
+milestones$category = factor(milestones$category, levels = levels(for_plot_wk$category))
+
+full_milestones <- tidyr::crossing(levels(milestones$category), milestones$date)
+pwk <- ggplot(data = for_plot_wk, aes(x = date, y = count)) + 
+  # ylim(0, NA) +
+  geom_vline(data = tidyr::expand(milestones, category, date), mapping = aes(xintercept = date), colour = "orange") +
+  geom_smooth(colour = "darkgrey", span = 0.15) +
+  geom_point() + 
+  geom_text(data = milestones, aes(label = key_symbol, y = Inf), colour = "orange", vjust = 1, hjust = 0) +
+  geom_text(data = milestones, aes(label = short_event, y = Inf), colour = "darkgrey", angle = 90, hjust = 1, vjust = 0) +
+  facet_wrap(~ category, ncol = 1, scales = "free_y") +
+  ggtitle("Ukranian MOD Reports of Average Daily Russian Losses") + 
+  xlab("") + ylab("Average Daily Losses") +
+  theme_minimal()
+```
+
+```{r}
+#| label: display-weekley-plot
+#| fig-cap: Weekly Russian Losses According to Ukraine Ministry of Defense
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 12
+#| fig-width: 8
+print(pwk)
+```

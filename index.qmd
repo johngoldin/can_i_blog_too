@@ -40,7 +40,7 @@ page-layout: full
 title-block-banner: images/law_school_long1.png
 image-height: "400px"
 comments: false
-include-in-header: meta.html  
+# include-in-header: meta.html  
 toc: false
 ---
 

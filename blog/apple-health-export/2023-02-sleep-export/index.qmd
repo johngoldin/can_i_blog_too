@@ -5,6 +5,7 @@ author: John Goldin
 date: '2023-02-11'
 modified: '2023-02-11'
 image: "nightmare-plot.png"
+image-alt: "a plot showing sleep stages by time of night along with heart rate, respiration rate, and heart rate variability"
 part: 6
 slug: sleep-export
 categories:
@@ -155,16 +156,20 @@ mutate(
 
 In addition to the sleep data, I find alpha data in the `value` field in a few other cases:
 
-      EnvironmentalAudioExposureEventMomentaryLimit (only 14 rows)
-      AppleStandHourStood (28,187 rows)
-      AppleStandHourIdle (17,365)
+```         
+  EnvironmentalAudioExposureEventMomentaryLimit (only 14 rows)
+  AppleStandHourStood (28,187 rows)
+  AppleStandHourIdle (17,365)
+```
 
 I haven't tried to examine the StandHour in detail. In the [Apple HealthKit documentation](https://developer.apple.com/documentation/healthkit/hkcategoryvalueapplestandhour) it provides the following explanation:
 
->     case stood      
->     The user stood up and moved for at least one continuous minute during the sample.     
->     case idle      
->     The user didn't stand up and move for at least one continuous minute during the sample.
+> ```         
+> case stood      
+> The user stood up and moved for at least one continuous minute during the sample.     
+> case idle      
+> The user didn't stand up and move for at least one continuous minute during the sample.
+> ```
 
 When I look at the line by line data for a single day I see at the beginning of every hour (when I am wearing the watch) a line for `AppleStandHour` with a value either of `Stood` or `Idle`, even when I'm asleep. Perhaps this is an easy way to see how much I'm wearing the Watch.
 
@@ -190,6 +195,7 @@ source(paste0(health_export_functions, "plot_sleep_hr.R"), echo = TRUE, local = 
 ```{r}
 #| label: fig-sample-plot
 #| fig-cap: A Sample Night
+#| fig-alt: "a plot showing sleep stages by time of night also showing heart rate"
 #| echo: false
 #| message: false
 #| fig-height: 2
@@ -209,6 +215,7 @@ Next let's look at a night in which there is more going on.
 ```{r}
 #| label: fig-nightmare-plot
 #| fig-cap: A Nightmare
+#| alt-text: "sleep stages by time of night. during an awake period there is an unusually high heart rate"
 #| echo: false
 #| message: false
 #| fig-height: 3
@@ -253,4 +260,4 @@ sleep_facet_plot(data_for_sleep |> filter(week(night_date) == 3)) |>
 
 ## Conclusion?
 
-I've found the sleep data in the Apple Health Export. Now what? For the time being I don't plant to try to do anything with this data. As you can see from @fig-facet_wrap-example, I don't have any trouble getting enough sleep. Perhaps if I read some more about sleep stages in the future I might like to go back to my own data. For example, in the Apple documentation I read that "deep sleep" tends to happen early in the night. My data seems to agree, although I haven't looked at it systematically. Perhaps it would be interesting to see what's different about nights where there's a large "deep sleep" block in the second half of the night. But for now I've satisfied the itch to at least be able to locate the sleep data in the Health Export.
+I've found the sleep data in the Apple Health Export. Now what? For the time being I don't plan to try to do anything with this data. As you can see from @fig-facet_wrap-example, I don't have any trouble getting enough sleep. Perhaps if I read some more about sleep stages in the future I might like to go back to my own data. For example, in the Apple documentation I read that "deep sleep" tends to happen early in the night. My data seems to agree, although I haven't looked at it systematically. Perhaps it would be interesting to see what's different about nights where there's a large "deep sleep" block in the second half of the night. But for now I've satisfied the itch to at least be able to locate the sleep data in the Health Export.
