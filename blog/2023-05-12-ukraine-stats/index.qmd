@@ -46,6 +46,7 @@ ukraine_functions <- "~/Documents/R_local_repos/ukrainestats/"
 path_saved_data <- "~/Documents/R_local_repos/ukrainestats/"
 load(paste0(path_saved_data, "ukr_mod_df.RData"))
 up_through <- max(ukr_mod_df$date, na.rm = TRUE)
+up_through_char <- as.character(up_through, "%B %d, %Y")
 source(paste0(path_saved_data, "R/ukraine_functions.R"))
 mod_image <- fetch_ukr_mod_text(today(), fetch_image_url = TRUE)
 # download.file(mod_image, destfile = "UA-MOD-casualty-image.jpg", method = "libcurl")
@@ -57,13 +58,13 @@ The Ministry of Defence of Ukraine has been reporting a summary of Russian losse
 
 ![Russian losses reported by Ukraine Ministry of Defence](UA-MOD-casualty-image.jpg){width="376"}
 
-This is the Ukraine side of the story. It always refers to "liquidated personnel," but there's some ambiguity about what that means.
+The plot below summarizes the data in the Ministry of Defence reports of Russian losses
+up through `r up_through_char`.
+It reports the average *daily* losses for each week. (Note that the last data point in the
+series may be based on a partial week.)
 
-> The Ukrainians use the word "liquidated" to refer to the Russian losses. However, that word choice leaves the actual figure of killed and wounded up to interpretation. With "liquidated" Kyiv could mean "killed" or "killed and wounded." -- Stavros Atlamazoglou at the website [19fortyfive.com](https://www.19fortyfive.com/2023/03/220000-dead-or-wounded-putins-ukraine-war-destroyed-the-russian-military/)
 
-Presumably the personnel losses are an estimate. There are lots of factors that could affect
-how close these counts come to reality. Western intelligence sources sometimes report their
-own estimates of Russian losses. Those do not necessarily match these counts.
+
 
 ```{r}
 #| label: ukraine-code
@@ -161,9 +162,11 @@ pwk <- ggplot(data = for_plot_wk, aes(x = date, y = count)) +
   geom_text(data = milestones, aes(label = key_symbol, y = Inf), colour = "orange", vjust = 1, hjust = 0) +
   geom_text(data = milestones, aes(label = short_event, y = Inf), colour = "darkgrey", angle = 90, hjust = 1, vjust = 0) +
   facet_wrap(~ category, ncol = 1, scales = "free_y") +
-  ggtitle("Ukranian MOD Reports of Average Daily Russian Losses") + 
+  ggtitle(paste0("Ukranian MOD Reports of Average Daily Russian Losses Thru ", up_through_char)) + 
   xlab("") + ylab("Average Daily Losses") +
   theme_minimal()
+
+# Noah Smkth tweet onincrease in artillery losses: https://twitter.com/Noahpinion/status/1660793977917046784
 ```
 
 ```{r}
@@ -176,3 +179,11 @@ pwk <- ggplot(data = for_plot_wk, aes(x = date, y = count)) +
 #| fig-width: 8
 print(pwk)
 ```
+
+This is the Ukraine side of the story. It always refers to "liquidated personnel," but there's some ambiguity about what that means.
+
+> The Ukrainians use the word "liquidated" to refer to the Russian losses. However, that word choice leaves the actual figure of killed and wounded up to interpretation. With "liquidated" Kyiv could mean "killed" or "killed and wounded." -- Stavros Atlamazoglou at the website [19fortyfive.com](https://www.19fortyfive.com/2023/03/220000-dead-or-wounded-putins-ukraine-war-destroyed-the-russian-military/)
+
+Presumably the personnel losses are an estimate. There are lots of factors that could affect
+how close these counts come to reality. Western intelligence sources sometimes report their
+own estimates of Russian losses. Those do not necessarily match these counts.
