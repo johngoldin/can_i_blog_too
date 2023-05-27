@@ -2,7 +2,7 @@
 title: "Ukraine MOD Statistics on Russian Losses"
 editor: visual
 author: John Goldin
-date: '2023-05-12'
+date: '2023-05-26'
 
 image: "UA-MOD-casualty-image.jpeg"
 image-alt: "An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site"
@@ -27,10 +27,11 @@ execute:
 
 Each day the [Ministry of Defence of Ukraine](https://www.mil.gov.ua/en/news) publishes a summary of Russian combat losses since the beginning of the Russian invasion. Daily reports presented in a fairly constant format go back to April of 2022.
 
-This blog post will describing downloading that info from the web and provide a simple plot to track the losses. I'm sure many others have done something similar.
+This blog post provides a simple plot to track the losses as reported by the MOD.
+I've used R to download those reports and summarize them. I'm sure many others have done something similar.
 
 ```{r}
-packages <-  c("tidyverse", "knitr", "lubridate", "kableExtra", "janitor", "hms", "kableExtra", "patchwork")
+packages <-  c("tidyverse", "knitr", "lubridate", "kableExtra", "janitor", "hms", "kableExtra", "patchwork", "gt")
 my_lib <- function(x) {
   suppressPackageStartupMessages(library(x, character.only = TRUE))
 }
@@ -40,7 +41,7 @@ ukraine_functions <- "~/Documents/R_local_repos/ukrainestats/"
 ```
 
 ```{r}
-#| label: load-data-for-ukraine-stats
+#| label: load-data-for-Ukraine-stats
 #| cache: false
 #| echo: false
 path_saved_data <- "~/Documents/R_local_repos/ukrainestats/"
@@ -87,9 +88,9 @@ milestones <- tibble(
            "2022-10-01", "2022-07-03", "2022-08-29", "2022-09-06", 
            "2022-11-11", "2022-09-21", "2022-04-04", "2023-03-22",
            "2023-02-13") |> ymd(),
-  event = c("Russ attack in east","Siverskyi R fail", "UK counter Kharkiv", "Mariupol Fell",
-            "Lyman taken", "UK start Kherson offensive", "Lysychansk fell", "Kharkiv offensive", 
-            "UK enter Kharkiv", "Russia partial mobilization", "UK cleared west", "2nd Zelinsky visit to Bakhmut",
+  event = c("Russian attack in east","Siverskyi Russian failure", "UKR counter-attack Kharkiv", "Mariupol Fell",
+            "Lyman taken", "UKR start Kherson offensive", "Lysychansk fell", "Kharkiv offensive", 
+            "UKR enter Kharkiv", "Russia partial mobilization", "UKR cleared west", "2nd Zelinsky visit to Bakhmut",
             "Vuhledar offensive"),
   short_event = c("Attack","Siverskyi", "Kharkiv", "Mariupol", 
                   "Lymann", "Kherson", "Lysychansk", "Kharkiv", 
@@ -180,10 +181,33 @@ pwk <- ggplot(data = for_plot_wk, aes(x = date, y = count)) +
 print(pwk)
 ```
 
-This is the Ukraine side of the story. It always refers to "liquidated personnel," but there's some ambiguity about what that means.
+This is only the Ukraine side of the story. 
+
+The report always refers to "liquidated personnel," but there's some ambiguity about what that means.
 
 > The Ukrainians use the word "liquidated" to refer to the Russian losses. However, that word choice leaves the actual figure of killed and wounded up to interpretation. With "liquidated" Kyiv could mean "killed" or "killed and wounded." -- Stavros Atlamazoglou at the website [19fortyfive.com](https://www.19fortyfive.com/2023/03/220000-dead-or-wounded-putins-ukraine-war-destroyed-the-russian-military/)
 
 Presumably the personnel losses are an estimate. There are lots of factors that could affect
 how close these counts come to reality. Western intelligence sources sometimes report their
 own estimates of Russian losses. Those do not necessarily match these counts.
+The plot may help to assess the change in the tempo of the war over time.
+
+The vertical red lines on the plot intended  to help relate the time line to
+some of the reported events during the war. 
+Each line is identified by a letter. The labels on the plot are 
+necessarily terse; the table below lists them with a bit fuller labels.
+
+```{r}
+#| label: display-milestones
+#| fig-cap: Selected Milestone Dates
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 12
+#| fig-width: 8
+milestones_table <-  milestones |> 
+  select(-category, Key = key_symbol, Date = date, Event = event, `Plot Label` = short_event) |> 
+  gt()
+milestones_table
+```
+
