@@ -45,6 +45,9 @@ website:
       - text: Flickr
         href: https://www.flickr.com/people/99418994@N00/
         aria-label: John Goldin photos on Flickr
+      - text: bluesky
+        href: https://bsky.app/profile/johngoldin.bsky.social
+        aria-label: John Goldin on Bluesky
   favicon: favicon.png
   twitter-card:
     image: thumbnail_blog.png

@@ -1,0 +1,34 @@
+---
+title: "Lady Anne's Way"
+editor: visual
+author: John Goldin
+date: '2023-09-11'
+draft: true
+image: "yew-tree-skipton-castle.png"
+image-alt: "The Yew Tree that Lady Anne planted when she renovated Skipton Castle"
+image-height: "100px"
+slug: lady-anne-way
+categories:
+  - British Walking
+tags:
+  - British Walking
+description: |
+  My experience walking Lady Anne's Way in North Yorkshire
+layout: single
+format:
+  html:
+    code-fold: false
+    code-summary: "Show the code"
+    toc: false
+    fig-cap-location: top
+execute: 
+  echo: false
+---
+
+## Lady Anne's Way
+
+Lady Anne's Way is a walking route starting in Skipton in North Yorkshire that moves through the Yorkshire Dales and then on into the Eden Valley of Cumbira and ending up in Penrith. Lady Anne was a colorful personality of the 1600's. Late in life she finally got control of her family estates in Yorkshire and Cumbria and pursued an energetic program of rebuilding and renovation. The walk is focused on the lovely terrain of the Yorkshire Dales, but routed so that it passes a number of the castles that she restored: Skipton, Pendragon, Appleby, Penrith, Brough. Today many are just ruins while Skipton and Appleby Castles are more intact.
+
+I first heard of this walk via @thewalkingenglishman1.
+
+[![](images/walking-englishman-tweet.png){fig-alt="Tweet from the Walking Englishman"}](https://twitter.com/WalkingEnglish1/status/1661251909221781506?s=20)

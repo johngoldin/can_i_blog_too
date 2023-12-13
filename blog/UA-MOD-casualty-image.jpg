@@ -1,0 +1,1096 @@
+
+<!DOCTYPE html >
+<html lang="uk">
+<head>
+<base href="https://www.mil.gov.ua/" />
+<title>Міністерство | Міноборони</title>
+<link rel="stylesheet" href="/nanoscroller.css">
+<link rel="stylesheet" href="/jquery.fancybox.css">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="/ui-style.css?16022017" media="screen">
+<link rel="stylesheet" href="/menu.css?11052016" media="screen">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="text/javascript" src="/jquery.min.js"></script>
+<script type="text/javascript" src="/jquery.fancybox.js"></script>
+<script type="text/javascript" src="/jquery.nanoscroller.min.js"></script>
+<script type="text/javascript" src="/scripts.js"></script>
+<script src="/jquery.royalslider.min.js"></script>
+<link href="/royalslider.css?11052016" rel="stylesheet">
+<link class="rs-file" href="/rs-default.css?12042015" rel="stylesheet">
+<script type="text/javascript" src="/accordion.js"></script>
+<meta name="theme-color" content="#f5fb00">
+<meta name="yandex-verification" content="7f3805e7612607b5" />
+<meta property="og:title" content="Міністерство" />
+<meta property="og:image" content="http://www.mil.gov.ua" />
+<meta property="og:site_name" content="Ministry of Defence of Ukraine" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@DefenceU">
+<meta name="twitter:title" content="Міністерство">
+<meta name="twitter:image" content="/assets/images/resources/1/49f0d2e3cfc28e79fec314c0a587ee8db0dfd5b6.jpg">
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8">
+<meta name="google-site-verification" content="uqQPSfJYxjDXa3hwn_GGP4xvH57Bi-_ocOieWNxwlDE" />
+<script type="text/javascript">
+	$(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".various").fancybox({
+		maxWidth	: 800,
+		maxHeight	: 600,
+		fitToView	: false,
+		width		: '70%',
+		height		: '70%',
+		autoSize	: false,
+		closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	// hide #back-top first
+	$("#back-top").hide();
+	// fade in #back-top
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+		// scroll body to 0px on click
+		$('#back-top a').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+	});
+});
+</script>
+
+<link rel="canonical" href="https://www.mil.gov.ua/" />
+<link rel="next" href="https://www.mil.gov.ua/?page=2" />
+</head>
+<body>
+<div id="main-wrapper">
+<div id="header">
+<div id="headerwr">
+<div id="logo">
+<a href="https://www.mil.gov.ua/" title="Міністерство оборони України"><img src="/img/modlogo.svg" style="width:113px; margin:13px;" alt="Міністерство оборони України" title="Міністерство оборони України"></a>
+</div>
+<span class="sitename"><img src="/img/headertext.png" alt="Міністерство оборони України" title="Міністерство оборони України"></span>
+<div id="social" aria-label="Соціальні мережі">
+<a href="kontakti/garyacha-liniya.html" target="_blank" title="Телефонні номери">
+<div style="position: absolute;bottom: -12px;color: #fff6f5;left: 12px;font-size: 12px;">0 800 50 04 42</div>
+<img src="img/socialicons/hotlines.png" alt="Телефонні номери" title="Телефонні номери">
+</a>
+<a href="https://twitter.com/defenceu/" target="_blank" title="Twitter"><img src="img/socialicons/twitter.png" alt="Логотип Twitter" title="Twitter"></a>
+<a href="https://www.youtube.com/user/ctrsTVua" target="_blank" title="Youtube"><img src="img/socialicons/youtube.png" alt="Логотип Youtube" title="Youtube"></a>
+<a href="https://www.facebook.com/MinistryofDefence.UA" target="_blank" title="Facebook"><img src="img/socialicons/facebook.png" alt="Логотип Facebook" title="Facebook"></a>
+<a href="https://www.flickr.com/photos/ministryofdefenceua/albums" target="_blank" title="Flickr"><img src="img/socialicons/flckr.png" alt="Логотип Flickr" title="Flickr"></a>
+<a href="https://t.me/ministry_of_defense_ua" target="_blank" title="Telegram"><img src="img/socialicons/telegram.png" alt="Логотип Telegram" title="Telegram"></a>
+<a href="https://www.instagram.com/ministry_of_defense_ua/" target="_blank" title="Instagramm"><img src="img/socialicons/instagram.png" alt="Логотип Instagramm" title="Instagramm"></a>
+<a href="https://www.mil.gov.ua/special/" target="_blank" title="Версія для людей з вадами зору"><img class="icon icons8-Visualy-Impaired" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADCElEQVRIiaWVW0gUURjH58EuDxJWLz302EPg7lklLEmIReo56EkiEEKiTGXOeEFEZEQoFjHFAiEfEokSJEQShX1QhJDcOTuul01jcNRV02XbHVsv42XXfw+yi87ueFk/OC8z5/v/zvluh+NOYUQqsxCJFhAXX0FcfAWRaAGRyiyn8TW1rDE+g0i8aGNUIYzCZM0Rt9CYNcZnnEmcSDxPGNWOETYujUg8f6KwfUhMs7mFT2cQPrrc9Gumtzg9qXimV7xoZUJrtrscBb/epQZgFIQJ7feU0itmYcETrwOR/SjKZztShlgZrTWIl1kIoxOxDQ5fz3khszaJ3j18etG4KQapnfsCcb4LP/5NQ9lawczmEobXvBDnu5A3VnNMPoRmjuM47g57cYFIdCTZJoevBwCg7W3AGfKgZakPTYu9cIY8COyGsbqjoUrtNINMZI7Qa7HwHPmZ7S5HX5BhICijabEXkf0oGha6UaK0o0rtRI5ciRy5Eg5fD8KRLQyveZErVydALBJv56yMPjWKO0MeLO8E0fvXBWfIg6bFXhy2wG44XmmPp95C1f2Q19UEiI3Rl5yN0fLDH/uCDKruh287gMKZVnz2DyeFSGEl7pM/XgdV92NQmzRWU30CYFCbhKr78fz3hxMhMZ9cuRqq7j8CjQOMIcobq4G8rkLV/ShR2k0hvu0ACKN4NFGP8Y15zGwuIX+8zpAH/lXSJOfK1ZDCCraje3CGPFjd0RIgkf0oPv5xQtvbwKA2aZ7kW/2llwijo8lKrWGhG+HIFgBgM7qNN75vUHV/vLoAJMT9UHi8t0dfXz9oNLfQaNYwDzy1eL/cDymsYHknCGVrBQNBGc+mW07q+LZ4J2fLgo0wOpXKWDCBqBaXcD/psDsPJNYbCcOO4zjOPideJoy2pQopnGmNJbrDOlF91eRNKE4njH5PFULcdMD0wTGESySM6mcQ162M1tqHxLQTxeO3cVXeIG6hmTAaOEY4QBhtIz9Lb55a2Gj2ITHNKtGHhPFFROLFg9vxRRaJt5/mxP8BdQOv3guClX4AAAAASUVORK5CYII=" width="24" height="24" alt="Версія для людей з вадами зору" title="Версія для людей з вадами зору"></a>
+</div>
+
+<div style="position: absolute;
+top: 90px;
+right: 0px; color:white;"><a href="https://www.mil.gov.ua/en/" style="color:white; border-bottom: 1px dotted #ffffff;">English</a></div>
+</div>
+</div>
+
+
+<div id="menu">
+<div id="navigation">
+<nav id="main-nav" class="clearfix">
+<ul id="main-nav" class="clearfix">
+<li id="nav-blog" class="first-level">
+<a href="#" class="first-level"><span>МІНІСТЕРСТВО</span></a>
+<div class="main-nav-dd-outer main-nav-dd-outer-three-col main-nav-dd-outer-featured main-nav-dd-outer-three-col-featured">
+<div class="main-nav-dd-inner clearfix">
+<ul class="three-col clearfix">
+<li>
+<a href="/news/">Новини</a>
+</li>
+<li>
+<a href="/ministry/kerivnicztvo/">Керівництво</a>
+</li>
+<li>
+<a href="/ministry/simvolika-ta-nagorodi/">Символіка та нагороди</a></li>
+<li>
+<a href="/ministry/istoriya.html">Історія</a>
+</li>
+<li>
+<a href="/ministry/ozbroennya-ta-texnika/">Озброєння та техніка</a>
+</li>
+
+</ul>
+<ul class="three-col clearfix">
+<li><a href="/ministry/normativno-pravova-baza/">Нормативно-правова база</a></li>
+<li><a href="/ministry/normativno-pravova-baza/regulyatorna-diyalnist/">Регуляторна діяльність</a>
+</li>
+</ul>
+<ul class="three-col clearfix">
+<li>
+<a href="/ministry/sklad-zbrojnix-sil-ukraini/">Склад Збройних Сил України</a>
+</li>
+<li>
+<a href="/ministry/struktura-aparatu-ministerstva/">Структура апарату Міністерства</a></li>
+<li>
+<a href="/ministry/struktura-generalnogo-shtabu/">Структура апарату Головнокомандувача та Генерального Штабу</a></li>
+</ul>
+</div>
+</div>
+
+</li>
+<li id="nav-media-center" class="first-level">
+<a class="first-level"><span>ДІЯЛЬНІСТЬ</span></a>
+<div class="main-nav-dd-outer main-nav-dd-outer-three-col main-nav-dd-outer-featured main-nav-dd-outer-three-col-featured">
+<div class="main-nav-dd-inner clearfix">
+<ul class="three-col clearfix">
+<li><a href="/diyalnist/mirotvorchist/">Участь ЗС України у міжнародних операціях</a></li>
+<li><a href="/diyalnist/reformi-ta-planuvannya-u-sferi-oboroni/">Реформи та планування у сфері оборони</a></li>
+<li><a href="/diyalnist/mizhnarodne-spivrobitnicztvo/">Міжнародне співробітництво</a></li>
+<li><a href="/diyalnist/kadrova-politika/">Кадрова політика</a></li>
+<li><a href="/diyalnist/vidchuzhennya-vijskovogo-majna/">Відчуження військового майна</a></li>
+<li><a href="diyalnist/orenda-neruhomogo-vijskovogo-majna.html">Оренда нерухомого майна</a></li>
+<li><a href="https://www.mil.gov.ua/diyalnist/protiminna-diyalnist/">Протимінна діяльність</a></li>
+<li><a href="content/oboron_plans/2017-06-16_National-program-2020_uk.pdf" style="color:#F9FF00;">Державна програма розвитку ЗС України до 2020 року</a></li>
+<li><a href="spisannya-obektiv-derzhavnoi-vlasnosti.html">Списання об'єктів державної власності</a></li>
+<li><a href="diyalnist/upravlinnya-regulyuvannya-diyalnosti-derzhavnoi-aviaczii/" style="color:#F9FF00;">Регулювання діяльності державної авіації України</a></li>
+<li><a href="/diyalnist/zakupivli-pmm">Закупівлі ПММ</a></li>
+<li><a href="diyalnist/sluzhba-vijskovogo-kapelanstva/">Служба військового капеланства</a></li>
+</ul>
+<ul class="three-col clearfix">
+<li><a href="/diyalnist/vijskova-mediczina/">Військова медицина</a></li>
+<li><a href="/diyalnist/vijskova-osvita-na-tauka/">Військова освіта та наука</a></li>
+<li><a href="/diyalnist/sport/">Фізична культура та спорт</a></li>
+<li><a href="/diyalnist/zvyazki-z-gromadskimi-ta-religijnimi-organizacziyami/">Зв'язки з громадськими та релігійними організаціями</a>
+
+</li>
+<li><a href="/diyalnist/soczialnij-zaxist-ta-adaptacziya-vijskovosluzhbovcziv/">Соціальний захист військовослужбовців та членів їхніх сімей</a></li>
+<li><a href="/diyalnist/soczialnij-zaxist-ta-adaptacziya-vijskovosluzhbovcziv/psihologichna-pidgotovka-u-zsu/">Психологічне забезпечення у ЗСУ</a></li>
+<li><a href="/diyalnist/soczialnij-zaxist-ta-adaptacziya-vijskovosluzhbovcziv/soczialnij-dialog/">Соціальний діалог</a></li>
+<li><a href="/diyalnist/derzhavna-sluzhba/">Державна служба</a></li>
+<li><a href="/diyalnist/lyustracziya-vladi/" style="color:#F9FF00;">Очищення влади</a></li>
+<li><a href="https://www.mil.gov.ua/diyalnist/uchast-ukraini-u-sistemi-kodifikaczii-nato.html">Участь України у системі кодифікації НАТО</a></li>
+<li><a href="/diyalnist/vijskova-standartizacziya">Військова стандартизація</a></li>
+<li><a href="/diyalnist/otrimannya-statusu-uchasnika-bojovih-dij">Отримання статусу учасника бойових дій</a></li>
+</ul>
+<ul class="three-col clearfix">
+<li><a href="/diyalnist/vijskovo-patriotichna-robota/">Військово-патріотичне виховання</a></li>
+<li><a href="/diyalnist/byudzhet-ta-vikonannya-czilovix-program/">Планування та виконання бюджету</a></li>
+<li><a href="/diyalnist/vnutrishnij-audit/">Внутрішній аудит</a></li>
+<li><a href="/diyalnist/vnutrishnij-kontrol.html">Внутрішній контроль</a></li>
+<li><a href="/diyalnist/zhitlo-dlya-vijskovosluzhbovcziv/">Житлові питання</a></li>
+<li><a href="/diyalnist/zakonotvorcha-diyalnist/">Законотворча діяльність</a></li>
+
+<li><a href="/diyalnist/nashi-konfereczii/">Наші конференції</a></li>
+<li><a href="https://www.mil.gov.ua/diyalnist/finances/">Фінансові питання</a></li>
+
+<li><a href="https://www.mil.gov.ua/diyalnist/vprovadzhennya-standartiv-ta-inshih-kerivnih-dokumentiv-nato.html">Запровадження стандартів та інших керівних документів НАТО</a></li>
+<li><a href="/diyalnist/normativno-tehnichna-dokumentacziya.html">Нормативно-технічна документація за напрямком речового та продовольчого забезпечення</a></li>
+</ul>
+<div id="nav-issues-feature" class="main-nav-feature">
+<div class="cp_tile ">
+<div id="block-nodeblock-43315" class="clear-block block block-nodeblock ">
+<div class="content">
+<p>
+БІЛА КНИГА 2021
+</p>
+<a href="content/files/whitebook/WhiteBook_2021_Draft_Final_03.pdf"><img src="content/files/whitebook/WhiteBook_2021.jpg" alt="БІЛА КНИГА 2021"></a>
+<p class="menu-feature-title">
+<a href="content/files/whitebook/WhiteBook_2021_Draft_Final_03.pdf">Завантажити (.pdf)</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+
+<li id="nav-issues" class="first-level">
+<a href="/dostup-do-publichnoi-informaczii.html" class="first-level"><span>ДОСТУП ДО ПУБЛІЧНОЇ ІНФОРМАЦІЇ</span></a>
+</li>
+<li id="nav-the-wh" style="width: 150px" class="first-level">
+<a class="first-level"><span>ЗАПОБІГАННЯ КОРУПЦІЇ</span></a>
+<div class="main-nav-dd-outer main-nav-dd-outer-two-col">
+<div class="main-nav-dd-inner clearfix">
+<ul class="two-col clearfix">
+<li><a href="/ne-bud-bajduzhim-–-povidom-pro-korupcziyu.html">Повідом про корупцію</a></li>
+<li><a href="/zapobigannya-proyavam-korupczii/antikorupczijna-programa.html">Антикорупційна програма</a></li>
+<li><a href="/zapobigannya-proyavam-korupczii/zviti/">Звіти</a></li>
+<li><a href="/zapobigannya-proyavam-korupczii/konflikt-interesiv/">Конфлікт інтересів</a></li>
+<li><a href="/zapobigannya-proyavam-korupczii/kontakti.html">Контакти</a></li>
+</ul>
+<ul class="two-col clearfix">
+<li><a href="/zapobigannya-proyavam-korupczii/deklaruvannya.html">Декларування</a></li>
+<li><a href="/content/coruption/Working_with_whistleblowers_during_martial_law.pdf">Викривачі корупції</a></li>
+<li><a href="/zapobigannya-proyavam-korupczii/normativno-pravovi-akti-informaczijni-ta-dovidkovi-materiali.html">Нормативно-правові акти, інформаційні та довідкові матеріали</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="nav-the-wh" style="width: 160px" class="first-level">
+<a class="first-level" href="https://turbota.mil.gov.ua/" target="_blank"><span>ВІЙСЬКОВОСЛУЖБОВЦЯМ</span></a>
+</li>
+
+<li id="nav-the-wh" class="first-level">
+<a class="first-level"><span>ГРОМАДЯНАМ</span></a>
+<div class="main-nav-dd-outer main-nav-dd-outer-two-col">
+<div class="main-nav-dd-inner clearfix">
+<ul class="two-col clearfix">
+<li>
+<a href="/kontakti/garyacha-liniya.html">Гаряча лінія Міноборони</a></li>
+<li>
+<a href="/zvernennya-gromadyan/prijom-gromadyan-kerivnim-skladom-zbrojnix-sil.html">Прийом громадян керівним складом</a></li>
+</ul>
+<ul class="two-col clearfix">
+<li>
+<a href="/zvernennya-gromadyan/pub-reports/">Звіти</a></li>
+<li>
+<a href="/zvernennya-gromadyan/forma-ta-poryadok-zvernennya-gromadyan/">Звернення громадян</a></li>
+</ul>
+</div>
+</div>
+</li>
+<li id="nav-the-wh" class="first-level">
+<a class="first-level"><span>МУЛЬТИМЕДІА</span></a>
+<div class="main-nav-dd-outer main-nav-dd-outer-three-col main-nav-dd-outer-featured main-nav-dd-outer-three-col-featured">
+<div class="main-nav-dd-inner clearfix">
+<div id="nav-the-wh-feature" class="main-nav-feature">
+<div class="cp_tile ">
+<div id="block-nodeblock-43321" class="clear-block block block-nodeblock ">
+<div class="content">
+</div>
+</div>
+</div>
+</div>
+<ul class="three-col clearfix">
+<li>
+<a href="/multimedia/vijskovi-zmi.html">Військові ЗМІ</a></li>
+
+</li>
+</ul>
+<ul class="three-col clearfix">
+
+</li>
+<li>
+<a href="/multimedia/panteon-geroiv/" style="color:#F9FF00;">Пантеон Героїв</a>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li id="nav-the-gov" class="first-level">
+<a class="first-level"><span>КОНТАКТИ</span></a>
+<div class="main-nav-dd-outer main-nav-dd-outer-two-col">
+<div class="main-nav-dd-inner clearfix">
+<ul class="two-col clearfix">
+<li>
+<a href="/kontakti/">Контакти</a></li>
+<li>
+<a href="/dlya-zmi/">Для ЗМІ</a></li>
+<li>
+<a href="/kontakti/oblasni-vijskomati.html">Територіальні центри комплектування та соціальної підтримки</a></li>
+<li>
+<a href="/kontakti/telefoni-doviri.html">Телефони довіри</a></li>
+
+
+</ul>
+<ul class="two-col clearfix">
+<li>
+<a href="kontakti/bezoplatna-pervinna-pravova-dopomoga.html">Безоплатна первинна правова допомога</a></li>
+<li>
+<a href="/zvernennya-gromadyan/galuzevij-derzhavnij-arxiv/">Галузевий державний архів</a></li>
+</ul>
+</div>
+</div>
+</li>
+
+</ul>
+<script>
+
+if(typeof(jQuery)!='undefined')jQuery.each($('#main-nav'),function(i,v){var o=$(v),oh=o.height(),sh=o.siblings().height();if(oh<sh)o.height(o.siblings().height());});
+		</script>
+</nav>
+</div>
+</div>
+<style>
+      #video-gallery {
+  width: 100%;
+}
+
+.videoGallery .rsTmb {
+  padding: 5px;
+}
+.videoGallery .rsThumbs .rsThumb {
+  width: 320px;
+  height: 80px;
+  border-bottom: 1px solid #2E2E2E;
+}
+.videoGallery .rsThumbs {
+  width: 320px;
+  padding: 0;
+}
+.videoGallery .rsThumb:hover {
+  background: #256AA0;
+}
+.videoGallery .rsThumb.rsNavSelected {
+  background-color: #256AA0;
+  border-bottom:-color #256AA0;
+}
+.infoBlock {
+    position: absolute;
+    right: 30px;
+    left: auto;
+    height:216px;
+    overflow: hidden;
+    
+    bottom: 0px;
+    height: 100px;
+    top: auto;
+    width: 100%;
+}
+.infoBlock div {
+    padding: 0 20px 0 20px;
+}
+.infoBlockLeftBlack {
+    color: #ffffff;
+    right: auto;
+     height:170px;
+	background-image: url("img/slider/black_grad_background.png");
+}
+
+
+.sampleBlock {
+  left: 3%; 
+  top: 1%; 
+  width: 100%;
+  max-width: 400px;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .videoGallery .rsTmb {
+    padding: 6px 8px;
+  }
+  .videoGallery .rsTmb h5 {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .videoGallery .rsThumbs.rsThumbsVer {
+    width: 100px;
+    padding: 0;
+  }
+  .videoGallery .rsThumbs .rsThumb {
+    width: 100px;
+    height: 47px;
+  }
+  .videoGallery .rsTmb span {
+    display: none;
+  }
+  .videoGallery .rsOverflow,
+  .royalSlider.videoGallery {
+    height: 300px !important;
+  }
+  .sampleBlock {
+    font-size: 14px;
+  }
+}
+
+    </style>
+<style>
+      #page-navigation { display: none; }
+    </style>
+<div style="width: 980px; margin: auto; clear: both;">
+<div style="width:100%;">
+<div id="video-gallery" class="royalSlider videoGallery rsDefault">
+<div class="rsContent">
+<a class="rsImg" href="/assets/images/resources/70695/660x340/0c7759324d51e7a8b548c9451fd1027d0a08e3a9.jpg">
+<div class="rsTmb">
+<h5 style="text-align:right;"> 38 хвилин тому</h5>
+<span> Перший тиждень на посаді Міністра оборони: Рустем Умєров підбив підсумки та визначив пріоритети</span>
+</div>
+</a>
+<div class="infoBlock infoBlockLeftBlack rsABlock" data-fade-effect data-move-offset="10" data-move-effect="bottom" data-speed="200">
+<div style="bottom:0; position:absolute;">
+<h4><a style="color:white; text-shadow: 1px 1px #000000" href="news/2023/09/14/pershij-tizhden-na-posadi-ministra-oboroni-rustem-umerov-pidbiv-pidsumki-ta-viznachiv-prioriteti/">Перший тиждень на посаді Міністра оборони: Рустем Умєров підбив підсумки та визначив пріоритети</a></h4>
+</div>
+</div>
+</div>
+<div class="rsContent">
+<a class="rsImg" href="/assets/images/resources/70694/660x340/1b6fdeb3590da5edbd3a27fa303a7b44867df2fc.jpg">
+<div class="rsTmb">
+<h5 style="text-align:right;"> 1 годину тому</h5>
+<span> Міністр оборони України Рустем Умєров провів телефонну розмову із Генеральним секретарем НАТО&#8230;</span>
+</div>
+</a>
+<div class="infoBlock infoBlockLeftBlack rsABlock" data-fade-effect data-move-offset="10" data-move-effect="bottom" data-speed="200">
+<div style="bottom:0; position:absolute;">
+<h4><a style="color:white; text-shadow: 1px 1px #000000" href="news/2023/09/14/ministr-oboroni-ukraini-rustem-umerov-proviv-telefonnu-rozmovu-iz-generalnim-sekretarem-nato-ensom-stoltenbergom/">Міністр оборони України Рустем Умєров провів телефонну розмову із Генеральним секретарем НАТО Єнсом Столтенбергом</a></h4>
+</div>
+</div>
+</div>
+<div class="rsContent">
+<a class="rsImg" href="/assets/images/resources/70669/660x340/c00d17a622519b0fa85f6df543f76d648fa4d2ec.jpg">
+<div class="rsTmb">
+<h5 style="text-align:right;"> 11 вересня 2023, 21:00</h5>
+<span> Міністр оборони України Рустем Умєров провів першу телефонну розмову з Міністром оборони США&#8230;</span>
+</div>
+</a>
+<div class="infoBlock infoBlockLeftBlack rsABlock" data-fade-effect data-move-offset="10" data-move-effect="bottom" data-speed="200">
+<div style="bottom:0; position:absolute;">
+<h4><a style="color:white; text-shadow: 1px 1px #000000" href="news/2023/09/11/ministr-oboroni-ukraini-rustem-umerov-proviv-pershu-telefonnu-rozmovu-z-ministrom-oboroni-ssha-llojdom-ostinom/">Міністр оборони України Рустем Умєров провів першу телефонну розмову з Міністром оборони США Ллойдом Остіном</a></h4>
+</div>
+</div>
+</div>
+<div class="rsContent">
+<a class="rsImg" href="/assets/images/resources/70642/660x340/94b2723d7fa2ee7e9634b338a8bfcac9425ff50c.jpg">
+<div class="rsTmb">
+<h5 style="text-align:right;"> 07 вересня 2023, 13:10</h5>
+<span> Президент представив нового міністра оборони України Рустема Умєрова</span>
+</div>
+</a>
+<div class="infoBlock infoBlockLeftBlack rsABlock" data-fade-effect data-move-offset="10" data-move-effect="bottom" data-speed="200">
+<div style="bottom:0; position:absolute;">
+<h4><a style="color:white; text-shadow: 1px 1px #000000" href="news/2023/09/07/prezident-predstaviv-novogo-ministra-oboroni-ukraini-rustema-umerova/">Президент представив нового міністра оборони України Рустема Умєрова</a></h4>
+</div>
+</div>
+</div>
+<div class="rsContent">
+<a class="rsImg" href="/assets/images/resources/70640/660x340/e5c57c85679a4c5f9281ae0868ec9310ad47eda0.jpg">
+<div class="rsTmb">
+<h5 style="text-align:right;"> 07 вересня 2023, 11:30</h5>
+<span> Виступ Рустема Умєрова у Верховній Раді України під час призначення на посаду Міністра оборони</span>
+</div>
+</a>
+<div class="infoBlock infoBlockLeftBlack rsABlock" data-fade-effect data-move-offset="10" data-move-effect="bottom" data-speed="200">
+<div style="bottom:0; position:absolute;">
+<h4><a style="color:white; text-shadow: 1px 1px #000000" href="news/2023/09/07/vistup-rustema-umerova-u-verhovnij-radi-ukraini-pid-chas-priznachennya-na-posadu-ministra-oboroni/">Виступ Рустема Умєрова у Верховній Раді України під час призначення на посаду Міністра оборони</a></h4>
+</div>
+</div>
+</div>
+<div class="rsContent">
+<a class="rsImg" href="/assets/images/resources/70634/660x340/de4a68df640e04c14a2bfdd6dbebdc8efa77f018.jpg">
+<div class="rsTmb">
+<h5 style="text-align:right;"> 06 вересня 2023, 13:45</h5>
+<span> Дбайте про державу, бережіть життя наших воїнів – Президент вручив погони генералів військовослужбовцям&#8230;</span>
+</div>
+</a>
+<div class="infoBlock infoBlockLeftBlack rsABlock" data-fade-effect data-move-offset="10" data-move-effect="bottom" data-speed="200">
+<div style="bottom:0; position:absolute;">
+<h4><a style="color:white; text-shadow: 1px 1px #000000" href="news/2023/09/06/dbajte-pro-derzhavu-berezhit-zhittya-nashih-voiniv-–-prezident-vruchiv-pogoni-generaliv-vijskovosluzhbovczyam-sil-oboroni-ta-pravoohoronnih-organiv-ukraini/">Дбайте про державу, бережіть життя наших воїнів – Президент вручив погони генералів військовослужбовцям сил оборони та правоохоронних органів України</a></h4>
+</div>
+</div>
+</div>
+<div class="rsContent">
+<a class="rsImg" href="/assets/images/resources/70580/660x340/b98d2871eb305a7eb2562bc0ad8da4053e6bbb84.jpg">
+<div class="rsTmb">
+<h5 style="text-align:right;"> 31 серпня 2023, 11:40</h5>
+<span> Виробництво та ремонт ОВТ в Україні: Міноборони та британська BAE Systems підписали Рамкову&#8230;</span>
+</div>
+</a>
+<div class="infoBlock infoBlockLeftBlack rsABlock" data-fade-effect data-move-offset="10" data-move-effect="bottom" data-speed="200">
+<div style="bottom:0; position:absolute;">
+<h4><a style="color:white; text-shadow: 1px 1px #000000" href="news/2023/08/31/virobnicztvo-ta-remont-ovt-v-ukraini-minoboroni-ta-britanska-bae-systems-pidpisali-ramkovu-ugodu-pro-spivpraczyu/">Виробництво та ремонт ОВТ в Україні: Міноборони та британська BAE Systems підписали Рамкову угоду про співпрацю</a></h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script id="addJS">jQuery(document).ready(function($) {
+  $('#video-gallery').royalSlider({
+    arrowsNav: true,
+    fadeinLoadedSlide: true,
+    controlNavigationSpacing: 0,
+    controlNavigation: 'thumbnails',
+autoPlay: {
+    		// autoplay options go gere
+    		delay:5000,
+    		enabled: true,
+    		pauseOnHover: true
+    	},
+    thumbs: {
+      autoCenter: false,
+      fitInViewport: true,
+      orientation: 'vertical',
+      spacing: 0,
+      arrowsAutoHide:true,
+      paddingBottom: 0
+    },
+    keyboardNavEnabled: true,
+    imageScaleMode: 'fill',
+    imageAlignCenter:true,
+    slidesSpacing: 0,
+    loop: true,
+    loopRewind: true,
+    numImagesToPreload: 3,
+    
+    autoScaleSlider: false, 
+    autoScaleSliderWidth: 760,     
+    autoScaleSliderHeight: 350,
+
+    /* imgWidth: 440,
+    imgHeight: 360 size of all images http://help.dimsemenov.com/kb/royalslider-jquery-plugin-faq/adding-width-and-height-properties-to-images */
+   
+
+  });
+});
+</script>
+<div id="main-wrapper">
+<script>
+   window.WchatSettings = {
+       pageid: "168872798846612",
+     initChatOnOpen:true,
+     sendChatToEmail: false,
+     themeColor: "#004064",
+     sendFiles: false,
+    showQueueOverloadForm: false,
+       lang: "uk",
+     "translations": {
+        "uk.FORMS.DESCRIPTIONS.queue_overload": "\u0414\u044f\u043a\u0443\u0454\u043c\u043e \u0437\u0430 \u0432\u0430\u0448\u0435 \u0437\u0432\u0435\u0440\u043d\u0435\u043d\u043d\u044f",
+      "uk.PANELS.CLOSE_CHAT.rate_agent_label": "\u0411\u0443\u0434\u044c \u043b\u0430\u0441\u043a\u0430, \u043e\u0446\u0456\u043d\u0456\u0442\u044c \u0440\u043e\u0431\u043e\u0442\u0443 \u0447\u0430\u0442-\u0431\u043e\u0442\u0443"
+    }
+   };
+</script>
+<script> 
+   (function(w,d,s,l,g,a,b,o){w[a]=w[a]||{};w[a].clientPath=w[a].clientPath||l; 
+       if(w[g]){w[g](w[a]||{})}else{b=d.createElement(s),o=d.getElementsByTagName(s)[0]; 
+       b.async=1;b.src=l+"wchat.min.js";o.parentNode.insertBefore(b,o)} 
+   })(window,document,'script','https://cdn.smile-soft.com/wchat/v1/','Wchat','WchatSettings'); 
+</script>
+
+<div id="wrapper">
+<div id="container">
+<div class="topitop">
+</div>
+
+<div id="ui-col1">
+<div class="carousel">
+<h1 class="h_red">НОВИНИ</h1>
+<div class="box">
+<div class="box_thumbnail">
+<a href="news/2023/09/14/vidbudova-ukraini-u-majbutnomu-nastilki-zh-vazhliva-yak-i-zbroya-sogodni-volodimir-gavrilov-zustrivsya-z-delegaczieyu-mizhnarodnoi-asocziaczii-zi-stabilizaczijnih-operaczij-(isoa)/"> <img src="/assets/images/resources/70696/400x255/ca53326bb53643821328f9ff86c7cf11c5a6406f.jpg" width="200px" /></a>
+</div>
+<div class="box_caption">
+<a href="news/2023/09/14/vidbudova-ukraini-u-majbutnomu-nastilki-zh-vazhliva-yak-i-zbroya-sogodni-volodimir-gavrilov-zustrivsya-z-delegaczieyu-mizhnarodnoi-asocziaczii-zi-stabilizaczijnih-operaczij-(isoa)/">«Відбудова України у майбутньому настільки ж важлива, як і зброя сьогодні»: Володимир Гаврилов зустрівся з делегацією Міжнародної асоціації&#8230;</a>
+</div>
+<div class="box_date"></div>
+</div>
+<div class="box">
+<div class="box_thumbnail">
+<a href="news/2023/08/17/muzhnist-peremagae-strah-u-minoboroni-prezentovano-komunikaczijnu-kampaniyu-onovlyuj-dani-v-tczk/"> <img src="/assets/images/resources/70457/400x255/9413dad726fb1ef7fd7bf5d20f8226a94904742d.jpg" width="200px" /></a>
+</div>
+<div class="box_caption">
+<a href="news/2023/08/17/muzhnist-peremagae-strah-u-minoboroni-prezentovano-komunikaczijnu-kampaniyu-onovlyuj-dani-v-tczk/">«Мужність перемагає страх»: у Міноборони презентовано комунікаційну кампанію «Оновлюй дані в ТЦК»</a>
+</div>
+<div class="box_date"></div>
+</div>
+<div class="box">
+<div class="box_thumbnail">
+<a href="news/2023/08/04/rozpochato-eksperiment-shhodo-perehodu-vvnz-na-organizaczijno-shtatni-strukturi-nato-oleksandr-pavlyuk-proviv-naradu-z-vijskovimi-osvityanami/"> <img src="/assets/images/resources/70359/400x255/fb1aa315c401463155c183ff666b5aa9513cf9ee.jpg" width="200px" /></a>
+</div>
+<div class="box_caption">
+<a href="news/2023/08/04/rozpochato-eksperiment-shhodo-perehodu-vvnz-na-organizaczijno-shtatni-strukturi-nato-oleksandr-pavlyuk-proviv-naradu-z-vijskovimi-osvityanami/">Розпочато експеримент щодо переходу ВВНЗ на організаційно-штатні структури НАТО — Олександр Павлюк провів нараду з військовими освітянами</a>
+</div>
+<div class="box_date"></div>
+</div>
+</div>
+<div style="clear:both;">
+</div>
+<div id="Col2News">
+<h1 class="h_red">ВСІ НОВИНИ</h1>
+<div class="content">
+<div id="ul_news">
+<ul class="list">
+</li>
+<li>
+<div class="b_date">22:36</div>
+<a href="news/2023/09/14/vidbudova-ukraini-u-majbutnomu-nastilki-zh-vazhliva-yak-i-zbroya-sogodni-volodimir-gavrilov-zustrivsya-z-delegaczieyu-mizhnarodnoi-asocziaczii-zi-stabilizaczijnih-operaczij-(isoa)/">«Відбудова України у майбутньому настільки ж важлива, як і зброя сьогодні»: Володимир Гаврилов зустрівся з делегацією Міжнародної асоціації&#8230;</a>
+</li>
+<li>
+<div class="b_dateRED">22:23</div>
+<a class="CLBOLDRED" href="news/2023/09/14/pershij-tizhden-na-posadi-ministra-oboroni-rustem-umerov-pidbiv-pidsumki-ta-viznachiv-prioriteti/">Перший тиждень на посаді Міністра оборони: Рустем Умєров підбив підсумки та визначив пріоритети</a>
+</li>
+<li>
+<div class="b_dateRED">22:12</div>
+<a class="CLBOLDRED" href="news/2023/09/14/potribna-potuzhna-sistema-pravozahistu-voiniv-u-samomu-sektori-oboroni-–-zvernennya-prezidenta-ukraini/">Потрібна потужна система правозахисту воїнів у самому секторі оборони – звернення Президента України</a>
+</li>
+<li>
+<div class="b_dateRED">22:00</div>
+<a class="CLBOLDRED" href="news/2023/09/14/ministr-oboroni-ukraini-rustem-umerov-proviv-telefonnu-rozmovu-iz-generalnim-sekretarem-nato-ensom-stoltenbergom/">Міністр оборони України Рустем Умєров провів телефонну розмову із Генеральним секретарем НАТО Єнсом Столтенбергом</a>
+</li>
+<li>
+<div class="b_dateRED">21:39</div>
+<a class="CLBOLDRED" href="news/2023/09/14/rustem-umerov-proviv-telefonnu-rozmovu-z-visokim-predstavnikom-es-iz-zakordonnih-sprav-i-politiki-bezpeki-zhozepom-borrelem/">Рустем Умєров провів телефонну розмову з Високим представником ЄС із закордонних справ і політики безпеки Жозепом Боррелем</a>
+</li>
+<li>
+<div class="b_dateRED">17:20</div>
+<a class="CLBOLDRED" href="news/2023/09/14/prezident-u-den-tankovih-vijsk-nashi-tankisti-povertayut-ukraini-svobodu-viru-v-peremogu-ta-roblyat-nas-micznishimi/">Президент у День танкових військ: Наші танкісти повертають Україні свободу, віру в перемогу та роблять нас міцнішими</a>
+</li>
+<li>
+<div class="b_dateRED">09:40</div>
+<a class="CLBOLDRED" href="news/2023/09/14/vitannya-ministra-oboroni-ukraini-rustema-umerova-z-dnem-tankovih-vijsk-ukraini/">Привітання Міністра оборони України Рустема Умєрова з Днем танкових військ України</a>
+</li>
+<li>
+<div class="b_dateRED">09:30</div>
+<a class="CLBOLDRED" href="news/2023/09/14/vitannya-prezidenta-ukraini-voinam-tankistam-praczivnikam-tankobudivnoi-galuzi-ukraini/">Вітання Президента України воїнам-танкістам, працівникам танкобудівної галузі України</a>
+</li>
+<li>
+<div class="b_date">08:00</div>
+<a class="CLBOLD" href="news/2023/09/14/vid-pochatku-shirokomasshtabnoi-vijni-proti-ukraini-rosiya-vtratila-uzhe-ponad-270970-osib-znishheno-pidvodnij-choven-voroga-–-genshtab-zsu/">Від початку широкомасштабної війни проти України росія втратила уже понад 270970 осіб, знищено підводний човен ворога – Генштаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>13.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">22:10</div>
+<a class="CLBOLDRED" href="news/2023/09/13/nastupnogo-roku-dodaemo-znachni-byudzhetni-koshti-na-oboronno-promislovij-kompleks-–-zvernennya-prezidenta-ukraini/">Наступного року додаємо значні бюджетні кошти на оборонно-промисловий комплекс – звернення Президента України</a>
+</li>
+<li>
+<div class="b_dateRED">21:50</div>
+<a class="CLBOLDRED" href="news/2023/09/13/ministr-oboroni-ukraini-rustem-umerov-proviv-telefonnu-rozmovu-z-ministrom-naczionalnoi-oboroni-kanadi-billom-blerom/">Міністр оборони України Рустем Умєров провів телефонну розмову з міністром національної оборони Канади Біллом Блером</a>
+</li>
+<li>
+<div class="b_date">16:50</div>
+<a class="CLBOLD" href="news/2023/09/13/vidbudova-ukraini-u-majbutnomu-nastilki-zh-vazhliva-yak-i-zbroya-sogodni-volodimir-gavrilov-zustrivsya-z-delegaczieyu-mizhnarodnoi-asocziaczii-zi-stabilizaczijnih-operaczij-(isoa)/">«Відбудова України у майбутньому настільки ж важлива, як і зброя сьогодні»: Володимир Гаврилов зустрівся з делегацією Міжнародної асоціації зі стабілізаційних операцій (ISOA)</a>
+</li>
+<li>
+<div class="b_date">09:02</div>
+<a class="CLBOLD" href="news/2023/09/13/ponad-270-tisyach-vijskovih-vtratila-armiya-rf-za-567-dniv-agresii-proti-ukraini-–-genshtab-zsu/">Понад 270 тисяч військових втратила армія рф за 567 днів агресії проти України – Генштаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>12.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">22:10</div>
+<a class="CLBOLDRED" href="news/2023/09/12/novij-istorichnij-krok-mizh-ukrainoyu-ta-es-mae-vidbutisya-czogo-roku-i-vsi-gilki-vladi-povinni-spraczyuvati-na-czej-krok-–-zvernennya-prezidenta/">Новий історичний крок між Україною та ЄС має відбутися цього року, і всі гілки влади повинні спрацювати на цей крок – звернення Президента</a>
+</li>
+<li>
+<div class="b_date">19:25</div>
+<a class="CLBOLD" href="news/2023/09/12/andrij-shevchenko-zustrivsya-z-derzhavnim-sekretarem-federalnogo-ministerstva-zakordonnih-sprav-nimechchini/">Андрій Шевченко зустрівся з державним секретарем Федерального міністерства закордонних справ Німеччини</a>
+</li>
+<li>
+<div class="b_date">18:00</div>
+<a class="CLBOLD" href="news/2023/09/12/nimechchina-odin-iz-najbilshih-kontributoriv-v-uspih-zsu-u-vijni-z-rosijskim-agresorom-andrij-shevchenko-zustrivsya-iz-delegaczieyu-deputativ-bundestagu/">«Німеччина - один із найбільших контрибуторів в успіх ЗСУ у війні з російським агресором»: Андрій Шевченко зустрівся із делегацією депутатів Бундестагу</a>
+</li>
+<li>
+<div class="b_date">10:00</div>
+<a class="CLBOLD" href="news/2023/09/12/privitannya-z-dnem-fahivcziv-radioelektronnoi-borotbi-zbrojnih-sil-ukraini/">Привітання з Днем фахівців радіоелектронної боротьби Збройних Сил України</a>
+</li>
+<li>
+<div class="b_date">08:00</div>
+<a class="CLBOLD" href="news/2023/09/12/vid-pochatku-shirokomasshtabnoi-vijni-proti-ukraini-rosiya-vtratila-uzhe-ponad-269-7-tis-osib-znishheno-515-zasobiv-ppo-voroga-–-genshtab-zsu/">Від початку широкомасштабної війни проти України росія втратила уже понад 269,7 тис. осіб, знищено 515 засобів ППО ворога – Генштаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>11.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">22:00</div>
+<a class="CLBOLDRED" href="news/2023/09/11/paperovoi-roboti-u-vijskah-mae-stati-znachno-menshe-–-zvernennya-prezidenta-ukraini/">Паперової роботи у військах має стати значно менше – звернення Президента України</a>
+</li>
+<li>
+<div class="b_dateRED">21:00</div>
+<a class="CLBOLDRED" href="news/2023/09/11/ministr-oboroni-ukraini-rustem-umerov-proviv-pershu-telefonnu-rozmovu-z-ministrom-oboroni-ssha-llojdom-ostinom/">Міністр оборони України Рустем Умєров провів першу телефонну розмову з Міністром оборони США Ллойдом Остіном</a>
+</li>
+<li>
+<div class="b_date">08:00</div>
+<a class="CLBOLD" href="news/2023/09/11/zagalni-vtrati-rosijskih-zagarbnikiv-stanovlyat-269-2-tis-osib-znishheno-ponad-5800-artsistem-voroga-‒-generalnij-shtab-zsu/">Загальні втрати російських загарбників становлять 269,2 тис. осіб, знищено понад 5800 артсистем ворога ‒ Генеральний штаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>10.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">22:30</div>
+<a class="CLBOLDRED" href="news/2023/09/10/front-za-minuli-sim-dniv-maemo-prosuvannya-vpered-–-zvernennya-prezidenta-ukraini/">Фронт: за минулі сім днів маємо просування вперед – звернення Президента України</a>
+</li>
+<li>
+<div class="b_date">08:30</div>
+<a class="CLBOLD" href="news/2023/09/10/za-dobu-sili-oboroni-znishhili-22-artsistemi-ta-10-tankiv-voroga-zagalni-vtrati-rf-stanovlyat-268-6-tis-osib-–-genshtab-zsu/">За добу Сили оборони знищили 22 артсистеми та 10 танків ворога: загальні втрати рф становлять 268,6 тис. осіб – Генштаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>09.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">16:00</div>
+<a class="CLBOLDRED" href="news/2023/09/09/partnerstvo-ukraini-ta-yaponii-stane-globalnim-prikladom-zahistu-zhittya-ta-stvorennya-novih-mozhlivostej-dlya-narodiv-–-zvernennya-prezidenta-volodimira-zelenskogo/">Партнерство України та Японії стане глобальним прикладом захисту життя та створення нових можливостей для народів – звернення Президента Володимира Зеленського</a>
+</li>
+<li>
+<div class="b_date">09:30</div>
+<a class="CLBOLD" href="news/2023/09/09/privitannya-z-dnem-fizichnoi-kulturi-i-sportu/">Привітання з Днем фізичної культури і спорту</a>
+</li>
+<li>
+<div class="b_date">08:55</div>
+<a class="CLBOLD" href="news/2023/09/09/vid-pochatku-shirokomasshtabnoi-vijni-proti-ukraini-rosiya-vtratila-uzhe-ponad-268-1-tis-osib-znishheno-majzhe-8300-odinicz-avtotehniki-ta-avtoczistern-voroga-–-genshtab-zsu/">Від початку широкомасштабної війни проти України росія втратила уже понад 268,1 тис. осіб, знищено майже 8300 одиниць автотехніки та автоцистерн ворога – Генштаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>08.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">20:00</div>
+<a class="CLBOLDRED" href="news/2023/09/08/sankczijnij-nastup-svitu-mae-vidnovitisya-–-zvernennya-prezidenta-ukraini/">Санкційний наступ світу має відновитися – звернення Президента України</a>
+</li>
+<li>
+<div class="b_date">16:00</div>
+<a class="CLBOLD" href="news/2023/09/08/dopomoga-ukrainskoi-diaspori-u-protidii-rosijskim-narativam-ta-fejkam-e-nadzvichajno-vazhlivoyu-ganna-malyar-zustrilasya-iz-predstavnikami-strategichnoi-vijskovoi-radi-pri-svitovomu-kongresi-ukraincziv/">«Допомога української діаспори у протидії російським наративам та фейкам є надзвичайно важливою»: Ганна Маляр зустрілася із представниками Стратегічної військової ради при Світовому Конгресі Українців</a>
+</li>
+<li>
+<div class="b_date">12:00</div>
+<a class="CLBOLD" href="news/2023/09/08/vzaemosumisnist-ukraini-z-nato-andrij-shevchenko-obgovoriv-z-delegaczieyu-alyansu-konczeptualne-bachennya-dorozhnoi-karti/">Взаємосумісність України з НАТО: Андрій Шевченко обговорив з делегацією Альянсу Концептуальне бачення Дорожньої карти</a>
+</li>
+<li>
+<div class="b_date">08:00</div>
+<a class="CLBOLD" href="news/2023/09/08/zagalni-vtrati-rosijskih-zagarbnikiv-stanovlyat-267-5-tis-osib-znishheno-ponad-8700-bronemashin-voroga-‒-generalnij-shtab-zsu/">Загальні втрати російських загарбників становлять 267,5 тис. осіб, знищено понад 8700 бронемашин ворога ‒ Генеральний штаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>07.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">22:00</div>
+<a class="CLBOLDRED" href="news/2023/09/07/rezultati-–-cze-te-shho-zaraz-neobhidno-ukraini-vid-usih-na-vsih-rivnyah-–-zvernennya-prezidenta-volodimira-zelenskogo/">Результати – це те, що зараз необхідно Україні від усіх, на всіх рівнях – звернення Президента Володимира Зеленського</a>
+</li>
+<li>
+<div class="b_dateRED">16:35</div>
+<a class="CLBOLDRED" href="news/2023/09/07/prezident-ukraini-u-den-voennoi-rozvidki-zavdyaki-rozvidnikam-i-vsim-nashim-silam-oboroni-j-bezpeki-ukrainczi-vidchuvayut-shho-mi-mozhemo-zdolati-rosiyu/">Президент України у День воєнної розвідки: Завдяки розвідникам і всім нашим силам оборони й безпеки українці відчувають, що ми можемо здолати Росію</a>
+</li>
+<li>
+<div class="b_date">14:00</div>
+<a class="CLBOLD" href="news/2023/09/07/shhe-bezpechnishe-innovaczijnishe-prozorishe-akselerator-minoboroni-zvitue-onlajn-ta-zaprovadiv-id-gov-ua-dlya-zayavnikiv/">Ще безпечніше, інноваційніше, прозоріше: Акселератор Міноборони звітує онлайн та запровадив ID.gov.ua для заявників</a>
+</li>
+<li>
+<div class="b_dateRED">13:10</div>
+<a class="CLBOLDRED" href="news/2023/09/07/prezident-predstaviv-novogo-ministra-oboroni-ukraini-rustema-umerova/">Президент представив нового міністра оборони України Рустема Умєрова</a>
+</li>
+<li>
+<div class="b_dateRED">11:40</div>
+<a class="CLBOLDRED" href="news/2023/09/07/vitannya-ministra-oboroni-ukraini-rustema-umerova-osobovomu-skladu-ta-veteranam-voennoi-rozvidki-ukraini/">Вітання Міністра оборони України Рустема Умєрова особовому складу та ветеранам воєнної розвідки України</a>
+</li>
+<li>
+<div class="b_dateRED">11:30</div>
+<a class="CLBOLDRED" href="news/2023/09/07/vistup-rustema-umerova-u-verhovnij-radi-ukraini-pid-chas-priznachennya-na-posadu-ministra-oboroni/">Виступ Рустема Умєрова у Верховній Раді України під час призначення на посаду Міністра оборони</a>
+</li>
+<li>
+<div class="b_date">08:00</div>
+<a class="CLBOLD" href="news/2023/09/07/za-dobu-sili-oboroni-zbili-8-krilatih-raket-znishhili-37-artilerijskih-sistem-ta-21-bronemashinu-voroga-zagalni-vtrati-rf-stanovlyat-266-9-tis-osib-–-genshtab-zsu/">За добу Сили оборони збили 8 крилатих ракет, знищили 37 артилерійських систем та 21 бронемашину ворога: загальні втрати рф становлять 266,9 тис. осіб – Генштаб ЗСУ</a>
+</li>
+<li style="text-align: center; border-bottom: 1px solid grey;"><span>06.09.2023</span>
+</li>
+<li>
+<div class="b_dateRED">23:45</div>
+<a class="CLBOLDRED" href="news/2023/09/06/kozhen-proyav-konsolidaczii-svitu-realno-dopomagae-ryatuvati-zhittya-–-zvernennya-prezidenta-ukraini/">Кожен прояв консолідації світу реально допомагає рятувати життя – звернення Президента України</a>
+</li>
+<li>
+<div class="b_dateRED">13:45</div>
+<a class="CLBOLDRED" href="news/2023/09/06/dbajte-pro-derzhavu-berezhit-zhittya-nashih-voiniv-–-prezident-vruchiv-pogoni-generaliv-vijskovosluzhbovczyam-sil-oboroni-ta-pravoohoronnih-organiv-ukraini/">Дбайте про державу, бережіть життя наших воїнів – Президент вручив погони генералів військовослужбовцям сил оборони та правоохоронних органів України</a>
+</li>
+<li>
+<div class="b_date">08:00</div>
+<a class="CLBOLD" href="news/2023/09/06/vid-pochatku-shirokomasshtabnoi-vijni-proti-ukraini-rosiya-vtratila-uzhe-ponad-266-2-tis-osib-znishheno-majzhe-4500-tankiv-voroga-–-genshtab-zsu/">Від початку широкомасштабної війни проти України росія втратила уже понад 266,2 тис. осіб, знищено майже 4500 танків ворога – Генштаб ЗСУ</a>
+</li>
+</ul>
+</div>
+</div>
+<h1 class="h_red">УКРАЇНА - НАТО</h1>
+<div id="ul_news">
+<ul class="list">
+<li>
+<div class="b_date">11.09.2023</div>
+<a href="news/2023/09/11/ministr-oboroni-ukraini-rustem-umerov-proviv-pershu-telefonnu-rozmovu-z-ministrom-oboroni-ssha-llojdom-ostinom/"><img src="/assets/images/resources/70669/120x/c00d17a622519b0fa85f6df543f76d648fa4d2ec.jpg" style="width: 90px; float: left; padding-right: 10px;" />Міністр оборони України Рустем Умєров провів першу телефонну розмову з Міністром оборони США Ллойдом Остіном</a>
+</li>
+<li>
+<div class="b_date">29.08.2023</div>
+<a href="news/2023/08/29/u-nato-rozroblyat-dlya-minoboroni-ukraini-programu-z-pokrashhennya-zakupivelnih-proczedur/"><img src="/assets/images/resources/70556/120x/94c44d2e50208289584b4aa6c39e443f851b4ad5.jpg" style="width: 90px; float: left; padding-right: 10px;" />У НАТО розроблять для Міноборони України програму з покращення закупівельних процедур</a>
+</li>
+<li>
+<div class="b_date">22.08.2023</div>
+<a href="news/2023/08/22/f-16-–-potuzhnij-krok-nemozhlivo-pereocziniti-vazhlivist-czogo-rishennya-uryadu-niderlandiv-oleksij-reznikov-zustrivsya-z-ministrom-oboroni-niderlandiv-kajsoyu-ollongren/"><img src="/assets/images/resources/70501/120x/8c4fab5ba05f6acd8869be6ec9a8fd48e5f60adf.jpg" style="width: 90px; float: left; padding-right: 10px;" />«F-16 – потужний крок. Неможливо переоцінити важливість цього рішення Уряду Нідерландів»: Олексій Резніков зустрівся з Міністром оборони&#8230;</a>
+</li>
+</ul>
+</div>
+<h1 class="h_red">СПОРТ</h1>
+<div id="ul_news">
+<ul class="list">
+<li>
+<div class="b_date">01.09.2023</div>
+<a href="sport/2023/09/01/armijczi-igor-kizima-ta-denis-bablyuk-chempioni-svitu-z-kulovoi-strilbi/"><img src="/assets/images/resources/70591/120x/b4403041332c31feb2e17d48eaaaafe0f2e23a98.jpg" style="width: 90px; float: left; padding-right: 10px;" />Армійці Ігор Кізима та Денис Баблюк чемпіони світу з кульової стрільби</a>
+</li>
+<li>
+<div class="b_date">28.08.2023</div>
+<a href="sport/2023/08/28/daniil-yakovlev-zdobuv-titul-chempiona-svitu-u-gonczi-omnium/"><img src="/assets/images/resources/70548/120x/02d65a99c767774b230f74449bf21870de7b1826.jpg" style="width: 90px; float: left; padding-right: 10px;" />Даниїл Яковлев здобув титул чемпіона світу у гонці Омніум</a>
+</li>
+<li>
+<div class="b_date">28.08.2023</div>
+<a href="sport/2023/08/28/armijczi-taras-lesyuk-ta-artem-tishhenko-zavoyuvali-zoloto-i-bronzu-na-chs-z-litnogo-biatlonu/"><img src="/assets/images/resources/70547/120x/2282f830c75a20fbeaa9b7f032b02615a40cbcc1.jpg" style="width: 90px; float: left; padding-right: 10px;" />Армійці Тарас Лесюк та Артем Тищенко завоювали «золото» і «бронзу» на ЧС з літнього біатлону</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div style="clear:both;">
+</div>
+
+
+</div>
+<div id="ui-col2">
+
+<h1 class="h_red">АКТУАЛЬНО</h1>
+<a href="ministry/struktura-aparatu-ministerstva/militari-media-czentr(military-media-center).html" target="_blank"><img src="img/military_media_center.jpg" alt="Military media center" title="Military media center" /></a>
+<a href="https://zsu.team/" target="_blank"><img src="img/ZSU_team_banner.jpg" alt="ZSU team" title="ZSU team" /></a>
+<a href="do-uvagi-virobnikiv-ta-rozrobnikiv-ovt.html" target="_blank"><img src="img/do_uvagy.jpg" alt="ДО УВАГИ ВИРОБНИКІВ ТА РОЗРОБНИКІВ ОВТ" title="ДО УВАГИ ВИРОБНИКІВ ТА РОЗРОБНИКІВ ОВТ" /></a>
+<a href="https://www.mil.gov.ua/en/for-the-attention-of-wme-manufacturers-and-developers.html" target="_blank"><img src="https://www.mil.gov.ua/img/eng_do_uvagy.jpg" alt="FOR THE ATTENTION OF WME MANUFACTURERS AND DEVELOPERS" title="FOR THE ATTENTION OF WME MANUFACTURERS AND DEVELOPERS" /></a>
+<a href="https://armyinform.com.ua/tag/stoprussia/" target="_blank"><img src="https://www.mil.gov.ua/img/russias_war_against_Ukraine.jpg" alt="russia`s war against Ukraine" title="russia`s war against Ukraine" /></a>
+<a href="https://www.mil.gov.ua/diyalnist/zvyazki-z-gromadskimi-ta-religijnimi-organizacziyami/akselerator-innovaczijnogo-rozvitku-ministerstva-obroni-ukraini.html" target="_blank"><img src="img/banner_acselerator.jpeg" alt="Акселератор інноваційного розвитку Міністерства оброни України" title="Акселератор інноваційного розвитку Міністерства оброни України" /></a>
+<a href="https://u24.gov.ua/" target="_blank"><img src="img/u24.jpg" alt="United24" title="United24" /></a>
+<a href="https://ildu.com.ua/" target="_blank"><img src="https://www.mil.gov.ua/img/join_the_brave_small_one.jpg" alt="Join the brave" title="Join the brave" /></a>
+<a href="kontakti/garyacha-liniya.html" target="_blank"><img src="img/garachii_linii.JPG" alt="Гаряча лінія Міноборони" title="Гаряча лінія Міноборони" /></a>
+<a href="https://ukc.gov.ua/" target="_blank"><img src="img/UKC.jpg" alt="UKC.GOV.UA" title="UKC.GOV.UA" /></a>
+<a href="http://center.diia.gov.ua" target="_blank"><img src="img/diya.jpg" alt="Платформа Дія.Центрів" title="Платформа Дія.Центрів" /></a>
+<a href="ministry/sklad-zbrojnix-sil-ukraini/sili-teritorialnoi-oboroni-zbrojnih-sil-ukraini.html" target="_blank"><img src="img/baner_main_tro.jpg" alt="Територіальна оборона" title="Територіальна оборона" /></a>
+<a href="https://hochuzhit.com"><img src="img/edynyi_cente_rf_plen2.jpg" alt="ЕДИНЫЙ ЦЕНТР ПРИЕМА ОБРАЩЕНИЙ ВОЕННОСЛУЖАЩИХ РФ ПО СДАЧЕ В ПЛЕН. ГОСУДАРСТВЕННЫЙ ПРОЕКТ " ХОЧУ ЖИТЬ"" title="ЕДИНЫЙ ЦЕНТР ПРИЕМА ОБРАЩЕНИЙ ВОЕННОСЛУЖАЩИХ РФ ПО СДАЧЕ В ПЛЕН.ГОСУДАРСТВЕННЫЙ ПРОЕКТ " ХОЧУ ЖИТЬ"" /></a>
+
+
+<h1 class="h_blue">БОРОТЬБА З КОРУПЦІЄЮ</h1>
+<a href="ne-bud-bajduzhim-–-povidom-pro-korupcziyu.html" target="_blank"><img src="img/zakon_protydiya.jpg" alt="Повідом про корупцію" title="Повідом про корупцію" /></a>
+
+<h1 class="h_blue">ДОВІДНИК</h1>
+<a href="diyalnist/vijskova-osvita-na-tauka/shho-take-profesijna-vijskova-osvita.html " target="_blank"><img src="img/military_education.jpg" alt="Військова освіта та наука" title="Військова освіта та наука" /></a>
+<a href="zdobuvaj-vijskovu-osvitu!-stavaj-profesionalom-spravi-zahistu-derzhavi!.html" target="_blank"><img src="img/banner_prof_osvita.jpg" alt="Здобувай військову освіту" title="Здобувай військову освіту" /></a>
+<div style="text-align:center; background-color:rgb(15, 92, 34);;padding:10px; margin-top:10px;">
+<h1><a href="https://www.mil.gov.ua/content/education/dovidnyk_vstup_2023.pdf" alt="ДОВІДНИК ВСТУПНИКАМ ДО ЗАКЛАДІВ ВІЙСЬКОВОЇ ОСВІТИ" title="ДОВІДНИК ВСТУПНИКАМ ДО ЗАКЛАДІВ ВІЙСЬКОВОЇ ОСВІТИ" target="_blank"><span style="color:#ffffff">ДОВІДНИК ВСТУПНИКАМ ДО ЗАКЛАДІВ ВІЙСЬКОВОЇ ОСВІТИ</span></a></h1>
+</div>
+<h1 class="h_blue">ПАНТЕОН ГЕРОЇВ</h1>
+<a href="multimedia/panteon-geroiv/" target="_blank"><img src="img/h_panteon.jpg" alt="ПАНТЕОН ГЕРОЇВ" title="ПАНТЕОН ГЕРОЇВ" /></a>
+<h1 class="h_blue">У РАЗІ НАДЗВИЧАЙНОЇ СИТУАЦІЇ АБО ВІЙНИ</h1>
+<a href="content/pdf/NS-WAR.pdf" target="_blank"> <img src="img/baner_u_razi_viyny.png" alt="У РАЗІ НАДЗВИЧАЙНОЇ СИТУАЦІЇ АБО ВІЙНИ" title="У РАЗІ НАДЗВИЧАЙНОЇ СИТУАЦІЇ АБО ВІЙНИ" /></a>
+
+
+
+<h1 class="h_blue">ВІЙСЬКОВОСЛУЖБОВЦЯМ</h1>
+<div id="SideButtons">
+<div id="blocks">
+<a href="https://www.mil.gov.ua/diyalnist/protiminna-diyalnist/" id="side-button6">
+<div id="side-button-txt">
+<p class="side-button-p">
+ПРОТИМІННА ДІЯЛЬНІСТЬ
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg10.jpg" alt="ПРОТИМІННА ДІЯЛЬНІСТЬ" title="ПРОТИМІННА ДІЯЛЬНІСТЬ">
+</div>
+</a>
+<a href="konsultaczii-z-gromadskistyu/" id="side-button00">
+<div id="side-button-txt">
+<p class="side-button-p">
+ВЗАЄМОДІЯ З ГРОМАДСЬКІСТЮ
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg11.png" alt="ВЗАЄМОДІЯ З ГРОМАДСЬКІСТЮ" title="ВЗАЄМОДІЯ З ГРОМАДСЬКІСТЮ">
+</div>
+</a>
+<a href="https://www.mil.gov.ua/diyalnist/zapobigannya-proyavam-korupczii/" id="side-button0">
+<div id="side-button-txt">
+<p class="side-button-p">
+АНТИКОРУПЦІЙНА ДІЯЛЬНІСТЬ
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg011117.jpg" alt="АНТИКОРУПЦІЙНА ДІЯЛЬНІСТЬ" title="АНТИКОРУПЦІЙНА ДІЯЛЬНІСТЬ">
+</div>
+</a>
+<a href="contract" id="side-button1">
+<div id="side-button-txt">
+<p class="side-button-p">
+КОНТРАКТНА СЛУЖБА
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg1.jpg" alt="КОНТРАКТНА СЛУЖБА" title="КОНТРАКТНА СЛУЖБА">
+</div>
+</a>
+<a href="diyalnist/genderni-pitannya-u-sferi-bezpeki/" id="side-button7">
+<div id="side-button-txt">
+<p class="side-button-p">
+ГЕНДЕРНІ ПИТАННЯ У СФЕРІ ОБОРОНИ
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg0099.jpg" alt="ГЕНДЕРНІ ПИТАННЯ У СФЕРІ ОБОРОНИ" title="ГЕНДЕРНІ ПИТАННЯ У СФЕРІ ОБОРОНИ">
+</div>
+</a>
+<a href="diyalnist/mizhnarodne-gumanitarne-pravo.html" id="side-button2">
+<div id="side-button-txt">
+<p class="side-button-p">
+МІЖНАРОДНЕ ГУМАНІТАРНЕ ПРАВО
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimgX.jpg" alt="МІЖНАРОДНЕ ГУМАНІТАРНЕ ПРАВО" title="МІЖНАРОДНЕ ГУМАНІТАРНЕ ПРАВО">
+</div>
+</a>
+<a href="rezervist/" id="side-button3">
+<div id="side-button-txt">
+<p class="side-button-p">
+ВІЙСЬКОВИЙ РЕЗЕРВ
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg3.jpg" alt="ВІЙСЬКОВИЙ РЕЗЕРВ" title="ВІЙСЬКОВИЙ РЕЗЕРВ">
+</div>
+</a>
+<a href="https://www.mil.gov.ua/ukbs/" id="side-button8">
+<div id="side-button-txt">
+<p class="side-button-p">
+КІБЕРНЕТИЧНА БЕЗПЕКА
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg968.png" alt="КІБЕРНЕТИЧНА БЕЗПЕКА" title="КІБЕРНЕТИЧНА БЕЗПЕКА">
+</div>
+</a>
+<a href="analitichni-materiali/" id="side-button4">
+<div id="side-button-txt">
+<p class="side-button-p">
+ГЕНШТАБ ІНФОРМУЄ
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg10.jpg" alt="ГЕНШТАБ ІНФОРМУЄ" title="ГЕНШТАБ ІНФОРМУЄ">
+</div>
+</a>
+<a href="http://ukraine-nato.mfa.gov.ua/ua" id="side-button9">
+<div id="side-button-txt">
+<p class="side-button-p">
+УКРАЇНА - НАТО
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/bimg-nato.jpg" alt="УКРАЇНА - НАТО" title="УКРАЇНА - НАТО">
+</div>
+</a>
+<a href="https://eu-ua.org/" id="side-button5">
+<div id="side-button-txt">
+<p class="side-button-p">
+ЄВРОІНТЕГРАЦІЙНИЙ ПОРТАЛ
+</p>
+</div>
+<div id="side-button-img">
+<img class="col1img" src="img/eu-ua.jpg" alt="ЄВРОІНТЕГРАЦІЙНИЙ ПОРТАЛ" title="ЄВРОІНТЕГРАЦІЙНИЙ ПОРТАЛ">
+</div>
+</a>
+</div>
+</div>
+<h1 class="h_blue">ДОПОМОГА АРМІЇ</h1>
+<a href="https://www.mil.gov.ua/dopomoga-na-materialno-tehnichne-ta-medichne-zabezpechennya-zbrojnih-sil-ukraini.html"><img src="img/danate_UA.jpg" alt="Рахунки для благодійних внесків" title="Рахунки для благодійних внесків" /></a>
+<a href="http://legalaid.gov.ua/" target="_blank"><img src="img/photo_2023-02-14_13-48-48.jpg" alt="Безоплатна правова допомога" title="Безоплатна правова допомога" /></a>
+<a href="https://courses.zrozumilo.in.ua/courses/course-v1:EEF+EEF-036+March2023/about" target="_blank"><img src="img/photo_2023-04-24_11-42-17.jpg" alt="Курс про історію Кримського півострова" title="Курс про історію Кримського півострова" /></a>
+
+<style>
+.hnn{
+    border-bottom: none;
+    /* clear: both; */
+    color: #0b8dc1;
+    font-size: 12px;
+    font-family: 'PTSansNarrowRegular';
+    line-height: 20px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+</style>
+
+
+</div>
+
+<div id="main-wrapper">
+</div>
+</div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60286105-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div id="footer">
+<div id="footerwr">
+<div id="fcol1">
+<div id="fc1">
+<img src="img/images160.png" alt="Міністерство оборони України" title="Міністерство оборони України">
+2001—2023 Міністерство оборони України <br/><br/>
+<span style="color:#FF8800;">ß-версія. Деякі розділи сайту працюють у тестовому режимі. )</span><br/>
+Матеріали на сайті розміщені на умовах ліцензії Creative Commons Attribution 4.0 International,<br/>якщо не вказано іншого.<br/><br/>
+Зауваження та пропозиції по роботі сайту надсилайте на адресу: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="493e2c2b24283a3d2c3b0939263a3d67242025672e263f673c28">[email&#160;protected]</a><br/>
+
+<p><br/>рендер: 0.0340 s QT: 0.0042 s Q`s: 50<br/><small>§ 1</small>.</p>
+</div>
+</div>
+<div id="fcol2">
+<div id="fc2"><span class="headlist">прес-служба</span>
+<ul class="f_list">
+<li><a href="/archive">Новини</a></li>
+<li><a href="https://armyinform.com.ua/" target="_blank">АрміяІNFORM</a></li>
+<li><a href="http://www.armyfm.com.ua/" target="_blank">Військове радіо АрміяFM</a></li>
+<li><a href="/pro-sajt.html">Про сайт</a></li>
+</ul>
+</div>
+</div>
+<div id="fcol3">
+<div id="fc3">
+<span class="headlist">Кориснi посилання</span>
+<ul class="f_list">
+<li><a href="http://www.president.gov.ua/" target="_blank">Президент України</a></li>
+<li><a href="http://portal.rada.gov.ua/" target="_blank">Верховна Рада України</a></li>
+<li><a href="http://www.kmu.gov.ua/" target="_blank">Кабінет Міністрів України</a></li>
+<li><a href="http://www.rnbo.gov.ua/" target="_blank">РНБО України</a></li>
+<li><a href="https://www.kmu.gov.ua/ua/uryadova-garyacha-liniya-1545" target="_blank">Урядова Гаряча лінія</a></li>
+<li><a href="http://nazk.gov.ua" target="_blank">НАЗК</a></li>
+<li><a href="https://data.gov.ua/" target="_blank">Єдиний державний вебпортал відкритих даних</a></li>
+</ul>
+</div>
+</div>
+<div id="fcol4">
+<div id="fc2"><span class="headlist">НАШІ ПАРТНЕРИ</span>
+<ul class="f_list">
+<li><a href="https://gur.mil.gov.ua/" target="_blank">Головне управління розвідки</a></li>
+<li><a href="https://www.facebook.com/pressjfo.news/" target="_blank">Пресцентр ООС</a></li>
+<li><a href="https://www.facebook.com/GeneralStaff.ua/" target="_blank">Пресслужба Генштабу ЗСУ</a></li>
+<li><a href="https://www.facebook.com/UkrainianLandForces/" target="_blank">Сухопутні війська ЗСУ</a></li>
+<li><a href="https://www.facebook.com/kpszsu/" target="_blank">Повітряні Сили ЗСУ</a></li>
+<li><a href="https://navy.mil.gov.ua/" target="_blank">ВМС ЗС України</a></li>
+<li><a href="https://dshv.mil.gov.ua/" target="_blank">ДШВ ЗС України</a></li>
+<li><a href="http://sof.mil.gov.ua/" target="_blank">Сили спецоперацій ЗСУ</a></li>
+<li><a href="https://www.facebook.com/UA.Military.Police/" target="_blank">Військова служба правопорядку у ЗСУ</a></li>
+<li><a href="https://www.facebook.com/Ukrmilitarymedic/" target="_blank">Командування Медичних сил</a></li>
+<li><a href="https://tro.mil.gov.ua/" target="_blank">Сили територіальної оборони ЗСУ</a></li>
+<li>ЦВС ЗС України</li>
+</ul>
+</div>
+</div>
+<img src="img/mo_new.png" alt="Міністерство оборони України" title="Міністерство оборони України" />
+</div>
+<p id="back-top">
+<a href="#top"><span></span></a>
+</p>
+</div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">$(document).ready(function() {var spinner = $(this).parent().find(".as_spinner");$.post("https://www.mil.gov.ua/", {as_action: "f62dabd6b2b32c710a34699543929ab9d855cacf"}, function(response) {if (typeof response.output !== "undefined") {$("#f62dabd6b2b32c710a34699543929ab9d855cacf").html(response.output);spinner.remove();$(document).trigger("as_complete", response);}}, "json");});</script>
+<script type="text/javascript">$(document).ready(function() {var spinner = $(this).parent().find(".as_spinner");$.post("https://www.mil.gov.ua/", {as_action: "6c93284a05c96e70be8aa3d49fc3e4244cff17e4"}, function(response) {if (typeof response.output !== "undefined") {$("#6c93284a05c96e70be8aa3d49fc3e4244cff17e4").html(response.output);spinner.remove();$(document).trigger("as_complete", response);}}, "json");});</script>
+<script type="text/javascript">$(document).ready(function() {var spinner = $(this).parent().find(".as_spinner");$.post("https://www.mil.gov.ua/", {as_action: "3751c372e3fe4e6ab3fd24a012ecd5a181754877"}, function(response) {if (typeof response.output !== "undefined") {$("#3751c372e3fe4e6ab3fd24a012ecd5a181754877").html(response.output);spinner.remove();$(document).trigger("as_complete", response);}}, "json");});</script>
+<script>(function(){var js = "window['__CF$cv$params']={r:'806ce322d820ebfc',t:'MTY5NDczOTE0OS40NDMwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854" integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg==" data-cf-beacon='{"rayId":"806ce322d820ebfc","token":"d71cf343545d411fa470a9c43cde1244","version":"2023.8.0","si":100}' crossorigin="anonymous"></script>
+</body>

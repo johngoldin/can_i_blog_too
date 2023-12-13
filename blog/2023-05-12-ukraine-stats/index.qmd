@@ -27,8 +27,7 @@ execute:
 
 Each day the [Ministry of Defence of Ukraine](https://www.mil.gov.ua/en/news) publishes a summary of Russian combat losses since the beginning of the Russian invasion. Daily reports presented in a fairly constant format go back to April of 2022.
 
-This blog post provides a simple plot to track the losses as reported by the MOD.
-I've used R to download those reports and summarize them. I'm sure many others have done something similar.
+This blog post provides a simple plot to track the losses as reported by the MOD. I've used R to download those reports and summarize them. I'm sure many others have done something similar.
 
 ```{r}
 packages <-  c("tidyverse", "knitr", "lubridate", "kableExtra", "janitor", "hms", "kableExtra", "patchwork", "gt")
@@ -44,13 +43,20 @@ ukraine_functions <- "~/Documents/R_local_repos/ukrainestats/"
 #| label: load-data-for-Ukraine-stats
 #| cache: false
 #| echo: false
+
 path_saved_data <- "~/Documents/R_local_repos/ukrainestats/"
+
+if (1 == 2) {
+  source("~/Documents/R_local_repos/ukrainestats/R/ukraine_functions.R")
+  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData") |> print()
+}
+
 load(paste0(path_saved_data, "ukr_mod_df.RData"))
 up_through <- max(ukr_mod_df$date, na.rm = TRUE)
 up_through_char <- as.character(up_through, "%B %d, %Y")
 source(paste0(path_saved_data, "R/ukraine_functions.R"))
 mod_image <- fetch_ukr_mod_text(today(), fetch_image_url = TRUE)
-# download.file(mod_image, destfile = "UA-MOD-casualty-image.jpg", method = "libcurl")
+# download.file(mod_image, destfile = "UA-MOD-casualty-image.jpg", method = "libcurl").  
 curl::curl_download(mod_image, destfile = "UA-MOD-casualty-image.jpg", quiet = TRUE)
 # my stackoverflow post: https://stackoverflow.com/questions/71271210/r-markdown-cannot-open-url-when-using-download-file/76302352#76302352
 ```
@@ -59,13 +65,7 @@ The Ministry of Defence of Ukraine has been reporting a summary of Russian losse
 
 ![Russian losses reported by Ukraine Ministry of Defence](UA-MOD-casualty-image.jpg){width="376"}
 
-The plot below summarizes the data in the Ministry of Defence reports of Russian losses
-up through `r up_through_char`.
-It reports the average *daily* losses for each week. (Note that the last data point in the
-series may be based on a partial week.)
-
-
-
+The plot below summarizes the data in the Ministry of Defence reports of Russian losses up through `r up_through_char`. It reports the average *daily* losses for each week. (Note that the last data point in the series may be based on a partial week.)
 
 ```{r}
 #| label: ukraine-code
@@ -87,15 +87,15 @@ milestones <- tibble(
   date = c("2022-04-19","2022-05-08", "2022-05-13", "2022-05-20", 
            "2022-10-01", "2022-07-03", "2022-08-29", "2022-09-06", 
            "2022-11-11", "2022-09-21", "2022-04-04", "2023-03-22",
-           "2023-02-13") |> ymd(),
+           "2023-02-13", "2023-06-06", "2023-10-10") |> ymd(),
   event = c("Russian attack in east","Siverskyi Russian failure", "UKR counter-attack Kharkiv", "Mariupol Fell",
             "Lyman taken", "UKR start Kherson offensive", "Lysychansk fell", "Kharkiv offensive", 
             "UKR enter Kharkiv", "Russia partial mobilization", "UKR cleared west", "2nd Zelinsky visit to Bakhmut",
-            "Vuhledar offensive"),
+            "Vuhledar offensive", "Nova Kakhovka dam", "Avdiivka offensive"),
   short_event = c("Attack","Siverskyi", "Kharkiv", "Mariupol", 
                   "Lymann", "Kherson", "Lysychansk", "Kharkiv", 
                   "Kharkiv", "mobilized", "cleared west", "Bakhmut",
-                  "Vuhledar")
+                  "Vuhledar", "dam", "Avdiivka")
 ) |> arrange(date)
 milestones$key_symbol <- letters[1:nrow(milestones)]
 milestones <- milestones |> relocate(key_symbol)
@@ -181,21 +181,15 @@ pwk <- ggplot(data = for_plot_wk, aes(x = date, y = count)) +
 print(pwk)
 ```
 
-This is only the Ukraine side of the story. 
+This is only the Ukraine side of the story.
 
 The report always refers to "liquidated personnel," but there's some ambiguity about what that means.
 
 > The Ukrainians use the word "liquidated" to refer to the Russian losses. However, that word choice leaves the actual figure of killed and wounded up to interpretation. With "liquidated" Kyiv could mean "killed" or "killed and wounded." -- Stavros Atlamazoglou at the website [19fortyfive.com](https://www.19fortyfive.com/2023/03/220000-dead-or-wounded-putins-ukraine-war-destroyed-the-russian-military/)
 
-Presumably the personnel losses are an estimate. There are lots of factors that could affect
-how close these counts come to reality. Western intelligence sources sometimes report their
-own estimates of Russian losses. Those do not necessarily match these counts.
-The plot may help to assess the change in the tempo of the war over time.
+Presumably the personnel losses are an estimate. There are lots of factors that could affect how close these counts come to reality. Western intelligence sources sometimes report their own estimates of Russian losses. Those do not necessarily match these counts. The plot may help to assess the change in the tempo of the war over time.
 
-The vertical red lines on the plot intended  to help relate the time line to
-some of the reported events during the war. 
-Each line is identified by a letter. The labels on the plot are 
-necessarily terse; the table below lists them with a bit fuller labels.
+The vertical red lines on the plot intended to help relate the time line to some of the reported events during the war. Each line is identified by a letter. The labels on the plot are necessarily terse; the table below lists them with a bit fuller labels.
 
 ```{r}
 #| label: display-milestones
@@ -210,4 +204,3 @@ milestones_table <-  milestones |>
   gt()
 milestones_table
 ```
-

@@ -1,0 +1,14 @@
+{
+  "hash": "112373bf1805e38f146c4afb84fe8140",
+  "result": {
+    "markdown": "---\ntitle: \"Scraping Utility Bils\"\neditor: visual\nauthor: John Goldin\ndate: '2023-11-10'\ndraft: true\nimage: \"UA-MOD-casualty-image.jpeg\"\nimage-alt: \"An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site\"\nimage-height: \"100px\"\nslug: scraping-utility-bills\ncategories:\n  - R\ntags:\n  - R\ndescription: |\n  Some basic scraping of my utility bills, in part to solidify my understanding of some useful regular expression tools.\nlayout: single\nformat:\n  html:\n    code-fold: true\n    code-summary: \"Show the code\"\n    toc: true\n    fig-cap-location: top\nexecute: \n  echo: false\n---\n\n::: {.cell}\n::: {.cell-output .cell-output-stderr}\n```\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.2     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.2     ✔ tibble    3.2.1\n✔ lubridate 1.9.2     ✔ tidyr     1.3.0\n✔ purrr     1.0.1     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
