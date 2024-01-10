@@ -3,7 +3,7 @@ title: "Ukraine MOD Statistics on Russian Losses"
 editor: visual
 author: John Goldin
 date: '2023-05-26'
-
+date-modified: '2024-01-07'
 image: "UA-MOD-casualty-image.jpeg"
 image-alt: "An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site"
 image-height: "100px"
@@ -55,9 +55,22 @@ load(paste0(path_saved_data, "ukr_mod_df.RData"))
 up_through <- max(ukr_mod_df$date, na.rm = TRUE)
 up_through_char <- as.character(up_through, "%B %d, %Y")
 source(paste0(path_saved_data, "R/ukraine_functions.R"))
-mod_image <- fetch_ukr_mod_text(today(), fetch_image_url = TRUE)
-# download.file(mod_image, destfile = "UA-MOD-casualty-image.jpg", method = "libcurl").  
-curl::curl_download(mod_image, destfile = "UA-MOD-casualty-image.jpg", quiet = TRUE)
+# mod_image <- fetch_ukr_mod_text(today(), fetch_image_url = TRUE)
+# # curl::curl_download(mod_image, destfile = "UA-MOD-casualty-image.jpg", quiet = TRUE)
+# tryCatch({
+#   curl::curl_download(mod_image, destfile = "UA-MOD-casualty-image.jpg", quiet = TRUE)
+# }, error = function(e) {
+#   # This block executes if there is an error
+#   if(grepl("HTTP error 404", e$message)) {
+#     sink(file = stderr())
+#     message("Error: URL not found (404).")
+#     sink()
+#   } else {
+#     sink(file = stderr())
+#     message("Error: ", e$message)
+#     sink()
+#   }
+# })
 # my stackoverflow post: https://stackoverflow.com/questions/71271210/r-markdown-cannot-open-url-when-using-download-file/76302352#76302352
 ```
 
@@ -142,16 +155,23 @@ ukr_mod_weekly <- ukr_mod_df  |> arrange(date) |>
          APV = (apv - lag(apv)) / gap,
          Artillery = (artillery - lag(artillery)) / gap,
          MLRS = (mlrs - lag(mlrs)) / gap,
+         `Anti-Aircraft` = (aa - lag(aa)) / gap,
+         `Tactical UAV` = (uav - lag(uav)) / gap,
+         Vehicles = (vehicles - lag(vehicles)) / gap,
+         `Cruise Missiles` = (cmissiles - lag(cmissiles)) / gap,
          Helicopters = (helicopters - lag(helicopters)) / gap,
          Aircraft = (aircraft - lag(aircraft)) / gap)
 
 for_plot_wk <- ukr_mod_weekly |> 
   pivot_longer(cols = c(Personnel, Tanks, APV, Artillery, MLRS,
-                        Helicopters, Aircraft), 
+                        Helicopters, Aircraft, `Anti-Aircraft`, `Tactical UAV`,
+                        Vehicles, `Cruise Missiles`), 
                names_to = "category", values_to = "count")|> 
   mutate(category = factor(category, levels = c("Personnel", "Tanks", "APV",
-                                                "Artillery", "MLRS", 
-                                                "Helicopters", "Aircraft")))
+                                                "Artillery", "MLRS",
+                                                "Helicopters", "Aircraft",
+                                                "Anti-Aircraft", "Tactical UAV",
+                                                "Vehicles", "Cruise Missiles")))
 milestones$category = factor(milestones$category, levels = levels(for_plot_wk$category))
 
 full_milestones <- tidyr::crossing(levels(milestones$category), milestones$date)

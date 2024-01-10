@@ -35,7 +35,7 @@ For the landing page I have a grotesque from the gallery in the Library. In true
 
 The Library gallery has an array of students carved in stone. In the corner opposite there is one of my favorites: a student with an open book where the page says "U R A JOKE".
 
-![Sterling Law class](/img/for_site/UR_a_joke.png)
+![U R A Joke](feature_UR_a_joke_small.png)
 
 For more on the Library gallery, read [If These Walls Could Talk](http://www.thenewjournalatyale.com/2009/12/if-these-stone-walls-could-talk/) or see this video on what's happening on the other side of Wall Street on the Sterling Law Building:
 

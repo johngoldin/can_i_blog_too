@@ -1,0 +1,150 @@
+---
+title: "Relative Size of Ivy League"
+author: "John Goldin"
+date: '2023-12-13'
+image: "feature_UR_a_joke_small.png"
+image-alt: 'A grotesque from the gallery in the Yale Sterling Library: a student with an open book where the page says U R A JOKE'
+image-height: "100px"
+slug: relative-size-of-ivy-league
+categories:
+  - Yale
+tags:
+  - Yale
+description: |
+  Some data related to an article in The Washington Post about how press coverage of the Ivy League is disproportionate to the size of the Ivy League compared with the country at large.
+layout: single
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    fig-cap-location: top
+execute: 
+  echo: false
+---
+
+In a [recent article](https://wapo.st/3RG5NM8) Philip Bump laid out some statistics to emphasize that press attention to the Ivy League is way out of proportion to the relative size of the Ivy League in the country as a whole. I have no disagreement with the point he's making.
+
+The purpose of this post is to provide some additional data relevant to this point. In the article he links to a summary table by the [National Center for Educational Statistics (NCES)](https://nces.ed.gov/programs/digest/d21/tables/dt21_301.20.asp). With a bit of digging one can get similar data for individual schools. Schools submit data to NCES as part of the Integrated Post-secondary Education Data System (IPEDS). There are surveys for enrollment, but for this post I will focus on IPEDS Completions, which includes counts of the number of bachelor's degrees awarded by each school and the number of students receiving those degrees.
+
+NCES offers a tool that allows one to export the detail data in a [custom dataset](https://nces.ed.gov/ipeds/datacenter/InstitutionList.aspx?goToReportId=5&sid=6e5d4a28-07a8-4c45-83de-d5bad88b61b8&rtid=5). It can be a bit painful to use that tool. Fortunately a colleague of my old office had already exported the NCES Completions data for each year from 2011 through 2022. The dataset has data for each individual school so it's easy to create a separate count for a subset that includes the Ivy League.
+
+Using that dataset I identified the Ivy Plus schools. A side note: as someone who worked in the bowels of an Ivy League administration for 35+ years I was never asked for comparison data for just the eight schools that make up the Ivy League. We always added at least Stanford and MIT to the list. I've included those schools here as part of Ivy+. (Sometimes people identify Ivy+ as also including Chicago, Duke, Johns Hopkins, and perhaps some other private universities. The boundary can be blurry, but unless one is only talking about athletics, Stanford and MIT are always included as part of Ivy+.) Any shenanigans, innocent or otherwise, at MIT or Stanford are just as likely to end up in the New York Times as those at Harvard or Yale or other Ivy schools.
+
+On to the data.
+
+The table below shows the number of students who received bachelor's degrees in each year from 2011 through 2020.
+
+```{r}
+#| label: ipeds-data
+#| echo: true
+#| message: false
+#| code-fold: true
+#| code-overflow: scroll
+#| code-line-numbers: true
+#| code-summary: R code that creates the summary table
+
+packages <-  c("tidyverse", "arrow", "gt")
+my_lib <- function(x) {
+  suppressPackageStartupMessages(library(x, character.only = TRUE))
+}
+invisible(lapply(packages, my_lib))
+
+# open all parquet files.
+# the parquet files were created by a colleague from CSV files downloaded from NCES
+ds <- open_dataset('data/parquet/')
+
+
+ivyplus_schools <- tibble::tribble(
+  ~UNITID,           ~school,
+  217156L,           "Brown",
+  190150L,        "Columbia",
+  190415L,         "Cornell",
+  182670L,       "Dartmouth",
+  166027L,         "Harvard",
+  166683L,             "MIT",
+  186131L,       "Princeton",
+  243744L,        "Stanford",
+  # 144050L, "Univ of Chicago",
+  215062L,           "UPenn",
+  130794L,            "Yale"
+  )
+ivyplus_id <- ivyplus_schools$UNITID
+
+degtotal <- ds |>
+  filter( AWLEVEL == 5, CIPCODE == 99, MAJORNUM == 1) |>
+  # need MAJORNUM == 1 to count students rather than degrees. Students can have multiple bachelors degrees. Only first is counted.
+  # AWLEVEL == 5 is bachelors degrees
+  # CIPCODE == 99 is total of all fields of study
+  group_by(
+    ipeds_year,
+    UNITID,
+    MAJORNUM,
+    CIPCODE
+  ) |>
+  summarise(degrees = sum(CTOTALT)) |>
+  collect() |>
+  mutate(ivyplus = ifelse(UNITID %in% ivyplus_id, "Ivy+", "Other")) |>
+  group_by(ipeds_year, ivyplus) |>
+  summarise(degrees = sum(degrees), .groups = "drop")
+
+# use pivot_longer to calculate the percentage of Ivy+ degrees
+degtotal <- degtotal |>
+  pivot_wider(id_cols = ipeds_year, names_from = ivyplus, values_from = degrees) |>
+  mutate(ivyplus_pct = `Ivy+` / (`Ivy+` + Other))
+
+gt(degtotal |> ungroup()) |>
+  tab_header(
+  title = "Count of Students Awarded Bachelor's Degrees",
+  subtitle = "Ivy+ vs. Other Institutions") |>
+  tab_source_note(
+    source_note = "Source: IPEDS Completions."
+  ) |>
+  cols_label(
+    ipeds_year = "Year",
+    `Ivy+` = "Ivy+",
+    Other = "Other",
+    ivyplus_pct = "Ivy+ %") |>
+  fmt_integer(
+    columns = c(`Ivy+`, Other),
+    rows = everything(),
+    use_seps = TRUE,
+    accounting = FALSE,
+    scale_by = 1,
+    suffixing = FALSE,
+    pattern = "{x}",
+    sep_mark = ",",
+    force_sign = FALSE,
+    system = c("intl", "ind"),
+    locale = NULL
+  )|>
+  cols_label(
+    ipeds_year = "Year",
+    `Ivy+` = "Ivy+",
+    Other = "Other",
+    ivyplus_pct = "Ivy+ %") |>
+  fmt_percent(
+    columns = ivyplus_pct,
+    rows = everything(),
+    decimals = 2,
+    drop_trailing_zeros = FALSE,
+    drop_trailing_dec_mark = TRUE,
+    scale_values = TRUE,
+    use_seps = TRUE,
+    accounting = FALSE,
+    pattern = "{x}",
+    sep_mark = ",",
+    dec_mark = ".",
+    force_sign = FALSE,
+    placement = "right",
+    incl_space = FALSE,
+    system = c("intl", "ind"),
+    locale = NULL
+  ) 
+```
+
+Ivy+ schools graduate about 1% of US bachelor's degrees. And of course holders of bachelor's degrees are only a subset of the total US population.
+
+*Note: The Washington Post article included a reference to an NCES summary table. That table reports a total for 2019-2020 of 2,060,808 bachelor's degrees. In the table I show above, the total for 2019-2020 is 1.1% fewer. I don't have an explanation for the discrepancy.*
+
+*I compared the total count of bachelor's degrees for Yale reported in the IPEDS dataset used here with the totals reported on the website for the Yale Office of Institutional Research. They agreed exactly. That's not surprising because that office compiles the data that is submitted to IPEDS.*
