@@ -15,7 +15,7 @@ categories:
 <!--- created with this command:
 # blogdown::new_post("Portfolio of Projects", categories = c("R", "personal"), tags = c("R"), rmd = FALSE)  --->
 ```
-[revised April 13, 2019]
+\[revised April 13, 2019\]
 
 One motivation for creating this blog was to display a portfolio of projects that I have worked on in the last year or so. I'll list projects here. The plan is that eventually I will add pages that elaborate each project. I hope that publishing my projects on this site will nudge me to be a bit more systematic as I execute projects.
 
