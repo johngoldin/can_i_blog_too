@@ -1,0 +1,228 @@
+---
+title: "Using AppleScript To Turn Safari Into a Web Scraping Robot"
+editor: visual
+author: John Goldin
+date: '2024-01-27'
+draft: true
+image: "applescript_code.png"
+image-alt: "a sample of AppleScript code"
+image-height: "100px"
+slug: applescript-safari-R
+categories:
+  - R
+  - Ukraine
+  - chatGPT
+tags:
+  - R
+  - Ukraine
+  - chatGPT
+description: |
+  With extensive help from chatGPT, I created an AppleScript that would download Ukraine web pages that contain Ministry of Defence estimates of Russian losses day by day. 
+layout: single
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    fig-cap-location: top
+execute: 
+  echo: false
+---
+
+```{r}
+#> label: initialize-packages
+#> echo: false
+#> message: false
+#> warning: false
+
+suppressMessages(library(tidyverse))
+
+```
+
+Last Spring I did a [post](/blog/2023-05-12-ukraine-stats/) to show the trend in Russian losses as reported by the Ukrainian Ministry of Defence. I've been redoing it witih updated data every week or so. Originally I was dowloading the HTML pages containing the daily reports using the `readr::read_lines()` function.
+
+In December Ukraine switched from a Ministry of Defence website to a more general public information portal (at <https://www.kmu.gov.ua/en/tag/oborona>). I quickly discovered that the new server would not allow access via `readr::read_lines()`. I get a message that says "We apologize for the inconvenience...but your activity and behavior on this site made us think that you are a bot." They've got a point. Presumably they think I might be an ill-intentioned Russkie. I was able to continue to access the page via Safari. So I thought Imight be able to continue to get batches of updates through Safari by turning Safari into a bot.
+
+To do that I need to create a script in AppleScript. Although I've had some small encounters with AppleScript since it appeared in the early 1990's, I've never done real work with it. So my first problem was that I didn't really know how to code with AppleScript. But now I know something that does: chatGPT.
+
+I've using chatGPT to help with R coding and I've installed GitHub co-pilot into RStudio. It's very helpful. But I didn't know whether it would help at all with Safari and AppleScript.
+
+I started small. In the chatGPT I made a simple request:
+
+> Using MacOS AppleScript script editor, create a script that will open Safari and open a web page with part of the URL taken from the current date.
+
+I got some AppleScript to start out. I needed to fetch pages for a range of dates so I got involved in the issue of how to get that set up. The process didn't go very smoothly. So I decided I needed to start over while giving chatGPT a more concrete and explicit statement of what I wanted to do. Here's my second attempt:
+
+> Let's start over. I want to get a url that ends with a date in the form of DDMMYYYY. An example of the URL is:
+> https://www.kmu.gov.ua/en/news/zahalni-boiovi-vtraty-protyvnyka-z-24022022-po-06012024
+> I want to ask for input of a date and then return with a url like this that ends with that date.
+
+This worked a little better. Usually chatGPT would give me some code along with an almost line by line explantion of what the code was intended to do. It gave me lots of commentary on what was happening with the code. I got into a rythm. After chatGPT would suggest some code I would change it a bit to move it toward the direction I was going for. Not infrequently that would produce an error. Next I would quote the error message to chatGPT, and then chatGPT woud apologize and then give me something else to try. Over a period of several hours I got closer and closer to something that fit what I needed.
+
+```{javascript}
+#| code-fold: true
+#| code-summary: "Show the AppleScript code"
+#| eval: false
+#| echo: true
+on generateDates(startDate, endDate)
+	set currentDate to startDate
+	set dateList to {}
+	
+	repeat until currentDate > endDate
+		copy currentDate to the end of dateList
+		set currentDate to currentDate + 1 * days
+	end repeat
+	
+	return dateList
+end generateDates
+```
+
+```{javascript}
+#| code-fold: true
+#| code-summary: "Show the full AppleScript code"
+#| eval: false
+#| echo: true
+#| 
+
+-- Function to prompt for date input and return it as a date object
+on promptForDate(promptMessage)
+	-- Get the current date
+	set firstDate to ((current date) - 7 * days)
+	set currentDay to day of firstDate as number
+	set currentMonth to month of firstDate as number
+	set currentYear to year of firstDate as number
+	
+	-- Format the current date as MMDDYYYY
+	set defaultDate to my zeroPad(currentMonth) & my zeroPad(currentDay) & currentYear as string
+	
+	set inputDate to text returned of (display dialog promptMessage default answer defaultDate)
+	
+	-- Length check for the input
+	if length of inputDate is not 8 then
+		display dialog "Invalid date. Please enter 8 digits for the date as MMDDYYYY." buttons {"OK"} default button 1
+		return promptForDate(promptMessage) -- Recursively call the function until valid input is provided
+	end if
+	
+	-- Convert the string to a date object
+	set dayPart to text 1 thru 2 of inputDate
+	set monthPart to text 3 thru 4 of inputDate
+	set yearPart to text 5 thru 8 of inputDate
+	set formattedDateString to dayPart & "/" & monthPart & "/" & yearPart
+	
+	return date formattedDateString
+end promptForDate
+
+-- Function to generate all dates between two given dates
+on generateDates(startDate, endDate)
+	set currentDate to startDate
+	set dateList to {}
+	
+	repeat until currentDate > endDate
+		copy currentDate to the end of dateList
+		set currentDate to currentDate + 1 * days
+	end repeat
+	
+	return dateList
+end generateDates
+
+
+
+-- Main script execution
+tell application "System Events"
+	log "And away we go..." & ((current date) as string)
+	
+	set startDate to my promptForDate("Enter the start date (MMDDYYYY):")
+	set endDate to my promptForDate("Enter the end date (MMDDYYYY):")
+	
+	set allDates to my generateDates(startDate, endDate)
+	
+	-- Check on the number of dates we are about to process
+	set userResponse to button returned of (display dialog "Count of dates: " & (count of allDates) & " from " & (item 1 of allDates) & " to " & (item (count of allDates) of allDates) buttons {"Cancel", "OK"} default button 2)
+	
+end tell
+repeat with aDate in allDates
+	-- log "in loop " & aDate
+	tell application "Safari"
+		set formattedDateDMY to my zeroPad(day of aDate as number) & my zeroPad(month of aDate as number) & (year of aDate as number)
+		set formattedDateYMD to (year of aDate as number) & "-" & my zeroPad(month of aDate as number) & "-" & my zeroPad(day of aDate as number)
+		-- log "formattedDateDMY is " & formattedDateDMY
+		-- log "formattedDateYMD is " & formattedDateYMD
+		
+		-- for debugging, verify before opening web page
+		-- set userResponse to button returned of (display dialog "Verify date DMY: " & formattedDateDMY & "Verify date YMD: " & formattedDateYMD buttons {"Cancel", "OK"} default button 2)
+		
+		set theURL to "https://www.kmu.gov.ua/en/news/zahalni-boiovi-vtraty-protyvnyka-z-24022022-po-" & formattedDateDMY
+		
+		log "URL: " & theURL
+		
+		activate
+		open location theURL
+		delay 5 -- Adjust the delay as necessary
+		-- Get the source code from Safari
+		set theSource to source of document 1
+		-- log "after set theSource to source of document 1"
+	end tell
+	-- Assuming theSource contains the HTML source code
+	
+	-- String to search for
+	set searchString to ">404</div>"
+	
+	-- Use AppleScript's text item delimiters to check if the string is in the source
+	set AppleScript's text item delimiters to searchString
+	set textItems to text items of theSource
+	set AppleScript's text item delimiters to "" -- Reset the delimiters
+	
+	-- Check if the string indicating 404 error was found
+	if (count of textItems) > 1 then
+		log "404 NOT FOUND:" & theURL
+		-- Handle the case where the string is found, i.e., don't save the page source
+	else
+		-- Handle the case where the string is not found
+		-- Define the file path and name
+		set homePath to path to home folder as string
+		set folderPath to homePath & "Documents:R_local_repos:ukrainestats:ukr_reports:"
+		set fileName to "ukraine_stats_" & formattedDateYMD & ".html"
+		set fullFilePath to folderPath & fileName
+		
+		-- log "fullFilePath is " & fullFilePath
+		
+		-- Replace colons with slashes for shell command
+		set posixPath to POSIX path of fullFilePath
+		
+		log posixPath
+		
+		-- Save the source code
+		do shell script "mkdir -p " & quoted form of (POSIX path of folderPath) & "; echo " & quoted form of theSource & " > " & quoted form of posixPath
+	end if
+	
+	tell application "Safari"
+		-- Check if there is at least one window open
+		if (count of windows) > 0 then
+			set currentWindow to front window
+			
+			-- Check if there is at least one tab open in the current window
+			if (count of tabs of currentWindow) > 0 then
+				set currentTab to current tab of currentWindow
+				set tabName to name of currentTab
+				
+				-- Log the name of the current tab
+				-- log "Closing tab: " & tabName
+				
+				-- Close the current tab
+				tell currentWindow to close currentTab
+			end if
+		end if
+	end tell
+	
+end repeat
+
+-- Function to add a leading zero to single-digit numbers
+on zeroPad(anumber)
+	if anumber < 10 then
+		return "0" & (anumber as string)
+	else
+		return anumber as string
+	end if
+end zeroPad
+
+```

@@ -3,7 +3,7 @@ title: "Ukraine MOD Statistics on Russian Losses"
 editor: visual
 author: John Goldin
 date: '2023-05-26'
-date-modified: '2024-01-07'
+date-modified: '2024-01-11'
 image: "UA-MOD-casualty-image.jpeg"
 image-alt: "An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site"
 image-height: "100px"
@@ -25,7 +25,7 @@ execute:
   echo: false
 ---
 
-Each day the [Ministry of Defence of Ukraine](https://www.mil.gov.ua/en/news) publishes a summary of Russian combat losses since the beginning of the Russian invasion. Daily reports presented in a fairly constant format go back to April of 2022.
+Each day the [Ministry of Defence of Ukraine](https://www.kmu.gov.ua/en/timeline?&type=all&tag=Defense) publishes a summary of Russian combat losses since the beginning of the Russian invasion. Daily reports presented in a fairly constant format go back to April of 2022.
 
 This blog post provides a simple plot to track the losses as reported by the MOD. I've used R to download those reports and summarize them. I'm sure many others have done something similar.
 
@@ -47,8 +47,10 @@ ukraine_functions <- "~/Documents/R_local_repos/ukrainestats/"
 path_saved_data <- "~/Documents/R_local_repos/ukrainestats/"
 
 if (1 == 2) {
+  # current location of links:
+  # https://www.kmu.gov.ua/en/news/zahalni-boiovi-vtraty-protyvnyka-z-24022022-po-02012024
   source("~/Documents/R_local_repos/ukrainestats/R/ukraine_functions.R")
-  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData") |> print()
+  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData", days_previous = 35) |> print()
 }
 
 load(paste0(path_saved_data, "ukr_mod_df.RData"))
