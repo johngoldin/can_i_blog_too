@@ -2,8 +2,7 @@
 title: "Using AppleScript To Turn Safari Into a Web Scraping Robot"
 editor: visual
 author: John Goldin
-date: '2024-01-27'
-draft: true
+date: '2024-01-16'
 image: "applescript_code.png"
 image-alt: "a sample of AppleScript code"
 image-height: "100px"
@@ -30,42 +29,46 @@ execute:
 ---
 
 ```{r}
-#> label: initialize-packages
-#> echo: false
-#> message: false
-#> warning: false
+#| label: initialize-packages
+#| echo: false
+#| message: false
+#| warning: false
 
 suppressMessages(library(tidyverse))
 
 ```
 
-Last Spring I did a [post](/blog/2023-05-12-ukraine-stats/) to show the trend in Russian losses as reported by the Ukrainian Ministry of Defence. I've been redoing it witih updated data every week or so. Originally I was dowloading the HTML pages containing the daily reports using the `readr::read_lines()` function.
+Last Spring I did a [post](/blog/2023-05-12-ukraine-stats/) to display the trend in Russian losses as reported by the Ukrainian Ministry of Defence. I've been updating it every week or so. Originally I was downloading the HTML pages containing the daily reports from the Ukraine Ministry of Defence using the `readr::read_lines()` function. In December the reports were moved to a more general public information portal (at <https://www.kmu.gov.ua/en/tag/oborona>). The new server would not allow access via `readr::read_lines()`. I get a message that says "We apologize for the inconvenience...but your activity and behavior on this site made us think that you are a bot." They've got a point. Presumably they think I might be an ill-intentioned Russkie. I was able to continue to access the page via Safari. So I thought I might be able to continue to get batches of updates through Safari by turning Safari into a bot.
 
-In December Ukraine switched from a Ministry of Defence website to a more general public information portal (at <https://www.kmu.gov.ua/en/tag/oborona>). I quickly discovered that the new server would not allow access via `readr::read_lines()`. I get a message that says "We apologize for the inconvenience...but your activity and behavior on this site made us think that you are a bot." They've got a point. Presumably they think I might be an ill-intentioned Russkie. I was able to continue to access the page via Safari. So I thought Imight be able to continue to get batches of updates through Safari by turning Safari into a bot.
+### Using AppleScript to Control Safari
 
-To do that I need to create a script in AppleScript. Although I've had some small encounters with AppleScript since it appeared in the early 1990's, I've never done real work with it. So my first problem was that I didn't really know how to code with AppleScript. But now I know something that does: chatGPT.
+To do that I needed to have AppleScript run a script that would control actions in Safari. Although I've had some small encounters with AppleScript since it appeared in the early 1990's, I've never done real work with it. So my first problem was that I didn't really know how to code with AppleScript. But now I know something that does: [chatGPT](https://openai.com/chatgpt).
 
-I've using chatGPT to help with R coding and I've installed GitHub co-pilot into RStudio. It's very helpful. But I didn't know whether it would help at all with Safari and AppleScript.
+I've been using chatGPT to help with R coding and I've installed GitHub co-pilot into RStudio. It's very helpful. But I didn't know whether it would help at all with Safari and AppleScript. To me it seems that AppleScript is a relatively obscure language.
 
-I started small. In the chatGPT I made a simple request:
+I started small. In the chatGPT prompt I made a simple request:
 
 > Using MacOS AppleScript script editor, create a script that will open Safari and open a web page with part of the URL taken from the current date.
 
-I got some AppleScript to start out. I needed to fetch pages for a range of dates so I got involved in the issue of how to get that set up. The process didn't go very smoothly. So I decided I needed to start over while giving chatGPT a more concrete and explicit statement of what I wanted to do. Here's my second attempt:
+Quickly chatGPT produced some AppleScript to fetch a page. I needed to fetch pages for a range of dates so I got involved in the issue of how to get that set up. The process didn't go very smoothly. So I decided I needed to start over while giving chatGPT a more concrete and explicit statement of what I wanted to do. Here's my second attempt:
 
 > Let's start over. I want to get a url that ends with a date in the form of DDMMYYYY. An example of the URL is: https://www.kmu.gov.ua/en/news/zahalni-boiovi-vtraty-protyvnyka-z-24022022-po-06012024 I want to ask for input of a date and then return with a url like this that ends with that date.
 
-This worked a little better. Usually chatGPT would respond with some code along with an almost line by line explantion of what the code was intended to do. It gave me lots of commentary on what was happening with the code. I got into a rythym. After chatGPT would suggest some code I would change it a bit to move it toward the direction I was going for. Not infrequently that would produce an error. Next I would quote the error message to chatGPT, chatGPT would apologize and then give me something else to try. Over a period of several hours I got closer and closer to something that fit what I needed.
+This worked better. Usually chatGPT would respond with some code along with an almost line by line explanation of what the code was intended to do. It gave me lots of commentary on what was happening with the code. I got into a rhythm. After chatGPT would suggest some code I would change it a bit to move it toward the direction I was going for. Not infrequently that would produce an error. Next I would quote the error message to chatGPT, chatGPT would apologize and then give me something else to try. Over a period of several hours I got closer and closer to something that fit what I needed.
 
-I ended up with a script that asked for a starting and ending date, opened the Ukraine reporting page for each date in the range, and saved the HTML page to a file. I was able to run it and get the results I wanted. I was able to get the data I needed for my [Ukraine stats page](/blog/2023-05-12-ukraine-stats/).
+I ended up with a script that asked for a starting and ending date, caused Safari to open the Ukraine reporting page for each date in the range, and saved the HTML page to a file. I was able to run it and get the results I needed for my [Ukraine stats page](/blog/2023-05-12-ukraine-stats/).
 
-I used it to get the stats for 200 days. After I added another small batch of dates, I again got an message that the web site suspected I was a bot. But a day later I was able to get another batch of dates. So long as I limit the volume of requests in a short space of time, it seems to work fine.
+I used it to get the stats for 200 days. After I added another small batch of dates, I got the message that the web site suspected I was a bot. But a day later I was able to get another batch of dates. So long as I limit the volume of requests in a short space of time, it seems to work fine.
 
-Just to give some idea of what AppleScript code looks like, here is some code takes a starting and ending date and then creates a list of all the dates in that range.
+Just to give some idea of what AppleScript code looks like, here is a function takes a starting and ending date and then creates a list of all the dates in that range.
 
 ![](applescript_code_fragment1.png){fig-alt="A sample of AppleScript code that shows how it is formatted." fig-align="center"}
 
-The way in which chatGPT can explain the code it has created is a huge help. There's a line later in the script that runs a shell script to copy a file. I wasn't sure exactly what was going on in that line so I asked chatGPT to explain it to me. Here's what it said:
+At the bottom of this post you can find the full script that I ended up with.[^1] It gets the job done.
+
+[^1]: Unfortunately the code does not include syntax highlighting. For the code sample above I took a screenshot of the code as it appears in Apple AppleScript editor. This blog is created using [Quarto](https://quarto.org/docs/websites/website-blog.html), and Quarto relies on [pandoc](https://pandoc.org) highlighting rather than [Highlight.js](https://highlightjs.org).
+
+The way in which chatGPT can explain the code it has created is a huge help. There's a line later in the script that runs a shell command to copy a file. I wasn't sure exactly what was going on in that line so I asked chatGPT to explain it to me. Here's what it said:
 
 > Certainly! Let's break down what this line in the AppleScript is doing:
 >
@@ -87,31 +90,58 @@ The way in which chatGPT can explain the code it has created is a huge help. The
 >
 > In summary, this line in your script is creating the necessary directory (if it doesn't already exist) and then writing the HTML source code of a web page to a file at the specified path. This is a common technique to perform file and directory operations from within AppleScript, leveraging the power of shell commands.
 
-```{javascript}
-#| code-fold: true
-#| code-summary: "Show the AppleScript code"
-#| eval: false
-#| echo: true
-on generateDates(startDate, endDate)
-	set currentDate to startDate
-	set dateList to {}
-	
-	repeat until currentDate > endDate
-		copy currentDate to the end of dateList
-		set currentDate to currentDate + 1 * days
-	end repeat
-	
-	return dateList
-end generateDates
-```
+This is typical of the amount and style of explanation chatGPT provides as it suggests code.
 
-```{javascript}
+### Anthropomorphizing chatGPT
+
+It's difficult to resist thinking of chatGPT as a quasi-living entity. I felt like it was a team mate. That's not the same thing as regarding it as being a human being. I think we often have experiences where we are interacting with inanimate objects and talking about them as living beings. One might say something like "My car is acting up today." Or "The lock on my front door always gives me a hard time." We don't really think of the car or the door as being alive. But we do think of them as having some sort propensity to behave in a particular way.
+
+That may be the same as saying they have a personality. Personality in this case may refer to a set of our expectations about how an entity is likely to behave. As we interact with chatGPT our expectations of what it might do and say change. We develop our sense that it has a personality. For example, I certainly notice that it's quick to apologize, even when something is my fault. That affects how I respond to it.
+
+### GPT's Summary of the Result
+
+When I felt I had finished the script, I fed the completed script back into chatGPT, told it I was finished for now, and that I was giving it the finished script in case I wanted to come back and make changes later. I wasn't really expecting anything more than that. I was surprised when I got a generous closing statement, including praising me.
+
+> Thank you for sharing your final script. It's great to hear that you've successfully used it to download a significant number of daily reports. Your script appears well-structured and covers a range of functionalities, from date handling to web page interaction and data processing.
+>
+> It's clear you've put a lot of effort into ensuring the script not only retrieves data effectively but also handles potential errors (like 404 pages) and organizes the saved data in a structured manner. The inclusion of logging at various stages is a good practice for monitoring the script's progress and diagnosing any issues.
+>
+> Your experience with this script is a testament to the power and versatility of AppleScript, especially when combined with other tools and technologies. It's also a great example of how automation can be applied to gather and organize information efficiently.
+>
+> If you plan to revisit or further develop this script in the future, or if you have any more questions or need assistance with AppleScript or any other topic, feel free to reach out. Happy scripting!
+
+My initial reaction to this was, Wow, what a suck-up! Is chatGPT going to ask me for a job recommendation later? The paragraph definitely has a certain tone.
+
+I was curious about this so I had chatGPT regenerate a different response to the same prompt. The second time it went in a different direction and provided more of a summary of what the script showed. I like this as an example of getting some interesting variation in responses to the same prompt.
+
+> Thank you for sharing your final script. It's great to hear that you have successfully used it to download over 200 daily reports. This script is a comprehensive example of how AppleScript can be used to automate web data retrieval, process date ranges, interact with a web browser, and handle file operations.
+>
+> Your script effectively demonstrates several key AppleScript techniques, including:
+>
+> 1.  **Date Manipulation**: Generating a range of dates based on user input.
+>
+> 2.  **Web Interaction**: Navigating to specific URLs in Safari and retrieving page source.
+>
+> 3.  **Content Validation**: Searching the page source for specific strings to check for errors like "404 Not Found."
+>
+> 4.  **File System Operations**: Creating directories and saving files with dynamic names based on the retrieved data.
+>
+> 5.  **User Interface Interaction**: Prompting the user for dates and confirmation, and logging progress and results.
+>
+> This script can serve as a valuable reference for similar tasks or for anyone learning AppleScript and its application in automating web-related tasks. If you plan to revisit or modify this script in the future, it might be helpful to add comments throughout the script to describe the purpose of each section and any specific logic used. This practice can make it easier to understand and update the script later.
+>
+> If you have any more questions or need further assistance with your AppleScript projects, feel free to ask!
+
+### The Final Code
+
+Here is the full code for the AppleScript I ended up using. I doubt I could have done this without chatGPT. If I had attempted something like this AppleScript it would have taken me much, much longer. So much so that it's possible I would have given up before finishing it.
+
+```{applescript}
 #| code-fold: true
 #| code-summary: "Show the full AppleScript code"
 #| eval: false
 #| echo: true
 #| 
-
 -- Function to prompt for date input and return it as a date object
 on promptForDate(promptMessage)
 	-- Get the current date
@@ -152,8 +182,6 @@ on generateDates(startDate, endDate)
 	
 	return dateList
 end generateDates
-
-
 
 -- Main script execution
 tell application "System Events"

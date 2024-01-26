@@ -3,7 +3,7 @@ title: "Ukraine MOD Statistics on Russian Losses"
 editor: visual
 author: John Goldin
 date: '2023-05-26'
-date-modified: '2024-01-11'
+date-modified: '2024-01-17'
 image: "UA-MOD-casualty-image.jpeg"
 image-alt: "An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site"
 image-height: "100px"
