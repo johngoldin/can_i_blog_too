@@ -3,7 +3,7 @@ title: "Ukraine MOD Statistics on Russian Losses"
 editor: visual
 author: John Goldin
 date: '2023-05-26'
-date-modified: '2024-01-17'
+date-modified: '2024-02-20'
 image: "UA-MOD-casualty-image.jpeg"
 image-alt: "An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site"
 image-height: "100px"
@@ -29,6 +29,8 @@ Each day the [Ministry of Defence of Ukraine](https://www.kmu.gov.ua/en/timeline
 
 This blog post provides a simple plot to track the losses as reported by the MOD. I've used R to download those reports and summarize them. I'm sure many others have done something similar.
 
+In January 2024 I was no longer able to get the casualty reports from the MOD site. I think Ukraine is posting them on Factbook, but I'm not a Factbook user. I did find a [Ukrainian publication](https://cripo.com.ua/news/war/generalnyj-shtab-zsu-informuye-pro-vtraty-voroga-na-01-02-24/) that seems to be posting the reports, so I'm now using the data from that site.
+
 ```{r}
 packages <-  c("tidyverse", "knitr", "lubridate", "kableExtra", "janitor", "hms", "kableExtra", "patchwork", "gt")
 my_lib <- function(x) {
@@ -50,7 +52,7 @@ if (1 == 2) {
   # current location of links:
   # https://www.kmu.gov.ua/en/news/zahalni-boiovi-vtraty-protyvnyka-z-24022022-po-02012024
   source("~/Documents/R_local_repos/ukrainestats/R/ukraine_functions.R")
-  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData", days_previous = 35) |> print()
+  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData", days_previous = 10) |> print()
 }
 
 load(paste0(path_saved_data, "ukr_mod_df.RData"))
@@ -102,15 +104,15 @@ milestones <- tibble(
   date = c("2022-04-19","2022-05-08", "2022-05-13", "2022-05-20", 
            "2022-10-01", "2022-07-03", "2022-08-29", "2022-09-06", 
            "2022-11-11", "2022-09-21", "2022-04-04", "2023-03-22",
-           "2023-02-13", "2023-06-06", "2023-10-10") |> ymd(),
+           "2023-02-13", "2023-06-06", "2023-10-10", "2024-02-17") |> ymd(),
   event = c("Russian attack in east","Siverskyi Russian failure", "UKR counter-attack Kharkiv", "Mariupol Fell",
             "Lyman taken", "UKR start Kherson offensive", "Lysychansk fell", "Kharkiv offensive", 
             "UKR enter Kharkiv", "Russia partial mobilization", "UKR cleared west", "2nd Zelinsky visit to Bakhmut",
-            "Vuhledar offensive", "Nova Kakhovka dam", "Avdiivka offensive"),
+            "Vuhledar offensive", "Nova Kakhovka dam", "Avdiivka offensive", "Fall of Adviika"),
   short_event = c("Attack","Siverskyi", "Kharkiv", "Mariupol", 
                   "Lymann", "Kherson", "Lysychansk", "Kharkiv", 
                   "Kharkiv", "mobilized", "cleared west", "Bakhmut",
-                  "Vuhledar", "dam", "Avdiivka")
+                  "Vuhledar", "dam", "Avdiivka", "Adviivka Lost")
 ) |> arrange(date)
 milestones$key_symbol <- letters[1:nrow(milestones)]
 milestones <- milestones |> relocate(key_symbol)

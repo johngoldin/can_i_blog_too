@@ -49,10 +49,11 @@ website:
         href: https://bsky.app/profile/johngoldin.bsky.social
         aria-label: John Goldin on Bluesky
   favicon: favicon.png
-  twitter-card:
-    image: thumbnail_blog.png
-    card-style: summary_large_image
-    creator: "@johngoldin"
+# commenting out these lines fixed my top level twitter card
+#  twitter-card:
+#    image: img/UR_a_joke.png
+#    card-style: summary_large_image
+#    creator: "@johngoldin"
   open-graph: true
 # possible themes: litera, lumen, spacelab
 format:
