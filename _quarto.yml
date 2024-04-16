@@ -34,9 +34,12 @@ website:
       - icon: github
         href: https://github.com/johngoldin
         aria-label: John Goldin github
-      - icon: twitter
-        href: https://twitter.com/johngoldin
-        aria-label: John Goldin Twitter
+      # - icon: twitter
+      #   href: https://twitter.com/johngoldin
+      #   aria-label: John Goldin Twitter
+      - text: "{{< fa bluesky >}}"
+        href: https://bsky.app/profile/johngoldin.bsky.social
+        aria-label: John Goldin on Bluesky
       - icon: mastodon
         href: https://mastodon.social/@johngoldin
         aria-label: <a rel="me" href="https://mastodon.social/@johngoldin">Mastodon</a>
@@ -45,9 +48,6 @@ website:
       - text: Flickr
         href: https://www.flickr.com/people/99418994@N00/
         aria-label: John Goldin photos on Flickr
-      - text: bluesky
-        href: https://bsky.app/profile/johngoldin.bsky.social
-        aria-label: John Goldin on Bluesky
   favicon: favicon.png
 # commenting out these lines fixed my top level twitter card
 #  twitter-card:
