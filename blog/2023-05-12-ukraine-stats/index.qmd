@@ -52,7 +52,7 @@ if (1 == 2) {
   # current location of links:
   # https://www.kmu.gov.ua/en/news/zahalni-boiovi-vtraty-protyvnyka-z-24022022-po-02012024
   source("~/Documents/R_local_repos/ukrainestats/R/ukraine_functions.R")
-  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData", days_previous = 10) |> print()
+  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData", days_previous = 8) |> print()
 }
 
 load(paste0(path_saved_data, "ukr_mod_df.RData"))
@@ -104,15 +104,16 @@ milestones <- tibble(
   date = c("2022-04-19","2022-05-08", "2022-05-13", "2022-05-20", 
            "2022-10-01", "2022-07-03", "2022-08-29", "2022-09-06", 
            "2022-11-11", "2022-09-21", "2022-04-04", "2023-03-22",
-           "2023-02-13", "2023-06-06", "2023-10-10", "2024-02-17") |> ymd(),
+           "2023-02-13", "2023-06-06", "2023-10-10", "2024-02-17",
+           "2024-05-10") |> ymd(),
   event = c("Russian attack in east","Siverskyi Russian failure", "UKR counter-attack Kharkiv", "Mariupol Fell",
             "Lyman taken", "UKR start Kherson offensive", "Lysychansk fell", "Kharkiv offensive", 
             "UKR enter Kharkiv", "Russia partial mobilization", "UKR cleared west", "2nd Zelinsky visit to Bakhmut",
-            "Vuhledar offensive", "Nova Kakhovka dam", "Avdiivka offensive", "Fall of Adviika"),
+            "Vuhledar offensive", "Nova Kakhovka dam", "Avdiivka offensive", "Fall of Adviika", "Russia attacks Kharkiv area"),
   short_event = c("Attack","Siverskyi", "Kharkiv", "Mariupol", 
                   "Lymann", "Kherson", "Lysychansk", "Kharkiv", 
                   "Kharkiv", "mobilized", "cleared west", "Bakhmut",
-                  "Vuhledar", "dam", "Avdiivka", "Adviivka Lost")
+                  "Vuhledar", "dam", "Avdiivka", "Adviivka Lost", "Kharkiv")
 ) |> arrange(date)
 milestones$key_symbol <- letters[1:nrow(milestones)]
 milestones <- milestones |> relocate(key_symbol)
