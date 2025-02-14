@@ -5,7 +5,7 @@ author: John Goldin
 filters:
   - inject_date.lua
 date: '2023-05-26'
-date-modified: '2024-02-20'
+date-modified: '2025-02-14'
 image: "UA-MOD-casualty-image.jpeg"
 image-alt: "An example of a Russian casualty estimate as it appears on the Ukranian Ministry of Defense site"
 image-height: "100px"
