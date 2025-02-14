@@ -54,7 +54,7 @@ if (1 == 2) {
   # current location of links:
   # https://www.kmu.gov.ua/en/news/zahalni-boiovi-vtraty-protyvnyka-z-24022022-po-02012024
   source("~/Documents/R_local_repos/ukrainestats/R/ukraine_functions.R")
-  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData", days_previous = 18) |> print()
+  update_ukr_mod_df("ukr_mod_df.RData", save_fname_ukr_mod_df = "ukr_mod_df.RData", days_previous = 28) |> print()
 }
 
 load(paste0(path_saved_data, "ukr_mod_df.RData"))
